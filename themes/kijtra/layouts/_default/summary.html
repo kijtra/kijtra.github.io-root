@@ -1,0 +1,12 @@
+
+<li>
+    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+    <p>{{ substr .Summary 3 -5 | safeHTML }}<a class="more" href="{{ .Permalink }}">&raquo; more</a></p>
+    <small>
+        <span class="date"><i class="icon-modify"></i> {{ .Date.Format "2006/01/01" }}</span>
+        <span class="comment"><i class="icon-comment"></i> <a href="{{ .Permalink }}#disqus_thread">Comment</a></span>
+        {{ if isset .Params "tags" }}{{ range .Params.tags }}
+        <span class="tags"><i class="icon-tag"></i> <a href="/tag/{{ . | urlize }}">{{ . }}</a></span>
+        {{ end }}{{ end }}
+    </small>
+</li>

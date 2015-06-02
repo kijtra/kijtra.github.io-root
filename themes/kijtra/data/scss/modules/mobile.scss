@@ -1,0 +1,232 @@
+// main: ../blog.scss
+
+hr {
+    margin:40px 0;
+}
+
+.ad-article-bottom {
+    text-align:center;
+}
+
+.container {
+    .highlight {
+        font-size:14px;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    .header {
+        padding:20px 0 30px;
+        border-bottom:3px solid $color-text;
+
+        .title {
+            width:100%;
+            font-size:200%;
+        }
+
+        .feed {
+            display:none;
+        }
+    }
+
+
+    .posts {
+        li {
+            padding:40px 0 20px;
+
+            &:last-child {
+                padding-bottom:0;
+            }
+
+            h2 {
+                margin-bottom:20px;
+                font-size:130%;
+                line-height:1.3;
+            }
+
+            p {
+                font-size:$font-small;
+                line-height:1.45;
+                overflow:hidden;
+
+                .more {
+                    width:30%;
+                    display:block;
+                    margin:20px 0 0;
+                    padding:7px 0 9px;
+                    float:right;
+                    color:#fff;
+                    line-height:1;
+                    text-align:center;
+                    background:$color-text;
+                    &:hover {
+                        text-decoration:none;
+                    }
+                }
+            }
+
+            small {
+                display:none;
+            }
+        }
+    }
+
+    $search-size:44px;
+
+    .sidebar {
+        margin-top:20px;
+        padding-top:40px;
+        border-top:3px solid $color-text;
+
+        .ad {
+            padding:0;
+            background:none;
+        }
+
+        .ad-sidebar-top {
+            margin-bottom:40px;
+        }
+
+        .search {
+            input, button {
+                height:$search-size;
+                font-size:16px;
+                line-height:$search-size;
+            }
+
+            input {
+                padding-right:$search-size;
+            }
+
+            button {
+                width:$search-size;
+            }
+        }
+
+        .section {
+            margin:40px 0 0;
+
+            h3 {
+                margin-bottom:-10px;
+            }
+
+            ul {
+                li {
+                    margin-top:15px;
+                }
+            }
+
+            &.tags {
+                ul {
+                    overflow:hidden;
+                    li {
+                        width:50%;
+                        float:left;
+                    }
+                }
+            }
+        }
+    }
+
+    .paginate {
+        margin:50px 0 0;
+        padding:30px 0;
+        border-top:1px solid $color-black;
+
+        a {
+            padding:15px 30px;
+        }
+    }
+
+    .footer {
+        margin-top:30px;
+        padding-top:30px;
+        overflow:hidden;
+
+        .left {
+            width:45%;
+            float:left;
+        }
+
+        .right {
+            width:45%;
+            float:right;
+        }
+    }
+}
+
+
+body.tags {
+    .container .header {
+        border-bottom:0;
+    }
+
+    h1 {
+        margin:0 0 30px;
+        padding:25px 0 30px;
+        font-size:200%;
+    }
+}
+
+body.article {
+    .container .header {
+        border-bottom:0;
+    }
+
+    .post{
+        h1 {
+            padding:15px 10px;
+            font-size:140%;
+        }
+
+        > .ad {
+            margin:-20px 0 20px 0;
+            display:block;
+            text-align:center;
+        }
+
+        .body {
+            font-size:110%;
+            line-height:1.75;
+            text-align:left;
+
+            p {
+                word-wrap:break-word;
+            }
+
+
+            h2 {
+                margin:35px 0 15px;
+                padding-bottom:4px;
+            }
+
+            h3 {
+                margin:20px 0 10px;
+            }
+        }
+    }
+
+    .disqus {
+        margin-top:30px;
+    }
+}
+
+body.search {
+    .header {
+        margin-bottom:30px;
+    }
+}
+
+.sidebar {
+
+    .section {
+        &.tweets {
+            h3 {
+                margin-bottom:15px;
+            }
+        }
+    }
+}
+
+.container .omega {
+    float:inherit;
+}

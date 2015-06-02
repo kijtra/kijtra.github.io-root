@@ -1,0 +1,30 @@
+// main: ../blog.scss
+
+body {
+    .gsc-control-cse, .gsc-control-cse{
+        padding:0;
+    }
+
+    .cse .gsc-control-cse,
+    .gsc-control-cse,
+    .gsc-imageResult-column,
+    .gsc-imageResult-classic,
+    .gsc-webResult.gsc-result,
+    .gsc-webResult.gsc-result:hover,
+    .gsc-webResult.gsc-result:hover,
+    .gsc-webResult.gsc-result.gsc-promotion:hover,
+    .gsc-results .gsc-imageResult-classic:hover,
+    .gsc-results .gsc-imageResult-column:hover {
+        border:0;
+    }
+
+    .gsc-control-cse,
+    .gsc-webResult.gsc-result,
+    .gsc-results .gsc-imageResult,
+    .gsc-input-box,
+    .gsc-tabHeader.gsc-tabhInactive,
+    .gsc-webResult.gsc-result:hover,
+    .gsc-imageResult:hover{
+        background:none;
+    }
+}

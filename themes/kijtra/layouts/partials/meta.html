@@ -1,0 +1,23 @@
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="{{ .Site.BaseURL }}apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="/css/blog.css">
+{{ if isset .Params "css" }}{{ range .Params.css }}<link rel="stylesheet" href="{{ . }}">
+{{ end }}{{ end }}
+<link href="{{ .Site.BaseURL }}favicon.ico" rel="shortcut icon">
+<link href="{{ .Site.BaseURL }}apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="{{ .Site.BaseURL }}apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="{{ .Site.BaseURL }}apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="{{ .Site.BaseURL }}apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="{{ .Site.BaseURL }}index.xml" rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}">
+<link href="{{ .Site.BaseURL }}index.xml" rel="feed" type="application/rss+xml" title="{{ .Site.Title }}">

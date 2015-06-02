@@ -1,0 +1,122 @@
+// main: ../blog.scss
+
+.-socialcounts {
+	display:block;
+	overflow:hidden;
+	text-align:center;
+
+	a, a:hover, a:visited, i, b {
+    	display:inline-block;
+    	*display:inline;
+    	margin:0;
+    	padding:0;
+    	font-style:normal;
+    	font-weight:normal;
+    	font-size:15px;
+    	color:#fff;
+    	line-height:14px;
+    	text-align:center;
+    	text-decoration:none;
+    	vertical-align:bottom;
+    	box-sizing: border-box;
+    	-moz-box-sizing: border-box;
+    	-ms-box-sizing: border-box;
+    	-webkit-box-sizing: border-box;
+    }
+
+    i, b {
+    	padding:4px 4px;
+    }
+
+    a, a:hover, a:visited {
+    	margin-right:5px;
+    	background:#000;
+    	border-radius:2px;
+    	box-shadow:inset 0 -1px 0 rgba(0,0,0,.08);
+    }
+
+    a:last-child {
+        margin-right:0;
+    }
+
+    i {
+    	padding-right:3px;
+    }
+
+    b {
+    	padding-left:0;
+    	padding-right:7px;
+    	font-family:Arial,sans-serif;
+    	font-size:80%;
+    }
+
+    small {
+    	position:relative;
+    	left:1px;
+    	bottom:-1px;
+    	vertical-align:baseline;
+    }
+
+    a:hover i, a:hover b {
+    	color:#fff;
+    }
+
+
+    .-twitter:hover {
+    	background:#71BAD5;
+    }
+
+    .-facebook:hover {
+    	background:#6788CE;
+    }
+
+    .-googleplus:hover {
+    	background:#E75C3C;
+    }
+
+    .-hatena:hover {
+    	background:#008FDE;
+    }
+
+    .-pocket:hover {
+    	background:#ED4055;
+    }
+
+    .-buffer:hover {
+    	background:#343535;
+    }
+}
+
+@media screen and (max-width: 480px) {
+	.-socialcounts a,
+	.-socialcounts a:hover,
+	.-socialcounts a:visited,
+	.-socialcounts i,
+	.-socialcounts b {
+		font-size:20px;
+		line-height:1;
+	}
+
+	.-socialcounts a,
+	.-socialcounts a:hover,
+	.-socialcounts a:visited {
+		width:14%;
+		padding:4px 0;
+		margin-right:7px;
+	}
+	.-socialcounts a:last-child {
+		margin-right:0;
+	}
+
+	.-socialcounts i {
+		display:block;
+		padding:0;
+	}
+
+	.-socialcounts b {
+		margin-top:5px;
+		padding:0;
+		display:block;
+		font-size:10px;
+	}
+}

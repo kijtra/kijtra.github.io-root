@@ -1,0 +1,31 @@
+baseURL: "http://kijtra.com/"
+languageCode: "ja"
+title: "きじとら"
+theme: "kijtra"
+copyright: "&copy; kijtra.com"
+author:
+    name: "Kijtra"
+disqusShortname: "kijtra"
+params:
+    description: "Webのこととかそのたもろもろ"
+    author: "きじとら"
+#    googleAnalytics: "UA-20642126-2"
+
+indexes:
+  tag: "tag"
+
+permalinks:
+  post: /article/:slug
+
+paginate: 10
+paginatePath: "page"
+
+metaDataformat: "yaml"
+contentdir: "content"
+layoutdir: "layouts"
+publishdir: "public"
+canonifyurls: true
+uglyURLs: false
+
+pygmentsstyle: "monokai"
+pygmentsuseclasses: false

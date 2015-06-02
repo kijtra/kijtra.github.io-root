@@ -1,0 +1,22 @@
+// main: ../blog.scss
+
+.entypo {
+    line-height:0.5;
+}
+
+.header {
+    padding:20px 0 50px;
+
+    .title {
+        width:40%;
+    }
+
+    .feed {
+        width:20%;
+        float:right;
+    }
+}
+
+.container .omega {
+    float:inherit;
+}

@@ -1,0 +1,88 @@
+// main: ../blog.scss
+
+.sidebar {
+
+    .ad {
+        padding:10px 0;
+        background:$color-lightgray;
+    }
+
+    .ad-sidebar-top {
+        margin-bottom:50px;
+    }
+
+    .search {
+        border:1px solid $color-black;
+        position:relative;
+        background:transparent;
+
+        input, button {
+            height:$search-size;
+            line-height:$search-size;
+            background:transparent;
+        }
+
+        input {
+            display:block;
+            margin:0;
+            padding:0 $search-size 0 0;
+            text-indent:5px;
+            border:0;
+            box-shadow:none;
+        }
+
+        button {
+            width:$search-size;
+            position:absolute;
+            top:0;
+            right:0;
+            padding:0;
+            font-size:$font-large;
+            border:0;
+            outline:none;
+        }
+    }
+
+    .section {
+        margin:70px 0 0;
+
+        h3 {
+            margin:0 0 5px;
+            padding:0;
+            font-size:$font-medium;
+            font-weight:normal;
+
+            i {
+                margin-right:5px;
+                font-size:$font-large;
+            }
+        }
+
+        ul {
+            padding:0 0 0 1.5em;
+            list-style:square;
+
+            li {
+                margin:10px 0 0;
+                font-family:$font-sans;
+                font-size:$font-small;
+                line-height:1.35;
+            }
+        }
+
+        &.tweets .-twitprof {
+            padding-bottom:10px;
+            border-bottom:1px solid #E9E9E9;
+        }
+
+        &.stackoverflow {
+            margin-top:15px;
+            padding-bottom:10px;
+            text-align:center;
+
+            img {
+                border:1px solid #E9E9E9;
+            }
+        }
+    }
+}

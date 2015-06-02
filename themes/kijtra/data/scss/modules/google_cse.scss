@@ -1,0 +1,29 @@
+// main: ../blog.scss
+
+.gsc-control-cse {
+    .gsc-search-box {
+        margin:0;
+        padding:0;
+
+        td {
+            display:none;
+            padding:0;
+            border:1px solid $color-black;
+
+            &.gsc-input {
+                display:block;
+
+                input {
+                    margin:0;
+                    padding:0 $search-size 0 0;
+                    text-indent:5px;
+                    border:0;
+                    box-shadow:none;
+                    height:$search-size;
+                    line-height:$search-size;
+                    background:transparent;
+                }
+            }
+        }
+    }
+}

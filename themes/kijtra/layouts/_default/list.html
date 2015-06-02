@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>{{ .Title }}の記事一覧{{ if gt .Paginator.PageNumber 1 }}（{{ .Paginator.PageNumber }}ページ目）{{ end }} - {{ .Site.Title }}</title>
+{{ partial "meta.html" . }}
+<meta property="og:title" content="{{ .Title }}の記事一覧">
+<meta name="description" content="「{{ .Title }}」のタグが付いた記事の一覧です{{ if gt .Paginator.PageNumber 1 }}（{{ .Paginator.PageNumber }}ページ目）{{ end }}">
+<link rel="canonical" href="{{ .Site.BaseURL }}{{ trim .Paginator.URL "/" }}">
+{{ if .Paginator.HasPrev }}<link rel="prev" href="{{ .Paginator.Prev.URL }}">{{ end }}
+{{ if .Paginator.HasNext }}<link rel="next" href="{{ .Paginator.Next.URL }}">{{ end }}
+</head>
+<body class="tags">
+{{ partial "header.html" . }}
+
+<h1><i class="icon-tag"></i> {{ .Title }}</h1>
+<ul class="posts">
+    {{ range .Data.Pages }}
+        {{ .Render "summary"}}
+    {{ end }}
+</ul>
+
+{{ partial "pagination.html" . }}
+
+{{ partial "footer.html" . }}
