@@ -1,0 +1,1317 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/php/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Wed, 20 May 2015 12:02:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PackagistとComposerで自作パッケージを使う</title>
+      <link>http://kijtra.com/article/original-library-using-composer-packagist</link>
+      <pubDate>Wed, 20 May 2015 12:02:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/original-library-using-composer-packagist</guid>
+      <description>
+
+&lt;p&gt;自分で作ったPHPのパッケージ（ライブラリ）を Packagist に登録して、Composer から使えるようにしてみたのでメモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://getcomposer.org/&#34;&gt;Composer&lt;/a&gt; でダウンロードするパッケージは、基本的には &lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; にあるものからダウンロードされる。&lt;br /&gt;
+個人的によく使う自作ライブラリ等も Composer で依存関係を解消しつつ使いたいなあと思ってやってみた。&lt;/p&gt;
+
+&lt;h2 id=&#34;全体の流れ:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;全体の流れ&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;コードを書く&lt;/li&gt;
+&lt;li&gt;（してなければ）&lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt; にユーザー登録する&lt;/li&gt;
+&lt;li&gt;（してなければ）&lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; にユーザー登録する&lt;/li&gt;
+&lt;li&gt;GitHub にリポジトリを作る&lt;/li&gt;
+&lt;li&gt;そのリポジトリと Packagist を連携させる&lt;/li&gt;
+&lt;li&gt;書いたコードを GitHubリポジトリ にプッシュ&lt;/li&gt;
+&lt;li&gt;Packagist に公開（自動）&lt;/li&gt;
+&lt;li&gt;Composer から使う&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;まあ普通なら 1 をコピペして済むんだけど Composer から使ってみたかったので。&lt;/p&gt;
+
+&lt;h2 id=&#34;コードを書くにあたって-composer-json-の作成:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;コードを書くにあたって（composer.json の作成）&lt;/h2&gt;
+
+&lt;p&gt;自作パッケージのルートに &lt;strong&gt;composer.json&lt;/strong&gt; というファイルを作成して、Composer でどう扱ってもらうかを記述する必要がある。&lt;/p&gt;
+
+&lt;p&gt;簡単に作成するには、ルートディレクトリでターミナルやコマンドプロンプトを開き、以下のコマンドを打つ。（&lt;a href=&#34;https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx&#34;&gt;Composerインストール&lt;/a&gt;済みが前提）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;php composer.phar init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;composer.json を作成するための質問をいくつか訊かれるため、それに入力していくことで自動生成される。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;# パッケージ名（「ベンダー（ユーザー）名/パッケージ名」の形式）
+Package name (&amp;lt;vendor&amp;gt;/&amp;lt;name&amp;gt;) [kijtra/oreore-lib]: kijtra/oreore-lib
+# パッケージの概要
+Description []: オッス！オラ、オレオレライブラリ！
+# 作成者（あなた）
+Author [kijtra &amp;lt;kijtra@gmail.com&amp;gt;]:
+# 依存パッケージの最低限の安定バージョン（「stable」が無難）
+Minimum Stability []: stable
+# パッケージの種類（なんでも良いようだけど「library」とかで）
+Package Type []: library
+# ライセンス（今回はまず自分しか使わないので無保証なMIT）
+License []: MIT
+
+Define your dependencies. # 「依存関係を決めてね」
+
+# 依存するパッケージがありますか？
+Would you like to define your dependencies (require) interactively [yes]?
+# 検索する依存パッケージ名（例：monolog/monolog）
+Search for a package: monolog/monolog
+# 検索した依存パッケージで使用するバージョン
+Enter the version constraint to require (or leave blank to use the latest version): @stable
+# ほかに検索する場合（なければそのまま Enter）
+Search for a package:
+# 開発時に依存するパッケージがありますか？（以降は上記と同じ。なければ「no」）
+Would you like to define your dev dependencies (require-dev) interactively [yes]? no
+
+{
+    &amp;quot;name&amp;quot;: &amp;quot;kijtra/oreore-lib&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;オッス！オラ、オレオレライブラリ！&amp;quot;,
+    &amp;quot;type&amp;quot;: &amp;quot;library&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;,
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;monolog/monolog&amp;quot;: &amp;quot;@stable&amp;quot;
+    },
+    &amp;quot;authors&amp;quot;: [
+        {
+            &amp;quot;name&amp;quot;: &amp;quot;kijtra&amp;quot;,
+            &amp;quot;email&amp;quot;: &amp;quot;kijtra@gmail.com&amp;quot;
+        }
+    ]
+}
+# 「上のようなファイルが作られるけどいいかな？」（そのまま Enter）
+Do you confirm generation [yes]?
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで &lt;strong&gt;composer.json&lt;/strong&gt; が生成されてるはず。&lt;br /&gt;
+で、もしPHPのバージョン制限とかあるなら追記しておく。&lt;br /&gt;
+また、「autoload」での振る舞いも記述しておくと良いので、最終的な composer.json ファイルは以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;kijtra/oreore-lib&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;オッス！オラ、オレオレライブラリ！&amp;quot;,
+    &amp;quot;type&amp;quot;: &amp;quot;library&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;,
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;monolog/monolog&amp;quot;: &amp;quot;@stable&amp;quot;
+    },
+    &amp;quot;authors&amp;quot;: [
+        {
+            &amp;quot;name&amp;quot;: &amp;quot;kijtra&amp;quot;,
+            &amp;quot;email&amp;quot;: &amp;quot;kijtra@gmail.com&amp;quot;
+        }
+    ],
+
+    //--以下追記--
+
+    &amp;quot;keywords&amp;quot;: [&amp;quot;オレオレ&amp;quot;, &amp;quot;自作&amp;quot;], //（任意）Packagistでの検索でタグ指定できる
+
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;php&amp;quot;: &amp;quot;&amp;gt;=5.3.2&amp;quot; //PHP５．３．２以上推奨
+    },
+
+    &amp;quot;autoload&amp;quot;: {
+        &amp;quot;psr-4&amp;quot;: { //（ファイル構成が）PSR-4形式で作りましたよ
+            &amp;quot;Kijtra\\&amp;quot;: &amp;quot;src&amp;quot; //ファイル群は「src」ディレクトリの中ですよ
+        }
+	},
+
+    &amp;quot;include-path&amp;quot;: [&amp;quot;src/&amp;quot;] //（開発時用）「src」ディレクトリ内からautoload
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;開発時には開発ディレクトリのルートで以下を実行しておき、Composer の基本ファイルをダウンロードする。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;php composer.phar install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;そうすると vendor ディレクトリが作成され、 vendor/autoload.php が使用できる。&lt;br /&gt;
+上記 composer.json の最終行にある &lt;code&gt;&amp;quot;include-path&amp;quot;: [&amp;quot;src/&amp;quot;]&lt;/code&gt; は、この時に必要。&lt;/p&gt;
+
+&lt;p&gt;「PSR-4」というのはPHPでクラスファイルをオートロードする際のディレクトリやファイルの命名規則等のことで、ここでは説明しないので &lt;a href=&#34;https://www.google.co.jp/search?q=PSR-4%E3%81%A8%E3%81%AF&#34;&gt;Googleで「PSR-4とは」&lt;/a&gt; を。&lt;/p&gt;
+
+&lt;h2 id=&#34;github-と-packagist-の連携:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;GitHub と Packagist の連携&lt;/h2&gt;
+
+&lt;p&gt;パッケージをGitHubに置く前に、Packagist との連携を設定しておく。&lt;/p&gt;
+
+&lt;p&gt;まずは事前に &lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; の &lt;strong&gt;API Token&lt;/strong&gt; を取得する。&lt;br /&gt;
+Packagist のマイページに「&lt;strong&gt;Show API Token&lt;/strong&gt;」というリンクがあるので、クリックすると API Token が表示される。&lt;br /&gt;
+それをコピーしておく。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh4.googleusercontent.com/kENdHHVR4B4SfhR7HTv7fdzr2H-6IYAVPAdq2UGByo8=w782-h451-no&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;Packagist の API Token を取得&#34; src=&#34;https://lh4.googleusercontent.com/kENdHHVR4B4SfhR7HTv7fdzr2H-6IYAVPAdq2UGByo8=w782-h451-no&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;次に &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt; に行き、リポジトリを作ったら、そのリポジトリの &lt;strong&gt;Settings 画面&lt;/strong&gt;（右メニュー）に行く。&lt;/p&gt;
+
+&lt;p&gt;左メニューの「&lt;strong&gt;Webhooks &amp;amp; Services&lt;/strong&gt;」というページに行き、「Services」の「&lt;strong&gt;Add service&lt;/strong&gt;」から「&lt;strong&gt;Packagist&lt;/strong&gt;」を検索。&lt;br /&gt;
+クリックで追加。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh3.googleusercontent.com/-JqmxdtL8V_s/VVvekOrNwyI/AAAAAAAADgc/iU_uwNJ-dVw/w1003-h405-no/2015-05-15_103417.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Webhooks &amp;amp; Services」から「Packagist」を検索し追加&#34; src=&#34;https://lh3.googleusercontent.com/-JqmxdtL8V_s/VVvekOrNwyI/AAAAAAAADgc/iU_uwNJ-dVw/w1003-h405-no/2015-05-15_103417.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;入力欄に以下のように入れ、「&lt;strong&gt;Add service&lt;/strong&gt;」ボタンで追加。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;User&lt;/strong&gt; ・・・Packagist のユーザー名&lt;br /&gt;
+&lt;strong&gt;Token&lt;/strong&gt; ・・・Packagist の API Token&lt;br /&gt;
+&lt;strong&gt;Domain&lt;/strong&gt; ・・・空のままでOK&lt;br /&gt;
+&lt;strong&gt;Active&lt;/strong&gt; ・・・チェックする&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh6.googleusercontent.com/-5BoKQ-2qUYk/VVvekWQo7II/AAAAAAAADgk/mOGKrutfJNA/w957-h740-no/2015-05-15_104025.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Webhooks &amp;amp; Services」から「Packagist」を検索し追加&#34; src=&#34;https://lh6.googleusercontent.com/-5BoKQ-2qUYk/VVvekWQo7II/AAAAAAAADgk/mOGKrutfJNA/w957-h740-no/2015-05-15_104025.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これで GitHub にプッシュすれば自動的に Packagist に反映されるようになる。&lt;/p&gt;
+
+&lt;h2 id=&#34;バージョン管理:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;バージョン管理&lt;/h2&gt;
+
+&lt;p&gt;ここまででもう Composer から使える状態なんだけど、パッケージのバージョンをどうリリースするかわからなかったので少しとまどってしまった。&lt;br /&gt;
+（デフォルトではバージョンなしで「dev-master」のみ）&lt;/p&gt;
+
+&lt;p&gt;なんてことはない。Git で push する前にタグとしてバージョンを記述するだけだった。&lt;br /&gt;
+例えば以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git add . # Addして
+git commit -m &amp;quot;オッス！リリースすっぞ！&amp;quot; # Commitして
+git tag -a 0.0.1 # ここでバージョン用タグ作成
+git push origin master # Push
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コミットの前後とかは関係なさそう？プッシュ前ならどこでもいい？みたいだけど、上記でできてる。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;あとがき:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;あとがき&lt;/h3&gt;
+
+&lt;p&gt;これまでPHPのパッケージ群といえば &lt;a href=&#34;https://pear.php.net/manual/ja/&#34;&gt;PEAR&lt;/a&gt; だったけど、もう最近では &lt;a href=&#34;https://getcomposer.org/&#34;&gt;Composer&lt;/a&gt; ばかりになってしまった。&lt;br /&gt;
+PEAR はメンテナンスされていないものが多くてインストールも面倒で個人的にはあまり好きじゃなかったので、Composer はけっこう便利に使ってる。&lt;/p&gt;
+
+&lt;p&gt;自作のパッケージを登録しておいて、いつでも（依存関係を解消しつつ）使える状態にしておくのはとても便利だと思った。&lt;/p&gt;
+
+&lt;p&gt;だけど、&lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; での検索でひっかかってしまうので、あまりにプライベートなものとかはセキュリティ的に危ないまたは恥ずかしくて申し訳ない気持ちに。（GitHub もそうだけど）&lt;br /&gt;
+検索にヒットしないように設定できたらいいかも。&lt;/p&gt;
+
+&lt;p&gt;ちなみに今回試しに作ったのは Yahoo JAPAN の &lt;a href=&#34;http://developer.yahoo.co.jp/webapi/map/&#34;&gt;YOLPのAPI&lt;/a&gt; を扱うもの。&lt;/p&gt;
+
+&lt;p&gt;Packagist: &lt;strong&gt;&lt;a href=&#34;https://packagist.org/packages/kijtra/yolp&#34;&gt;kijtra/yolp&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+GitHub: &lt;strong&gt;&lt;a href=&#34;https://github.com/kijtra/yolp&#34;&gt;kijtra/yolp&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;おそらく放置の可能性が高いので composer.json の中身とかを見るぐらいでお願いしますw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHPで変数を便利にSet/Getする関数をつくった</title>
+      <link>http://kijtra.com/article/php-function-vars</link>
+      <pubDate>Tue, 10 Feb 2015 09:50:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/php-function-vars</guid>
+      <description>&lt;p&gt;PHPでグローバルな変数を扱う時に &lt;code&gt;$GLOBALS&lt;/code&gt; とか &lt;a href=&#34;http://php.net/manual/ja/language.variables.superglobals.php&#34;&gt;スーパーグローバル変数&lt;/a&gt; の汚染とかあんまり使いたくなかったので、手軽にできる関数を作った。&lt;/p&gt;
+
+&lt;p&gt;まずはコード。&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/78c54a12cfbf3c4432f3.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;第一引数がキー、第二引数が値で、値がある場合はSet、値がない場合はGetになる。&lt;br /&gt;
+基本的な使い方としては以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+// キーを「A」、値を「B」とした変数のセット
+vars(&#39;A&#39;, &#39;B&#39;);
+
+// キー「A」を取得
+echo vars(&#39;A&#39;); //　-&amp;gt; &amp;quot;B&amp;quot;
+
+
+
+// 「A」を上書き
+vars(&#39;A&#39;, &#39;Aval&#39;);
+
+// 再びキー「A」を取得
+echo vars(&#39;A&#39;); //　-&amp;gt; &amp;quot;Aval&amp;quot;
+
+
+
+// もちろん多次元配列などもセット可能
+$value = array(
+    &#39;C1&#39; =&amp;gt; &#39;C1val&#39;,
+    &#39;C2&#39; =&amp;gt; array(
+        &#39;C2-1&#39; =&amp;gt; &#39;C2-1val&#39;,
+        &#39;C2-2&#39; =&amp;gt; &#39;C2-2val&#39;,
+        &#39;C2-3&#39; =&amp;gt; &#39;C2-3val&#39;,
+    )
+);
+vars(&#39;C&#39;, $value);
+
+
+
+// 引数なしの場合はセットした全部を取得
+$all = vars();
+/*
+array(
+    &#39;A&#39; =&amp;gt; &#39;Aval&#39;,
+    &#39;C&#39; =&amp;gt; array(
+        &#39;C1&#39; =&amp;gt; &#39;C1val&#39;,
+        &#39;C2&#39; =&amp;gt; array(
+            &#39;C2-1&#39; =&amp;gt; &#39;C2-1val&#39;,
+            &#39;C2-2&#39; =&amp;gt; &#39;C2-2val&#39;,
+            &#39;C2-3&#39; =&amp;gt; &#39;C2-3val&#39;
+        )
+    )
+)
+*/
+
+
+// 存在しないキーの場合はnull
+var_dump(vars(&#39;who&#39;)); // -&amp;gt; null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;大きな特徴は、多次元配列を入れた時に下層の配列へは &lt;strong&gt;ドットつなぎの文字列で簡単にアクセスできる&lt;/strong&gt; 点。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// 上の例でセットした「C2-2」の値を取得
+echo vars(&#39;C.C2.C2-2&#39;); // -&amp;gt; &amp;quot;C2-2val&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、下層の配列の一部を上書きしたいことがあるけど、その場合もドットつなぎで。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// 上の例でセットした「C2-2」の値を再セット
+vars(&#39;C.C2.C2-2&#39;, &#39;C2-2 is override!&#39;);
+
+echo vars(&#39;C.C2.C2-2&#39;); // -&amp;gt; &amp;quot;C2-2 is override!&amp;quot;
+
+
+// この時、「C」の配列全体は以下のようになっている
+array(
+    &#39;C1&#39; =&amp;gt; &#39;C1val&#39;,
+    &#39;C2&#39; =&amp;gt; array(
+        &#39;C2-1&#39; =&amp;gt; &#39;C2-1val&#39;,
+        &#39;C2-2&#39; =&amp;gt; &#39;C2-2 is override!&#39;, // ここだけ上書き済み
+        &#39;C2-3&#39; =&amp;gt; &#39;C2-3val&#39;,
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ドットつなぎでの取得は &lt;code&gt;static&lt;/code&gt; 変数でプチキャッシュしてるので2回目以降は速いはず。&lt;/p&gt;
+
+&lt;p&gt;あと、関数内で &lt;code&gt;array_replace_recursive&lt;/code&gt; という関数を使ってる。&lt;br /&gt;
+これは PHP5.3 からの機能なので、それ以下のバージョンの場合は &lt;a href=&#34;http://php.net/manual/ja/function.array-replace-recursive.php#109390&#34;&gt;公式ドキュメントにあるユーザー関数&lt;/a&gt; を書いておく必要がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+if (!function_exists(&#39;array_replace_recursive&#39;))
+{
+	// http://php.net/manual/ja/function.array-replace-recursive.php#109390
+	function array_replace_recursive($base, $replacements)
+	{
+		foreach (array_slice(func_get_args(), 1) as $replacements) {
+			$bref_stack = array(&amp;amp;$base);
+			$head_stack = array($replacements);
+
+			do {
+				end($bref_stack);
+
+				$bref = &amp;amp;$bref_stack[key($bref_stack)];
+				$head = array_pop($head_stack);
+
+				unset($bref_stack[key($bref_stack)]);
+
+				foreach (array_keys($head) as $key) {
+					if (isset($key, $bref) &amp;amp;&amp;amp; is_array($bref[$key]) &amp;amp;&amp;amp; is_array($head[$key])) {
+						$bref_stack[] = &amp;amp;$bref[$key];
+						$head_stack[] = $head[$key];
+					} else {
+						$bref[$key] = $head[$key];
+					}
+				}
+			} while(count($head_stack));
+		}
+
+		return $base;
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;余談だけど、この &lt;code&gt;vars&lt;/code&gt; は個人的によく使ってる関数なんだけど、関数名がなんかしっくりこない。&lt;br /&gt;
+&lt;code&gt;var()&lt;/code&gt; という名前は予約後で使えないので、よく使うので短く書くために &lt;code&gt;v()&lt;/code&gt; とかにしようかと思ったけど、これもなんだかなあw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス</title>
+      <link>http://kijtra.com/article/adsense-php-class-for-feature-phone</link>
+      <pubDate>Sun, 05 Oct 2014 10:30:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
+      <description>
+
+&lt;p&gt;携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)&lt;/p&gt;
+
+&lt;p&gt;Web上の携帯(フィーチャーフォン/ガラケー)サイト制作の情報って、もうすっかり古いものしか残ってないけど、まだ消滅したわけじゃないので作り続けてるわけです。&lt;br /&gt;
+実際、自分が関わってるサイトでは非スマホでフィーチャーフォン/ガラケーのユーザーがまだ約2割もいる！&lt;br /&gt;
+業種やコンテンツによってはまだ需要があって、しかもAdSenseのCTRはPCなんかよりはるかに高い(ミスクリックしやすい…？)。&lt;br /&gt;
+ということで、携帯(フィーチャーフォン/ガラケー)サイトがあるならばAdSenseを貼らないテはないんだけど、いかんせんGoogle公式のPHP用AdSenseコードがイマイチなので、クラスを作った。&lt;/p&gt;
+
+&lt;p&gt;Gogoleでは「WAPブラウザ用広告」という名前にしてるみたい。&lt;br /&gt;
+AdSenseのコード改変は違反じゃないのかと思う人もいるかもしれないけど、違反になるのはユーザー体験を損ねたりする場合であって、今回のPHPの場合は&lt;a href=&#34;https://support.google.com/adsense/answer/14204?hl=ja&#34;&gt;Google自身が外部リソースに頼れと誘導してる&lt;/a&gt;ので問題ないはず。&lt;/p&gt;
+
+&lt;h2 id=&#34;まず広告の作成:f9eda87e7a311ad08923afb954329951&#34;&gt;まず広告の作成&lt;/h2&gt;
+
+&lt;p&gt;AdSense管理画面の「&lt;a href=&#34;https://www.google.com/adsense/app#myads-viewall-adunits&#34;&gt;広告の設定&lt;/a&gt;」に行き、左メニューの「&lt;strong&gt;モバイルコンテンツ&lt;/strong&gt;」から広告を作成する。&lt;br /&gt;
+すでに広告作ってる場合はそれを使ってもいいかも。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;携帯サイトAdSense用広告の作成&#34; src=&#34;https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;広告作成の際にPHP用のコードが選択できるので、それを選択してコードを生成。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;PHP用AdSenseコードの生成&#34; src=&#34;https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;広告のコードが発行されるので、とりあえずメモ帳かなにかにコピペしておく。&lt;br /&gt;
+(あとでこのコード内の記述を使用)
+&lt;a href=&#34;https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;携帯サイト用AdSense広告のコード&#34; src=&#34;https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;携帯サイトadsense用phpクラスのコード:f9eda87e7a311ad08923afb954329951&#34;&gt;携帯サイトAdSense用PHPクラスのコード&lt;/h2&gt;
+
+&lt;p&gt;以下のコードをどこかに配置。&lt;br /&gt;
+&lt;a href=&#34;https://gist.github.com/kijtra/4f7b49f9c466a95463c8#file-adsense_for_keitai-php&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&lt;/i&gt; Gistにもあり(最新)&lt;/a&gt;&lt;br /&gt;
+10行目の「&lt;strong&gt;ca-mb-pub-XXXXXXXXXXXXXXX&lt;/strong&gt;」には、AdSenseコードにある「&lt;code&gt;$GLOBALS[&#39;google&#39;][&#39;client&#39;]&lt;/code&gt;」の値を入れておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+class adsenseForKeitai
+{
+	private $ad_url = &#39;http://pagead2.googlesyndication.com/pagead/ads&#39;;
+	private $timeout = 3;//second
+
+	private $params = array(
+		&#39;slot&#39; =&amp;gt; null,
+		&#39;client&#39; =&amp;gt; &#39;ca-mb-pub-XXXXXXXXXXXXXXX&#39;,
+
+		&#39;ad_type&#39; =&amp;gt; &#39;text_image&#39;,
+		&#39;format&#39; =&amp;gt; &#39;mobile_single&#39;,
+		&#39;markup&#39; =&amp;gt; &#39;xhtml&#39;,
+		&#39;output&#39; =&amp;gt; &#39;xhtml&#39;,
+		&#39;oe&#39; =&amp;gt; &#39;utf8&#39;,
+
+		&#39;https&#39; =&amp;gt; false,
+		&#39;ip&#39; =&amp;gt; null,
+		&#39;ref&#39; =&amp;gt; null,
+		&#39;url&#39; =&amp;gt; null,
+		&#39;useragent&#39; =&amp;gt; null,
+
+		&#39;color_border&#39; =&amp;gt; &#39;FFFFFF&#39;,
+		&#39;color_bg&#39; =&amp;gt; &#39;FFFFFF&#39;,
+		&#39;color_link&#39; =&amp;gt; &#39;0053F9&#39;,
+		&#39;color_text&#39; =&amp;gt; &#39;000000&#39;,
+		&#39;color_url&#39; =&amp;gt; &#39;828282&#39;,
+	);
+
+	public function __construct($slot = null, $charset = &#39;utf8&#39;)
+	{
+		$this-&amp;gt;params[&#39;slotname&#39;] = $slot;
+		$this-&amp;gt;params[&#39;oe&#39;] = $charset;
+
+		$this-&amp;gt;params[&#39;ip&#39;] = $_SERVER[&#39;REMOTE_ADDR&#39;];
+		$this-&amp;gt;params[&#39;useragent&#39;] = (!empty($_SERVER[&#39;HTTP_USER_AGENT&#39;]) ? $_SERVER[&#39;HTTP_USER_AGENT&#39;] : null);
+		$this-&amp;gt;params[&#39;ref&#39;] = (!empty($_SERVER[&#39;HTTP_REFERER&#39;]) ? $_SERVER[&#39;HTTP_REFERER&#39;] : null);
+		$this-&amp;gt;params[&#39;url&#39;] = $_SERVER[&#39;HTTP_HOST&#39;].$_SERVER[&#39;REQUEST_URI&#39;];
+
+		if (
+			(!empty($_SERVER[&#39;HTTPS&#39;]) &amp;amp;&amp;amp; (&#39;on&#39; == strtolower($_SERVER[&#39;HTTPS&#39;]) || &#39;1&#39; == strtolower($_SERVER[&#39;HTTPS&#39;])))
+			|| (!empty($_SERVER[&#39;SERVER_PORT&#39;]) &amp;amp;&amp;amp; (443 === (int)$_SERVER[&#39;SERVER_PORT&#39;])
+		)) {
+			$this-&amp;gt;params[&#39;https&#39;] = true;
+		}
+
+		$this-&amp;gt;params[&#39;dt&#39;] = time();
+
+		// Screen Resolutions
+		$res = null;
+		if (!empty($_SERVER[&#39;HTTP_UA_PIXELS&#39;])) {
+			$res = $_SERVER[&#39;HTTP_UA_PIXELS&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_UP_DEVCAP_SCREENPIXELS&#39;])) {
+			$res = $_SERVER[&#39;HTTP_X_UP_DEVCAP_SCREENPIXELS&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_JPHONE_DISPLAY&#39;])) {
+			$res = $_SERVER[&#39;HTTP_X_JPHONE_DISPLAY&#39;];
+		}
+
+		if (!empty($res) &amp;amp;&amp;amp; preg_match(&#39;/\A(\d+)[x,\*](\d+)\z/&#39;, $res, $match)) {
+			$this-&amp;gt;params[&#39;u_w&#39;] = $match[1];
+			$this-&amp;gt;params[&#39;u_h&#39;] = $match[2];
+		}
+
+		// MUID
+		if (!empty($_SERVER[&#39;HTTP_X_DCMGUID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_DCMGUID&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_UP_SUBNO&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_UP_SUBNO&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_JPHONE_UID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_JPHONE_UID&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_EM_UID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_EM_UID&#39;];
+		}
+
+		// Via and Accept
+		if (!empty($_SERVER[&#39;HTTP_VIA&#39;])) {
+			$this-&amp;gt;params[&#39;via&#39;] = $_SERVER[&#39;HTTP_VIA&#39;];
+		}
+
+		// Accept
+		if (!empty($_SERVER[&#39;HTTP_ACCEPT&#39;])) {
+			$this-&amp;gt;params[&#39;accept&#39;] = $_SERVER[&#39;HTTP_ACCEPT&#39;];
+		}
+	}
+
+	public function client($id = null)
+	{
+		if (!empty($id) &amp;amp;&amp;amp; false !== strpos($id, &#39;pub-&#39;)) {
+			$this-&amp;gt;params[&#39;client&#39;] = $id;
+		}
+
+		return $this;
+	}
+
+	public function slot($id = null)
+	{
+		if (!empty($id) &amp;amp;&amp;amp; ctype_digit(strval($id))) {
+			$this-&amp;gt;params[&#39;slotname&#39;] = $id;
+		}
+
+		return $this;
+	}
+
+	public function param($param = null)
+	{
+		if (!empty($param) &amp;amp;&amp;amp; is_array($param)) {
+			$this-&amp;gt;params = array_merge($this-&amp;gt;params, $param);
+		}
+
+		return $this;
+	}
+
+	public function color() {return $this-&amp;gt;colors();}//alias
+	public function colors($param = null)
+	{
+		if (!empty($param) &amp;amp;&amp;amp; is_array($param)) {
+			foreach($param as $key =&amp;gt; $val) {
+				$val = str_replace(&#39;#&#39;, &#39;&#39;, $val);
+				if (!preg_match(&#39;/\A[a-f0-9]{6}\z/i&#39;, $val)) {
+					if (preg_match(&#39;/\A([a-f0-9])([a-f0-9])([a-f0-9])\z/i&#39;, $val, $m)) {
+						$val = $m[1].$m[1].$m[2].$m[2].$m[3].$m[3];
+					} else {
+						continue;
+					}
+				}
+				if (0 !== strpos($key, &#39;color_&#39;)) {
+					$key = &#39;color_&#39;.$key;
+				}
+
+				$this-&amp;gt;params[$key] = strtoupper($val);
+			}
+		}
+
+		return $this;
+	}
+
+	private function request()
+	{
+		static $buffer = null;
+		if (!empty($buffer)) {
+			return $buffer;
+		}
+
+		if (empty($this-&amp;gt;params[&#39;client&#39;]) || empty($this-&amp;gt;params[&#39;slotname&#39;])) {
+			return false;
+		}
+
+		if (0 !== strpos($this-&amp;gt;params[&#39;client&#39;], &#39;ca-&#39;)) {
+			$this-&amp;gt;params[&#39;client&#39;] = &#39;ca-mb-&#39;.$this-&amp;gt;params[&#39;client&#39;];
+		}
+
+		$url = $this-&amp;gt;ad_url.&#39;?&#39;.http_build_query($this-&amp;gt;params);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this-&amp;gt;timeout);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this-&amp;gt;timeout);
+		//curl_setopt($ch, CURLOPT_HEADER, true);
+		$content = curl_exec($ch);
+		curl_close($ch);
+
+		if (!empty($content)) {
+			return $buffer = $content;
+		}
+	}
+
+	public function get()
+	{
+		return $this-&amp;gt;request();
+	}
+
+	public function show()
+	{
+		echo $this-&amp;gt;request();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;表示する:f9eda87e7a311ad08923afb954329951&#34;&gt;表示する&lt;/h2&gt;
+
+&lt;p&gt;広告を表示したい箇所に、以下のようなコードを書く。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+//スロットIDを指定して表示
+$class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;show();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)&lt;/code&gt; の部分は、&lt;br /&gt;
+AdSenseコードにある &lt;code&gt;$GLOBALS[&#39;google&#39;][&#39;slotname&#39;]&lt;/code&gt; の値を入れる(数字のみ)。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show()&lt;/code&gt; は出力も兼ねてるので、 &lt;code&gt;echo&lt;/code&gt; を書く必要はなし。&lt;br /&gt;
+(echoしたくない場合のために一応 &lt;code&gt;get()&lt;/code&gt; というのも用意してある)&lt;/p&gt;
+
+&lt;p&gt;もし広告のリンクとかテキストとかの色を変えたい場合は以下のようなこともできる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+// 広告の色設定(指定できるのは以下の5種類のみっぽい)
+$color = array(
+    &#39;border&#39; =&amp;gt; &#39;FFFFFF&#39;,// 枠線の色
+	&#39;bg&#39; =&amp;gt; &#39;FFFFFF&#39;,// 背景色
+	&#39;link&#39; =&amp;gt; &#39;0053F9&#39;,// リンク(タイトル)の色
+	&#39;text&#39; =&amp;gt; &#39;000000&#39;,// 通常テキスト色
+	&#39;url&#39; =&amp;gt; &#39;828282&#39;,// URL部分の色(携帯用は関係ないかも)
+);
+
+//スロットIDを指定して、色をセットして表示
+$class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;color($color)-&amp;gt;show();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;関連情報:f9eda87e7a311ad08923afb954329951&#34;&gt;関連情報&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/68724?ctx=as2&amp;amp;rd=1&#34;&gt;モバイル用AdSenseのヘルプ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/185668?hl=ja&#34;&gt;AdSenseモバイル広告の種類とサイズ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/1354736?hl=ja&#34;&gt;AdSense 広告コードの改変について&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2つの配列が同じものかどうかチェックするPHP関数</title>
+      <link>http://kijtra.com/article/php-check-same-array</link>
+      <pubDate>Tue, 13 May 2014 11:07:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/php-check-same-array</guid>
+      <description>&lt;p&gt;PHPで、配列の内容が同じかどうかチェックしたい時に使う関数。&lt;br /&gt;
+連想配列の階層が深くても可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function is_same_array($array1 = null, $array2 = null)
+{
+    if (empty($array1) &amp;amp;&amp;amp; empty($array2)) {
+        return true;
+    } elseif(
+        (empty($array1) &amp;amp;&amp;amp; !empty($array2))
+        || (!empty($array1) &amp;amp;&amp;amp; empty($array2))
+    ) {
+        return false;
+    } elseif(
+        (is_array($array1) &amp;amp;&amp;amp; !is_array($array2))
+        || (!is_array($array1) &amp;amp;&amp;amp; is_array($array2))
+    ) {
+        return false;
+    }
+
+    foreach($array1 as $key =&amp;gt; $value) {
+        if (is_array($value)) {
+            if (!isset($array2[$key])) {
+                return false;
+            } elseif(!is_array($array2[$key])) {
+                return false;
+            } elseif (!is_same_array($value, $array2[$key])) {
+                return false;
+            }
+        } elseif(!array_key_exists($key, $array2) || $array2[$key] !== $value) {
+            return false;
+        }
+    }
+
+    return true;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;機能としては「ただ同じかどうか判断するだけ」（返り値は &lt;code&gt;true&lt;/code&gt; か &lt;code&gt;false&lt;/code&gt; のみ）なので。&lt;br /&gt;
+参考にしたのが&lt;a href=&#34;http://us3.php.net/manual/ja/function.array-diff-assoc.php#73972&#34;&gt;こちらの関数&lt;/a&gt;なので、diff取りたい場合はいいかも。&lt;/p&gt;
+
+&lt;p&gt;パフォーマンスは悪そうだけど、配列の順番が違ってもチェックできるのがメリットかな・・・&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PubSubHubbubにURLをプッシュするPHP関数</title>
+      <link>http://kijtra.com/article/push-pubsubhubbub-php</link>
+      <pubDate>Wed, 11 Dec 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/push-pubsubhubbub-php</guid>
+      <description>
+
+&lt;p&gt;Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PubSubHubbub&lt;/strong&gt;ってご存知ですかね。
+最近まで知らなかったんだけど、なんでもGoogleその他にURLをプッシュして爆速でインデックスしてもらえる可能性が高まるプロトコルそうですね。
+ならばガンガンにプッシュしようぜと思ってPHPの関数にしてみた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function send_psh($url) {
+    if(empty($url)){
+        return false;
+    }
+    $hub = &#39;http://pubsubhubbub.appspot.com&#39;;
+    //$hub=&#39;http://pubsubhubbub.superfeedr.com&#39;;
+    if(is_array($url)) {
+        $mh=curl_multi_init();
+        $chs = array();
+        foreach($url as $key =&amp;gt; $val) {
+            if (!preg_match(&#39;#^https?://#i&#39;, $val)) {
+                continue;
+            }
+            $chs[$key] = curl_init();
+            curl_setopt($chs[$key], CURLOPT_URL, $hub);
+            curl_setopt($chs[$key], CURLOPT_POST, true);
+            curl_setopt($chs[$key], CURLOPT_POSTFIELDS, &amp;quot;hub.mode=publish&amp;amp;hub.url=&amp;quot; . urlencode($val));
+            curl_multi_add_handle($mh, $chs[$key]);
+        }
+        if(empty($chs)){
+            return false;
+        }
+        $results = array();
+        $running = NULL;
+        do {
+            curl_multi_exec($mh, $running);
+        } while($running &amp;gt; 0);
+        foreach($curly as $key =&amp;gt; $ch) {
+            if(empty($ch)){
+                continue;
+            }
+            $results[$key] = (204 == curl_getinfo($ch, CURLINFO_HTTP_CODE));
+            curl_multi_remove_handle($mh, $ch);
+        }
+        curl_multi_close($mh);
+        return $results;
+    } else {
+        if (!preg_match(&#39;#^https?://#i&#39;, $url)) {
+            return false;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $hub);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, &amp;quot;hub.mode=publish&amp;amp;hub.url=&amp;quot; . urlencode($url));
+        $res = curl_exec($ch);
+        $result = (204 == curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        curl_close($ch);
+        return $result;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/7783087&#34;&gt;Gistにあります&lt;/a&gt;
+使い方は、ひとつのURLをプッシュしたいだけなら以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+send_psh(&#39;http://example.com/pubbb/&#39;);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;複数を一気にプッシュしたい場合は以下のように配列を渡す感じで。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+$urls=array(
+    &#39;http://example.com/pub/&#39;,
+    &#39;http://example.com/sub/&#39;,
+    &#39;http://example.com/hub/&#39;,
+    &#39;http://example.com/bub/&#39;,
+);
+send_psh($urls);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://code.google.com/p/pubsubhubbub/wiki/Hubs&#34;&gt;プッシュ先はいろいろとある&lt;/a&gt;ようなんだけど、この関数ではGoogle公式のもの(pubsubhubbub.appspot.com)だけにしてます。
+そもそもPubSubHubbubってなに？ってとこはあんまり深く勉強してないんだけど、以下のようなものを参考にした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pubsubhubbub  &lt;a href=&#34;https://code.google.com/p/pubsubhubbub/&#34;&gt;https://code.google.com/p/pubsubhubbub/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Googleマット・カッツが推奨する“PubSubHubbub”でスクレイパーから身を守れ  &lt;a href=&#34;http://www.suzukikenichi.com/blog/using-pubsubhubbub-to-protect-against-scrapers/&#34;&gt;http://www.suzukikenichi.com/blog/using-pubsubhubbub-to-protect-against-scrapers/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;pingより爆速！ブロガーはPubSubHubbubも使うと良いよ  &lt;a href=&#34;http://shumaiblog.com/blog-pubsubhubbub-fat-ping/&#34;&gt;http://shumaiblog.com/blog-pubsubhubbub-fat-ping/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あと、実験として当ブログに&lt;a href=&#34;http://wordpress.org/plugins/pubsubhubbub/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;PubSubHubbubのWordPressプラグイン&lt;/a&gt;を入れて、どんだけ速くGoogleにインデックスされるのかウォッチしてみる。（上記の自作関数は使ってないw）&lt;/p&gt;
+
+&lt;h1 id=&#34;2013-12-15-追記:31f501cbac9da579079eb616d7af56dd&#34;&gt;2013/12/15 追記&lt;/h1&gt;
+
+&lt;p&gt;やっとGoogleにインデックスされた。
+この記事を投稿して約4日。
+これが早いのか遅いのかはわからんけども…&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AppFog（のPHP）でCronぽいことを実現する</title>
+      <link>http://kijtra.com/article/cron-in-appfog-php</link>
+      <pubDate>Mon, 07 Oct 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cron-in-appfog-php</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.appfog.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;AppFog&lt;/a&gt;でCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。&lt;/p&gt;
+
+&lt;p&gt;だいたいは以下のページの焼き増し。
+&lt;a href=&#34;http://stackoverflow.com/questions/13595025/running-php-workers-on-appfog&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;Stack Overflow : Running PHP workers on AppFog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;流れとしては、&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Cronするには専用の新規アプリを作る必要があるので作る&lt;/li&gt;
+&lt;li&gt;それをスタンドアロンアプリとして設定&lt;/li&gt;
+&lt;li&gt;常時実行コマンドみたいなやつを設定して特定のPHPファイルを常時実行&lt;/li&gt;
+&lt;li&gt;そのPHP内でCronぽい動きをさせる&lt;/li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;という感じ。&lt;/p&gt;
+
+&lt;p&gt;まずはローカルでCronテスト用のアプリディレクトリとファイルを作成。
+ここでは例として「&lt;strong&gt;my-cron&lt;/strong&gt;」というアプリ名とする。&lt;/p&gt;
+
+&lt;p&gt;my-cronディレクトリに「&lt;strong&gt;index.php&lt;/strong&gt;」を作成。（ファイル名はなんでも良い）
+このindex.phpの中身は以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+//タイムアウトなしに設定
+set_time_limit(0);
+//延々と繰り返す
+while (true) {
+	//確認のためログに出力される文字
+	echo &amp;quot;Cronテストっす\n&amp;quot;;
+	//指定時間だけ処理止める(ここでは300秒=5分)
+	//ここで止める間隔がCronの実行間隔になる
+	sleep(300);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;あとは基本的にコマンドラインでの作業。
+（appfogの管理画面でもできるかもだけど調べてない）
+※appfogのコマンド「af」は&lt;a href=&#34;https://docs.appfog.com/getting-started/af-cli&#34; target=&#34;_blank&#34; rel=&#34;nofollor&#34;&gt;appfogのCLI&lt;/a&gt;をインストールしておく必要あり&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;# 上で決めたCron用アプリのディレクトリに移動
+$ cd /path/to/my-cron
+# アプリの新規作成ステップ開始
+$ af push
+Would you like to deploy from the current directory? [Yn]:# そのままEnter
+Application Name: my-cron # 上で決めたアプリ名を入力
+Detected a PHP Application, is this correct? [Yn]: n # No(n)を指定
+1: Sinatra
+2: JavaWeb
+3: Spring
+4: Rails
+5: Play
+6: Erlang/OTP Rebar
+7: PHP
+8: Lift
+9: Django
+10: Rack
+11: WSGI
+12: Standalone
+13: Node
+14: Grails
+Select Application Type: 12 # 「Standalone」を指定
+Selected Standalone Application
+1: java
+2: node04
+3: node06
+4: node08
+5: php
+6: python2
+7: ruby18
+8: ruby192
+9: ruby193
+Select Runtime: 5 # 「php」を指定
+Selected php
+Start Command: php index.php # 常時実行コマンド。上で作ったファイル「index.php」
+1: AWS US East - Virginia
+2: AWS EU West - Ireland
+3: AWS Asia SE - Singapore
+4: HP AZ 2 - Las Vegas
+Select Infrastructure: 3 # 任意。ここでは「AWS Asia」
+Application Deployed URL [None]: # そのままEnter
+Memory reservation (128M, 256M, 512M, 1G, 2G) [128M]: # そのままEnter
+How many instances? [1]: # そのままEnter
+Bind existing services to &#39;my-cron&#39;? [yN]: # そのままEnter
+Create services to bind to &#39;my-cron&#39;? [yN]: # そのままEnter
+Would you like to save this configuration? [yN]: # そのままEnter
+# あとは自動出力
+Creating Application: OK
+Uploading Application:
+  Checking for available resources: OK
+  Packing application: OK
+  Uploading (0K): OK
+Push Status: OK
+Staging Application &#39;my-cron&#39;: OK
+Starting Application &#39;my-cron&#39;: OK
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;↑ソースの色付け見難くてスミマセン・・・&lt;/p&gt;
+
+&lt;p&gt;これで、「my-cron」アプリの「index.php」が常時動いてることになるので、
+sleep()で止めるなり指定時間になにか処理するなりしていく模様。
+（PHPが動きっぱなしってのが個人的に気持ち悪いけどw）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
+      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <description>
+
+&lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;
+
+&lt;p&gt;Cron使いたいけど、レンタルサーバーにその機能がない、またはCronつきレンタルサーバー借りる余裕がない。
+そんなことないですかね。ないですかそうですか。いや個人的にあったんでメモ。&lt;/p&gt;
+
+&lt;p&gt;「&lt;a href=&#34;http://www.google.com/script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;」というのがあって、JavaScriptに似たコードを書けばなんかいろいろ動くみたいなんですよ。動く時間も指定できて。無料で。&lt;/p&gt;
+
+&lt;p&gt;「Google Apps」とついてるけど、別に企業アカウントとか独自ドメインとかが必要なわけじゃない。
+必要なのはリクエスト先URLとGoogleアカウントだけ。&lt;/p&gt;
+
+&lt;p&gt;まずGoogleにログインして「&lt;a href=&#34;http://www.google.com/script&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;」にアクセスすると、下のような画面になるので「Start Scripting」をクリック。
+ここは英語だけどその先は日本語。
+&lt;a href=&#34;http://lh3.googleusercontent.com/-gK_O0yT2lpc/UT0sslDYg_I/AAAAAAAADKk/eKp_rfxG-cU/2013-03-11_095900.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Start Scripting」をクリック&#34; src=&#34;http://lh3.googleusercontent.com/-gK_O0yT2lpc/UT0sslDYg_I/AAAAAAAADKk/eKp_rfxG-cU/s650/2013-03-11_095900.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;すると以下の画面に遷移するので、とりあえず「空のプロジェクト」をクリックして、プロジェクトを作成。
+&lt;a href=&#34;http://lh4.ggpht.com/-Wa_FpWI99qw/UT0uHxv3YSI/AAAAAAAADK8/L4CsTMve438/2013-03-11_100530.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「空のプロジェクト」をクリック&#34; src=&#34;http://lh4.ggpht.com/-Wa_FpWI99qw/UT0uHxv3YSI/AAAAAAAADK8/L4CsTMve438/s640/2013-03-11_100530.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;いきなりコードを書く画面になるので、ここに書いていく。
+今回は「&lt;strong&gt;指定時間（または定期的）に、単にURLをリクエストするだけ&lt;/strong&gt;」という要件のものなので、最低限の書き方でいく。
+例えば「&lt;a href=&#34;http://example.com/cron.php」というURLリクエストしたいなら、以下のように記述する。&#34;&gt;http://example.com/cron.php」というURLリクエストしたいなら、以下のように記述する。&lt;/a&gt;
+（エラー処理とかしてない最低限のコード）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myFunction() {
+UrlFetchApp.fetch(&amp;quot;http://example.com/cron.php&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;こんだけ！&lt;/p&gt;
+
+&lt;p&gt;Google Apps Scriptに「&lt;strong&gt;UrlFetch&lt;/strong&gt;」という機能があって、指定したURLをリクエストするというもの。
+必要ならリクエスト先URLの結果の文字列も取得できる。&lt;/p&gt;
+
+&lt;p&gt;で、重要なのは指定時間に上記のスクリプトを実行すること。
+Google Apps Scriptではこれを「&lt;strong&gt;&lt;em&gt;トリガー&lt;/em&gt;&lt;/strong&gt;」と読んでるみたい。&lt;/p&gt;
+
+&lt;p&gt;コード編集画面のメニューにある時計マークをクリック。
+&lt;a href=&#34;http://lh3.ggpht.com/-SrYU2KFbKqw/UT0xMMW1KcI/AAAAAAAADLE/UygDuyf4mlg/2013-03-11_101935.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;コード編集画面のメニューにある時計マークをクリック&#34; src=&#34;http://lh3.ggpht.com/-SrYU2KFbKqw/UT0xMMW1KcI/AAAAAAAADLE/UygDuyf4mlg/s640/2013-03-11_101935.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;プロジェクトをまだ保存してなければ、「プロジェクト名の変更」という画面が表示されるので、好きな名前をつける。（その名前でGoogleドライブに保存される）&lt;/p&gt;
+
+&lt;p&gt;「現在のプロジェクトのトリガー」という画面が表示されるので、「今すぐ追加するには・・・」のところをクリック。
+&lt;a href=&#34;http://lh6.ggpht.com/-2eVM3VCh9HQ/UT0yMjcmXZI/AAAAAAAADLM/C39bq-s-hT4/2013-03-11_102357.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「今すぐ追加するには・・・」のところをクリック&#34; src=&#34;http://lh6.ggpht.com/-2eVM3VCh9HQ/UT0yMjcmXZI/AAAAAAAADLM/C39bq-s-hT4/s640/2013-03-11_102357.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そしたら出てきた。Cronぽいものが。&lt;/p&gt;
+
+&lt;p&gt;ここで自由に時間を指定する。
+&lt;a href=&#34;http://lh4.ggpht.com/-mZtVacg0s9o/UT0y4NlG8xI/AAAAAAAADLU/e8cofZNtXUc/2013-03-11_102649.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「今すぐ追加するには・・・」のところをクリック&#34; src=&#34;http://lh4.ggpht.com/-mZtVacg0s9o/UT0y4NlG8xI/AAAAAAAADLU/e8cofZNtXUc/s640/2013-03-11_102649.png&#34; /&gt;&lt;/a&gt;
+選択肢の右にある「通知」では、失敗時の通知をメールで受信できる。
+ここはどうやらログインユーザーのメールアドレスか、Googleドライブでそのプロジェクトを共有しているメールアドレスしか選べないっぽい。
+時間帯を「保存」して、プロジェクトも保存すると、すぐに動きはじめる模様。&lt;/p&gt;
+
+&lt;h2 id=&#34;リクエスト結果をメールで受け取ってみる:99813ee1335af0ac77725bc02bc7cb51&#34;&gt;リクエスト結果をメールで受け取ってみる&lt;/h2&gt;
+
+&lt;p&gt;単にURLをリクエストしただけだと、リクエスト先のプログラムの生死がわからない。
+リクエスト結果をメールで受け取ってみる。&lt;/p&gt;
+
+&lt;p&gt;結果の文字列をメール送信するには、前述のコードを以下のように修正。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myFunction() {
+    var response = UrlFetchApp.fetch(&amp;quot;http://example.com/cron.php&amp;quot;);
+    MailApp.sendEmail(
+        &amp;quot;google-user-name@gmail.com&amp;quot;,// 送信先メール
+        &amp;quot;Cronの実行結果ですよ&amp;quot;,// メール件名
+        &amp;quot;&amp;quot;,
+        {
+            htmlBody: response.getContentText()
+        }
+    );
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コード2行目でURLをリクエストし、その結果を「response」にセット。
+&lt;a href=&#34;https://developers.google.com/apps-script/service_mail&#34; target=&#34;_blank&#34;&gt;Mail機能&lt;/a&gt;を使ってメール送信。
+送信先メールアドレスは4行目、その下の5行目はメールの件名になる。&lt;/p&gt;
+
+&lt;p&gt;これでGoogleドライブに保存しておけば、指定時間にせっせと動いてくれる。&lt;/p&gt;
+
+&lt;p&gt;ちなみにGoogleドライブに保存されたプロジェクトを編集する時は、Googleドライブを「Google Apps Scriptアプリ」と「接続」する必要があるみたい。
+要するにGoogleドライブ内へのアクセス許可ということかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;あと、注意点として、トリガー設定済みのプロジェクトを削除してもトリガーは止まらなかった。&lt;br /&gt;
+ゴミ箱にある状態だと動き続けるみたい。&lt;br /&gt;
+プロジェクトを削除する場合は、念のためトリガーを削除してからの方がよさそう。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Apps Scriptをもっと知りたいなら公式リファレンスを。（まだ英語のみ）&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/service_urlfetch&#34; target=&#34;_blank&#34;&gt;UrlFetch Services&lt;/a&gt;（URLリクエスト機能）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/service_mail&#34; target=&#34;_blank&#34;&gt;Mail Services&lt;/a&gt;（メール機能）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/understanding_triggers#TimeTriggers&#34; target=&#34;_blank&#34;&gt;Using Time-Driven Triggers&lt;/a&gt;（時間指定機能の使い方）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;で、気になる制限系だけど、&lt;a href=&#34;https://developers.google.com/apps-script/understanding_triggers#TimeTriggers&#34; target=&#34;_blank&#34;&gt;公式リファレンス&lt;/a&gt;にはなにも書いてない・・・？
+英語だし、指定時間もいくらでも設定できるようだし・・・よくわからない。
+以前はGoogle App Engineでわざわざ&lt;a href=&#34;http://ko-lab.net/twitter/google-app-enginegae%E3%81%A7cron%E5%8B%95%E3%81%8B%E3%81%99%E3%82%84%E3%82%8A%E6%96%B9%E3%82%92%E3%82%86%E3%81%A8%E3%82%8A%E5%90%91%E3%81%91%E3%81%AB%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF/&#34; target=&#34;_blank&#34;&gt;Pythonでcron.yaml書いてやってた&lt;/a&gt;けど、これならデプロイとかエディタすらも不要。
+まだお試し検証中だけど、カジュアルなbot系とかなら良さそうかな。
+もちろんUrlFetch機能はGETもPOSTもできるので、&lt;a href=&#34;http://pipes.yahoo.com/pipes/&#34; target=&#34;_blank&#34;&gt;Yahoo!Pipes&lt;/a&gt;とか&lt;a href=&#34;http://developer.yahoo.com/yql/&#34; target=&#34;_blank&#34;&gt;YQL&lt;/a&gt;とかも使うとわりと夢がひろがりそう。
+（ちなみに公式リファレンスにも&lt;a href=&#34;https://developers.google.com/apps-script/class_urlfetchapp#fetch&#34; target=&#34;_blank&#34;&gt;OAuthが必要なTwitter用サンプルコード&lt;/a&gt;がある）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>HTMLのbodyタグにclass名を追加する関数</title>
+      <link>http://kijtra.com/article/php-add-body-class-function</link>
+      <pubDate>Thu, 31 Jan 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/php-add-body-class-function</guid>
+      <description>&lt;p&gt;PHPで組んでる時、HTMLのbodyタグに動的にclass名を追加するの面倒だったりしませんか。
+いや、たまにあるんです。
+フォームの入力画面→確認画面→送信完了画面とか。
+そんなときにつかえるやつです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function bodyclass( $name = NULL ){
+  static $_buffer = array(), $_browser = array();
+	if ( empty( $name ) ) {
+		if ( empty( $_browser ) ) {
+			$ua = $_SERVER[&#39;HTTP_USER_AGENT&#39;];
+			if ( ! empty( $ua ) ) {
+				// UserAgent(小文字)
+				$ua = strtolower( $ua );
+				// OSの判定
+				if ( preg_match( &#39;/(windows|win32)/i&#39;, $ua ) ) {
+					$_browser[] = &#39;win&#39;;
+				} elseif ( preg_match( &#39;/(macintosh|mac os x)/i&#39;, $ua ) ) {
+					$_browser[] = &#39;mac&#39;;
+				} elseif ( strpos( $ua, &#39;linux&#39; ) !== false ) {
+					$_browser[] = &#39;linux&#39;;
+				} elseif ( strpos( $ua, &#39;iphone&#39; ) !== false ) {
+					$_browser[] = &#39;iphone&#39;;
+				} elseif ( strpos( $ua, &#39;ipod&#39; ) !== false ) {
+					$_browser[] = &#39;ipod&#39;;
+				} elseif ( strpos( $ua, &#39;ipad&#39; ) !== false ) {
+					$_browser[] = &#39;ipad&#39;;
+				} elseif ( strpos( $ua, &#39;android&#39; ) !== false ) {
+					$_browser[] = &#39;android&#39;;
+					if ( strpos( $ua, &#39;mobile&#39; ) !== false ) {
+						$_browser[] = &#39;android-mobile&#39;;
+					}
+				} elseif ( strpos( $ua, &#39;windows phone&#39; ) !== false ) {
+					$_browser[] = &#39;windows-phone&#39;;
+				} elseif ( strpos( $ua, &#39;kindle&#39; ) !== false ) {
+					$_browser[] = &#39;kindle&#39;;
+				}
+				// ブラウザの判定
+				if( preg_match( &#39;/msie ([0-9]{1,}[\.0-9]{0,})/&#39;, $ua, $m ) ){
+					$ver = intval( $m[1] );
+					$_browser[] = &#39;ie&#39;;
+					$_browser[] = &#39;ie&#39; . intval($ver);
+					if( $ver &amp;lt;= 9 ) {
+						$_browser[] = &#39;ielt9&#39;;
+					}
+					if ( $ver &amp;lt;= 8 ) {
+						$_browser[] = &#39;ielt8&#39;;
+					}
+					if ( $ver &amp;lt;= 7 ) {
+						$_browser[] = &#39;ielt7&#39;;
+					}
+					if ( $ver &amp;lt;= 6 ) {
+						$_browser[] = &#39;ielt6&#39;;
+					}
+					if ( $ver &amp;lt;= 5 ) {
+						$_browser[] = &#39;ielt5&#39;;
+					}
+				} elseif ( strpos( $ua, &#39;chrome&#39; ) !== false ) {
+					$_browser[] = &#39;chrome&#39;;
+				} elseif ( strpos( $ua, &#39;firefox&#39; ) !== false ) {
+					$_browser[] = &#39;firefox&#39;;
+				} elseif ( strpos( $ua, &#39;safari&#39; ) !== false ) {
+					$_browser[] = &#39;safari&#39;;
+				} elseif ( strpos( $ua, &#39;opera&#39; ) !== false ) {
+					$_browser[] = &#39;opera&#39;;
+				}
+			}
+			$_buffer = array_merge( $_browser, $_buffer );
+		}
+		if ( ! empty( $_buffer ) ) {
+			$_buffer = array_unique( $_buffer );
+			$_buffer = array_merge( array_diff( $_buffer, array( &amp;quot;&amp;quot; ) ) );
+			if ( ! empty( $_buffer ) ) {
+				sort( $_buffer );
+				echo implode( &#39; &#39;, $_buffer );
+			}
+		}
+	} else {
+		$args = func_get_args();
+		if ( ! empty( $args[1] ) ) {
+			$name = implode( &#39; &#39;, $args );
+		} elseif( is_array( $name ) ) {
+			$name = implode( &#39; &#39;, $name );
+		}
+		$_buffer = array_merge( $_buffer, explode( &#39; &#39;, $name ) );
+	}
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使い方としては、まずあらかじめHTMLの方に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;ja&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+	&amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+	&amp;lt;title&amp;gt;Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body class=&amp;quot;&amp;lt;?php bodyclass(); ?&amp;gt;&amp;quot;&amp;gt;
+	...contents...
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;というふうにbodyタグに仕込んでおきます。
+あとは上記が出力される前に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+include(&#39;bodyclass.php&#39;);
+// 引数にclass名を放り込んでいけば、自動でまとめて出力。
+bodyclass( &#39;test&#39; );//普通。
+bodyclass( &#39;test2&#39;, &#39;test3 test4&#39; );//関数は何度呼び出してもOKかつ引数はいくつでも。
+bodyclass( array( &#39;test4&#39;, &#39;test5 test3&#39; ) );//引数は配列でもOK。重複は取り除かれる。
+/*
+上記の結果は
+chrome test test2 test3 test4 test5 win
+と出力される。（OSがWindows、ブラウザがChromeの場合）
+※IEの場合はバージョンまでつく。
+順番は強制的にアルファベット順。（そのほうがページ圧縮率が高いらしい）
+*/
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;という感じでいけます。
+&lt;a href=&#34;https://gist.github.com/4681611&#34; target=&#34;_blank&#34; class=&#34;btn&#34;&gt;Gistにも置いてます&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>公開日を未来にしても予約投稿にせず強制公開するWordPressプラグイン</title>
+      <link>http://kijtra.com/article/wordpress-future-post-publish</link>
+      <pubDate>Fri, 14 Dec 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/wordpress-future-post-publish</guid>
+      <description>&lt;p&gt;公開日を未来にしても予約状態にせず公開したいことがあって。
+デバッグとかそういうので。
+ということで必要にかられて作った。&lt;/p&gt;
+
+&lt;p&gt;以下のコードを適当なファイル名（文字コードはUTF-8）で保存して「&lt;strong&gt;plugins&lt;/strong&gt;」ディレクトリに入れれば、Wordpressの管理画面からプラグインに表示される。
+あとはプラグインを有効にすると、記事編集時に右サイドに設定が表示。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/4083991/download&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;ソースをダウンロード(Gistから)&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+/*
+Plugin Name: Force Publish
+Plugin URI: http://kijtra.com/article/27
+Description: 公開日が未来の日付でも、強制的に公開状態にします。
+Author: kijtra
+Version: 1
+Author URI: http://kijtra.com
+*/
+add_action( &#39;admin_menu&#39;, &#39;force_future_to_publish_add_custom_box&#39; );
+function force_future_to_publish_add_custom_box() {
+	$box_title = &#39;予約投稿の変更&#39;;
+	//add_meta_boxがない場合(WP2.5以前)
+	if( !function_exists( &#39;add_meta_box&#39; ) ) {
+		add_action( &#39;dbx_post_advanced&#39;, &#39;force_future_to_publish_metabox_old&#39; );
+		add_action( &#39;dbx_page_advanced&#39;, &#39;force_future_to_publish_metabox_old&#39; );
+	} else {
+		add_meta_box( &#39;force_future_to_publish&#39;, $box_title, &#39;force_future_to_publish_metabox&#39;, &#39;news&#39;, &#39;side&#39; );
+    add_meta_box( &#39;force_future_to_publish&#39;, $box_title, &#39;force_future_to_publish_metabox&#39;, &#39;page&#39;, &#39;side&#39; );
+		//すべてのカスタム投稿タイプでも有効にする
+		foreach( get_post_types( array( &#39;public&#39; =&amp;gt; true, &#39;_builtin&#39; =&amp;gt; false ), &#39;objects&#39; ) as $key =&amp;gt; $val ) {
+			add_meta_box( &#39;force_future_to_publish&#39;, $box_title, &#39;force_future_to_publish_metabox&#39;, $val-&amp;gt;slug, &#39;side&#39; );
+		}
+	}
+}
+// WP2.6以降用
+function force_future_to_publish_metabox() {
+	global $post;
+	if ( strtotime( $post-&amp;gt;post_date ) &amp;gt; time() &amp;amp;&amp;amp; $post-&amp;gt;post_status == &#39;publish&#39; ) {
+		$label = &#39;予約投稿にもどす&#39;;
+	} else {
+		$label = &#39;公開日が未来の日付でも公開&#39;;
+	}
+?&amp;gt;
+	&amp;lt;label for=&amp;quot;force_future_to_publish_check&amp;quot;&amp;gt;
+		&amp;lt;input type=&amp;quot;checkbox&amp;quot; id=&amp;quot;force_future_to_publish_check&amp;quot; name=&amp;quot;force_future_to_publish&amp;quot; value=&amp;quot;1&amp;quot;&amp;gt;
+		&amp;lt;span id=&amp;quot;force_future_to_publish_label&amp;quot;&amp;gt;&amp;lt;?php echo $label; ?&amp;gt;&amp;lt;/span&amp;gt;
+	&amp;lt;/label&amp;gt;
+&amp;lt;?php
+}
+// WP2.5以前用
+function force_future_to_publish_metabox_old() {
+?&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-b-ox-wrapper&amp;quot;&amp;gt;
+&amp;lt;fieldset id=&amp;quot;force_future_to_publish_fieldsetid&amp;quot; class=&amp;quot;dbx-box&amp;quot;&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-h-andle-wrapper&amp;quot;&amp;gt;
+&amp;lt;h3 class=&amp;quot;dbx-handle&amp;quot;&amp;gt;強制公開&amp;lt;/h3&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-c-ontent-wrapper&amp;quot;&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-content&amp;quot;&amp;gt;
+					&amp;lt;?php force_future_to_publish_metabox(); ?&amp;gt;
+				&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/fieldset&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;?php
+}
+add_filter( &#39;wp_insert_post_data&#39;, &#39;force_future_to_publish_save&#39;, &#39;10&#39;, &#39;2&#39;);
+function force_future_to_publish_save( $data, $postarr ) {
+	//必要なデータがあるか確認
+	if( empty( $_POST[&#39;ID&#39;] ) || empty( $_POST[&#39;action&#39;] ) || empty( $data[&#39;post_status&#39;] ) ){
+		return $data;
+	}
+	//自動保存なら何もしない
+	if ( defined(&#39;DOING_AUTOSAVE&#39;) &amp;amp;&amp;amp; DOING_AUTOSAVE ) {
+		return $data;
+	}
+	//権限チェック
+	if ( &#39;page&#39; == $_POST[&#39;post_type&#39;] ) {
+		if ( !current_user_can( &#39;edit_page&#39;, $_POST[&#39;ID&#39;] ) ) {
+			return $data;
+		}
+	} else {
+		if ( !current_user_can( &#39;edit_post&#39;, $_POST[&#39;ID&#39;] ) ) {
+			return $data;
+		}
+	}
+	//予約投稿に設定されていれば強制的に公開の設定
+	if( $_POST[&#39;action&#39;] == &#39;editpost&#39; ) {
+		//チェックボックスにチェックが入っている場合
+		if( !empty( $_POST[&#39;force_future_to_publish&#39;] ) ){
+			if ( $_POST[&#39;post_status&#39;] == &#39;future&#39; ){
+				$data[&#39;post_status&#39;] = &#39;publish&#39;;
+			}
+			//予約投稿に戻す場合
+			elseif ( $_POST[&#39;post_status&#39;] == &#39;publish&#39; ){
+				$data[&#39;post_status&#39;] = &#39;future&#39;;
+			}
+		}
+		//チェックボックスにチェックが入っていない場合
+		else {
+			//旧データがpublishならpublishを維持
+			if( $_POST[&#39;post_status&#39;] == &#39;publish&#39; &amp;amp;&amp;amp;  $data[&#39;post_status&#39;] = &#39;future&#39;) {
+				$data[&#39;post_status&#39;] = &#39;publish&#39;;
+			}
+		}
+	}
+	return $data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>配列の好きなところに配列を挿入する関数</title>
+      <link>http://kijtra.com/article/array-insert</link>
+      <pubDate>Tue, 11 Dec 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/array-insert</guid>
+      <description>&lt;p&gt;タイトルまんまだけどわりとこういう関数がないみたいなので作ってみた。&lt;/p&gt;
+
+&lt;p&gt;「&lt;a href=&#34;http://php.net/manual/ja/function.array-splice.php&#34; target=&#34;_blank&#34;&gt;array_splice&lt;/a&gt;」ってのがあるんだけど、配列のキー（添字）が保持されないんで、そこらへんを対応した。
+引数の順番がどういうのがわかりやすいが悩んだけど・・・気に入らない人は変えちゃってください。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// 第一引数：挿入元配列 / 第二引数：挿入位置(ゼロは最初) / 第三引数：挿入したい配列
+function array_insert($origin,$position,$insert){
+	if(!is_array($origin) || !is_array($insert)){
+		return false;
+	}
+	$origin_keys=array_keys($origin);
+	$origin_values=array_values($origin);
+	$insert_keys=array_keys($insert);
+	$insert_values=array_values($insert);
+	array_splice($origin_keys,$position,0,$insert_keys);
+	array_splice($origin_values,$position,0,$insert_values);
+	return array_combine($origin_keys,$origin_values);
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ランダムな文字列を生成するPHP関数</title>
+      <link>http://kijtra.com/article/random-string</link>
+      <pubDate>Mon, 26 Nov 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/random-string</guid>
+      <description>&lt;p&gt;ランダムな文字列を生成する関数。
+第一引数は生成後の文字数、第二匹数は記号を含めるかどうか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function random_str($len=12,$special=false){
+	$len=empty($len) ? 12 : $len;
+	mt_srand((double)microtime()*1000000);
+	$chars=array(
+		array(
+			&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;
+		),
+		array(
+			&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;, &#39;k&#39;, &#39;l&#39;, &#39;m&#39;,
+			&#39;n&#39;, &#39;o&#39;, &#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39;u&#39;, &#39;v&#39;, &#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;
+		),
+		array(
+			&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;, &#39;I&#39;, &#39;J&#39;, &#39;K&#39;, &#39;L&#39;, &#39;M&#39;,
+			&#39;N&#39;, &#39;O&#39;, &#39;P&#39;, &#39;Q&#39;, &#39;R&#39;, &#39;S&#39;, &#39;T&#39;, &#39;U&#39;, &#39;V&#39;, &#39;W&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;
+		)
+    );
+	if($special){
+		$chars[]=array(
+			&#39;@&#39;, &#39;%&#39;, &#39;^&#39;, &#39;(&#39;, &#39;)&#39;, &#39;_&#39;, &#39;&amp;lt;&#39;, &#39;&amp;gt;&#39;, &#39;{&#39;, &#39;}&#39;, &#39;[&#39;, &#39;]&#39;,&#39;;&#39;, &#39;.&#39;,
+			&#39;/&#39;, &#39;|&#39;, &#39;:&#39;, &#39;&amp;amp;&#39;, &#39;#&#39;, &#39;~&#39;, &#39;&amp;gt;&#39;, &#39;)&#39;, &#39;-&#39;, &#39;?&#39;, &#39;=&#39;, &#39;!&#39;, &#39;$&#39;, &#39;*&#39;
+		);
+	}
+	$num=count($chars)-1;
+	$str=&#39;&#39;;
+	for($i=0;$i&amp;lt;$len;$i++){
+		$c=$chars[mt_rand(0,$num)];
+		$str.=$c[mt_rand(0,count($c)-1)];
+	}
+	return $str;
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/seo/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Wed, 11 Dec 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/seo/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PubSubHubbubにURLをプッシュするPHP関数</title>
+      <link>http://kijtra.com/article/push-pubsubhubbub-php</link>
+      <pubDate>Wed, 11 Dec 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/push-pubsubhubbub-php</guid>
+      <description>
+
+&lt;p&gt;Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PubSubHubbub&lt;/strong&gt;ってご存知ですかね。
+最近まで知らなかったんだけど、なんでもGoogleその他にURLをプッシュして爆速でインデックスしてもらえる可能性が高まるプロトコルそうですね。
+ならばガンガンにプッシュしようぜと思ってPHPの関数にしてみた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function send_psh($url) {
+    if(empty($url)){
+        return false;
+    }
+    $hub = &#39;http://pubsubhubbub.appspot.com&#39;;
+    //$hub=&#39;http://pubsubhubbub.superfeedr.com&#39;;
+    if(is_array($url)) {
+        $mh=curl_multi_init();
+        $chs = array();
+        foreach($url as $key =&amp;gt; $val) {
+            if (!preg_match(&#39;#^https?://#i&#39;, $val)) {
+                continue;
+            }
+            $chs[$key] = curl_init();
+            curl_setopt($chs[$key], CURLOPT_URL, $hub);
+            curl_setopt($chs[$key], CURLOPT_POST, true);
+            curl_setopt($chs[$key], CURLOPT_POSTFIELDS, &amp;quot;hub.mode=publish&amp;amp;hub.url=&amp;quot; . urlencode($val));
+            curl_multi_add_handle($mh, $chs[$key]);
+        }
+        if(empty($chs)){
+            return false;
+        }
+        $results = array();
+        $running = NULL;
+        do {
+            curl_multi_exec($mh, $running);
+        } while($running &amp;gt; 0);
+        foreach($curly as $key =&amp;gt; $ch) {
+            if(empty($ch)){
+                continue;
+            }
+            $results[$key] = (204 == curl_getinfo($ch, CURLINFO_HTTP_CODE));
+            curl_multi_remove_handle($mh, $ch);
+        }
+        curl_multi_close($mh);
+        return $results;
+    } else {
+        if (!preg_match(&#39;#^https?://#i&#39;, $url)) {
+            return false;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $hub);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, &amp;quot;hub.mode=publish&amp;amp;hub.url=&amp;quot; . urlencode($url));
+        $res = curl_exec($ch);
+        $result = (204 == curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        curl_close($ch);
+        return $result;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/7783087&#34;&gt;Gistにあります&lt;/a&gt;
+使い方は、ひとつのURLをプッシュしたいだけなら以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+send_psh(&#39;http://example.com/pubbb/&#39;);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;複数を一気にプッシュしたい場合は以下のように配列を渡す感じで。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+$urls=array(
+    &#39;http://example.com/pub/&#39;,
+    &#39;http://example.com/sub/&#39;,
+    &#39;http://example.com/hub/&#39;,
+    &#39;http://example.com/bub/&#39;,
+);
+send_psh($urls);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://code.google.com/p/pubsubhubbub/wiki/Hubs&#34;&gt;プッシュ先はいろいろとある&lt;/a&gt;ようなんだけど、この関数ではGoogle公式のもの(pubsubhubbub.appspot.com)だけにしてます。
+そもそもPubSubHubbubってなに？ってとこはあんまり深く勉強してないんだけど、以下のようなものを参考にした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pubsubhubbub  &lt;a href=&#34;https://code.google.com/p/pubsubhubbub/&#34;&gt;https://code.google.com/p/pubsubhubbub/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Googleマット・カッツが推奨する“PubSubHubbub”でスクレイパーから身を守れ  &lt;a href=&#34;http://www.suzukikenichi.com/blog/using-pubsubhubbub-to-protect-against-scrapers/&#34;&gt;http://www.suzukikenichi.com/blog/using-pubsubhubbub-to-protect-against-scrapers/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;pingより爆速！ブロガーはPubSubHubbubも使うと良いよ  &lt;a href=&#34;http://shumaiblog.com/blog-pubsubhubbub-fat-ping/&#34;&gt;http://shumaiblog.com/blog-pubsubhubbub-fat-ping/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あと、実験として当ブログに&lt;a href=&#34;http://wordpress.org/plugins/pubsubhubbub/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;PubSubHubbubのWordPressプラグイン&lt;/a&gt;を入れて、どんだけ速くGoogleにインデックスされるのかウォッチしてみる。（上記の自作関数は使ってないw）&lt;/p&gt;
+
+&lt;h1 id=&#34;2013-12-15-追記:31f501cbac9da579079eb616d7af56dd&#34;&gt;2013/12/15 追記&lt;/h1&gt;
+
+&lt;p&gt;やっとGoogleにインデックスされた。
+この記事を投稿して約4日。
+これが早いのか遅いのかはわからんけども…&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>All in One SEO Pack の設定で使えるタグ一覧</title>
+      <link>http://kijtra.com/article/all-in-one-seo-pack-replace</link>
+      <pubDate>Sat, 12 Jan 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/all-in-one-seo-pack-replace</guid>
+      <description>
+
+&lt;p&gt;WordPressのプラグイン「&lt;a href=&#34;http://wordpress.org/extend/plugins/all-in-one-seo-pack/&#34; target=&#34;_blank&#34;&gt;All in One SEO Pack&lt;/a&gt;」、SEOやるうえでとても便利。&lt;br /&gt;
+で、ページタイトルとかを専用タグで置換できるんだけど、どんなタグが使えるのかわからなかったので、プラグインのソース見て一覧をメモ。&lt;/p&gt;
+
+&lt;h1 id=&#34;ページタイトル:643faeed3e32dfb27984a05de435ce46&#34;&gt;ページタイトル&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34;&gt;ページ送り（is_paged）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ページ番号&lt;/th&gt;
+&lt;td&gt;%page%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;投稿記事ページ(is_single)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;記事タイトル&lt;/th&gt;
+&lt;td&gt;%post_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;カテゴリ名&lt;/th&gt;
+&lt;td&gt;%category%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のユーザー名&lt;/th&gt;
+&lt;td&gt;%post_author_login%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のニックネーム&lt;/th&gt;
+&lt;td&gt;%post_author_nicename%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の姓&lt;/th&gt;
+&lt;td&gt;%post_author_firstname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の名&lt;/th&gt;
+&lt;td&gt;%post_author_lastname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;固定ページ（is_page）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ページタイトル&lt;/th&gt;
+&lt;td&gt;%page_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のユーザー名&lt;/th&gt;
+&lt;td&gt;%post_author_login%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のニックネーム&lt;/th&gt;
+&lt;td&gt;%post_author_nicename%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の姓&lt;/th&gt;
+&lt;td&gt;%post_author_firstname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の名&lt;/th&gt;
+&lt;td&gt;%post_author_lastname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;br&gt;※フロントページに設定されていると無効（「ホームタイトル」のものを表示）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;検索ページ（is_search）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;検索語&lt;/th&gt;
+&lt;td&gt;%search%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;カテゴリページ（is_category）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;カテゴリ名&lt;/th&gt;
+&lt;td&gt;%category_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;カテゴリ概要文&lt;/th&gt;
+&lt;td&gt;%category_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;br&gt;※フィードでは無効&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;タグページ（is_tag）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;タグ名&lt;/th&gt;
+&lt;td&gt;%tag%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;アーカイブページ（is_archive）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;日付（年、月、日など）&lt;/th&gt;
+&lt;td&gt;%date%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;404エラーページ（is_404）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;リクエストURL&lt;/th&gt;
+&lt;td&gt;%request_url%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;URLから生成した英単語&lt;/th&gt;
+&lt;td&gt;%request_words%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ページタイトル（wp_title(&#39;&#39;, false)）&lt;/th&gt;
+&lt;td&gt;%404_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;メディア（is_attachment）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;なし&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;ホーム（is_home）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;なし（「ホームタイトル」に入力されていればそれを表示）&lt;br&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;メタタグ:643faeed3e32dfb27984a05de435ce46&#34;&gt;メタタグ&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34;&gt;metaディスクリプション&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;抜粋&lt;/th&gt;
+&lt;td&gt;%description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;記事タイトル&lt;/th&gt;
+&lt;td&gt;%wp_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;metaキーワード&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;なし&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

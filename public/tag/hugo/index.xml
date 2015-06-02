@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/hugo/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Tue, 02 Jun 2015 18:39:32 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/hugo/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ブログのバックエンドを「Hugo」に変更</title>
+      <link>http://kijtra.com/article/change-to-hugo</link>
+      <pubDate>Tue, 02 Jun 2015 18:39:32 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/change-to-hugo</guid>
+      <description>&lt;p&gt;いったんテスト投稿&lt;/p&gt;
+
+&lt;p&gt;テスト投稿です。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

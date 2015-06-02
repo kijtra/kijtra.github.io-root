@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更 - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更">
+<meta name="description" content="Google Apps Script でこれまでTwitterのボットを作ってたんだけど、OAuthConfig のサポートが2015年4月20日に終了するってのを見つけて焦って変更したメモ。">
+
+<meta property="article:published_time" content="2015/04/04T00:00:00Z">
+<meta property="article:tag" content="Google Apps Script"><meta property="article:tag" content="Twitter">
+<link rel="canonical" href="http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2015/04/04</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google-apps-script">Google Apps Script</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/twitter">Twitter</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>Google Apps Script でこれまでTwitterのボットを作ってたんだけど、OAuthConfig のサポートが2015年4月20日に終了するってのを見つけて焦って変更したメモ。</p>
+
+<p>これまでGoogle Apps ScriptでTwitter APIを利用する場合、OAuth認証に「<strong><a href="https://developers.google.com/apps-script/reference/url-fetch/o-auth-config">OAuthConfig</a></strong>」というクラスを使うのが一般的だった。<br />
+でも先日見てみると以下の一文が。</p>
+
+<blockquote>
+<p><strong>Warning</strong>: Google&rsquo;s OAuth 1.0 support was deprecated in 2012 and is scheduled to be shut down on April 20, 2015. Scripts using OAuthConfig to connect to a Google API should instead use the <a href="https://github.com/googlesamples/apps-script-oauth2">OAuth2 for Apps Script</a> library.</p>
+</blockquote>
+
+<p>英語はあまり得意でないのでGoogleで翻訳すると、</p>
+
+<blockquote>
+<p>警告：GoogleのOAuthの1.0のサポートは2012年に廃止されましたし、OAuthConfigを使用して2015年のスクリプトではなくAppsスクリプトライブラリのOAuth2を使用する必要があり、GoogleのAPIに接続するために、4月20日にシャットダウンされる予定です。</p>
+</blockquote>
+
+<p>とのこと。<br />
+確かに OAuthConfig を使用したプログラムを動かすと警告が出てる。<br />
+まずいなー自作せんといかんかなーと思っていろいろと調べてみたところ、<strong><a href="https://github.com/googlesamples/apps-script-oauth1">Googleが用意したOAuth1用ライブラリ(GitHub)</a></strong>を使うのが良さそうな感じだったので、手順をまとめておく。</p>
+
+<h2 id="step1-プロジェクトの作成:1654966ff700aeb4f8ee7d95b62403f2">Step1. プロジェクトの作成</h2>
+
+<p>プロジェクトといっても単にGoogleドライブにファイルを作るだけ。<br />
+スプレッドシートを新規作成して上部メニュー「ツール」→「スクリプトエディタ」にいくか、またはスクリプトファイル自体を新規作成してもOK。<br />
+ログの記録とかにスプレッドシートが使えるので、できれば前者がいいと思う。</p>
+
+<h2 id="step2-oauthライブラリの取得:1654966ff700aeb4f8ee7d95b62403f2">Step2. OAuthライブラリの取得</h2>
+
+<p>スクリプトエディタを開き、上部メニュー「リソース」→「ライブラリ&hellip;」をクリック。<br />
+開いたダイアログにある「ライブラリを検索」の入力欄に以下の文字を入力して検索（「選択」ボタン）する。
+<code>Mb2Vpd5nfD3Pz-_a-39Q4VfxhMjh3Sh48</code><br />
+そうすると、以下の図のようにOAuth1用ライブラリが出るので、最新バージョンを選択して「保存」する。（Google製のライブラリなのでご安心を）</p>
+
+<p><a href="https://lh5.googleusercontent.com/-Y0JexgZ4FLY/VS9jkx9CPdI/AAAAAAAADfo/qjpCGInBkwQ/w694-h417-no/2015-04-16_120428.png" target="_blank"><img class="aligncenter" alt="ライブラリ読み込みダイアログ" src="https://lh5.googleusercontent.com/-Y0JexgZ4FLY/VS9jkx9CPdI/AAAAAAAADfo/qjpCGInBkwQ/w694-h417-no/2015-04-16_120428.png" /></a></p>
+
+<p>これでとりあえずはOAuth1ライブラリが使えるようになった。<br />
+ちなみにこれらの手順は <a href="https://github.com/googlesamples/apps-script-oauth1/blob/master/README.md">公式GitHubのREADME</a> に書いてある。</p>
+
+<h2 id="step3-twitter-api用スクリプトの作成:1654966ff700aeb4f8ee7d95b62403f2">Step3. Twitter API用スクリプトの作成</h2>
+
+<p><a href="https://github.com/googlesamples/apps-script-oauth1/blob/master/README.md">公式GitHubのREADME</a> の通りに進めて問題ないけど、ここらへんは以下のスクリプトを自作した。<br />
+<a href="https://gist.github.com/kijtra/f4cdd8775277372d42f7"><i class="fa fa-github"></i> Gistにあり〼。</a><br />
+これを「twitter.gs」等のファイル名でプロジェクトエディタに新規作成＆コピペする。</p>
+
+<script src="https://gist.github.com/kijtra/f4cdd8775277372d42f7.js"></script>
+
+<h2 id="step4-twitterアプリ側の設定:1654966ff700aeb4f8ee7d95b62403f2">Step4. Twitterアプリ側の設定</h2>
+
+<p>OAuth後のコールバック先URLをこれまでと変更する必要がある。<br />
+<a href="https://apps.twitter.com/">Twitterアプリの管理ページ</a>で、<strong>Callback URL</strong>に以下のようなURLを設定する。<br />
+<code>https://script.google.com/macros/d/[プロジェクト キー]/usercallback</code></p>
+
+<p><a href="https://lh6.googleusercontent.com/-mEGyfYGF2Ng/VS9jmDNTSoI/AAAAAAAADfo/LddrM3jl43w/w1056-h259-no/2015-04-16_162213.png" target="_blank"><img class="aligncenter" alt="コールバックURLの入力欄" src="https://lh6.googleusercontent.com/-mEGyfYGF2Ng/VS9jmDNTSoI/AAAAAAAADfo/LddrM3jl43w/w1056-h259-no/2015-04-16_162213.png" /></a></p>
+
+<p>「<strong>プロジェクト キー</strong>」というのは、Google Apps Scriptのプロジェクトに付いているキー。<br />
+スクリプトエディタの上部メニュー「ファイル」→「プロジェクトのプロパティ」をクリックすると確認できる。<br />
+このキーは前述の自作スクリプト内でも使うので、ついでにコピペしておく。</p>
+
+<p><a href="https://lh4.googleusercontent.com/-ma8FgouRKmI/VS9jlBunX3I/AAAAAAAADfo/aCYvvWZdlXI/w586-h427-no/2015-04-16_123848.png" target="_blank"><img class="aligncenter" alt="プロジェクト キーの確認" src="https://lh4.googleusercontent.com/-ma8FgouRKmI/VS9jlBunX3I/AAAAAAAADfo/aCYvvWZdlXI/w586-h427-no/2015-04-16_123848.png" /></a></p>
+
+<h2 id="step5-oauth認証する:1654966ff700aeb4f8ee7d95b62403f2">Step5. OAuth認証する</h2>
+
+<p>自作スクリプトに、</p>
+
+<ul>
+<li>プロジェクト キー</li>
+<li>Twitterの Consumer Key</li>
+<li>Twitterの Consumer Secre</li>
+</ul>
+
+<p>を記載したら、初回のOAuth認証用にいくつかの関数を用意しているので、「<code>twitterAuthorizeUrl</code>」というのを実行する。</p>
+
+<p><a href="https://lh4.googleusercontent.com/-fLiwVXhwWyY/VS9jlgKjH7I/AAAAAAAADfo/M6o0jDoBTUQ/w399-h164-no/2015-04-16_143608.png" target="_blank"><img class="aligncenter" alt="OAuth用関数の実行" src="https://lh4.googleusercontent.com/-fLiwVXhwWyY/VS9jlgKjH7I/AAAAAAAADfo/M6o0jDoBTUQ/w399-h164-no/2015-04-16_143608.png" /></a></p>
+
+<p>画面には何も出ないけど、上部メニュー「表示」→「ログ」を開くと承認用のURLが出力されている。
+これをコピーしてブラウザでアクセスすると、Twitterのアプリ承認画面に行くので承認する。</p>
+
+<p><a href="https://lh4.googleusercontent.com/-dDk3p-mvLBY/VS9jlrsIrSI/AAAAAAAADfo/MPlKB5rDy9A/w684-h442-no/2015-04-16_143941.png" target="_blank"><img class="aligncenter" alt="OAuth認証用URLをコピーする" src="https://lh4.googleusercontent.com/-dDk3p-mvLBY/VS9jlrsIrSI/AAAAAAAADfo/MPlKB5rDy9A/w684-h442-no/2015-04-16_143941.png" /></a></p>
+
+<p>ここまでの手順が正しく設定されていれば、承認後は画面が切り替わって「認証に成功しました」という文字が出る（ハズ）。</p>
+
+<h2 id="step6-テストする:1654966ff700aeb4f8ee7d95b62403f2">Step6. テストする</h2>
+
+<p>これでOAuth認証が通ったと思うのでボットが作成できる。<br />
+ツイッターのAPI自体は<a href="https://dev.twitter.com/rest/public">公式 REST API ドキュメント</a>を参照のこと。
+簡単に自作スクリプトの説明をしておくと、こんな感じ。</p>
+
+<pre class="prettyprint linenums"><code class="language-js">///// 基本的な使用方法 /////
+
+// 以下は api.twitter.com/1.1/statuses/update.json を実行する例
+
+var data = {
+    &quot;status&quot;: &quot;ツイート文&quot;
+};
+
+var res = Twitter.api(&quot;statuses/update&quot;, data);
+
+/*
+第一引数：APIのパス（api.twitter.com/1.1/～.jsonの間のパス）
+第二引数：パラメータ（JSON形式）
+*/
+</code></pre>
+
+<p>上記の他にいくつか簡易化した関数を用意した。</p>
+
+<pre class="prettyprint linenums"><code class="language-js">// ツイートを検索
+var res = Twitter.search(&quot;検索文字&quot;);
+
+// 自分のタイムラインを取得
+var res = Twitter.tl();
+
+// 特定ユーザーのタイムラインを取得
+var res = Twitter.usertl(&quot;スクリーンネーム&quot;);
+
+// ツイートする
+var res = Twitter.tweet(&quot;ツイート文&quot;);
+
+// トレンドの取得（デフォルトは日本全国対象。引数にWOEID指定でその地域のトレンド）
+var res = Twitter.trends();
+
+// トレンドのワードのみ取得（引数は上と同じ）
+var res = Twitter.trendWords();
+</code></pre>
+
+<hr />
+
+<p>OAuthConfigの廃止はけっこう前から警告が出てたみたいだけど、対策しているような情報はググってもほとんど見当たらなかったので、Google Apps Scriptでボット作ってる人はほとんどいない模様w<br />
+以前 <a href="http://kijtra.com/article/twitter-backup-to-google-drive/">Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</a> という投稿を書いたけど、こちらもOAuthを使っていて不安。<br />
+提供元には特に何か対策してるっぽいことは書いてなさそう・・・動いてるからまあいいけど。</p>
+
+<p>ついでに <a href="https://dev.twitter.com/oauth/application-only">OAuth2でのTwitter API（Application-only authentication）</a> も少し見てみたんだけど、わりと簡単なプログラムでデータを取得できるみたい。<br />
+接続が簡単なかわりに更新系のAPIが利用できなかったりするけど、API使用階数の制限が少し緩和されるっぽい・・・？</p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

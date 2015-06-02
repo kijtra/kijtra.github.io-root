@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要） - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/get-japanese-holiday-from-google">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）">
+<meta name="description" content="GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。">
+
+<meta property="article:published_time" content="2014/11/11T00:00:00Z">
+<meta property="article:tag" content="Google">
+<link rel="canonical" href="http://kijtra.com/article/get-japanese-holiday-from-google">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2014/11/11</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google">Google</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        <p>GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。</p>
+
+<p>先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、<a href="https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol">2014/11/17でサポート終了してた</a>w。<br />
+取得元のカレンダーIDは「<strong>ja.japanes#holiday@group.v.calendar.google.com</strong>」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。<br />
+なので、執筆時点でまだパブリックに取得できる「<strong>japanese__ja@holiday.calendar.google.com</strong>」の方でやることにした。<br />
+祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+function japan_holiday() {
+	// カレンダーID
+	$calendar_id = urlencode('japanese__ja@holiday.calendar.google.com');
+
+	// 取得期間
+	$start  = date(&quot;Y-01-01\T00:00:00\Z&quot;);
+	$end = date(&quot;Y-12-31\T00:00:00\Z&quot;);
+
+	$url = &quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;start-max={$end}&amp;max-results=30&amp;alt=json&quot;;
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	if (!empty($result)) {
+		$json = json_decode($result, true);
+		if (!empty($json['feed']['entry'])) {
+			$datas = array();
+			foreach ($json['feed']['entry'] as $val) {
+				$date = preg_replace('#\A.*?(2\d{7})[^/]*\z#i', '$1', $val['id']['$t']);
+				$datas[$date] = array(
+					'date' =&gt; preg_replace('/\A(\d{4})(\d{2})(\d{2})/', '$1/$2/$3', $date),
+					'title' =&gt; $val['title']['$t'],
+				);
+			}
+			ksort($datas);
+			return $datas;
+		}
+	}
+}
+</code></pre>
+
+<p><a href="https://gist.github.com/kijtra/be06c07b1d416469108f">一応Gistにも作った。</a></p>
+
+<p>上記の関数を実行すると、以下のような結果で返ってくる。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+
+array (
+  20140101 =&gt;
+  array (
+    'date' =&gt; '2014/01/01',
+    'title' =&gt; '元日',
+  ),
+  20140113 =&gt;
+  array (
+    'date' =&gt; '2014/01/13',
+    'title' =&gt; '成人の日',
+  ),
+  20140211 =&gt;
+  array (
+    'date' =&gt; '2014/02/11',
+    'title' =&gt; '建国記念の日',
+  ),
+  20140321 =&gt;
+  array (
+    'date' =&gt; '2014/03/21',
+    'title' =&gt; '春分の日',
+  ),
+  20140429 =&gt;
+  array (
+    'date' =&gt; '2014/04/29',
+    'title' =&gt; '昭和の日',
+  ),
+  20140503 =&gt;
+  array (
+    'date' =&gt; '2014/05/03',
+    'title' =&gt; '憲法記念日',
+  ),
+  20140504 =&gt;
+  array (
+    'date' =&gt; '2014/05/04',
+    'title' =&gt; 'みどりの日',
+  ),
+  20140505 =&gt;
+  array (
+    'date' =&gt; '2014/05/05',
+    'title' =&gt; 'こどもの日',
+  ),
+  20140506 =&gt;
+  array (
+    'date' =&gt; '2014/05/06',
+    'title' =&gt; 'みどりの日 振替休日',
+  ),
+  20140721 =&gt;
+  array (
+    'date' =&gt; '2014/07/21',
+    'title' =&gt; '海の日',
+  ),
+  20140915 =&gt;
+  array (
+    'date' =&gt; '2014/09/15',
+    'title' =&gt; '敬老の日',
+  ),
+  20140923 =&gt;
+  array (
+    'date' =&gt; '2014/09/23',
+    'title' =&gt; '秋分の日',
+  ),
+  20141013 =&gt;
+  array (
+    'date' =&gt; '2014/10/13',
+    'title' =&gt; '体育の日',
+  ),
+  20141103 =&gt;
+  array (
+    'date' =&gt; '2014/11/03',
+    'title' =&gt; '文化の日',
+  ),
+  20141123 =&gt;
+  array (
+    'date' =&gt; '2014/11/23',
+    'title' =&gt; '勤労感謝の日',
+  ),
+  20141124 =&gt;
+  array (
+    'date' =&gt; '2014/11/24',
+    'title' =&gt; '勤労感謝の日 振替休日',
+  ),
+  20141223 =&gt;
+  array (
+    'date' =&gt; '2014/12/23',
+    'title' =&gt; '天皇誕生日',
+  ),
+)
+</code></pre>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

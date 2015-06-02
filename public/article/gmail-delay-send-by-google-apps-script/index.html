@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/gmail-delay-send-by-google-apps-script">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた">
+<meta name="description" content="Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。">
+
+<meta property="article:published_time" content="2013/09/09T00:00:00Z">
+<meta property="article:tag" content="Snippet"><meta property="article:tag" content="Google"><meta property="article:tag" content="Google Apps Script">
+<link rel="canonical" href="http://kijtra.com/article/gmail-delay-send-by-google-apps-script">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2013/09/09</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/snippet">Snippet</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google">Google</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google-apps-script">Google Apps Script</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。</p>
+
+<p>Gmail(に限らずだけど)で、時間を指定して送りたいってことありますよね。<br />
+いろんなアリバイ作りとかで。</p>
+
+<p><a href="http://android-smart.com/2012/03/right-inbox.html" target="_blank" rel="nofollow">ブラウザのプラグイン</a>とかはあるんだけど、会員登録が必要だったり<strong>セキュリティとかどうなの</strong>的な心配があったりするので、Google Apps Scriptでできそうだなあと思ったら、一応それなりのができたっぽい。<br />
+「指定の年月日」はもちろん、分刻みで、しかも「安全に」予約送信ができる。</p>
+
+<p>まず準備（Google Apps Scriptの作成）が必要。</p>
+
+<p>流れとしては、</p>
+
+<ol>
+<li>Googleドライブの「作成」→「スクリプト」でスクリプトファイル作成</li>
+<li>スクリプトファイルに、下記に書いたコードをペースト</li>
+<li>Gmailのアクセスを許可（自分のアカウントで自分のGmailへのアクセス許可）</li>
+<li>トリガー（Cronのようなもの）を設定</li></li>
+</ol>
+
+<p>という感じ。</p>
+
+<h3 id="2014-05-15-追記:23d8c14229023b3f045e00920cd20710">2014/05/15 追記</h3>
+
+<p>件名なしでも送りたいとの要望があったので、プログラムを一部修正しました～</p>
+
+<h3 id="2014-11-11-追記:23d8c14229023b3f045e00920cd20710">2014/11/11 追記</h3>
+
+<p>Fromを変更してもそのメールアドレスで送れていなかったのを修正しました。</p>
+
+<hr />
+
+<h2 id="まずは下準備:23d8c14229023b3f045e00920cd20710">まずは下準備</h2>
+
+<h3 id="1-googleドライブでスクリプトファイル作成:23d8c14229023b3f045e00920cd20710">1. Googleドライブでスクリプトファイル作成</h3>
+
+<p>Googleドライブに行き、「作成」→「スクリプト」。<br />
+プロジェクト名（ファイル名）は何でも構わない。<br />
+今回は「Gmail時間指定送信」という名前にした。</p>
+
+<h3 id="2-コードをコピペ:23d8c14229023b3f045e00920cd20710">2. コードをコピペ</h3>
+
+<p>コードは以下。そのまんまでOK。</p>
+
+<pre class="prettyprint linenums"><code class="language-js">function delaySendDraftMail() {
+  var drafts = GmailApp.getDraftMessages();
+  var len = drafts.length;
+
+  //下書きがなければ終了
+  if (!len) {
+    return false;
+  }
+
+  //現在時刻
+  var now = (new Date()).getTime();
+
+  for (var i = 0, l = len; i &lt; l; i++) {
+    //メールデータをセット
+    var mes = drafts[i];
+    if ('object' !== typeof mes) {
+      continue;
+    }
+
+    //件名を取得
+    var str = mes.getSubject();
+    //件名から日時を抽出
+    var match = str.match(/^(\{(\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2} \d{1,2}:\d{1,2})\}) ?(.*)?/);
+    //日時が抽出できないなら無視
+    if (!match || !match[1]) {
+      continue;
+    }
+
+    //時間を取得
+    var time = (new Date(match[2].replace(/\-/g,'/')+' +09:00')).getTime();
+    //時間を取得できない、または未来の時間なら無視
+    if(!time || (time &amp;&amp; time&gt;now)){
+      continue;
+    }
+
+    //各情報をセット
+    var to = mes.getTo();
+    var subject = match[3] || '';
+    var body = mes.getPlainBody();
+    var options = {}, val;
+
+    //必要な情報がなければ無視
+    if (!to || !body) {
+      continue;
+    }
+
+    // 2014.11.11 From を変更した場合でも対応(ただしFrom名はつけられない模様)
+    var from = mes.getFrom();
+    var aliases = GmailApp.getAliases();
+    for (var i = 0, l = aliases.length; i &lt; l; i++) {
+      var val = aliases[i];
+      // From エイリアス一覧にマッチすれば From として使用
+      if (-1 !== from.indexOf(val)) {
+        options['from'] = val;
+        break;
+      }
+    }
+
+    if (val = mes.getCc()) {//Cc
+      options['cc'] = val;
+    }
+
+    if (val = mes.getBcc()) {//Bcc
+      options['bcc'] = val;
+    }
+
+    if (val = mes.getBody()) {//HTML本文
+      //bodyにdivタグがあればHTMLとみなす
+      if ( val.indexOf('&lt;div')!==-1 ) {
+        options['htmlBody'] = val;
+      }
+    }
+
+    //添付ファイル
+    if (val = mes.getAttachments()) {
+      options['attachments'] = val;
+    }
+
+    // 送信！
+    var status = GmailApp.sendEmail(to, subject, body, options);
+
+    //送信したら下書きをゴミ箱へ
+    if (status) {
+      mes.moveToTrash();
+    }
+  }
+}
+</code></pre>
+
+<p>特に怪しいところはない。<br />
+あと特に複雑なことしてるわけじゃないw</p>
+
+<h3 id="3-アクセス許可-コードをテスト実行:23d8c14229023b3f045e00920cd20710">3. アクセス許可（コードをテスト実行）</h3>
+
+<p>上記のコードをペーストし、「delaySendDraftMail」という関数を実行すると、初回は以下のような承認ダイアログが出る。<br />
+<a href="http://lh4.ggpht.com/-t8mOTQYP27I/UjVXWm8sOLI/AAAAAAAADWs/2vRpuuBNHRI/s291/2013-09-15_093131.png" target="_blank"><img class="aligncenter" alt="承認ダイアログ" src="http://lh4.ggpht.com/-t8mOTQYP27I/UjVXWm8sOLI/AAAAAAAADWs/2vRpuuBNHRI/s291/2013-09-15_093131.png" /></a></p>
+
+<p>「続行」すると、次はこれ。<br />
+<a href="http://lh4.ggpht.com/-UsJSPbbY3KQ/UjVXX4hjDoI/AAAAAAAADW0/l267Re4Ut0I/s602/2013-09-15_093222.png" target="_blank"><img class="aligncenter" alt="Gmailへのアクセス許可" src="http://lh4.ggpht.com/-UsJSPbbY3KQ/UjVXX4hjDoI/AAAAAAAADW0/l267Re4Ut0I/s602/2013-09-15_093222.png" /></a></p>
+
+<h3 id="4-トリガーを設定:23d8c14229023b3f045e00920cd20710">4. トリガーを設定</h3>
+
+<p>スクリプトの「トリガー」を設定する。</p>
+
+<p>編集画面の上のほうにある時計っぽいマークをクリック。<br />
+<a href="http://lh6.ggpht.com/-LgQ7EP9JT-s/UjVXYhQShnI/AAAAAAAADW8/pD5muOyR7-Q/s527/2013-09-15_154126.png" target="_blank"><img class="aligncenter" alt="トリガーの設定を開く" src="http://lh6.ggpht.com/-LgQ7EP9JT-s/UjVXYhQShnI/AAAAAAAADW8/pD5muOyR7-Q/s527/2013-09-15_154126.png" /></a></p>
+
+<p>まだトリガーがない状態だと思うので「今すぐ追加するにはここをクリックしてください。」をクリックして、「分タイマー」で「1分ごと」に設定する。<br />
+<a href="http://lh4.ggpht.com/-Ywi0JAKJ6Cc/UjVXZk1YPUI/AAAAAAAADXE/uTlJuKwIM4Q/s854/2013-09-15_154211.png" target="_blank"><img class="aligncenter" alt="「1分ごと」に設定" src="http://lh4.ggpht.com/-Ywi0JAKJ6Cc/UjVXZk1YPUI/AAAAAAAADXE/uTlJuKwIM4Q/s640/2013-09-15_154211.png" /></a></p>
+
+<p>さらに、右側にある「通知」をクリックして、スクリプトの失敗時にメールを受け取るようにしておくといいかも。<br />
+<a href="http://lh4.ggpht.com/-LSakb9PhhWE/UjVXar2wBGI/AAAAAAAADXM/U2EbyhKg1lc/s456/2013-09-15_154308.png" target="_blank"><img class="aligncenter" alt="エラーメール受け取りの設定" src="http://lh4.ggpht.com/-LSakb9PhhWE/UjVXar2wBGI/AAAAAAAADXM/U2EbyhKg1lc/s456/2013-09-15_154308.png" /></a>
+「immediately」は「その都度」ってことのようです。</p>
+
+<p>以上で下準備は完了。<br />
+このスクリプトファイルについては、今後は放置で。</p>
+
+<h2 id="日時指定メールの作成方法:23d8c14229023b3f045e00920cd20710">日時指定メールの作成方法</h2>
+
+<p>送信日時を指定したいメールは、Gmailで「<strong>下書き</strong>」をつくる。<br />
+その時、<strong>「件名」に日時を指定する</strong>ことで、その日時に送られる。</p>
+
+<p>例えば「2013年9月20日の16:32に送信したい」という場合。<br />
+送りたいメールの、下書きの件名を以下のように記述する。</p>
+
+<blockquote>
+<p><span style="color:#27AE60">{2013/09/20 16:32}</span><span style="color:#5282D3">午後4時半になりましたよ！</span></p>
+</blockquote>
+
+<p>で、そのまま <strong><em>下書きとして保存しておく</em></strong> 。（というか自動保存）<br />
+「<span style="color:green">{2013/09/20 16:32}</span>」の部分が送りたい日時、<br />
+「<span style="color:#5282D3">午後4時半になりましたよ！</span>」の部分が実際の件名になって送信される。<br />
+逆に、 <strong><em>件名が上記の形式になっていないものは完全無視</em></strong> 。</p>
+
+<p>スクリプトの動作としては、<br />
+下書きの件名に日時が含まれるものがあるか探して、<br />
+↓<br />
+見つかったらその日時が過去か調べて、<br />
+↓<br />
+過去ならその下書きをもとに新規メールを作成して送信、<br />
+↓<br />
+もとの下書きは削除。<br />
+という流れになっているので、 <strong><em>送信後はゴミ箱に下書きが残る</em></strong> 。<br />
+注意点として以下がある。</p>
+
+<ul>
+<li><strong><em>「本文インライン画像」には非対応（添付ファイルや普通のHTMLメールはOK）</em></strong></li>
+<li><strong><em>例えば数分後に送信したい場合で、下書きの件名に日時を指定したままいつまでも本文を編集していると、Gmailが自動保存→指定時間になっちゃって送信されるってことがあるかもしれない</em></strong></li>
+</ul>
+
+<p>ということで、そんなに大したことじゃないけど、やってる人が見つからなかったので自分で作ってみた。</p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

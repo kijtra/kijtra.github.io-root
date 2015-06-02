@@ -1,0 +1,945 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/google/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Tue, 18 Nov 2014 10:23:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/google/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
+      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
+      <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
+      <description>&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
+
+&lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
+取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
+なので、執筆時点でまだパブリックに取得できる「&lt;strong&gt;japanese__ja@holiday.calendar.google.com&lt;/strong&gt;」の方でやることにした。&lt;br /&gt;
+祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function japan_holiday() {
+	// カレンダーID
+	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+
+	// 取得期間
+	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
+	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
+
+	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	if (!empty($result)) {
+		$json = json_decode($result, true);
+		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
+			$datas = array();
+			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
+				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
+				$datas[$date] = array(
+					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
+					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
+				);
+			}
+			ksort($datas);
+			return $datas;
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上記の関数を実行すると、以下のような結果で返ってくる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+array (
+  20140101 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/01&#39;,
+    &#39;title&#39; =&amp;gt; &#39;元日&#39;,
+  ),
+  20140113 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;成人の日&#39;,
+  ),
+  20140211 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/02/11&#39;,
+    &#39;title&#39; =&amp;gt; &#39;建国記念の日&#39;,
+  ),
+  20140321 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/03/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;春分の日&#39;,
+  ),
+  20140429 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/04/29&#39;,
+    &#39;title&#39; =&amp;gt; &#39;昭和の日&#39;,
+  ),
+  20140503 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;憲法記念日&#39;,
+  ),
+  20140504 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/04&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日&#39;,
+  ),
+  20140505 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/05&#39;,
+    &#39;title&#39; =&amp;gt; &#39;こどもの日&#39;,
+  ),
+  20140506 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/06&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日 振替休日&#39;,
+  ),
+  20140721 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/07/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;海の日&#39;,
+  ),
+  20140915 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/15&#39;,
+    &#39;title&#39; =&amp;gt; &#39;敬老の日&#39;,
+  ),
+  20140923 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;秋分の日&#39;,
+  ),
+  20141013 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/10/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;体育の日&#39;,
+  ),
+  20141103 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;文化の日&#39;,
+  ),
+  20141123 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日&#39;,
+  ),
+  20141124 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/24&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日 振替休日&#39;,
+  ),
+  20141223 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/12/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;天皇誕生日&#39;,
+  ),
+)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PubSubHubbubにURLをプッシュするPHP関数</title>
+      <link>http://kijtra.com/article/push-pubsubhubbub-php</link>
+      <pubDate>Wed, 11 Dec 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/push-pubsubhubbub-php</guid>
+      <description>
+
+&lt;p&gt;Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PubSubHubbub&lt;/strong&gt;ってご存知ですかね。
+最近まで知らなかったんだけど、なんでもGoogleその他にURLをプッシュして爆速でインデックスしてもらえる可能性が高まるプロトコルそうですね。
+ならばガンガンにプッシュしようぜと思ってPHPの関数にしてみた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function send_psh($url) {
+    if(empty($url)){
+        return false;
+    }
+    $hub = &#39;http://pubsubhubbub.appspot.com&#39;;
+    //$hub=&#39;http://pubsubhubbub.superfeedr.com&#39;;
+    if(is_array($url)) {
+        $mh=curl_multi_init();
+        $chs = array();
+        foreach($url as $key =&amp;gt; $val) {
+            if (!preg_match(&#39;#^https?://#i&#39;, $val)) {
+                continue;
+            }
+            $chs[$key] = curl_init();
+            curl_setopt($chs[$key], CURLOPT_URL, $hub);
+            curl_setopt($chs[$key], CURLOPT_POST, true);
+            curl_setopt($chs[$key], CURLOPT_POSTFIELDS, &amp;quot;hub.mode=publish&amp;amp;hub.url=&amp;quot; . urlencode($val));
+            curl_multi_add_handle($mh, $chs[$key]);
+        }
+        if(empty($chs)){
+            return false;
+        }
+        $results = array();
+        $running = NULL;
+        do {
+            curl_multi_exec($mh, $running);
+        } while($running &amp;gt; 0);
+        foreach($curly as $key =&amp;gt; $ch) {
+            if(empty($ch)){
+                continue;
+            }
+            $results[$key] = (204 == curl_getinfo($ch, CURLINFO_HTTP_CODE));
+            curl_multi_remove_handle($mh, $ch);
+        }
+        curl_multi_close($mh);
+        return $results;
+    } else {
+        if (!preg_match(&#39;#^https?://#i&#39;, $url)) {
+            return false;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $hub);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, &amp;quot;hub.mode=publish&amp;amp;hub.url=&amp;quot; . urlencode($url));
+        $res = curl_exec($ch);
+        $result = (204 == curl_getinfo($ch, CURLINFO_HTTP_CODE));
+        curl_close($ch);
+        return $result;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/7783087&#34;&gt;Gistにあります&lt;/a&gt;
+使い方は、ひとつのURLをプッシュしたいだけなら以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+send_psh(&#39;http://example.com/pubbb/&#39;);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;複数を一気にプッシュしたい場合は以下のように配列を渡す感じで。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+$urls=array(
+    &#39;http://example.com/pub/&#39;,
+    &#39;http://example.com/sub/&#39;,
+    &#39;http://example.com/hub/&#39;,
+    &#39;http://example.com/bub/&#39;,
+);
+send_psh($urls);
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://code.google.com/p/pubsubhubbub/wiki/Hubs&#34;&gt;プッシュ先はいろいろとある&lt;/a&gt;ようなんだけど、この関数ではGoogle公式のもの(pubsubhubbub.appspot.com)だけにしてます。
+そもそもPubSubHubbubってなに？ってとこはあんまり深く勉強してないんだけど、以下のようなものを参考にした。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;pubsubhubbub  &lt;a href=&#34;https://code.google.com/p/pubsubhubbub/&#34;&gt;https://code.google.com/p/pubsubhubbub/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Googleマット・カッツが推奨する“PubSubHubbub”でスクレイパーから身を守れ  &lt;a href=&#34;http://www.suzukikenichi.com/blog/using-pubsubhubbub-to-protect-against-scrapers/&#34;&gt;http://www.suzukikenichi.com/blog/using-pubsubhubbub-to-protect-against-scrapers/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;pingより爆速！ブロガーはPubSubHubbubも使うと良いよ  &lt;a href=&#34;http://shumaiblog.com/blog-pubsubhubbub-fat-ping/&#34;&gt;http://shumaiblog.com/blog-pubsubhubbub-fat-ping/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;あと、実験として当ブログに&lt;a href=&#34;http://wordpress.org/plugins/pubsubhubbub/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;PubSubHubbubのWordPressプラグイン&lt;/a&gt;を入れて、どんだけ速くGoogleにインデックスされるのかウォッチしてみる。（上記の自作関数は使ってないw）&lt;/p&gt;
+
+&lt;h1 id=&#34;2013-12-15-追記:31f501cbac9da579079eb616d7af56dd&#34;&gt;2013/12/15 追記&lt;/h1&gt;
+
+&lt;p&gt;やっとGoogleにインデックスされた。
+この記事を投稿して約4日。
+これが早いのか遅いのかはわからんけども…&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた</title>
+      <link>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
+      <pubDate>Sun, 15 Sep 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
+      <description>
+
+&lt;p&gt;Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。&lt;/p&gt;
+
+&lt;p&gt;Gmail(に限らずだけど)で、時間を指定して送りたいってことありますよね。&lt;br /&gt;
+いろんなアリバイ作りとかで。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://android-smart.com/2012/03/right-inbox.html&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;ブラウザのプラグイン&lt;/a&gt;とかはあるんだけど、会員登録が必要だったり&lt;strong&gt;セキュリティとかどうなの&lt;/strong&gt;的な心配があったりするので、Google Apps Scriptでできそうだなあと思ったら、一応それなりのができたっぽい。&lt;br /&gt;
+「指定の年月日」はもちろん、分刻みで、しかも「安全に」予約送信ができる。&lt;/p&gt;
+
+&lt;p&gt;まず準備（Google Apps Scriptの作成）が必要。&lt;/p&gt;
+
+&lt;p&gt;流れとしては、&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Googleドライブの「作成」→「スクリプト」でスクリプトファイル作成&lt;/li&gt;
+&lt;li&gt;スクリプトファイルに、下記に書いたコードをペースト&lt;/li&gt;
+&lt;li&gt;Gmailのアクセスを許可（自分のアカウントで自分のGmailへのアクセス許可）&lt;/li&gt;
+&lt;li&gt;トリガー（Cronのようなもの）を設定&lt;/li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;という感じ。&lt;/p&gt;
+
+&lt;h3 id=&#34;2014-05-15-追記:23d8c14229023b3f045e00920cd20710&#34;&gt;2014/05/15 追記&lt;/h3&gt;
+
+&lt;p&gt;件名なしでも送りたいとの要望があったので、プログラムを一部修正しました～&lt;/p&gt;
+
+&lt;h3 id=&#34;2014-11-11-追記:23d8c14229023b3f045e00920cd20710&#34;&gt;2014/11/11 追記&lt;/h3&gt;
+
+&lt;p&gt;Fromを変更してもそのメールアドレスで送れていなかったのを修正しました。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;まずは下準備:23d8c14229023b3f045e00920cd20710&#34;&gt;まずは下準備&lt;/h2&gt;
+
+&lt;h3 id=&#34;1-googleドライブでスクリプトファイル作成:23d8c14229023b3f045e00920cd20710&#34;&gt;1. Googleドライブでスクリプトファイル作成&lt;/h3&gt;
+
+&lt;p&gt;Googleドライブに行き、「作成」→「スクリプト」。&lt;br /&gt;
+プロジェクト名（ファイル名）は何でも構わない。&lt;br /&gt;
+今回は「Gmail時間指定送信」という名前にした。&lt;/p&gt;
+
+&lt;h3 id=&#34;2-コードをコピペ:23d8c14229023b3f045e00920cd20710&#34;&gt;2. コードをコピペ&lt;/h3&gt;
+
+&lt;p&gt;コードは以下。そのまんまでOK。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function delaySendDraftMail() {
+  var drafts = GmailApp.getDraftMessages();
+  var len = drafts.length;
+
+  //下書きがなければ終了
+  if (!len) {
+    return false;
+  }
+
+  //現在時刻
+  var now = (new Date()).getTime();
+
+  for (var i = 0, l = len; i &amp;lt; l; i++) {
+    //メールデータをセット
+    var mes = drafts[i];
+    if (&#39;object&#39; !== typeof mes) {
+      continue;
+    }
+
+    //件名を取得
+    var str = mes.getSubject();
+    //件名から日時を抽出
+    var match = str.match(/^(\{(\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2} \d{1,2}:\d{1,2})\}) ?(.*)?/);
+    //日時が抽出できないなら無視
+    if (!match || !match[1]) {
+      continue;
+    }
+
+    //時間を取得
+    var time = (new Date(match[2].replace(/\-/g,&#39;/&#39;)+&#39; +09:00&#39;)).getTime();
+    //時間を取得できない、または未来の時間なら無視
+    if(!time || (time &amp;amp;&amp;amp; time&amp;gt;now)){
+      continue;
+    }
+
+    //各情報をセット
+    var to = mes.getTo();
+    var subject = match[3] || &#39;&#39;;
+    var body = mes.getPlainBody();
+    var options = {}, val;
+
+    //必要な情報がなければ無視
+    if (!to || !body) {
+      continue;
+    }
+
+    // 2014.11.11 From を変更した場合でも対応(ただしFrom名はつけられない模様)
+    var from = mes.getFrom();
+    var aliases = GmailApp.getAliases();
+    for (var i = 0, l = aliases.length; i &amp;lt; l; i++) {
+      var val = aliases[i];
+      // From エイリアス一覧にマッチすれば From として使用
+      if (-1 !== from.indexOf(val)) {
+        options[&#39;from&#39;] = val;
+        break;
+      }
+    }
+
+    if (val = mes.getCc()) {//Cc
+      options[&#39;cc&#39;] = val;
+    }
+
+    if (val = mes.getBcc()) {//Bcc
+      options[&#39;bcc&#39;] = val;
+    }
+
+    if (val = mes.getBody()) {//HTML本文
+      //bodyにdivタグがあればHTMLとみなす
+      if ( val.indexOf(&#39;&amp;lt;div&#39;)!==-1 ) {
+        options[&#39;htmlBody&#39;] = val;
+      }
+    }
+
+    //添付ファイル
+    if (val = mes.getAttachments()) {
+      options[&#39;attachments&#39;] = val;
+    }
+
+    // 送信！
+    var status = GmailApp.sendEmail(to, subject, body, options);
+
+    //送信したら下書きをゴミ箱へ
+    if (status) {
+      mes.moveToTrash();
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;特に怪しいところはない。&lt;br /&gt;
+あと特に複雑なことしてるわけじゃないw&lt;/p&gt;
+
+&lt;h3 id=&#34;3-アクセス許可-コードをテスト実行:23d8c14229023b3f045e00920cd20710&#34;&gt;3. アクセス許可（コードをテスト実行）&lt;/h3&gt;
+
+&lt;p&gt;上記のコードをペーストし、「delaySendDraftMail」という関数を実行すると、初回は以下のような承認ダイアログが出る。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-t8mOTQYP27I/UjVXWm8sOLI/AAAAAAAADWs/2vRpuuBNHRI/s291/2013-09-15_093131.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;承認ダイアログ&#34; src=&#34;http://lh4.ggpht.com/-t8mOTQYP27I/UjVXWm8sOLI/AAAAAAAADWs/2vRpuuBNHRI/s291/2013-09-15_093131.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「続行」すると、次はこれ。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-UsJSPbbY3KQ/UjVXX4hjDoI/AAAAAAAADW0/l267Re4Ut0I/s602/2013-09-15_093222.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;Gmailへのアクセス許可&#34; src=&#34;http://lh4.ggpht.com/-UsJSPbbY3KQ/UjVXX4hjDoI/AAAAAAAADW0/l267Re4Ut0I/s602/2013-09-15_093222.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;4-トリガーを設定:23d8c14229023b3f045e00920cd20710&#34;&gt;4. トリガーを設定&lt;/h3&gt;
+
+&lt;p&gt;スクリプトの「トリガー」を設定する。&lt;/p&gt;
+
+&lt;p&gt;編集画面の上のほうにある時計っぽいマークをクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh6.ggpht.com/-LgQ7EP9JT-s/UjVXYhQShnI/AAAAAAAADW8/pD5muOyR7-Q/s527/2013-09-15_154126.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;トリガーの設定を開く&#34; src=&#34;http://lh6.ggpht.com/-LgQ7EP9JT-s/UjVXYhQShnI/AAAAAAAADW8/pD5muOyR7-Q/s527/2013-09-15_154126.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;まだトリガーがない状態だと思うので「今すぐ追加するにはここをクリックしてください。」をクリックして、「分タイマー」で「1分ごと」に設定する。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-Ywi0JAKJ6Cc/UjVXZk1YPUI/AAAAAAAADXE/uTlJuKwIM4Q/s854/2013-09-15_154211.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「1分ごと」に設定&#34; src=&#34;http://lh4.ggpht.com/-Ywi0JAKJ6Cc/UjVXZk1YPUI/AAAAAAAADXE/uTlJuKwIM4Q/s640/2013-09-15_154211.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;さらに、右側にある「通知」をクリックして、スクリプトの失敗時にメールを受け取るようにしておくといいかも。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-LSakb9PhhWE/UjVXar2wBGI/AAAAAAAADXM/U2EbyhKg1lc/s456/2013-09-15_154308.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;エラーメール受け取りの設定&#34; src=&#34;http://lh4.ggpht.com/-LSakb9PhhWE/UjVXar2wBGI/AAAAAAAADXM/U2EbyhKg1lc/s456/2013-09-15_154308.png&#34; /&gt;&lt;/a&gt;
+「immediately」は「その都度」ってことのようです。&lt;/p&gt;
+
+&lt;p&gt;以上で下準備は完了。&lt;br /&gt;
+このスクリプトファイルについては、今後は放置で。&lt;/p&gt;
+
+&lt;h2 id=&#34;日時指定メールの作成方法:23d8c14229023b3f045e00920cd20710&#34;&gt;日時指定メールの作成方法&lt;/h2&gt;
+
+&lt;p&gt;送信日時を指定したいメールは、Gmailで「&lt;strong&gt;下書き&lt;/strong&gt;」をつくる。&lt;br /&gt;
+その時、&lt;strong&gt;「件名」に日時を指定する&lt;/strong&gt;ことで、その日時に送られる。&lt;/p&gt;
+
+&lt;p&gt;例えば「2013年9月20日の16:32に送信したい」という場合。&lt;br /&gt;
+送りたいメールの、下書きの件名を以下のように記述する。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span style=&#34;color:#27AE60&#34;&gt;{2013/09/20 16:32}&lt;/span&gt;&lt;span style=&#34;color:#5282D3&#34;&gt;午後4時半になりましたよ！&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;で、そのまま &lt;strong&gt;&lt;em&gt;下書きとして保存しておく&lt;/em&gt;&lt;/strong&gt; 。（というか自動保存）&lt;br /&gt;
+「&lt;span style=&#34;color:green&#34;&gt;{2013/09/20 16:32}&lt;/span&gt;」の部分が送りたい日時、&lt;br /&gt;
+「&lt;span style=&#34;color:#5282D3&#34;&gt;午後4時半になりましたよ！&lt;/span&gt;」の部分が実際の件名になって送信される。&lt;br /&gt;
+逆に、 &lt;strong&gt;&lt;em&gt;件名が上記の形式になっていないものは完全無視&lt;/em&gt;&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;スクリプトの動作としては、&lt;br /&gt;
+下書きの件名に日時が含まれるものがあるか探して、&lt;br /&gt;
+↓&lt;br /&gt;
+見つかったらその日時が過去か調べて、&lt;br /&gt;
+↓&lt;br /&gt;
+過去ならその下書きをもとに新規メールを作成して送信、&lt;br /&gt;
+↓&lt;br /&gt;
+もとの下書きは削除。&lt;br /&gt;
+という流れになっているので、 &lt;strong&gt;&lt;em&gt;送信後はゴミ箱に下書きが残る&lt;/em&gt;&lt;/strong&gt; 。&lt;br /&gt;
+注意点として以下がある。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;「本文インライン画像」には非対応（添付ファイルや普通のHTMLメールはOK）&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;例えば数分後に送信したい場合で、下書きの件名に日時を指定したままいつまでも本文を編集していると、Gmailが自動保存→指定時間になっちゃって送信されるってことがあるかもしれない&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ということで、そんなに大したことじゃないけど、やってる人が見つからなかったので自分で作ってみた。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Twitterのフォロー返し（リフォロー）をGoogle Apps Scriptで自動化する</title>
+      <link>http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</link>
+      <pubDate>Wed, 01 May 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</guid>
+      <description>
+
+&lt;p&gt;TwitterでBot等を運用していると、「フォローを返す」というのはわりと重要。
+相互フォローならDMもやりとりできるし、「フォローしてくれるならフォローする」という人もいるのでフォロワーが増える可能性がある。
+ということでフォロー返し（リフォロー）を自動化するやつを作ってみた。&lt;/p&gt;
+
+&lt;p&gt;大まかな流れとしては、&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Twitterの自分用アプリを作成（なければ）&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Twitterの設定で新しいフォロワーが増えたらメール通知するようにする&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Google Apps Scriptで、そのメールをチェック&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TwitterのAPIでフォローを返す&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;メールを既読にする&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;という感じ。&lt;/p&gt;
+
+&lt;h2 id=&#34;step0-twitterのアプリを作成-なければ:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step0. Twitterのアプリを作成（なければ）&lt;/h2&gt;
+
+&lt;p&gt;TwitterのAPIを使うので、Twitterアプリが必要になる。
+※画像は&lt;a href=&#34;http://kijtra.com/article/twitter-backup-to-google-drive&#34; target=&#34;_blank&#34;&gt;以前の記事&lt;/a&gt;の使い回しなので、アプリ名の意味とかは無視してください&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dev.twitter.com/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://dev.twitter.com/&#34;&gt;https://dev.twitter.com/&lt;/a&gt;&lt;/a&gt;にアクセスし、自分のTwitterアカウントでサインイン。
+&lt;a href=&#34;http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s990/2013-03-21_111512.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;自分のTwitterアカウントでサインイン&#34; src=&#34;http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s640/2013-03-21_111512.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dev.twitter.com/apps&#34;&gt;My applications&lt;/a&gt;へ移動。
+&lt;a href=&#34;https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;My applicationsへ移動&#34; src=&#34;https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;右上の「Create a new application」をクリックし、必要な情報を入力。
+&lt;a href=&#34;https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s981/2013-03-21_122459.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Create a new application」をクリック&#34; src=&#34;https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s640/2013-03-21_122459.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「Name」はなんでもいいけど、誰かが同じ名前のアプリを作ってるとエラーになる。
+「Description」も適当に。文字数が少ないとエラー。
+「Website」もなんでもOK。とりあえずGoogleドライブのURLにした。
+&lt;span style=&#34;color:#B94A48&#34;&gt;「Callback URL」は必ず「&lt;strong style=&#34;color:#B94A48&#34;&gt;&lt;a href=&#34;https://spreadsheets.google.com/macros&#34;&gt;https://spreadsheets.google.com/macros&lt;/a&gt;&lt;/strong&gt;」にする&lt;/span&gt;必要がある。&lt;/p&gt;
+
+&lt;p&gt;入力したら「Developer Rules Of The Road」の同意にチェックし、CAPTCHAに表示された文字を入力して「Create your Twitter application」ボタンをクリック。
+アプリケーションが作成された。&lt;/p&gt;
+
+&lt;p&gt;必要になるのは「&lt;strong&gt;Consumer key&lt;/strong&gt;」と「&lt;strong&gt;Consumer secret&lt;/strong&gt;」のランダムな文字。
+これをメモしておく。
+&lt;a href=&#34;http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s986/2013-03-21_112853.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;アプリケーションが作成された&#34; src=&#34;http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s640/2013-03-21_112853.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step1-twitterのメール通知設定:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step1. Twitterのメール通知設定&lt;/h2&gt;
+
+&lt;p&gt;フォロワーが増えた時にメールが来るようにする。
+ちなみにGoogle Apps Scriptを使って作るので、&lt;strong&gt;Gmail宛てに受け取るようになってないといけない&lt;/strong&gt;。
+&lt;a href=&#34;http://lh6.ggpht.com/-4rBz8t_vOyQ/UYB6mo1XqmI/AAAAAAAADSU/31rk0DiZPY0/s854/2013-05-01_111358.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://lh6.ggpht.com/-4rBz8t_vOyQ/UYB6mo1XqmI/AAAAAAAADSU/31rk0DiZPY0/s640/2013-05-01_111358.png&#34; alt=&#34;Twitterでメール通知設定&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step2-スクリプトを新規作成:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step2. スクリプトを新規作成&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://drive.google.com/&#34; target=&#34;_blank&#34;&gt;Googleドライブ&lt;/a&gt;で「&lt;strong&gt;スクリプト&lt;/strong&gt;」を新規作成する。
+&lt;a href=&#34;http://lh5.ggpht.com/-sQ60u60UQrQ/UYB6l4XhJ2I/AAAAAAAADSI/Q1Wnn-Ig--s/s423/2013-05-01_110827.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://lh5.ggpht.com/-sQ60u60UQrQ/UYB6l4XhJ2I/AAAAAAAADSI/Q1Wnn-Ig--s/s423/2013-05-01_110827.png&#34; alt=&#34;Google Apps Scriptで新規作成&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step3-twitterアプリの情報を設定:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step3. Twitterアプリの情報を設定&lt;/h2&gt;
+
+&lt;p&gt;「ファイル」メニューの「&lt;strong&gt;プロジェクトのプロパティ&lt;/strong&gt;」を開く。
+&lt;a href=&#34;http://lh5.ggpht.com/-acQyAI-SK2c/UYB6l33pjmI/AAAAAAAADSQ/GsJyVcDlAIo/s404/2013-05-01_110933.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://lh5.ggpht.com/-acQyAI-SK2c/UYB6l33pjmI/AAAAAAAADSQ/GsJyVcDlAIo/s404/2013-05-01_110933.png&#34; alt=&#34;「プロジェクトのプロパティ」を開く&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「プロジェクトのプロパティ」タブに移り、
+「&lt;strong&gt;twitterConsumerKey&lt;/strong&gt;」＝ &lt;strong&gt;Step0で取得した「Consumer key」&lt;/strong&gt;
+「&lt;strong&gt;twitterConsumerSecret&lt;/strong&gt;」＝ &lt;strong&gt;Step0で取得した「Consumer secret」&lt;/strong&gt;
+を設定する。
+（プロパティ名は上記のまま記入してください）
+&lt;a href=&#34;http://lh5.ggpht.com/-MJcdqJpboPo/UYB6l-OB7II/AAAAAAAADSM/bkb5ODFF-lY/s584/2013-05-01_111054.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://lh5.ggpht.com/-MJcdqJpboPo/UYB6l-OB7II/AAAAAAAADSM/bkb5ODFF-lY/s584/2013-05-01_111054.png&#34; alt=&#34;プロパティ設定&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step4-google-apps-scriptの記述:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step4. Google Apps Scriptの記述&lt;/h2&gt;
+
+&lt;p&gt;以下のコードをペーストして保存。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function twitterReFollow(){
+  // Twitter用OAuthコンフィグ
+  var oAuthConfig = UrlFetchApp.addOAuthService(&amp;quot;twitter&amp;quot;);
+  oAuthConfig.setAccessTokenUrl(&amp;quot;http://api.twitter.com/oauth/access_token&amp;quot;);
+  oAuthConfig.setRequestTokenUrl(&amp;quot;http://api.twitter.com/oauth/request_token&amp;quot;);
+  oAuthConfig.setAuthorizationUrl(&amp;quot;http://api.twitter.com/oauth/authorize&amp;quot;);
+  oAuthConfig.setConsumerKey(ScriptProperties.getProperty(&amp;quot;twitterConsumerKey&amp;quot;));
+  oAuthConfig.setConsumerSecret(ScriptProperties.getProperty(&amp;quot;twitterConsumerSecret&amp;quot;));
+  try {
+    // 自分のTwitter情報を取得
+    var url = &amp;quot;https://api.twitter.com/1.1/account/verify_credentials.json&amp;quot;;
+    var me = UrlFetchApp.fetch(url,{method:&amp;quot;get&amp;quot;,oAuthServiceName:&amp;quot;twitter&amp;quot;,oAuthUseToken:&amp;quot;always&amp;quot;});
+    me = Utilities.jsonParse(me.getContentText());
+    // 情報が取れなければ終了
+    if(!me.screen_name) {
+      return false;
+    }
+    me = me.screen_name;
+    // Gmailからフォローされたメールを取得
+    var threads = GmailApp.search(&#39;is:unread from:(twitter.com) subject:(フォローされ)&#39;,0,50);
+    var reg = new RegExp(&amp;quot;\@([a-zA-Z0-9_]*(?!&amp;quot;+me+&amp;quot;))&amp;quot;,&amp;quot;i&amp;quot;);
+    var followers = new Array();
+    for(var i = threads.length; i--;) {
+      var message = threads[i].getMessages()[0];
+      var body = message.getBody();
+      // メール本文からスクリーンネームを抜き出す
+      if(body.indexOf(me)&amp;gt;=0 &amp;amp;&amp;amp; body.match(reg)) {
+        var screen = RegExp.$1;
+        if(screen &amp;amp;&amp;amp; screen != me){
+          followers.push({id:message.getId(), screen:screen});
+        }
+      }
+    }
+    // データがなければ終了
+    if(!followers.length) {
+      return false;
+    }
+    // 全員をフォローする
+    var options = {
+      &amp;quot;method&amp;quot;:&amp;quot;POST&amp;quot;,
+      &amp;quot;oAuthServiceName&amp;quot;:&amp;quot;twitter&amp;quot;,
+      &amp;quot;oAuthUseToken&amp;quot;:&amp;quot;always&amp;quot;
+    };
+    for(var i = followers.length; i--;) {
+      var follower = followers[i];
+      var url = &amp;quot;https://api.twitter.com/1.1/friendships/create.json?follow=true&amp;amp;screen_name=&amp;quot; + follower.screen;
+      var result = UrlFetchApp.fetch(url, options);
+      if(200 === result.getResponseCode()){
+        result = Utilities.jsonParse(result.getContentText());
+        // フォローに成功したらメールを既読にする
+        if(result.following) {
+          GmailApp.markThreadRead(GmailApp.getThreadById(follower.id));
+        }
+      }
+    }
+  } catch (e) {
+    Logger.log(e.toString());
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;step5-google-apps-scriptの実行テスト:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step5. Google Apps Scriptの実行テスト&lt;/h2&gt;
+
+&lt;p&gt;上部メニューの「実行」から「twitterReFollow」をクリック。
+&lt;a href=&#34;http://lh5.ggpht.com/-8Rd33lyeQQI/UYCDEy8pvcI/AAAAAAAADSw/yjgS_raL9Fc/s406/2013-05-01_115052.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://lh5.ggpht.com/-8Rd33lyeQQI/UYCDEy8pvcI/AAAAAAAADSw/yjgS_raL9Fc/s406/2013-05-01_115052.png&#34; alt=&#34;関数を実行&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Twitterの承認とかGmailの承認とかが出てくるので、すべて「OK」か「承認」をクリックする。
+警告などが出なくなるまで何度か実行した方が良いかも。&lt;/p&gt;
+
+&lt;h2 id=&#34;step6-自動実行を設定:e1078a7c72fac2ac1280e610d5475cb4&#34;&gt;Step6. 自動実行を設定&lt;/h2&gt;
+
+&lt;p&gt;上部の時計っぽいアイコンをクリックすると自動実行の設定が開くので、「今すぐ追加するにはここをクリックしてください。」のリンクをクリックする。
+&lt;a href=&#34;http://lh5.ggpht.com/-j1wo8dMEUe0/UYCEVI9IcSI/AAAAAAAADS8/tE6aZYJcsPI/s922/2013-05-01_115607.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;http://lh5.ggpht.com/-j1wo8dMEUe0/UYCEVI9IcSI/AAAAAAAADS8/tE6aZYJcsPI/s640/2013-05-01_115607.png&#34; alt=&#34;自動実行の設定&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;
+時間割は好きなタイミングにするといいと思う。&lt;/p&gt;
+
+&lt;p&gt;以上、あとは放っておけば自動フォロー返しが動くと思う。
+ちなみにフォロー返しが実行されるとメールは既読になるので、その点はご注意を。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</title>
+      <link>http://kijtra.com/article/twitter-backup-to-google-drive</link>
+      <pubDate>Thu, 21 Mar 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/twitter-backup-to-google-drive</guid>
+      <description>
+
+&lt;p&gt;Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。&lt;/p&gt;
+
+&lt;p&gt;Twitterの自分のツイートをバックアップするのは&lt;a href=&#34;http://twilog.org/&#34; target=&#34;_blank&#34;&gt;ツイログ&lt;/a&gt;なんかが有名だけど、自前のどこかに貯めておきたい気もする。
+それをGoogleドライブで、無料で、自動で、しかもプログラム知識ゼロでもできるってやつを見つけたのでその方法を。&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-danger&#34;&gt;&lt;i class=&#34;fa fa-exclamation-triangle&#34;&gt;&lt;/i&gt; &lt;strong&gt;この記事は古いため、もしかしたら実践しても動かないかもしれません。&lt;/strong&gt;&lt;/div&gt;
+
+&lt;p&gt;最近は&lt;a href=&#34;https://developers.google.com/apps-script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;というのがあんまり便利なもんで、自分の過去ツイートを保存するやつでも作ろうかなーと思っていたら、Martin Hawksey(&lt;a href=&#34;https://twitter.com/mhawksey&#34; target=&#34;_blank&#34;&gt;@mhawksey&lt;/a&gt;)さんという方が&lt;a href=&#34;http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/&#34; target=&#34;_blank&#34;&gt;ドンピシャなものを公開してた&lt;/a&gt;。
+これは使わん手はない。&lt;/p&gt;
+
+&lt;p&gt;その&lt;a href=&#34;http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/&#34; target=&#34;_blank&#34;&gt;元記事&lt;/a&gt;に手順と動画の説明まであるからいいかな、とはいえ英語だから、ここに日本語用の手順を書いておく。
+注意点として、これから説明する方法でバックアップした場合、&lt;strong&gt;&lt;em&gt;バックアップの閲覧にはGoogleドライブの指定フォルダを「一般公開」の状態にする必要がある&lt;/em&gt;&lt;/strong&gt;。
+閲覧URLは複雑な文字列なのでバレにくくはあるけど、非公開ツイートにしている人なんかはあまりおすすめできないかも。
+&lt;a href=&#34;https://googledrive.com/host/0B6aI6pgeMKqOUmlJbVlDRWFhYkE/&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;完成するとこんな感じでツイートが溜まっていく。&lt;/strong&gt;&lt;/a&gt;
+見た目カッチョイイし、右の月別ナビゲーションもグッド。
+（Twitter公式のテンプレなので。）
+これがプログラム知識ナシで、無料で組める。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-0-twitterの-アプリ-を作成:0c420845d0d033b689fe8e33df09da71&#34;&gt;STEP 0. Twitterの「アプリ」を作成&lt;/h2&gt;
+
+&lt;p&gt;下準備。
+Googleドライブから自動で自分のツイートを定期的に取得するため、Twitterにアクセスするためのアプリが必要になる。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dev.twitter.com/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://dev.twitter.com/&#34;&gt;https://dev.twitter.com/&lt;/a&gt;&lt;/a&gt;にアクセスし、自分のTwitterアカウントでサインイン。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s990/2013-03-21_111512.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;自分のTwitterアカウントでサインイン&#34; src=&#34;http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s640/2013-03-21_111512.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dev.twitter.com/apps&#34;&gt;My applications&lt;/a&gt;へ移動。&lt;br /&gt;
+&lt;a href=&#34;https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;My applicationsへ移動&#34; src=&#34;https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;右上の「Create a new application」をクリックし、必要な情報を入力。&lt;br /&gt;
+&lt;a href=&#34;https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s981/2013-03-21_122459.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Create a new application」をクリック&#34; src=&#34;https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s640/2013-03-21_122459.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「Name」はなんでもいいけど、誰かが同じ名前のアプリを作ってるとエラーになる。
+「Description」も適当に。文字数が少ないとエラー。
+「Website」もなんでもOK。とりあえずGoogleドライブのURLにした。&lt;/p&gt;
+
+&lt;p&gt;*「Callback URL」は必ず「&lt;strong&gt;&lt;a href=&#34;https://spreadsheets.google.com/macros&#34;&gt;https://spreadsheets.google.com/macros&lt;/a&gt;&lt;/strong&gt;」にする*必要がある。&lt;/p&gt;
+
+&lt;p&gt;入力したら「Developer Rules Of The Road」の同意にチェックし、CAPTCHAに表示された文字を入力して「Create your Twitter application」ボタンをクリック。
+アプリケーションが作成された。
+必要になるのは「&lt;strong&gt;Consumer key&lt;/strong&gt;」と「&lt;strong&gt;Consumer secret&lt;/strong&gt;」のランダムな文字。
+これをメモしておく。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s986/2013-03-21_112853.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;アプリケーションが作成された&#34; src=&#34;http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s640/2013-03-21_112853.png&#34; /&gt;&lt;/a&gt;
+下準備ここまで。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-1-公式の-twitterアーカイブファイル-を取得:0c420845d0d033b689fe8e33df09da71&#34;&gt;STEP 1. 公式の「Twitterアーカイブファイル」を取得&lt;/h2&gt;
+
+&lt;p&gt;まず、現在の過去ツイートをダウンロードする。
+Twitterでは2012年の12月に、&lt;a href=&#34;http://blog.twitter.com/2012/12/your-twitter-archive.html&#34; target=&#34;_blank&#34;&gt;過去ツイートのバックアップ機能を公開&lt;/a&gt;している。
+&lt;del&gt;これは現時点（2013-03-21）で英語版だけの機能なんだけど、Twitterの設定画面を英語にすれば使える。&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jp.twitter.com/2013/03/blog-post_22.html&#34; target=&#34;_blank&#34;&gt;日本語版でもできるようになったみたい(2013/03/22)&lt;/a&gt;
+Twitterにログインし、&lt;a href=&#34;https://twitter.com/settings&#34; target=&#34;_blank&#34;&gt;設定画面&lt;/a&gt;に行く。&lt;/p&gt;
+
+&lt;p&gt;そして「言語設定」を「英語」にする。（保存時はログインパスワードが必要）&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-UsfWaXfgr2Q/UUpfv6bDhGI/AAAAAAAADLs/2v9k9pkbEk8/s912/2013-03-21_101706.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「言語設定」を「英語」にする&#34; src=&#34;http://lh5.ggpht.com/-UsfWaXfgr2Q/UUpfv6bDhGI/AAAAAAAADLs/2v9k9pkbEk8/s640/2013-03-21_101706.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;英語版に切り替わると、同設定画面の下の方に、「Request your archive」ボタンが出現。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-nmfS89iiheE/UUphHkwGoZI/AAAAAAAADL0/9kCePbAoHxU/s922/2013-03-21_102335.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Request your archive」ボタンが出現&#34; src=&#34;http://lh3.ggpht.com/-nmfS89iiheE/UUphHkwGoZI/AAAAAAAADL0/9kCePbAoHxU/s640/2013-03-21_102335.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そうすると、「ダウンロード用ページのリンクをメールで送りましたよ」ってなのが出て、リンクつきメールが送られてくる。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-3YukWu0Ldi0/UUphsGEgrbI/AAAAAAAADL8/Xkt1xVB3fJo/s391/2013-03-21_102603.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ダウンロード用ページのリンクをメールで送りましたよ&#34; src=&#34;https://lh4.googleusercontent.com/-3YukWu0Ldi0/UUphsGEgrbI/AAAAAAAADL8/Xkt1xVB3fJo/2013-03-21_102603.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;リンクをクリックすると、「Download」ボタンのあるページへ。&lt;br /&gt;
+&lt;a href=&#34;http://lh6.ggpht.com/-nZboWq9MS1c/UUpiinXlEKI/AAAAAAAADME/OoPe7N8ujOA/s888/2013-03-21_102937.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Download」ボタンのあるページ&#34; src=&#34;http://lh6.ggpht.com/-nZboWq9MS1c/UUpiinXlEKI/AAAAAAAADME/OoPe7N8ujOA/s640/2013-03-21_102937.png&#34; /&gt;&lt;/a&gt;
+クリックすると「&lt;strong&gt;tweets.zip&lt;/strong&gt;」というファイルがダウンロードされるので、解凍しておく。
+（あとでまた使う）&lt;/p&gt;
+
+&lt;p&gt;ここまで終わったら、Twitter管理画面は「日本語」に戻してOK。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-2-googleドライブの設定:0c420845d0d033b689fe8e33df09da71&#34;&gt;STEP 2. Googleドライブの設定&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://drive.google.com/&#34; target=&#34;_blank&#34;&gt;Google Drive&lt;/a&gt;に行く。
+まだ使ったことがない人はなにか始める手続きが必要かもしれない。
+&lt;strong&gt;&lt;em&gt;Step1&lt;/em&gt;&lt;/strong&gt;でダウンロードしたtweets.zipを解凍したフォルダをアップロードする。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-21jvbd91KCY/UUpmV_XrF6I/AAAAAAAADMc/coRlB75fRj0/s343/2013-03-21_104537.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;フォルダをアップロード&#34; src=&#34;http://lh5.ggpht.com/-21jvbd91KCY/UUpmV_XrF6I/AAAAAAAADMc/coRlB75fRj0/2013-03-21_104537.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;このときの注意点として、アップロードファイルの「変換」が「&lt;strong&gt;&lt;em&gt;オフ&lt;/em&gt;&lt;/strong&gt;」になっている必要がある。&lt;/em&gt;&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-zc_jxRJJEJs/UUpnO9LHqBI/AAAAAAAADMk/C1OYF_4ZQtE/s513/2013-03-21_104940.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「変換」が「オフ」になっている必要がある&#34; src=&#34;https://lh4.googleusercontent.com/-zc_jxRJJEJs/UUpnO9LHqBI/AAAAAAAADMk/C1OYF_4ZQtE/2013-03-21_104940.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Googleドライブ内に「&lt;strong&gt;&lt;em&gt;tweets&lt;/em&gt;&lt;/strong&gt;」というフォルダが作られ、中にファイル一式が作成された状態。&lt;br /&gt;
+&lt;a href=&#34;https://lh6.googleusercontent.com/--8eRakd1GM0/UUpopV4PCbI/AAAAAAAADMs/0qystxS3HRo/s685/2013-03-21_105539.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ファイル一式&#34; src=&#34;https://lh6.googleusercontent.com/--8eRakd1GM0/UUpopV4PCbI/AAAAAAAADMs/0qystxS3HRo/s640/2013-03-21_105539.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そして「&lt;strong&gt;&lt;em&gt;tweets&lt;/em&gt;&lt;/strong&gt;」フォルダのURLに含まれる「&lt;strong&gt;&lt;em&gt;フォルダID&lt;/em&gt;&lt;/strong&gt;」をメモしておく。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-aql1p_inSEU/UUp3YnOUkYI/AAAAAAAADOI/rKHO0MDGpU4/s730/2013-03-21_115833.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ファイル一式&#34; src=&#34;http://lh5.ggpht.com/-aql1p_inSEU/UUp3YnOUkYI/AAAAAAAADOI/rKHO0MDGpU4/s640/2013-03-21_115833.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step-3-hawkseyさんのファイルをコピー:0c420845d0d033b689fe8e33df09da71&#34;&gt;STEP 3. Hawkseyさんのファイルをコピー&lt;/h2&gt;
+
+&lt;p&gt;Hawkseyさんが作ったGoogleスプレッドシートを、自分のGoogleドライブにコピーする。&lt;br /&gt;
+&lt;a href=&#34;https://docs.google.com/spreadsheet/ccc?key=0AqGkLMU9sHmLdHRtbUF4OGh6ZnBZeFVsSjNhZlc1Z2c#gid=1&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;このリンクをクリック&lt;/strong&gt;&lt;/a&gt;して開き、「ファイル」メニューから「コピーを作成」をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-3fZqRifOtZ8/UUpqBFeqo6I/AAAAAAAADM4/OF3-BsAoWmc/s780/2013-03-21_110132.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「ファイル」メニューから「コピーを作成」をクリック&#34; src=&#34;http://lh5.ggpht.com/-3fZqRifOtZ8/UUpqBFeqo6I/AAAAAAAADM4/OF3-BsAoWmc/s640/2013-03-21_110132.png&#34; /&gt;&lt;/a&gt;
+コピーするドキュメント名はなんでも良い。（「コピー ～&amp;hellip;」のままでOK）
+そしたらコピーが自分のGoogleドライブに保存される。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-4-google-apps-scriptの設定と起動:0c420845d0d033b689fe8e33df09da71&#34;&gt;STEP 4. Google Apps Scriptの設定と起動&lt;/h2&gt;
+
+&lt;p&gt;コピーしたスプレッドシートでの操作。
+（Hawkseyさんのと間違わないように）
+これまでにメモした以下の3つを使用するので、念のため確認。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;STEP 0 でのTwitterアプリの「&lt;strong&gt;Consumer key&lt;/strong&gt;」&lt;/li&gt;
+&lt;li&gt;STEP 0 でのTwitterアプリの「&lt;strong&gt;Consumer secret&lt;/strong&gt;」&lt;/li&gt;
+&lt;li&gt;STEP 2 での「tweets」フォルダのURLに含まれる「&lt;strong&gt;フォルダID&lt;/strong&gt;」&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;シート内にある「Authorize/Add Sync Menu」をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-uFtl4eaabTo/UUpzLppnuYI/AAAAAAAADNk/E-Od6xGCtrM/s623/2013-03-21_114042.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Authorize/Add Sync Menu」をクリック&#34; src=&#34;http://lh4.ggpht.com/-uFtl4eaabTo/UUpzLppnuYI/AAAAAAAADNk/E-Od6xGCtrM/s623/2013-03-21_114042.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;承認の大仰な警告が表示される。
+念のため内容をよく読んで「OK」をクリック。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-Lb3pMbTP6Uw/UUp0aIQE7MI/AAAAAAAADNs/UuoHAcwsGFY/s916/2013-03-21_114552.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Authorize/Add Sync Menu」をクリック&#34; src=&#34;https://lh5.googleusercontent.com/-Lb3pMbTP6Uw/UUp0aIQE7MI/AAAAAAAADNs/UuoHAcwsGFY/s640/2013-03-21_114552.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;別ウインドウで承認完了の旨が表示されるので、閉じる。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/--4yyZ-XqMBk/UUp06cuE8eI/AAAAAAAADN0/baj9gW5PPLc/s243/2013-03-21_114800.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Authorize/Add Sync Menu」をクリック&#34; src=&#34;http://lh4.ggpht.com/--4yyZ-XqMBk/UUp06cuE8eI/AAAAAAAADN0/baj9gW5PPLc/s243/2013-03-21_114800.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;承認が完了すると、スプレッドシートの上部に「Sync Twitter Setup」というメニューが表示される。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/-9yyLogfioY8/UUp1a6F3cGI/AAAAAAAADN8/VcpE_KNFPU8/s808/2013-03-21_115015.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Sync Twitter Setup」というメニューが表示&#34; src=&#34;https://lh3.googleusercontent.com/-9yyLogfioY8/UUp1a6F3cGI/AAAAAAAADN8/VcpE_KNFPU8/s640/2013-03-21_115015.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;表示された「Sync Twitter Setup」にある「Set Archive Path」をクリックし、表示されたウインドウに「tweets」フォルダ「&lt;strong&gt;フォルダID&lt;/strong&gt;」を入力して「Save Configuration」ボタンをクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-ZlkzUuraYSY/UUp3YrUuD3I/AAAAAAAADOM/xNYuuVVUL2s/s782/2013-03-21_115422.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「フォルダID」を入力&#34; src=&#34;http://lh3.ggpht.com/-ZlkzUuraYSY/UUp3YrUuD3I/AAAAAAAADOM/xNYuuVVUL2s/s640/2013-03-21_115422.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;再度「Sync Twitter Setup」から「API Authentication」をクリックし、表示されたウインドウにTwitterアプリの「&lt;strong&gt;Consumer key&lt;/strong&gt;」と「&lt;strong&gt;Consumer secret&lt;/strong&gt;」を入力して「Save Configuration」ボタンをクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-HrJIATbuXQI/UUp5Zgf7_OI/AAAAAAAADOU/Ojw8zpkLjuQ/s803/2013-03-21_120711.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Consumer key」と「Consumer secret」を入力&#34; src=&#34;http://lh4.ggpht.com/-HrJIATbuXQI/UUp5Zgf7_OI/AAAAAAAADOU/Ojw8zpkLjuQ/s640/2013-03-21_120711.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これで入力系はOK。
+次にTwitterへのアクセス認証。&lt;/p&gt;
+
+&lt;p&gt;スプレッドシートの「ツール」から「スクリプト エディタ&amp;hellip;」をクリック。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-1I81NTZukzc/UUp6WcMV3JI/AAAAAAAADOc/P1rOyZbd9ZY/s648/2013-03-21_121116.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「スクリプト エディタ」をクリック&#34; src=&#34;https://lh5.googleusercontent.com/-1I81NTZukzc/UUp6WcMV3JI/AAAAAAAADOc/P1rOyZbd9ZY/s640/2013-03-21_121116.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;別ウインドウで「スクリプトエディタ」が開くので、上メニューの「関数を選択」をクリックし、「&lt;strong&gt;authorize&lt;/strong&gt;」を選択して実行（三角ボタン）をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-idCbzUKb00Y/UUp7ThMUO7I/AAAAAAAADOk/6Vavnwk4D0I/s686/2013-03-21_121518.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「authorize」を選択して実行&#34; src=&#34;http://lh5.ggpht.com/-idCbzUKb00Y/UUp7ThMUO7I/AAAAAAAADOk/6Vavnwk4D0I/s640/2013-03-21_121518.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「承認が必要です」には「承認」をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-hZSM4yu7NxE/UUp-cWKJQoI/AAAAAAAADO4/nbMn2Pcx7UQ/s261/2013-03-21_122433.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「承認」をクリック&#34; src=&#34;http://lh5.ggpht.com/-hZSM4yu7NxE/UUp-cWKJQoI/AAAAAAAADO4/nbMn2Pcx7UQ/s261/2013-03-21_122433.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Twitterの画面に移動するので、「連携アプリを承認」をクリック。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-vYx82TJPknw/UUp_ANo_DRI/AAAAAAAADPA/tPBIWdwlNAw/s693/2013-03-21_123105.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「連携アプリを承認」をクリック&#34; src=&#34;https://lh4.googleusercontent.com/-vYx82TJPknw/UUp_ANo_DRI/AAAAAAAADPA/tPBIWdwlNAw/s640/2013-03-21_123105.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;何事も無くければ、「スクリプトエディタ」は閉じて、スプレッドシートでの設定に戻る。
+あとは現在のツイートデータを保存する。&lt;/p&gt;
+
+&lt;p&gt;スプレッドシート上部の「Sync Twitter Setup」にある「Update Archive Now」をクリックすると、その時点のツイートデータが保存される。&lt;br /&gt;
+&lt;a href=&#34;http://lh6.ggpht.com/-k2f-HAzl2Wg/UUp_-DBrgWI/AAAAAAAADPI/uVutv3pAFGk/s640/2013-03-21_123513.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Update Archive Now」をクリック&#34; src=&#34;http://lh6.ggpht.com/-k2f-HAzl2Wg/UUp_-DBrgWI/AAAAAAAADPI/uVutv3pAFGk/s640/2013-03-21_123513.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;あとは最後の仕上げ。&lt;/p&gt;
+
+&lt;p&gt;スプレッドシート上部の「Sync Twitter Setup」にある「Turn Auto-Refresh On」をクリックすれば、ウインドウを閉じても、サーバー側で定期的に、自動でツイートが蓄積されていく。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-awL5O3zSgzM/UUqA1xgb2II/AAAAAAAADPQ/FwHUycZlTJg/s640/2013-03-21_123859.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Turn Auto-Refresh On」をクリック&#34; src=&#34;https://lh5.googleusercontent.com/-awL5O3zSgzM/UUqA1xgb2II/AAAAAAAADPQ/FwHUycZlTJg/s640/2013-03-21_123859.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;お疲れさまでした。&lt;/p&gt;
+
+&lt;h2 id=&#34;バックアップの閲覧:0c420845d0d033b689fe8e33df09da71&#34;&gt;バックアップの閲覧&lt;/h2&gt;
+
+&lt;p&gt;「STEP2」での「&lt;strong&gt;tweets&lt;/strong&gt;」フォルダの共有設定を「&lt;strong&gt;ウェブ上で一般公開&lt;/strong&gt;」にする。
+（閲覧URLは複雑な文字列なのでバレにくくはあるけど、非公開ツイートにしている人なんかはあまりおすすめできないかも）
+その後は以下のようなURLから閲覧できる。
+&lt;strong&gt;&lt;a href=&#34;https://googledrive.com/host/フォルダID/&#34;&gt;https://googledrive.com/host/フォルダID/&lt;/a&gt;&lt;/strong&gt;
+「フォルダID」は Step2 でメモしたものと同じ。
+この素晴らしいスクリプトを作ったMartin Hawksey(&lt;a href=&#34;https://twitter.com/mhawksey&#34; target=&#34;_blank&#34;&gt;@mhawksey&lt;/a&gt;)さんの過去ツイートはこちら。
+&lt;a href=&#34;https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/&#34;&gt;https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;動画でもやり方が公開されている（英語）ので、確認になると思う。
+&lt;iframe width=&#34;640&#34; height=&#34;360&#34; src=&#34;http://www.youtube.com/embed/ce8G3sEOjAY?rel=0&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
+      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <description>
+
+&lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;
+
+&lt;p&gt;Cron使いたいけど、レンタルサーバーにその機能がない、またはCronつきレンタルサーバー借りる余裕がない。
+そんなことないですかね。ないですかそうですか。いや個人的にあったんでメモ。&lt;/p&gt;
+
+&lt;p&gt;「&lt;a href=&#34;http://www.google.com/script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;」というのがあって、JavaScriptに似たコードを書けばなんかいろいろ動くみたいなんですよ。動く時間も指定できて。無料で。&lt;/p&gt;
+
+&lt;p&gt;「Google Apps」とついてるけど、別に企業アカウントとか独自ドメインとかが必要なわけじゃない。
+必要なのはリクエスト先URLとGoogleアカウントだけ。&lt;/p&gt;
+
+&lt;p&gt;まずGoogleにログインして「&lt;a href=&#34;http://www.google.com/script&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;」にアクセスすると、下のような画面になるので「Start Scripting」をクリック。
+ここは英語だけどその先は日本語。
+&lt;a href=&#34;http://lh3.googleusercontent.com/-gK_O0yT2lpc/UT0sslDYg_I/AAAAAAAADKk/eKp_rfxG-cU/2013-03-11_095900.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Start Scripting」をクリック&#34; src=&#34;http://lh3.googleusercontent.com/-gK_O0yT2lpc/UT0sslDYg_I/AAAAAAAADKk/eKp_rfxG-cU/s650/2013-03-11_095900.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;すると以下の画面に遷移するので、とりあえず「空のプロジェクト」をクリックして、プロジェクトを作成。
+&lt;a href=&#34;http://lh4.ggpht.com/-Wa_FpWI99qw/UT0uHxv3YSI/AAAAAAAADK8/L4CsTMve438/2013-03-11_100530.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「空のプロジェクト」をクリック&#34; src=&#34;http://lh4.ggpht.com/-Wa_FpWI99qw/UT0uHxv3YSI/AAAAAAAADK8/L4CsTMve438/s640/2013-03-11_100530.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;いきなりコードを書く画面になるので、ここに書いていく。
+今回は「&lt;strong&gt;指定時間（または定期的）に、単にURLをリクエストするだけ&lt;/strong&gt;」という要件のものなので、最低限の書き方でいく。
+例えば「&lt;a href=&#34;http://example.com/cron.php」というURLリクエストしたいなら、以下のように記述する。&#34;&gt;http://example.com/cron.php」というURLリクエストしたいなら、以下のように記述する。&lt;/a&gt;
+（エラー処理とかしてない最低限のコード）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myFunction() {
+UrlFetchApp.fetch(&amp;quot;http://example.com/cron.php&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;こんだけ！&lt;/p&gt;
+
+&lt;p&gt;Google Apps Scriptに「&lt;strong&gt;UrlFetch&lt;/strong&gt;」という機能があって、指定したURLをリクエストするというもの。
+必要ならリクエスト先URLの結果の文字列も取得できる。&lt;/p&gt;
+
+&lt;p&gt;で、重要なのは指定時間に上記のスクリプトを実行すること。
+Google Apps Scriptではこれを「&lt;strong&gt;&lt;em&gt;トリガー&lt;/em&gt;&lt;/strong&gt;」と読んでるみたい。&lt;/p&gt;
+
+&lt;p&gt;コード編集画面のメニューにある時計マークをクリック。
+&lt;a href=&#34;http://lh3.ggpht.com/-SrYU2KFbKqw/UT0xMMW1KcI/AAAAAAAADLE/UygDuyf4mlg/2013-03-11_101935.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;コード編集画面のメニューにある時計マークをクリック&#34; src=&#34;http://lh3.ggpht.com/-SrYU2KFbKqw/UT0xMMW1KcI/AAAAAAAADLE/UygDuyf4mlg/s640/2013-03-11_101935.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;プロジェクトをまだ保存してなければ、「プロジェクト名の変更」という画面が表示されるので、好きな名前をつける。（その名前でGoogleドライブに保存される）&lt;/p&gt;
+
+&lt;p&gt;「現在のプロジェクトのトリガー」という画面が表示されるので、「今すぐ追加するには・・・」のところをクリック。
+&lt;a href=&#34;http://lh6.ggpht.com/-2eVM3VCh9HQ/UT0yMjcmXZI/AAAAAAAADLM/C39bq-s-hT4/2013-03-11_102357.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「今すぐ追加するには・・・」のところをクリック&#34; src=&#34;http://lh6.ggpht.com/-2eVM3VCh9HQ/UT0yMjcmXZI/AAAAAAAADLM/C39bq-s-hT4/s640/2013-03-11_102357.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そしたら出てきた。Cronぽいものが。&lt;/p&gt;
+
+&lt;p&gt;ここで自由に時間を指定する。
+&lt;a href=&#34;http://lh4.ggpht.com/-mZtVacg0s9o/UT0y4NlG8xI/AAAAAAAADLU/e8cofZNtXUc/2013-03-11_102649.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「今すぐ追加するには・・・」のところをクリック&#34; src=&#34;http://lh4.ggpht.com/-mZtVacg0s9o/UT0y4NlG8xI/AAAAAAAADLU/e8cofZNtXUc/s640/2013-03-11_102649.png&#34; /&gt;&lt;/a&gt;
+選択肢の右にある「通知」では、失敗時の通知をメールで受信できる。
+ここはどうやらログインユーザーのメールアドレスか、Googleドライブでそのプロジェクトを共有しているメールアドレスしか選べないっぽい。
+時間帯を「保存」して、プロジェクトも保存すると、すぐに動きはじめる模様。&lt;/p&gt;
+
+&lt;h2 id=&#34;リクエスト結果をメールで受け取ってみる:99813ee1335af0ac77725bc02bc7cb51&#34;&gt;リクエスト結果をメールで受け取ってみる&lt;/h2&gt;
+
+&lt;p&gt;単にURLをリクエストしただけだと、リクエスト先のプログラムの生死がわからない。
+リクエスト結果をメールで受け取ってみる。&lt;/p&gt;
+
+&lt;p&gt;結果の文字列をメール送信するには、前述のコードを以下のように修正。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myFunction() {
+    var response = UrlFetchApp.fetch(&amp;quot;http://example.com/cron.php&amp;quot;);
+    MailApp.sendEmail(
+        &amp;quot;google-user-name@gmail.com&amp;quot;,// 送信先メール
+        &amp;quot;Cronの実行結果ですよ&amp;quot;,// メール件名
+        &amp;quot;&amp;quot;,
+        {
+            htmlBody: response.getContentText()
+        }
+    );
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コード2行目でURLをリクエストし、その結果を「response」にセット。
+&lt;a href=&#34;https://developers.google.com/apps-script/service_mail&#34; target=&#34;_blank&#34;&gt;Mail機能&lt;/a&gt;を使ってメール送信。
+送信先メールアドレスは4行目、その下の5行目はメールの件名になる。&lt;/p&gt;
+
+&lt;p&gt;これでGoogleドライブに保存しておけば、指定時間にせっせと動いてくれる。&lt;/p&gt;
+
+&lt;p&gt;ちなみにGoogleドライブに保存されたプロジェクトを編集する時は、Googleドライブを「Google Apps Scriptアプリ」と「接続」する必要があるみたい。
+要するにGoogleドライブ内へのアクセス許可ということかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;あと、注意点として、トリガー設定済みのプロジェクトを削除してもトリガーは止まらなかった。&lt;br /&gt;
+ゴミ箱にある状態だと動き続けるみたい。&lt;br /&gt;
+プロジェクトを削除する場合は、念のためトリガーを削除してからの方がよさそう。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Apps Scriptをもっと知りたいなら公式リファレンスを。（まだ英語のみ）&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/service_urlfetch&#34; target=&#34;_blank&#34;&gt;UrlFetch Services&lt;/a&gt;（URLリクエスト機能）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/service_mail&#34; target=&#34;_blank&#34;&gt;Mail Services&lt;/a&gt;（メール機能）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/understanding_triggers#TimeTriggers&#34; target=&#34;_blank&#34;&gt;Using Time-Driven Triggers&lt;/a&gt;（時間指定機能の使い方）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;で、気になる制限系だけど、&lt;a href=&#34;https://developers.google.com/apps-script/understanding_triggers#TimeTriggers&#34; target=&#34;_blank&#34;&gt;公式リファレンス&lt;/a&gt;にはなにも書いてない・・・？
+英語だし、指定時間もいくらでも設定できるようだし・・・よくわからない。
+以前はGoogle App Engineでわざわざ&lt;a href=&#34;http://ko-lab.net/twitter/google-app-enginegae%E3%81%A7cron%E5%8B%95%E3%81%8B%E3%81%99%E3%82%84%E3%82%8A%E6%96%B9%E3%82%92%E3%82%86%E3%81%A8%E3%82%8A%E5%90%91%E3%81%91%E3%81%AB%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF/&#34; target=&#34;_blank&#34;&gt;Pythonでcron.yaml書いてやってた&lt;/a&gt;けど、これならデプロイとかエディタすらも不要。
+まだお試し検証中だけど、カジュアルなbot系とかなら良さそうかな。
+もちろんUrlFetch機能はGETもPOSTもできるので、&lt;a href=&#34;http://pipes.yahoo.com/pipes/&#34; target=&#34;_blank&#34;&gt;Yahoo!Pipes&lt;/a&gt;とか&lt;a href=&#34;http://developer.yahoo.com/yql/&#34; target=&#34;_blank&#34;&gt;YQL&lt;/a&gt;とかも使うとわりと夢がひろがりそう。
+（ちなみに公式リファレンスにも&lt;a href=&#34;https://developers.google.com/apps-script/class_urlfetchapp#fetch&#34; target=&#34;_blank&#34;&gt;OAuthが必要なTwitter用サンプルコード&lt;/a&gt;がある）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>電子書籍の横断検索</title>
+      <link>http://kijtra.com/article/ebook-search</link>
+      <pubDate>Thu, 14 Feb 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/ebook-search</guid>
+      <description>&lt;p&gt;Googleのカスタム検索エンジンの試しで、電子書籍サイトを横断検索できるやつを作ってみた。&lt;/p&gt;
+
+&lt;p&gt;&lt;script&gt;
+  (function() {
+    var cx = &amp;lsquo;005022487374147002888:jpardwcfjya&amp;rsquo;;
+    var gcse = document.createElement(&amp;lsquo;script&amp;rsquo;); gcse.type = &amp;lsquo;text/javascript&amp;rsquo;; gcse.async = true;
+    gcse.src = (document.location.protocol == &amp;lsquo;https:&amp;rsquo; ? &amp;lsquo;https:&amp;rsquo; : &amp;lsquo;http:&amp;lsquo;) +
+        &amp;lsquo;//www.google.com/cse/cse.js?cx=&amp;rsquo; + cx;
+    var s = document.getElementsByTagName(&amp;lsquo;script&amp;rsquo;)[0]; s.parentNode.insertBefore(gcse, s);
+  })();
+&lt;/script&gt;&lt;a href=&#34;gcse:search&#34;&gt;gcse:search&lt;/a&gt;&lt;a href=&#34;http://kijtra.com/gcse:search&#34;&gt;/gcse:search&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;テキトウに検索してみてください。
+作ったのはいいんだけど、やっぱアフィリエイトはできないよねこれw&lt;/p&gt;
+
+&lt;p&gt;知らなかったけど、カスタム検索に「プロモーション」ってのがあって、検索結果で自由にリンクを表示する機能がある。
+上の検索で試しに「&lt;strong&gt;池上&lt;/strong&gt;」と検索すると、グレー背景の広告っぽいリンクが出る(Kindle Fireのページへのリンクを設定した)。&lt;/p&gt;
+
+&lt;p&gt;プロモーションを表示する条件として、検索キーワードを正規表現で指定する。
+「いつでも表示」はできなくて、あるキーワードに対して表示する形。
+あとスマホでも見れないことはない模様。&lt;/p&gt;
+
+&lt;p&gt;ほかにアイデア練ってみよう。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

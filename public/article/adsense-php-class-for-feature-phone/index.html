@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/adsense-php-class-for-feature-phone">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス">
+<meta name="description" content="携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)">
+
+<meta property="article:published_time" content="2014/10/10T00:00:00Z">
+<meta property="article:tag" content="AdSense"><meta property="article:tag" content="PHP">
+<link rel="canonical" href="http://kijtra.com/article/adsense-php-class-for-feature-phone">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2014/10/10</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/adsense">AdSense</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/php">PHP</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)</p>
+
+<p>Web上の携帯(フィーチャーフォン/ガラケー)サイト制作の情報って、もうすっかり古いものしか残ってないけど、まだ消滅したわけじゃないので作り続けてるわけです。<br />
+実際、自分が関わってるサイトでは非スマホでフィーチャーフォン/ガラケーのユーザーがまだ約2割もいる！<br />
+業種やコンテンツによってはまだ需要があって、しかもAdSenseのCTRはPCなんかよりはるかに高い(ミスクリックしやすい…？)。<br />
+ということで、携帯(フィーチャーフォン/ガラケー)サイトがあるならばAdSenseを貼らないテはないんだけど、いかんせんGoogle公式のPHP用AdSenseコードがイマイチなので、クラスを作った。</p>
+
+<p>Gogoleでは「WAPブラウザ用広告」という名前にしてるみたい。<br />
+AdSenseのコード改変は違反じゃないのかと思う人もいるかもしれないけど、違反になるのはユーザー体験を損ねたりする場合であって、今回のPHPの場合は<a href="https://support.google.com/adsense/answer/14204?hl=ja">Google自身が外部リソースに頼れと誘導してる</a>ので問題ないはず。</p>
+
+<h2 id="まず広告の作成:f9eda87e7a311ad08923afb954329951">まず広告の作成</h2>
+
+<p>AdSense管理画面の「<a href="https://www.google.com/adsense/app#myads-viewall-adunits">広告の設定</a>」に行き、左メニューの「<strong>モバイルコンテンツ</strong>」から広告を作成する。<br />
+すでに広告作ってる場合はそれを使ってもいいかも。<br />
+<a href="https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png" target="_blank"><img class="aligncenter" alt="携帯サイトAdSense用広告の作成" src="https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png" /></a></p>
+
+<p>広告作成の際にPHP用のコードが選択できるので、それを選択してコードを生成。<br />
+<a href="https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png" target="_blank"><img class="aligncenter" alt="PHP用AdSenseコードの生成" src="https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png" /></a></p>
+
+<p>広告のコードが発行されるので、とりあえずメモ帳かなにかにコピペしておく。<br />
+(あとでこのコード内の記述を使用)
+<a href="https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png" target="_blank"><img class="aligncenter" alt="携帯サイト用AdSense広告のコード" src="https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png" /></a></p>
+
+<h2 id="携帯サイトadsense用phpクラスのコード:f9eda87e7a311ad08923afb954329951">携帯サイトAdSense用PHPクラスのコード</h2>
+
+<p>以下のコードをどこかに配置。<br />
+<a href="https://gist.github.com/kijtra/4f7b49f9c466a95463c8#file-adsense_for_keitai-php"><i class="icon-github"></i> Gistにもあり(最新)</a><br />
+10行目の「<strong>ca-mb-pub-XXXXXXXXXXXXXXX</strong>」には、AdSenseコードにある「<code>$GLOBALS['google']['client']</code>」の値を入れておく。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+
+class adsenseForKeitai
+{
+	private $ad_url = 'http://pagead2.googlesyndication.com/pagead/ads';
+	private $timeout = 3;//second
+
+	private $params = array(
+		'slot' =&gt; null,
+		'client' =&gt; 'ca-mb-pub-XXXXXXXXXXXXXXX',
+
+		'ad_type' =&gt; 'text_image',
+		'format' =&gt; 'mobile_single',
+		'markup' =&gt; 'xhtml',
+		'output' =&gt; 'xhtml',
+		'oe' =&gt; 'utf8',
+
+		'https' =&gt; false,
+		'ip' =&gt; null,
+		'ref' =&gt; null,
+		'url' =&gt; null,
+		'useragent' =&gt; null,
+
+		'color_border' =&gt; 'FFFFFF',
+		'color_bg' =&gt; 'FFFFFF',
+		'color_link' =&gt; '0053F9',
+		'color_text' =&gt; '000000',
+		'color_url' =&gt; '828282',
+	);
+
+	public function __construct($slot = null, $charset = 'utf8')
+	{
+		$this-&gt;params['slotname'] = $slot;
+		$this-&gt;params['oe'] = $charset;
+
+		$this-&gt;params['ip'] = $_SERVER['REMOTE_ADDR'];
+		$this-&gt;params['useragent'] = (!empty($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : null);
+		$this-&gt;params['ref'] = (!empty($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : null);
+		$this-&gt;params['url'] = $_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+
+		if (
+			(!empty($_SERVER['HTTPS']) &amp;&amp; ('on' == strtolower($_SERVER['HTTPS']) || '1' == strtolower($_SERVER['HTTPS'])))
+			|| (!empty($_SERVER['SERVER_PORT']) &amp;&amp; (443 === (int)$_SERVER['SERVER_PORT'])
+		)) {
+			$this-&gt;params['https'] = true;
+		}
+
+		$this-&gt;params['dt'] = time();
+
+		// Screen Resolutions
+		$res = null;
+		if (!empty($_SERVER['HTTP_UA_PIXELS'])) {
+			$res = $_SERVER['HTTP_UA_PIXELS'];
+		} elseif(!empty($_SERVER['HTTP_X_UP_DEVCAP_SCREENPIXELS'])) {
+			$res = $_SERVER['HTTP_X_UP_DEVCAP_SCREENPIXELS'];
+		} elseif(!empty($_SERVER['HTTP_X_JPHONE_DISPLAY'])) {
+			$res = $_SERVER['HTTP_X_JPHONE_DISPLAY'];
+		}
+
+		if (!empty($res) &amp;&amp; preg_match('/\A(\d+)[x,\*](\d+)\z/', $res, $match)) {
+			$this-&gt;params['u_w'] = $match[1];
+			$this-&gt;params['u_h'] = $match[2];
+		}
+
+		// MUID
+		if (!empty($_SERVER['HTTP_X_DCMGUID'])) {
+			$this-&gt;params['muid'] = $_SERVER['HTTP_X_DCMGUID'];
+		} elseif(!empty($_SERVER['HTTP_X_UP_SUBNO'])) {
+			$this-&gt;params['muid'] = $_SERVER['HTTP_X_UP_SUBNO'];
+		} elseif(!empty($_SERVER['HTTP_X_JPHONE_UID'])) {
+			$this-&gt;params['muid'] = $_SERVER['HTTP_X_JPHONE_UID'];
+		} elseif(!empty($_SERVER['HTTP_X_EM_UID'])) {
+			$this-&gt;params['muid'] = $_SERVER['HTTP_X_EM_UID'];
+		}
+
+		// Via and Accept
+		if (!empty($_SERVER['HTTP_VIA'])) {
+			$this-&gt;params['via'] = $_SERVER['HTTP_VIA'];
+		}
+
+		// Accept
+		if (!empty($_SERVER['HTTP_ACCEPT'])) {
+			$this-&gt;params['accept'] = $_SERVER['HTTP_ACCEPT'];
+		}
+	}
+
+	public function client($id = null)
+	{
+		if (!empty($id) &amp;&amp; false !== strpos($id, 'pub-')) {
+			$this-&gt;params['client'] = $id;
+		}
+
+		return $this;
+	}
+
+	public function slot($id = null)
+	{
+		if (!empty($id) &amp;&amp; ctype_digit(strval($id))) {
+			$this-&gt;params['slotname'] = $id;
+		}
+
+		return $this;
+	}
+
+	public function param($param = null)
+	{
+		if (!empty($param) &amp;&amp; is_array($param)) {
+			$this-&gt;params = array_merge($this-&gt;params, $param);
+		}
+
+		return $this;
+	}
+
+	public function color() {return $this-&gt;colors();}//alias
+	public function colors($param = null)
+	{
+		if (!empty($param) &amp;&amp; is_array($param)) {
+			foreach($param as $key =&gt; $val) {
+				$val = str_replace('#', '', $val);
+				if (!preg_match('/\A[a-f0-9]{6}\z/i', $val)) {
+					if (preg_match('/\A([a-f0-9])([a-f0-9])([a-f0-9])\z/i', $val, $m)) {
+						$val = $m[1].$m[1].$m[2].$m[2].$m[3].$m[3];
+					} else {
+						continue;
+					}
+				}
+				if (0 !== strpos($key, 'color_')) {
+					$key = 'color_'.$key;
+				}
+
+				$this-&gt;params[$key] = strtoupper($val);
+			}
+		}
+
+		return $this;
+	}
+
+	private function request()
+	{
+		static $buffer = null;
+		if (!empty($buffer)) {
+			return $buffer;
+		}
+
+		if (empty($this-&gt;params['client']) || empty($this-&gt;params['slotname'])) {
+			return false;
+		}
+
+		if (0 !== strpos($this-&gt;params['client'], 'ca-')) {
+			$this-&gt;params['client'] = 'ca-mb-'.$this-&gt;params['client'];
+		}
+
+		$url = $this-&gt;ad_url.'?'.http_build_query($this-&gt;params);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this-&gt;timeout);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this-&gt;timeout);
+		//curl_setopt($ch, CURLOPT_HEADER, true);
+		$content = curl_exec($ch);
+		curl_close($ch);
+
+		if (!empty($content)) {
+			return $buffer = $content;
+		}
+	}
+
+	public function get()
+	{
+		return $this-&gt;request();
+	}
+
+	public function show()
+	{
+		echo $this-&gt;request();
+	}
+}
+</code></pre>
+
+<h2 id="表示する:f9eda87e7a311ad08923afb954329951">表示する</h2>
+
+<p>広告を表示したい箇所に、以下のようなコードを書く。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+//スロットIDを指定して表示
+$class-&gt;slot('XXXXXXXXXXXXXXX')-&gt;show();
+?&gt;
+</code></pre>
+
+<p><code>slot('XXXXXXXXXXXXXXX')</code> の部分は、<br />
+AdSenseコードにある <code>$GLOBALS['google']['slotname']</code> の値を入れる(数字のみ)。</p>
+
+<p><code>show()</code> は出力も兼ねてるので、 <code>echo</code> を書く必要はなし。<br />
+(echoしたくない場合のために一応 <code>get()</code> というのも用意してある)</p>
+
+<p>もし広告のリンクとかテキストとかの色を変えたい場合は以下のようなこともできる。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+// 広告の色設定(指定できるのは以下の5種類のみっぽい)
+$color = array(
+    'border' =&gt; 'FFFFFF',// 枠線の色
+	'bg' =&gt; 'FFFFFF',// 背景色
+	'link' =&gt; '0053F9',// リンク(タイトル)の色
+	'text' =&gt; '000000',// 通常テキスト色
+	'url' =&gt; '828282',// URL部分の色(携帯用は関係ないかも)
+);
+
+//スロットIDを指定して、色をセットして表示
+$class-&gt;slot('XXXXXXXXXXXXXXX')-&gt;color($color)-&gt;show();
+?&gt;
+</code></pre>
+
+<h2 id="関連情報:f9eda87e7a311ad08923afb954329951">関連情報</h2>
+
+<ul>
+<li><a href="https://support.google.com/adsense/answer/68724?ctx=as2&amp;rd=1">モバイル用AdSenseのヘルプ</a></li>
+<li><a href="https://support.google.com/adsense/answer/185668?hl=ja">AdSenseモバイル広告の種類とサイズ</a></li>
+<li><a href="https://support.google.com/adsense/answer/1354736?hl=ja">AdSense 広告コードの改変について</a></li>
+</ul>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

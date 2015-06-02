@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/javascript/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Fri, 27 Sep 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/javascript/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>テーブルのセルに斜めの線を引くjQueryプラグイン</title>
+      <link>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</link>
+      <pubDate>Fri, 27 Sep 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</guid>
+      <description>&lt;p&gt;テーブルのセルに斜めの線（分割線？打ち消し線？）をつけるやつをjQueryプラグインとして作ってみた。&lt;/p&gt;
+
+&lt;p&gt;テーブルのセルに斜めの線を引いたりしたいことないですかね。
+必要に迫られてググりまくった情報をもとにjQueryプラグインとして作ってみました。&lt;/p&gt;
+
+&lt;p&gt;言葉では難しいんだけど、要するにこういうことでして。
+&lt;a href=&#34;http://kijtra.com/wp/wp-content/uploads/2013/09/2013-09-27_142602.png&#34;&gt;&lt;img src=&#34;http://kijtra.com/wp/wp-content/uploads/2013/09/2013-09-27_142602.png&#34; alt=&#34;テーブルの斜めの線&#34; width=&#34;276&#34; height=&#34;164&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;コードは以下だけど、&lt;a href=&#34;https://gist.github.com/kijtra/6723306&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;span class=&#34;icon-github-alt&#34;&gt;&lt;/span&gt; Gistにあり〼&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/6723306.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;ウインドウサイズによって幅が変わるようなテーブルには対応していなくて、しかもセルのCSSスタイルによっては表示が微妙になる時がある・・・。&lt;/p&gt;
+
+&lt;p&gt;はじめはCSS3の背景グラデーションでやろうかと思ったけどセルのサイズを固定しないとできなかったので、jQueryでセルの縦横を取得して、それに合わせてボーダーのある要素を傾けるものになってる。
+というかこれHTML5の標準機能とかでできたらなあw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IEほかフォームの「placeholder」属性をクロスブラウザで使えるようにする(jQuery不要版)</title>
+      <link>http://kijtra.com/article/cross-browser-placeholder-without-jquer</link>
+      <pubDate>Mon, 08 Apr 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cross-browser-placeholder-without-jquer</guid>
+      <description>&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するってやつです。jQuery不要で単体で使えます。&lt;/p&gt;
+
+&lt;p&gt;placeholder属性は便利なので、サポート外のブラウザでも使いたい！
+これサポートしていないブラウザが「IE9以下」と、けっこうなサポート外ぶりなのでJavaScriptで。&lt;/p&gt;
+
+&lt;p&gt;前にjQueryでやるやつは書いた( &lt;a href=&#34;http://kijtra.com/article/cross-browser-placeholder&#34;&gt;フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)&lt;/a&gt; )んだけど、jQueryなしの需要がありそうだったので作ってみた。&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/5334086.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/5334086&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&amp;nbsp;&lt;/i&gt;Gistにも掲載中&lt;/a&gt;
+使い方としては、上記のコードをコピーして.jsファイルにペーストして、HTMLのどこでもいいので読み込むだけ。
+勝手にwindowのonload後に実行されます。&lt;/p&gt;
+
+&lt;p&gt;placaholderの数だけformのonSubmitを登録してるのとかどうだろ…w
+役に立ちそうならご自由にお使いください。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)</title>
+      <link>http://kijtra.com/article/cross-browser-placeholder</link>
+      <pubDate>Sat, 16 Feb 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cross-browser-placeholder</guid>
+      <description>
+
+&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するスニペット。jQueryが必要版。&lt;/p&gt;
+
+&lt;p&gt;placeholder属性は便利ですよね。さらにユーザーにもわかりやすい。
+でもIE9以下は対応してないのが痛い・・・
+なのでJavaScriptで代替してクロスブラウザにしてしまいましょう。（要jQuery）&lt;/p&gt;
+
+&lt;h1 id=&#34;追記-2013-04-08:9d9f5727c51310c9f6a4e2dd46772fe6&#34;&gt;追記 2013-04-08&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://kijtra.com/article/cross-browser-placeholder-without-jquer&#34;&gt;jQueryなし版もつくってみた&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/4964976.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/4964976&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&amp;nbsp;&lt;/i&gt;Gistにも掲載中&lt;/a&gt;
+実行時にplaceholder属性が使えるかどうかチェックしてるので、使えるブラウザでは無駄な動きはしない。
+いまのところjQueryがないと動かないけど、jQueryなしにする予定。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>「Redactor」用フォントサイズプラグイン</title>
+      <link>http://kijtra.com/article/redactor-font-size-plugin</link>
+      <pubDate>Sat, 10 Nov 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/redactor-font-size-plugin</guid>
+      <description>&lt;p&gt;WYSIWYGエディタの「Redactor」専用「フォントサイズ」プラグイン。公式にはないので。&lt;/p&gt;
+
+&lt;p&gt;jQueryのプラグインとして動くWYSIWYGエディタの「&lt;a href=&#34;http://imperavi.com/redactor/&#34; target=&#34;_blank&#34;&gt;Redactor&lt;/a&gt;」、個人的には最も使いやすいWYSIWYGエディタなんだけど、フォントサイズのボタンがないのが難だった。
+Redactorの配布元であるimperaviの&lt;a href=&#34;https://twitter.com/imperavi/statuses/225033339063635969&#34; target=&#34;_blank&#34;&gt;公式Twitterで、フォントサイズは「&lt;strong&gt;bad way&lt;/strong&gt;」ということで付けてない（付ける予定もない）&lt;/a&gt;らしい・・・。&lt;/p&gt;
+
+&lt;p&gt;それじゃ作るしかないということで、バージョン8.1.0からプラグイン機能が実装されたので作った。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;if (typeof RedactorPlugins === &#39;undefined&#39;) var RedactorPlugins = {};
+RedactorPlugins.fontsize = {
+	init: function(){
+		var doc = document;
+		if ( !doc.getElementById( &#39;redactor-fontsize-style&#39; ) ) {
+			var head = doc.getElementsByTagName( &#39;head&#39; )[0];
+			var imgsrc = &#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAASCAMAAACZ8IWSAAAAA3NCSVQICAjb4U/gAAAAgVBMVEX///////9VVVX///96enpVVVVVVVVVVVX///9VVVX////Hx8erq6tVVVXo6OhVVVVVVVX////e3t5aWlpVVVX////e3t5VVVX////U1NRVVVV6enpaWlpVVVWrq6uVlZVubm5aWlpVVVVycnJubm5mZmZaWlpVVVWrq6tmZmZVVVU4bmHEAAAAK3RSTlMAEREiIiIzRFVVZmZmZnd3iJmZmZmqqqq7u7vMzMzd3d3d3e7u7u7u////6dkbcAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAB90RVh0U29mdHdhcmUATWFjcm9tZWRpYSBGaXJld29ya3MgOLVo0ngAAACGSURBVBiVrc7JFoIwDAXQIA5YpyKiQalgHSjv/z+QwrKpx41vkUVuk5ToD0Gsac0oLGEFnDFGyOmDe8JgFlP2hlcW27bWlV9HJOWyVQ80ibw/69raoFdSdgXnR6CSct345zWaNISlyf0JjX4fwKHDc0HaAu95QBmzH1Ilcxn53s84577SVAdK6gqHkfp1SQAAAABJRU5ErkJggg==&#39;;
+			var style = doc.createElement( &#39;style&#39; );
+			style.type = &#39;text/css&#39;;
+			style.id = &#39;redactor-fontsize-style&#39;;
+			style.innerHTML = &#39;.redactor_btn_fontsize{background-image:url(&#39; + imgsrc + &#39;) !important;}&#39;;
+			head.appendChild( style );
+		}
+		var dropdown = {
+			nofontsize: {
+				title: &#39;指定なし&#39;,
+				callback: this.fontSize
+			},
+			fontsize1: {
+				title: &#39;&amp;lt;font size=&amp;quot;1&amp;quot;&amp;gt;1 (8pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			},
+			fontsize2: {
+				title: &#39;&amp;lt;font size=&amp;quot;2&amp;quot;&amp;gt;2 (10pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			},
+			fontsize3: {
+				title: &#39;&amp;lt;font size=&amp;quot;3&amp;quot;&amp;gt;3 (12pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			},
+			fontsize4: {
+				title: &#39;&amp;lt;font size=&amp;quot;4&amp;quot;&amp;gt;4 (14pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			},
+			fontsize5: {
+				title: &#39;&amp;lt;font size=&amp;quot;5&amp;quot;&amp;gt;5 (18pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			},
+			fontsize6: {
+				title: &#39;&amp;lt;font size=&amp;quot;6&amp;quot;&amp;gt;6 (24pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			},
+			fontsize7: {
+				title: &#39;&amp;lt;font size=&amp;quot;7&amp;quot;&amp;gt;7 (36pt)&amp;lt;/font&amp;gt;&#39;,
+				callback: this.fontSize
+			}
+		};
+		this.addBtnAfter(&#39;backcolor&#39;,&#39;fontsize&#39;,&#39;文字サイズ&#39;,function(){},dropdown);
+	},
+	fontSize: function( obj, event, key ) {
+		if ( key.match( /^fontsize(\d+)$/ ) ) {
+			obj.execCommand( &#39;fontSize&#39;, RegExp.$1 );
+		} else if ( key == &#39;nofontsize&#39; ) {
+			obj.execCommand( &#39;removeFormat&#39;, key );
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/4070324&#34; target=&#34;_blank&#34;&gt;一応Gistにも置いてある&lt;/a&gt;。
+ちなみに&lt;a href=&#34;http://imperavi.com/redactor/&#34; target=&#34;_blank&#34;&gt;Redactor&lt;/a&gt;はいつのまにか有料化されてて辛い・・・。
+個人としてはフリーだった時のやつを使ってるけど、プラグイン機能とか諸々がない。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/sublime-text/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Fri, 04 Jul 2014 12:07:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/sublime-text/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Sublime Text 3 のインストール～設定メモ</title>
+      <link>http://kijtra.com/article/sublime-text-3-install-and-settings</link>
+      <pubDate>Fri, 04 Jul 2014 12:07:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/sublime-text-3-install-and-settings</guid>
+      <description>
+
+&lt;p&gt;Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ。&lt;/p&gt;
+
+&lt;h2 id=&#34;開発バージョンをダウンロード:73589e8d2639747e5931f20bd3d44061&#34;&gt;開発バージョンをダウンロード&lt;/h2&gt;
+
+&lt;p&gt;巷では Sublime Text の &lt;a href=&#34;http://www.sublimetext.com/2&#34;&gt;バージョン2&lt;/a&gt; を使っている人が多いようだけど、バージョン &lt;strong&gt;3&lt;/strong&gt; を使う。&lt;br /&gt;
+バージョン3の方が起動など動作が速く、サイドバーのファイルアイコン(あとで「テーマ」の部分で紹介)に対応してる。&lt;/p&gt;
+
+&lt;p&gt;現時点(2014/07/05)では Build 3062 が最新だった。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/3dev&#34;&gt;Sublime Text Dev Builds&lt;/a&gt;&lt;/strong&gt; &lt;a href=&#34;http://www.sublimetext.com/3dev&#34;&gt;http://www.sublimetext.com/3dev&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ちなみに Portable Version を Dropbox に入れて使ってる。&lt;/p&gt;
+
+&lt;h2 id=&#34;まずは-package-control-をインストール:73589e8d2639747e5931f20bd3d44061&#34;&gt;まずは「Package Control」をインストール&lt;/h2&gt;
+
+&lt;p&gt;Sublime Text をはじめて起動したら、まずはこれを入れる。&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/&#34;&gt;Package Control&lt;/a&gt;&lt;/strong&gt; &lt;a href=&#34;https://sublime.wbond.net/&#34;&gt;https://sublime.wbond.net/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;インストール手順は、Sublime Text を起動し、&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;`&lt;/kbd&gt;(&lt;kbd&gt;@&lt;/kbd&gt;キー) を押してコンソールを表示させ、公式コードをそのままコピー＆ペーストして &lt;kbd&gt;Enter&lt;/kbd&gt;。&lt;br /&gt;
+コピーするコードは &lt;a href=&#34;https://sublime.wbond.net/installation&#34;&gt;ここのページのもの(「SUBLIME TEXT 3」のタブ内)を使用する&lt;/a&gt; 。&lt;br /&gt;
+※上記ページに「コードの再配布はするな」と書いてあるのでここには書けない&lt;/p&gt;
+
+&lt;h2 id=&#34;プラグイン:73589e8d2639747e5931f20bd3d44061&#34;&gt;プラグイン&lt;/h2&gt;
+
+&lt;p&gt;プラグインはなるべく Package Control で入れられるものに限定したい。&lt;br /&gt;
+各プラグインのインストールは、 Sublime Text 起動時に　&lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;P&lt;/kbd&gt; でコマンドリストを表示させ、「Package Control: Install Package」を探して &lt;kbd&gt;Enter&lt;/kbd&gt;。&lt;br /&gt;
+コマンドリストの検索窓に「 &lt;span style=&#34;font-family:serif&#34;&gt;&lt;strong&gt;I&lt;/strong&gt;&lt;/span&gt; 」を入力して、そこから探して &lt;kbd&gt;Enter&lt;/kbd&gt; しておくと、次回からは「&lt;span style=&#34;font-family:serif&#34;&gt;I&lt;/span&gt;」検索で「Package Control: Install Package」が最初に出るのでなるべくやっておく。&lt;br /&gt;
+「Package Control: Install Package」を &lt;kbd&gt;Enter&lt;/kbd&gt; したら Package Control のサーバーから一覧が読み込まれるので、以下の各プラグイン名で検索して &lt;kbd&gt;Enter&lt;/kbd&gt; するとインストールされる。&lt;/p&gt;
+
+&lt;h3 id=&#34;おすすめ系:73589e8d2639747e5931f20bd3d44061&#34;&gt;おすすめ系&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Emmet&#34;&gt;Emmet&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;https://code.google.com/p/zen-coding/&#34;&gt;Zen Coding&lt;/a&gt; の進化系。コーディングする人は必須で覚えた方がいい。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SideBarEnhancements&#34;&gt;SidebarEnhancements&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Sublime Text のサイドバーでの右クリック項目を拡張してくれる。&lt;br /&gt;
+例えば「このファイルを指定のアプリケーションで開く(Open With&amp;hellip;)」とか「実行する(Open/Run)」とか、デフォルトでは付いていないので。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/ConvertToUTF8&#34;&gt;ConvertToUTF8&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+マルチバイト文字が含まれるファイルをUTF8に変換して表示。&lt;br /&gt;
+デフォルトでは Shift-JIS とか文字化けしたりするので、とりあえず入れておく。&lt;br /&gt;
+絶対に UTF-8 しか扱わない自信があればいらないかも。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/BracketHighlighter&#34;&gt;BracketHighlighter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+HTMLの開始タグ～終了タグや、コードのカッコのペアをわかりやすく表示してくれる。&lt;br /&gt;
+この終了タグってどのdivだ？みたいなのに無駄な時間を取られないようにしたい。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/IMESupport&#34;&gt;IMESupport&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Windowsのみ。 Sublime Text デフォルト状態では日本語入力変換がウインドウ左下の方に表示されるため視点が定まらないけど、これを入れるとキャレットの部分で表示されて便利。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SFTP&#34;&gt;SFTP&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Sublime Text 単体で(S)FTPできるプラグイン。有料($20)だけど、度々出る警告を無視できるならとりあえずは無料で使い続けられる(機能の制限は特に無い)。
+SFTPと公開鍵認証に対応してるのはこのプラグインぐらいしかないので、自己投資と思って買ってしまうのがおすすめ。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SublimeLinter&#34;&gt;Sublime​Linter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コードの間違いを警告してくれるプラグイン。言語ごとに Sublime​Linter プラグインがあって、これはその基板となるプラグインなので入れておく。&lt;br /&gt;
+言語ごとのものは &lt;a href=&#34;https://sublime.wbond.net/search/SublimeLinter&#34;&gt;検索すると希望のものが見つかるはず&lt;/a&gt;。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;個人的に必要系:73589e8d2639747e5931f20bd3d44061&#34;&gt;個人的に必要系&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Diffy&#34;&gt;Diffy&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+2つのファイルの差分を表示してくれるプラグイン。&lt;br /&gt;
+Sublime Text で &lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Alt&lt;/kbd&gt; + &lt;kbd&gt;2&lt;/kbd&gt;(&lt;kbd&gt;&amp;ldquo;&lt;/kbd&gt;) を押してウインドウを分割して比較したいファイルを開き、&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;K&lt;/kbd&gt; + &lt;kbd&gt;D&lt;/kbd&gt;で差分がハイライトされる。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/ApacheConf.tmLanguage&#34;&gt;ApacheConf.tmLanguage&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Apache系の .conf ファイルや .htaccess なんかをシンタックスハイライトしてくれるプラグイン。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Git&#34;&gt;Git&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コマンドウインドウからGit系コマンドが実行できる。&lt;br /&gt;
+単体で動くものではなく、 &lt;a href=&#34;http://git-scm.com/&#34;&gt;Git&lt;/a&gt; 自体がインストールされていて、かつパスが通ってる必要がある。&lt;br /&gt;
+コミット時のコメントがわかりにくい。コミットコマンドを打つと Sublime Text で新規タブが開くので、その一番上にコメントを書いて「保存せずタブを閉じる」。&lt;br /&gt;
+ちなみに日本語でコメントすると動かないので注意。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/OmniMarkupPreviewer&#34;&gt;Omni​Markup​Previewer&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Markdown をブラウザでリアルタイムプレビューしてくれるプラグイン。Markdown をHTMLに変換できたりもする。&lt;br /&gt;
+このブログは Markdown で書いており、プレビュー具合もいい(特にコード部分のシンタックスハイライトとか)ので個人的に便利。&lt;br /&gt;
+ちなみに Sublime Text はデフォルトで Markdown をシンタックスハイライトしてくれないので、別途カラースキーマをインストールする必要がある(「テーマ」の部分で紹介)。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/LESS&#34;&gt;LESS&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+LESSファイルのシンタックスハイライト用プラグイン。&lt;br /&gt;
+SASSよりLESSの方が使う頻度が高いので。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上記以外は状況によって。&lt;br /&gt;
+&lt;a href=&#34;https://sublime.wbond.net/packages/Vagrant&#34;&gt;Vagrant&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Compass&#34;&gt;Compass&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Terminal&#34;&gt;Terminal&lt;/a&gt; とかは便利かも。&lt;/p&gt;
+
+&lt;h2 id=&#34;追加設定:73589e8d2639747e5931f20bd3d44061&#34;&gt;追加設定&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://brdr-mmrndm.tumblr.com/post/80456872825/sublime-text&#34;&gt;こちらのページ&lt;/a&gt;にあるように、
+メニューの「Preferences -&amp;gt; Settings - User」を開いて、 &lt;code&gt;draw_indent_guides&lt;/code&gt;、 &lt;code&gt;indent_guide_options&lt;/code&gt;、 &lt;code&gt;match_brackets&lt;/code&gt; の設定を追記するとさらに見やすくなる。&lt;br /&gt;
+また、そのほか上からデフォルトでない設定。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;font_face&amp;quot;: &amp;quot;Consolas&amp;quot;&lt;/code&gt;&lt;br /&gt;
+個人的にフォントは Consolas にしてる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;bold_folder_labels&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+サイドバーのフォルダ名を太字にして区別しやすくする&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;word_wrap&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+ウインドウの端で折り返す&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;preview_on_click&amp;quot;: false&lt;/code&gt;&lt;br /&gt;
+サイドバーでのファイルクリック時にいちいちファイルが開く動作が困る(大きいファイルなど)のでオフに&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;highlight_line&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+編集してる行をハイライトする&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;draw_white_space&amp;quot;: &amp;quot;all&amp;quot;&lt;/code&gt;
+常に半角スペースを「・」で表示(デフォルトはテキスト選択時のみ)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;atomic_save&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+保存時に一時ファイルを使う(?)ような機能みたいだけど、他のアプリケーションで同時に開けなかったりするのでオフに&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+	&amp;quot;draw_indent_guides&amp;quot;: true,
+	&amp;quot;indent_guide_options&amp;quot;: [&amp;quot;draw_normal&amp;quot;, &amp;quot;draw_active&amp;quot;],
+	&amp;quot;match_brackets&amp;quot;: false,
+
+	&amp;quot;font_face&amp;quot;: &amp;quot;Consolas&amp;quot;,
+	&amp;quot;bold_folder_labels&amp;quot;: true,
+	&amp;quot;word_wrap&amp;quot;: true,
+	&amp;quot;preview_on_click&amp;quot;: false,
+	&amp;quot;highlight_line&amp;quot;: true,
+	&amp;quot;draw_white_space&amp;quot;: &amp;quot;all&amp;quot;,
+	&amp;quot;atomic_save&amp;quot;: true
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;テーマ:73589e8d2639747e5931f20bd3d44061&#34;&gt;テーマ&lt;/h2&gt;
+
+&lt;p&gt;去年あたりからコード書く場合はダーク系テーマが見やすいと気づいた。&lt;br /&gt;
+Sublime Text は「テーマ」が枠のデザイン(サイドバーとかタブとか)で、「カラースキーマ」は入力部分の見た目となっていて、それぞれ違うものが使えるので好みによって。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png&#34; align=&#34;right&#34; hspace=&#34;10&#34; alt=&#34;Sublime Text のファイルアイコン&#34;&gt;&lt;/a&gt; テーマでは &lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Flatland&#34;&gt;Flatland&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Soda&#34;&gt;Soda&lt;/a&gt; とかがカッコいいので人気みたいだけど、&lt;br /&gt;
+個人的に「ファイルアイコン」が表示できるものを必要条件としているため、以下のテーマを使ってる。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Aprosopo&#34;&gt;Aprosopo&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;ファイルアイコンというのは Sublime Text 3 の 開発版 Build 3062 から導入されたもので、これまでサイドバーのアイコンはフォルダにしか表示されなかったけど、各ファイルにもアイコンが表示できるようになった機能。&lt;br /&gt;
+拡張子ごとにアイコンが変わったりするので見やすくなる。&lt;br /&gt;
+これまでフォルダとファイルの階層のインデントが少しわかりにくくて誤操作も多かったんだけど、この機能で解消された。&lt;br /&gt;
+前述した Flatland とか Soda とかはまだこの機能に対応してないのが惜しい。&lt;/p&gt;
+
+&lt;p&gt;Aprosopo はダークテーマとライトテーマがあって、しかも設定が Preferences メニューから簡単に変えられる(いちいち設定ファイルに書かなくてもいい)ので気に入ってる。&lt;/p&gt;
+
+&lt;h2 id=&#34;カラースキーマ:73589e8d2639747e5931f20bd3d44061&#34;&gt;カラースキーマ&lt;/h2&gt;
+
+&lt;p&gt;これは完全に好みや気分。&lt;br /&gt;
+いまは &lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Cobalt2&#34;&gt;Cobalt2&lt;/a&gt;&lt;/strong&gt; の背景色をカスタマイズしたものを使ってる。&lt;br /&gt;
+Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リンク先で見た目のキャプチャ見れます)&lt;br /&gt;
+ちなみに色のカスタマイズは &lt;a href=&#34;https://sublime.wbond.net/packages/ColorSchemeEditor&#34;&gt;Color​Scheme​Editor&lt;/a&gt; を使うと手軽に変更できる。&lt;br /&gt;
+(しょっちゅう使うものでもないのでプラグインで紹介してない)&lt;/p&gt;
+
+&lt;p&gt;気分でよく変える人なんかは &lt;a href=&#34;https://sublime.wbond.net/packages/Dayle%20Rees%20Color%20Schemes&#34;&gt;Dayle Rees Color Schemes&lt;/a&gt; のプラグインが便利。&lt;br /&gt;
+このプラグインはインストールすると &lt;a href=&#34;http://daylerees.github.io/&#34;&gt;たくさんのカラースキーマ&lt;/a&gt; が一括インストールされるので、好みのものが見つかるはず。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Sublime Text 2 のPortable版でSASSをスタンドアローンで使う</title>
+      <link>http://kijtra.com/article/sublime-text-2-sass-standalone</link>
+      <pubDate>Fri, 26 Jul 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/sublime-text-2-sass-standalone</guid>
+      <description>
+
+&lt;p&gt;Sublime Text 2 をportable版で使ってて、SASSもRubyとか入れずにポータブルにできないかと思ったら、そういうソフトを見つけたので設定メモ（Windowsのみ）。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.sublimetext.com/&#34; target=&#34;_blank&#34;&gt;Sublime Text 2&lt;/a&gt; 便利ですよね。
+もうデフォルトのテキストエディタにしてしまいたいところだけど、メモとかには少し重いんで未だに秀丸と併用中。
+Sublime Text 2 には&lt;a href=&#34;http://www.sublimetext.com/2&#34; target=&#34;_blank&#34;&gt;portable版&lt;/a&gt;というのがあって、USBメモリとかに突っ込んで使えるので、自分の場合はDropboxに入れて他の環境でも同じものを使っています。&lt;/p&gt;
+
+&lt;p&gt;で、Sublime Text 2 で SASS を使う時、通常はRubyをインストールしてgemで・・・みたいな流れになるけど、portable版を使っているのでSASSもポータブルにできないかなぁと思って調べてみたところ、あるもんですね。
+とりあえず「Sublime Textって？」「SASSって？」というのは割愛です。（&amp;rdquo;SASSって&amp;rdquo; てなんか・・・）&lt;/p&gt;
+
+&lt;p&gt;zausさんという人が「Sassifier」というソフトを作ってるので、それを使用。
+以下はその説明ページ。
+&lt;a href=&#34;http://drzaus.com/snippet/standalone-scss-compiler-for-sass-in-sublime-text-2&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;Standalone SCSS compiler for SASS in Sublime Text 2&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;試した環境については以下の通り。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Windows 7&lt;/li&gt;
+&lt;li&gt;Sublime Text 2 ver 2.0.2 (portable)&lt;/li&gt;
+&lt;li&gt;プラグインは &lt;a href=&#34;http://wbond.net/sublime_packages/package_control&#34; target=&#34;_blank&#34;&gt;Package Control&lt;/a&gt; のみの状態&lt;/li&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;必要なソフトのダウンロード:35c0bb3004c21201b933a52151593fd0&#34;&gt;必要なソフトのダウンロード&lt;/h2&gt;
+
+&lt;p&gt;まずは「Sassifier」をダウンロード。&lt;/p&gt;
+
+&lt;p&gt;前述の&lt;a href=&#34;http://drzaus.com/snippet/standalone-scss-compiler-for-sass-in-sublime-text-2&#34; target=&#34;_blank&#34;&gt;zausさんのエントリー&lt;/a&gt;の中ほどにある「&lt;strong&gt;standalone executable: Sassifier-v1p2-addin.7z&lt;/strong&gt;」というリンクをクリック。
+&lt;a href=&#34;http://lh4.ggpht.com/-zStLRjxrMCs/UfIq1gU_K-I/AAAAAAAADUw/R3SsUjudaaY/s570/2013-07-26_161328.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;Sassiferをダウンロード&#34; src=&#34;http://lh4.ggpht.com/-zStLRjxrMCs/UfIq1gU_K-I/AAAAAAAADUw/R3SsUjudaaY/s570/2013-07-26_161328.png&#34; /&gt;&lt;/a&gt;
+ダウンロードされる拡張子が「.txt」になっているので、それを削って「&lt;strong&gt;.7z&lt;/strong&gt;」に変更。
+すると「Sassifier」というフォルダができるので、ひとまず必要なものはこれだけ。&lt;/p&gt;
+
+&lt;h2 id=&#34;設定とインストール:35c0bb3004c21201b933a52151593fd0&#34;&gt;設定とインストール&lt;/h2&gt;
+
+&lt;p&gt;次に Sublime Text 2 を起動。&lt;/p&gt;
+
+&lt;p&gt;上部メニューから「&lt;strong&gt;Tools&lt;/strong&gt;」→「&lt;strong&gt;Build System&lt;/strong&gt;」→「&lt;strong&gt;New build System…&lt;/strong&gt;」をクリック。
+&lt;a href=&#34;http://lh3.ggpht.com/-xe3nYEk3xuE/UfIq2T7Dy2I/AAAAAAAADU4/aocJFypPvFk/s617/2013-07-26_161757.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;New build System…をクリック&#34; src=&#34;http://lh3.ggpht.com/-xe3nYEk3xuE/UfIq2T7Dy2I/AAAAAAAADU4/aocJFypPvFk/s617/2013-07-26_161757.png&#34; /&gt;&lt;/a&gt;
+すると「.sublime-build」という拡張子で設定ファイルが開くので、&lt;a href=&#34;http://drzaus.com/snippet/standalone-scss-compiler-for-sass-in-sublime-text-2&#34; target=&#34;_blank&#34;&gt;zausさんのエントリー&lt;/a&gt;下部にある以下のコードをそのままコピペ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;{
+	&amp;quot;cmd&amp;quot;: [&amp;quot;Sassifier.exe&amp;quot;, &amp;quot;$file&amp;quot;],
+	&amp;quot;working_dir&amp;quot;: &amp;quot;$packages/SASS/Sassifier&amp;quot;,
+	&amp;quot;selector&amp;quot;: &amp;quot;source.sass&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;そして保存する時のフォルダとファイル名が決まってて、以下の中に保存。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;[Sublime Text 2 本体のフォルダ]\Data\Packages\Sass\SASS.sublime-build&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;「Sass」というフォルダは無ければ作る。&lt;/p&gt;
+
+&lt;p&gt;加えて、さっき解凍した「Sassifier」フォルダも、この「Sass」フォルダにまるごとコピー（＝インストール）。
+フォルダ構成をまとめると、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;[Sublime Text 2 本体のフォルダ]
+└ Data/
+　└ Packages/
+　　└ Sass/
+　　　├ Sassifier/
+　　　└ SASS.sublime-build
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これが整うと、Sublime Text 2 の上部メニューから「&lt;strong&gt;Tools&lt;/strong&gt;」→「&lt;strong&gt;Build System&lt;/strong&gt;」→「&lt;strong&gt;SASS&lt;/strong&gt;」が選択できるようになってると思う。&lt;/p&gt;
+
+&lt;h2 id=&#34;うごかす:35c0bb3004c21201b933a52151593fd0&#34;&gt;うごかす&lt;/h2&gt;
+
+&lt;p&gt;そしたら試しにscssファイルを変換してみる。
+「test.scss」というファイルを Sublime Text 2 で開き、サンプルとして以下のように書いてみた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;#main {
+	width:600px;
+	a {
+		text-decoration:none;
+		&amp;amp;:hover{
+			text-decoration:underline;
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、これを開いたまま、Sublime Text 2 の上部メニューから「&lt;strong&gt;Tools&lt;/strong&gt;」→「&lt;strong&gt;Build System&lt;/strong&gt;」→「&lt;strong&gt;SASS&lt;/strong&gt;」を選択後、「&lt;strong&gt;Ctrl&lt;/strong&gt;」＋「&lt;strong&gt;B&lt;/strong&gt;」キーを押す。
+そしたら！うまいこと「test.css」というのができたっぽいです。
+&lt;a href=&#34;http://lh5.ggpht.com/-rOWu-NZCVEc/UfIyDO5u-AI/AAAAAAAADVk/AMcmf9RzgHk/s593/2013-07-26_172332.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;CSSファイルが生成された&#34; src=&#34;http://lh5.ggpht.com/-rOWu-NZCVEc/UfIyDO5u-AI/AAAAAAAADVk/AMcmf9RzgHk/s593/2013-07-26_172332.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;生成された「test.css」の中身はこんなんだった。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-css&#34;&gt;/* -------------------------------------------------------------------------
+ * !!! AUTOMATICALLY GENERATED CODE !!!
+ * -------------------------------------------------------------------------
+ * This file was automatically generated by the Sassifier compiler.
+ * Compiled on:  2013/07/26 17:21:47
+ */
+#main {
+  width: 600px; }
+  #main a {
+    text-decoration: none; }
+    #main a:hover {
+      text-decoration: underline; }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちなみに文法が間違ってたりすると「Sassifier」が強制終了したりすることがあったのでちょっと怖い(笑)。
+あとRubyとか使う本家と違いがあるのかとか、scssフォルダからcssフォルダに生成（自動生成先の指定）できるのかとか、そこらへんはまだよくわからんけど、とりあえずportable版でも動くものがあるってことで。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

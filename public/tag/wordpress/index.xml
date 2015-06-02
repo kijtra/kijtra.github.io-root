@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/wordpress/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Sat, 12 Jan 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/wordpress/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>All in One SEO Pack の設定で使えるタグ一覧</title>
+      <link>http://kijtra.com/article/all-in-one-seo-pack-replace</link>
+      <pubDate>Sat, 12 Jan 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/all-in-one-seo-pack-replace</guid>
+      <description>
+
+&lt;p&gt;WordPressのプラグイン「&lt;a href=&#34;http://wordpress.org/extend/plugins/all-in-one-seo-pack/&#34; target=&#34;_blank&#34;&gt;All in One SEO Pack&lt;/a&gt;」、SEOやるうえでとても便利。&lt;br /&gt;
+で、ページタイトルとかを専用タグで置換できるんだけど、どんなタグが使えるのかわからなかったので、プラグインのソース見て一覧をメモ。&lt;/p&gt;
+
+&lt;h1 id=&#34;ページタイトル:643faeed3e32dfb27984a05de435ce46&#34;&gt;ページタイトル&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34;&gt;ページ送り（is_paged）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ページ番号&lt;/th&gt;
+&lt;td&gt;%page%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;投稿記事ページ(is_single)&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;記事タイトル&lt;/th&gt;
+&lt;td&gt;%post_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;カテゴリ名&lt;/th&gt;
+&lt;td&gt;%category%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のユーザー名&lt;/th&gt;
+&lt;td&gt;%post_author_login%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のニックネーム&lt;/th&gt;
+&lt;td&gt;%post_author_nicename%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の姓&lt;/th&gt;
+&lt;td&gt;%post_author_firstname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の名&lt;/th&gt;
+&lt;td&gt;%post_author_lastname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;固定ページ（is_page）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ページタイトル&lt;/th&gt;
+&lt;td&gt;%page_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のユーザー名&lt;/th&gt;
+&lt;td&gt;%post_author_login%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者のニックネーム&lt;/th&gt;
+&lt;td&gt;%post_author_nicename%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の姓&lt;/th&gt;
+&lt;td&gt;%post_author_firstname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;投稿者の名&lt;/th&gt;
+&lt;td&gt;%post_author_lastname%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;br&gt;※フロントページに設定されていると無効（「ホームタイトル」のものを表示）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;検索ページ（is_search）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;検索語&lt;/th&gt;
+&lt;td&gt;%search%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;カテゴリページ（is_category）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;カテゴリ名&lt;/th&gt;
+&lt;td&gt;%category_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;カテゴリ概要文&lt;/th&gt;
+&lt;td&gt;%category_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;br&gt;※フィードでは無効&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;タグページ（is_tag）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;タグ名&lt;/th&gt;
+&lt;td&gt;%tag%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;アーカイブページ（is_archive）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;日付（年、月、日など）&lt;/th&gt;
+&lt;td&gt;%date%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;404エラーページ（is_404）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;リクエストURL&lt;/th&gt;
+&lt;td&gt;%request_url%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;URLから生成した英単語&lt;/th&gt;
+&lt;td&gt;%request_words%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ページタイトル（wp_title(&#39;&#39;, false)）&lt;/th&gt;
+&lt;td&gt;%404_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;メディア（is_attachment）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;なし&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;ホーム（is_home）&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;なし（「ホームタイトル」に入力されていればそれを表示）&lt;br&gt;※複数ページならタイトル末尾に「ページ送り」で設定した文字が追加&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;h1 id=&#34;メタタグ:643faeed3e32dfb27984a05de435ce46&#34;&gt;メタタグ&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34;&gt;metaディスクリプション&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログタイトル&lt;/th&gt;
+&lt;td&gt;%blog_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;ブログ説明文&lt;/th&gt;
+&lt;td&gt;%blog_description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;抜粋&lt;/th&gt;
+&lt;td&gt;%description%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;th&gt;記事タイトル&lt;/th&gt;
+&lt;td&gt;%wp_title%&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;thead&#34;&gt;
+&lt;th colspan=&#34;2&#34; style=&#34;padding-top:20px&#34;&gt;metaキーワード&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;tfoot&#34;&gt;
+&lt;td colspan=&#34;2&#34;&gt;なし&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>公開日を未来にしても予約投稿にせず強制公開するWordPressプラグイン</title>
+      <link>http://kijtra.com/article/wordpress-future-post-publish</link>
+      <pubDate>Fri, 14 Dec 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/wordpress-future-post-publish</guid>
+      <description>&lt;p&gt;公開日を未来にしても予約状態にせず公開したいことがあって。
+デバッグとかそういうので。
+ということで必要にかられて作った。&lt;/p&gt;
+
+&lt;p&gt;以下のコードを適当なファイル名（文字コードはUTF-8）で保存して「&lt;strong&gt;plugins&lt;/strong&gt;」ディレクトリに入れれば、Wordpressの管理画面からプラグインに表示される。
+あとはプラグインを有効にすると、記事編集時に右サイドに設定が表示。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/4083991/download&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;ソースをダウンロード(Gistから)&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+/*
+Plugin Name: Force Publish
+Plugin URI: http://kijtra.com/article/27
+Description: 公開日が未来の日付でも、強制的に公開状態にします。
+Author: kijtra
+Version: 1
+Author URI: http://kijtra.com
+*/
+add_action( &#39;admin_menu&#39;, &#39;force_future_to_publish_add_custom_box&#39; );
+function force_future_to_publish_add_custom_box() {
+	$box_title = &#39;予約投稿の変更&#39;;
+	//add_meta_boxがない場合(WP2.5以前)
+	if( !function_exists( &#39;add_meta_box&#39; ) ) {
+		add_action( &#39;dbx_post_advanced&#39;, &#39;force_future_to_publish_metabox_old&#39; );
+		add_action( &#39;dbx_page_advanced&#39;, &#39;force_future_to_publish_metabox_old&#39; );
+	} else {
+		add_meta_box( &#39;force_future_to_publish&#39;, $box_title, &#39;force_future_to_publish_metabox&#39;, &#39;news&#39;, &#39;side&#39; );
+    add_meta_box( &#39;force_future_to_publish&#39;, $box_title, &#39;force_future_to_publish_metabox&#39;, &#39;page&#39;, &#39;side&#39; );
+		//すべてのカスタム投稿タイプでも有効にする
+		foreach( get_post_types( array( &#39;public&#39; =&amp;gt; true, &#39;_builtin&#39; =&amp;gt; false ), &#39;objects&#39; ) as $key =&amp;gt; $val ) {
+			add_meta_box( &#39;force_future_to_publish&#39;, $box_title, &#39;force_future_to_publish_metabox&#39;, $val-&amp;gt;slug, &#39;side&#39; );
+		}
+	}
+}
+// WP2.6以降用
+function force_future_to_publish_metabox() {
+	global $post;
+	if ( strtotime( $post-&amp;gt;post_date ) &amp;gt; time() &amp;amp;&amp;amp; $post-&amp;gt;post_status == &#39;publish&#39; ) {
+		$label = &#39;予約投稿にもどす&#39;;
+	} else {
+		$label = &#39;公開日が未来の日付でも公開&#39;;
+	}
+?&amp;gt;
+	&amp;lt;label for=&amp;quot;force_future_to_publish_check&amp;quot;&amp;gt;
+		&amp;lt;input type=&amp;quot;checkbox&amp;quot; id=&amp;quot;force_future_to_publish_check&amp;quot; name=&amp;quot;force_future_to_publish&amp;quot; value=&amp;quot;1&amp;quot;&amp;gt;
+		&amp;lt;span id=&amp;quot;force_future_to_publish_label&amp;quot;&amp;gt;&amp;lt;?php echo $label; ?&amp;gt;&amp;lt;/span&amp;gt;
+	&amp;lt;/label&amp;gt;
+&amp;lt;?php
+}
+// WP2.5以前用
+function force_future_to_publish_metabox_old() {
+?&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-b-ox-wrapper&amp;quot;&amp;gt;
+&amp;lt;fieldset id=&amp;quot;force_future_to_publish_fieldsetid&amp;quot; class=&amp;quot;dbx-box&amp;quot;&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-h-andle-wrapper&amp;quot;&amp;gt;
+&amp;lt;h3 class=&amp;quot;dbx-handle&amp;quot;&amp;gt;強制公開&amp;lt;/h3&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-c-ontent-wrapper&amp;quot;&amp;gt;
+&amp;lt;div class=&amp;quot;dbx-content&amp;quot;&amp;gt;
+					&amp;lt;?php force_future_to_publish_metabox(); ?&amp;gt;
+				&amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/fieldset&amp;gt;&amp;lt;/div&amp;gt;
+&amp;lt;?php
+}
+add_filter( &#39;wp_insert_post_data&#39;, &#39;force_future_to_publish_save&#39;, &#39;10&#39;, &#39;2&#39;);
+function force_future_to_publish_save( $data, $postarr ) {
+	//必要なデータがあるか確認
+	if( empty( $_POST[&#39;ID&#39;] ) || empty( $_POST[&#39;action&#39;] ) || empty( $data[&#39;post_status&#39;] ) ){
+		return $data;
+	}
+	//自動保存なら何もしない
+	if ( defined(&#39;DOING_AUTOSAVE&#39;) &amp;amp;&amp;amp; DOING_AUTOSAVE ) {
+		return $data;
+	}
+	//権限チェック
+	if ( &#39;page&#39; == $_POST[&#39;post_type&#39;] ) {
+		if ( !current_user_can( &#39;edit_page&#39;, $_POST[&#39;ID&#39;] ) ) {
+			return $data;
+		}
+	} else {
+		if ( !current_user_can( &#39;edit_post&#39;, $_POST[&#39;ID&#39;] ) ) {
+			return $data;
+		}
+	}
+	//予約投稿に設定されていれば強制的に公開の設定
+	if( $_POST[&#39;action&#39;] == &#39;editpost&#39; ) {
+		//チェックボックスにチェックが入っている場合
+		if( !empty( $_POST[&#39;force_future_to_publish&#39;] ) ){
+			if ( $_POST[&#39;post_status&#39;] == &#39;future&#39; ){
+				$data[&#39;post_status&#39;] = &#39;publish&#39;;
+			}
+			//予約投稿に戻す場合
+			elseif ( $_POST[&#39;post_status&#39;] == &#39;publish&#39; ){
+				$data[&#39;post_status&#39;] = &#39;future&#39;;
+			}
+		}
+		//チェックボックスにチェックが入っていない場合
+		else {
+			//旧データがpublishならpublishを維持
+			if( $_POST[&#39;post_status&#39;] == &#39;publish&#39; &amp;amp;&amp;amp;  $data[&#39;post_status&#39;] = &#39;future&#39;) {
+				$data[&#39;post_status&#39;] = &#39;publish&#39;;
+			}
+		}
+	}
+	return $data;
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

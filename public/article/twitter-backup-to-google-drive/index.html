@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法 - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/twitter-backup-to-google-drive">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法">
+<meta name="description" content="Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。">
+
+<meta property="article:published_time" content="2013/03/03T00:00:00Z">
+<meta property="article:tag" content="Google"><meta property="article:tag" content="Google Apps Script"><meta property="article:tag" content="Twitter">
+<link rel="canonical" href="http://kijtra.com/article/twitter-backup-to-google-drive">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2013/03/03</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google">Google</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google-apps-script">Google Apps Script</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/twitter">Twitter</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。</p>
+
+<p>Twitterの自分のツイートをバックアップするのは<a href="http://twilog.org/" target="_blank">ツイログ</a>なんかが有名だけど、自前のどこかに貯めておきたい気もする。
+それをGoogleドライブで、無料で、自動で、しかもプログラム知識ゼロでもできるってやつを見つけたのでその方法を。</p>
+
+<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> <strong>この記事は古いため、もしかしたら実践しても動かないかもしれません。</strong></div>
+
+<p>最近は<a href="https://developers.google.com/apps-script/" target="_blank">Google Apps Script</a>というのがあんまり便利なもんで、自分の過去ツイートを保存するやつでも作ろうかなーと思っていたら、Martin Hawksey(<a href="https://twitter.com/mhawksey" target="_blank">@mhawksey</a>)さんという方が<a href="http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/" target="_blank">ドンピシャなものを公開してた</a>。
+これは使わん手はない。</p>
+
+<p>その<a href="http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/" target="_blank">元記事</a>に手順と動画の説明まであるからいいかな、とはいえ英語だから、ここに日本語用の手順を書いておく。
+注意点として、これから説明する方法でバックアップした場合、<strong><em>バックアップの閲覧にはGoogleドライブの指定フォルダを「一般公開」の状態にする必要がある</em></strong>。
+閲覧URLは複雑な文字列なのでバレにくくはあるけど、非公開ツイートにしている人なんかはあまりおすすめできないかも。
+<a href="https://googledrive.com/host/0B6aI6pgeMKqOUmlJbVlDRWFhYkE/" target="_blank"><strong>完成するとこんな感じでツイートが溜まっていく。</strong></a>
+見た目カッチョイイし、右の月別ナビゲーションもグッド。
+（Twitter公式のテンプレなので。）
+これがプログラム知識ナシで、無料で組める。</p>
+
+<h2 id="step-0-twitterの-アプリ-を作成:0c420845d0d033b689fe8e33df09da71">STEP 0. Twitterの「アプリ」を作成</h2>
+
+<p>下準備。
+Googleドライブから自動で自分のツイートを定期的に取得するため、Twitterにアクセスするためのアプリが必要になる。</p>
+
+<p><a href="https://dev.twitter.com/" target="_blank"><a href="https://dev.twitter.com/">https://dev.twitter.com/</a></a>にアクセスし、自分のTwitterアカウントでサインイン。<br />
+<a href="http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s990/2013-03-21_111512.png" target="_blank"><img class="aligncenter" alt="自分のTwitterアカウントでサインイン" src="http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s640/2013-03-21_111512.png" /></a></p>
+
+<p><a href="https://dev.twitter.com/apps">My applications</a>へ移動。<br />
+<a href="https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png" target="_blank"><img class="aligncenter" alt="My applicationsへ移動" src="https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png" /></a></p>
+
+<p>右上の「Create a new application」をクリックし、必要な情報を入力。<br />
+<a href="https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s981/2013-03-21_122459.png" target="_blank"><img class="aligncenter" alt="「Create a new application」をクリック" src="https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s640/2013-03-21_122459.png" /></a></p>
+
+<p>「Name」はなんでもいいけど、誰かが同じ名前のアプリを作ってるとエラーになる。
+「Description」も適当に。文字数が少ないとエラー。
+「Website」もなんでもOK。とりあえずGoogleドライブのURLにした。</p>
+
+<p>*「Callback URL」は必ず「<strong><a href="https://spreadsheets.google.com/macros">https://spreadsheets.google.com/macros</a></strong>」にする*必要がある。</p>
+
+<p>入力したら「Developer Rules Of The Road」の同意にチェックし、CAPTCHAに表示された文字を入力して「Create your Twitter application」ボタンをクリック。
+アプリケーションが作成された。
+必要になるのは「<strong>Consumer key</strong>」と「<strong>Consumer secret</strong>」のランダムな文字。
+これをメモしておく。<br />
+<a href="http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s986/2013-03-21_112853.png" target="_blank"><img class="aligncenter" alt="アプリケーションが作成された" src="http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s640/2013-03-21_112853.png" /></a>
+下準備ここまで。</p>
+
+<h2 id="step-1-公式の-twitterアーカイブファイル-を取得:0c420845d0d033b689fe8e33df09da71">STEP 1. 公式の「Twitterアーカイブファイル」を取得</h2>
+
+<p>まず、現在の過去ツイートをダウンロードする。
+Twitterでは2012年の12月に、<a href="http://blog.twitter.com/2012/12/your-twitter-archive.html" target="_blank">過去ツイートのバックアップ機能を公開</a>している。
+<del>これは現時点（2013-03-21）で英語版だけの機能なんだけど、Twitterの設定画面を英語にすれば使える。</del></p>
+
+<p><a href="http://blog.jp.twitter.com/2013/03/blog-post_22.html" target="_blank">日本語版でもできるようになったみたい(2013/03/22)</a>
+Twitterにログインし、<a href="https://twitter.com/settings" target="_blank">設定画面</a>に行く。</p>
+
+<p>そして「言語設定」を「英語」にする。（保存時はログインパスワードが必要）<br />
+<a href="http://lh5.ggpht.com/-UsfWaXfgr2Q/UUpfv6bDhGI/AAAAAAAADLs/2v9k9pkbEk8/s912/2013-03-21_101706.png" target="_blank"><img class="aligncenter" alt="「言語設定」を「英語」にする" src="http://lh5.ggpht.com/-UsfWaXfgr2Q/UUpfv6bDhGI/AAAAAAAADLs/2v9k9pkbEk8/s640/2013-03-21_101706.png" /></a></p>
+
+<p>英語版に切り替わると、同設定画面の下の方に、「Request your archive」ボタンが出現。<br />
+<a href="http://lh3.ggpht.com/-nmfS89iiheE/UUphHkwGoZI/AAAAAAAADL0/9kCePbAoHxU/s922/2013-03-21_102335.png" target="_blank"><img class="aligncenter" alt="「Request your archive」ボタンが出現" src="http://lh3.ggpht.com/-nmfS89iiheE/UUphHkwGoZI/AAAAAAAADL0/9kCePbAoHxU/s640/2013-03-21_102335.png" /></a></p>
+
+<p>そうすると、「ダウンロード用ページのリンクをメールで送りましたよ」ってなのが出て、リンクつきメールが送られてくる。<br />
+<a href="https://lh4.googleusercontent.com/-3YukWu0Ldi0/UUphsGEgrbI/AAAAAAAADL8/Xkt1xVB3fJo/s391/2013-03-21_102603.png" target="_blank"><img class="aligncenter" alt="ダウンロード用ページのリンクをメールで送りましたよ" src="https://lh4.googleusercontent.com/-3YukWu0Ldi0/UUphsGEgrbI/AAAAAAAADL8/Xkt1xVB3fJo/2013-03-21_102603.png" /></a></p>
+
+<p>リンクをクリックすると、「Download」ボタンのあるページへ。<br />
+<a href="http://lh6.ggpht.com/-nZboWq9MS1c/UUpiinXlEKI/AAAAAAAADME/OoPe7N8ujOA/s888/2013-03-21_102937.png" target="_blank"><img class="aligncenter" alt="「Download」ボタンのあるページ" src="http://lh6.ggpht.com/-nZboWq9MS1c/UUpiinXlEKI/AAAAAAAADME/OoPe7N8ujOA/s640/2013-03-21_102937.png" /></a>
+クリックすると「<strong>tweets.zip</strong>」というファイルがダウンロードされるので、解凍しておく。
+（あとでまた使う）</p>
+
+<p>ここまで終わったら、Twitter管理画面は「日本語」に戻してOK。</p>
+
+<h2 id="step-2-googleドライブの設定:0c420845d0d033b689fe8e33df09da71">STEP 2. Googleドライブの設定</h2>
+
+<p><a href="https://drive.google.com/" target="_blank">Google Drive</a>に行く。
+まだ使ったことがない人はなにか始める手続きが必要かもしれない。
+<strong><em>Step1</em></strong>でダウンロードしたtweets.zipを解凍したフォルダをアップロードする。<br />
+<a href="http://lh5.ggpht.com/-21jvbd91KCY/UUpmV_XrF6I/AAAAAAAADMc/coRlB75fRj0/s343/2013-03-21_104537.png" target="_blank"><img class="aligncenter" alt="フォルダをアップロード" src="http://lh5.ggpht.com/-21jvbd91KCY/UUpmV_XrF6I/AAAAAAAADMc/coRlB75fRj0/2013-03-21_104537.png" /></a></p>
+
+<p><em>このときの注意点として、アップロードファイルの「変換」が「<strong><em>オフ</em></strong>」になっている必要がある。</em><br />
+<a href="https://lh4.googleusercontent.com/-zc_jxRJJEJs/UUpnO9LHqBI/AAAAAAAADMk/C1OYF_4ZQtE/s513/2013-03-21_104940.png" target="_blank"><img class="aligncenter" alt="「変換」が「オフ」になっている必要がある" src="https://lh4.googleusercontent.com/-zc_jxRJJEJs/UUpnO9LHqBI/AAAAAAAADMk/C1OYF_4ZQtE/2013-03-21_104940.png" /></a></p>
+
+<p>Googleドライブ内に「<strong><em>tweets</em></strong>」というフォルダが作られ、中にファイル一式が作成された状態。<br />
+<a href="https://lh6.googleusercontent.com/--8eRakd1GM0/UUpopV4PCbI/AAAAAAAADMs/0qystxS3HRo/s685/2013-03-21_105539.png" target="_blank"><img class="aligncenter" alt="ファイル一式" src="https://lh6.googleusercontent.com/--8eRakd1GM0/UUpopV4PCbI/AAAAAAAADMs/0qystxS3HRo/s640/2013-03-21_105539.png" /></a></p>
+
+<p>そして「<strong><em>tweets</em></strong>」フォルダのURLに含まれる「<strong><em>フォルダID</em></strong>」をメモしておく。<br />
+<a href="http://lh5.ggpht.com/-aql1p_inSEU/UUp3YnOUkYI/AAAAAAAADOI/rKHO0MDGpU4/s730/2013-03-21_115833.png" target="_blank"><img class="aligncenter" alt="ファイル一式" src="http://lh5.ggpht.com/-aql1p_inSEU/UUp3YnOUkYI/AAAAAAAADOI/rKHO0MDGpU4/s640/2013-03-21_115833.png" /></a></p>
+
+<h2 id="step-3-hawkseyさんのファイルをコピー:0c420845d0d033b689fe8e33df09da71">STEP 3. Hawkseyさんのファイルをコピー</h2>
+
+<p>Hawkseyさんが作ったGoogleスプレッドシートを、自分のGoogleドライブにコピーする。<br />
+<a href="https://docs.google.com/spreadsheet/ccc?key=0AqGkLMU9sHmLdHRtbUF4OGh6ZnBZeFVsSjNhZlc1Z2c#gid=1" target="_blank"><strong>このリンクをクリック</strong></a>して開き、「ファイル」メニューから「コピーを作成」をクリック。<br />
+<a href="http://lh5.ggpht.com/-3fZqRifOtZ8/UUpqBFeqo6I/AAAAAAAADM4/OF3-BsAoWmc/s780/2013-03-21_110132.png" target="_blank"><img class="aligncenter" alt="「ファイル」メニューから「コピーを作成」をクリック" src="http://lh5.ggpht.com/-3fZqRifOtZ8/UUpqBFeqo6I/AAAAAAAADM4/OF3-BsAoWmc/s640/2013-03-21_110132.png" /></a>
+コピーするドキュメント名はなんでも良い。（「コピー ～&hellip;」のままでOK）
+そしたらコピーが自分のGoogleドライブに保存される。</p>
+
+<h2 id="step-4-google-apps-scriptの設定と起動:0c420845d0d033b689fe8e33df09da71">STEP 4. Google Apps Scriptの設定と起動</h2>
+
+<p>コピーしたスプレッドシートでの操作。
+（Hawkseyさんのと間違わないように）
+これまでにメモした以下の3つを使用するので、念のため確認。</p>
+
+<ul>
+<li>STEP 0 でのTwitterアプリの「<strong>Consumer key</strong>」</li>
+<li>STEP 0 でのTwitterアプリの「<strong>Consumer secret</strong>」</li>
+<li>STEP 2 での「tweets」フォルダのURLに含まれる「<strong>フォルダID</strong>」</li>
+</ul>
+
+<p>シート内にある「Authorize/Add Sync Menu」をクリック。<br />
+<a href="http://lh4.ggpht.com/-uFtl4eaabTo/UUpzLppnuYI/AAAAAAAADNk/E-Od6xGCtrM/s623/2013-03-21_114042.png" target="_blank"><img class="aligncenter" alt="「Authorize/Add Sync Menu」をクリック" src="http://lh4.ggpht.com/-uFtl4eaabTo/UUpzLppnuYI/AAAAAAAADNk/E-Od6xGCtrM/s623/2013-03-21_114042.png" /></a></p>
+
+<p>承認の大仰な警告が表示される。
+念のため内容をよく読んで「OK」をクリック。<br />
+<a href="https://lh5.googleusercontent.com/-Lb3pMbTP6Uw/UUp0aIQE7MI/AAAAAAAADNs/UuoHAcwsGFY/s916/2013-03-21_114552.png" target="_blank"><img class="aligncenter" alt="「Authorize/Add Sync Menu」をクリック" src="https://lh5.googleusercontent.com/-Lb3pMbTP6Uw/UUp0aIQE7MI/AAAAAAAADNs/UuoHAcwsGFY/s640/2013-03-21_114552.png" /></a></p>
+
+<p>別ウインドウで承認完了の旨が表示されるので、閉じる。<br />
+<a href="http://lh4.ggpht.com/--4yyZ-XqMBk/UUp06cuE8eI/AAAAAAAADN0/baj9gW5PPLc/s243/2013-03-21_114800.png" target="_blank"><img class="aligncenter" alt="「Authorize/Add Sync Menu」をクリック" src="http://lh4.ggpht.com/--4yyZ-XqMBk/UUp06cuE8eI/AAAAAAAADN0/baj9gW5PPLc/s243/2013-03-21_114800.png" /></a></p>
+
+<p>承認が完了すると、スプレッドシートの上部に「Sync Twitter Setup」というメニューが表示される。<br />
+<a href="https://lh3.googleusercontent.com/-9yyLogfioY8/UUp1a6F3cGI/AAAAAAAADN8/VcpE_KNFPU8/s808/2013-03-21_115015.png" target="_blank"><img class="aligncenter" alt="「Sync Twitter Setup」というメニューが表示" src="https://lh3.googleusercontent.com/-9yyLogfioY8/UUp1a6F3cGI/AAAAAAAADN8/VcpE_KNFPU8/s640/2013-03-21_115015.png" /></a></p>
+
+<p>表示された「Sync Twitter Setup」にある「Set Archive Path」をクリックし、表示されたウインドウに「tweets」フォルダ「<strong>フォルダID</strong>」を入力して「Save Configuration」ボタンをクリック。<br />
+<a href="http://lh3.ggpht.com/-ZlkzUuraYSY/UUp3YrUuD3I/AAAAAAAADOM/xNYuuVVUL2s/s782/2013-03-21_115422.png" target="_blank"><img class="aligncenter" alt="「フォルダID」を入力" src="http://lh3.ggpht.com/-ZlkzUuraYSY/UUp3YrUuD3I/AAAAAAAADOM/xNYuuVVUL2s/s640/2013-03-21_115422.png" /></a></p>
+
+<p>再度「Sync Twitter Setup」から「API Authentication」をクリックし、表示されたウインドウにTwitterアプリの「<strong>Consumer key</strong>」と「<strong>Consumer secret</strong>」を入力して「Save Configuration」ボタンをクリック。<br />
+<a href="http://lh4.ggpht.com/-HrJIATbuXQI/UUp5Zgf7_OI/AAAAAAAADOU/Ojw8zpkLjuQ/s803/2013-03-21_120711.png" target="_blank"><img class="aligncenter" alt="「Consumer key」と「Consumer secret」を入力" src="http://lh4.ggpht.com/-HrJIATbuXQI/UUp5Zgf7_OI/AAAAAAAADOU/Ojw8zpkLjuQ/s640/2013-03-21_120711.png" /></a></p>
+
+<p>これで入力系はOK。
+次にTwitterへのアクセス認証。</p>
+
+<p>スプレッドシートの「ツール」から「スクリプト エディタ&hellip;」をクリック。<br />
+<a href="https://lh5.googleusercontent.com/-1I81NTZukzc/UUp6WcMV3JI/AAAAAAAADOc/P1rOyZbd9ZY/s648/2013-03-21_121116.png" target="_blank"><img class="aligncenter" alt="「スクリプト エディタ」をクリック" src="https://lh5.googleusercontent.com/-1I81NTZukzc/UUp6WcMV3JI/AAAAAAAADOc/P1rOyZbd9ZY/s640/2013-03-21_121116.png" /></a></p>
+
+<p>別ウインドウで「スクリプトエディタ」が開くので、上メニューの「関数を選択」をクリックし、「<strong>authorize</strong>」を選択して実行（三角ボタン）をクリック。<br />
+<a href="http://lh5.ggpht.com/-idCbzUKb00Y/UUp7ThMUO7I/AAAAAAAADOk/6Vavnwk4D0I/s686/2013-03-21_121518.png" target="_blank"><img class="aligncenter" alt="「authorize」を選択して実行" src="http://lh5.ggpht.com/-idCbzUKb00Y/UUp7ThMUO7I/AAAAAAAADOk/6Vavnwk4D0I/s640/2013-03-21_121518.png" /></a></p>
+
+<p>「承認が必要です」には「承認」をクリック。<br />
+<a href="http://lh5.ggpht.com/-hZSM4yu7NxE/UUp-cWKJQoI/AAAAAAAADO4/nbMn2Pcx7UQ/s261/2013-03-21_122433.png" target="_blank"><img class="aligncenter" alt="「承認」をクリック" src="http://lh5.ggpht.com/-hZSM4yu7NxE/UUp-cWKJQoI/AAAAAAAADO4/nbMn2Pcx7UQ/s261/2013-03-21_122433.png" /></a></p>
+
+<p>Twitterの画面に移動するので、「連携アプリを承認」をクリック。<br />
+<a href="https://lh4.googleusercontent.com/-vYx82TJPknw/UUp_ANo_DRI/AAAAAAAADPA/tPBIWdwlNAw/s693/2013-03-21_123105.png" target="_blank"><img class="aligncenter" alt="「連携アプリを承認」をクリック" src="https://lh4.googleusercontent.com/-vYx82TJPknw/UUp_ANo_DRI/AAAAAAAADPA/tPBIWdwlNAw/s640/2013-03-21_123105.png" /></a></p>
+
+<p>何事も無くければ、「スクリプトエディタ」は閉じて、スプレッドシートでの設定に戻る。
+あとは現在のツイートデータを保存する。</p>
+
+<p>スプレッドシート上部の「Sync Twitter Setup」にある「Update Archive Now」をクリックすると、その時点のツイートデータが保存される。<br />
+<a href="http://lh6.ggpht.com/-k2f-HAzl2Wg/UUp_-DBrgWI/AAAAAAAADPI/uVutv3pAFGk/s640/2013-03-21_123513.png" target="_blank"><img class="aligncenter" alt="「Update Archive Now」をクリック" src="http://lh6.ggpht.com/-k2f-HAzl2Wg/UUp_-DBrgWI/AAAAAAAADPI/uVutv3pAFGk/s640/2013-03-21_123513.png" /></a></p>
+
+<p>あとは最後の仕上げ。</p>
+
+<p>スプレッドシート上部の「Sync Twitter Setup」にある「Turn Auto-Refresh On」をクリックすれば、ウインドウを閉じても、サーバー側で定期的に、自動でツイートが蓄積されていく。<br />
+<a href="https://lh5.googleusercontent.com/-awL5O3zSgzM/UUqA1xgb2II/AAAAAAAADPQ/FwHUycZlTJg/s640/2013-03-21_123859.png" target="_blank"><img class="aligncenter" alt="「Turn Auto-Refresh On」をクリック" src="https://lh5.googleusercontent.com/-awL5O3zSgzM/UUqA1xgb2II/AAAAAAAADPQ/FwHUycZlTJg/s640/2013-03-21_123859.png" /></a></p>
+
+<p>お疲れさまでした。</p>
+
+<h2 id="バックアップの閲覧:0c420845d0d033b689fe8e33df09da71">バックアップの閲覧</h2>
+
+<p>「STEP2」での「<strong>tweets</strong>」フォルダの共有設定を「<strong>ウェブ上で一般公開</strong>」にする。
+（閲覧URLは複雑な文字列なのでバレにくくはあるけど、非公開ツイートにしている人なんかはあまりおすすめできないかも）
+その後は以下のようなURLから閲覧できる。
+<strong><a href="https://googledrive.com/host/フォルダID/">https://googledrive.com/host/フォルダID/</a></strong>
+「フォルダID」は Step2 でメモしたものと同じ。
+この素晴らしいスクリプトを作ったMartin Hawksey(<a href="https://twitter.com/mhawksey" target="_blank">@mhawksey</a>)さんの過去ツイートはこちら。
+<a href="https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/" target="_blank"><a href="https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/">https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/</a></a></p>
+
+<p>動画でもやり方が公開されている（英語）ので、確認になると思う。
+<iframe width="640" height="360" src="http://www.youtube.com/embed/ce8G3sEOjAY?rel=0" frameborder="0" allowfullscreen></iframe></p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>HTMLのbodyタグにclass名を追加する関数 - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/php-add-body-class-function">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="HTMLのbodyタグにclass名を追加する関数">
+<meta name="description" content="HTMLのbodyタグにclass名を付加するのを補助するPHP関数。自動でOSやブラウザ(IEの場合はバージョンまで)の文字列も出力。">
+
+<meta property="article:published_time" content="2013/01/01T00:00:00Z">
+<meta property="article:tag" content="CSS"><meta property="article:tag" content="PHP"><meta property="article:tag" content="Snippet">
+<link rel="canonical" href="http://kijtra.com/article/php-add-body-class-function">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>HTMLのbodyタグにclass名を追加する関数</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2013/01/01</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/css">CSS</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/php">PHP</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/snippet">Snippet</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        <p>PHPで組んでる時、HTMLのbodyタグに動的にclass名を追加するの面倒だったりしませんか。
+いや、たまにあるんです。
+フォームの入力画面→確認画面→送信完了画面とか。
+そんなときにつかえるやつです。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+function bodyclass( $name = NULL ){
+  static $_buffer = array(), $_browser = array();
+	if ( empty( $name ) ) {
+		if ( empty( $_browser ) ) {
+			$ua = $_SERVER['HTTP_USER_AGENT'];
+			if ( ! empty( $ua ) ) {
+				// UserAgent(小文字)
+				$ua = strtolower( $ua );
+				// OSの判定
+				if ( preg_match( '/(windows|win32)/i', $ua ) ) {
+					$_browser[] = 'win';
+				} elseif ( preg_match( '/(macintosh|mac os x)/i', $ua ) ) {
+					$_browser[] = 'mac';
+				} elseif ( strpos( $ua, 'linux' ) !== false ) {
+					$_browser[] = 'linux';
+				} elseif ( strpos( $ua, 'iphone' ) !== false ) {
+					$_browser[] = 'iphone';
+				} elseif ( strpos( $ua, 'ipod' ) !== false ) {
+					$_browser[] = 'ipod';
+				} elseif ( strpos( $ua, 'ipad' ) !== false ) {
+					$_browser[] = 'ipad';
+				} elseif ( strpos( $ua, 'android' ) !== false ) {
+					$_browser[] = 'android';
+					if ( strpos( $ua, 'mobile' ) !== false ) {
+						$_browser[] = 'android-mobile';
+					}
+				} elseif ( strpos( $ua, 'windows phone' ) !== false ) {
+					$_browser[] = 'windows-phone';
+				} elseif ( strpos( $ua, 'kindle' ) !== false ) {
+					$_browser[] = 'kindle';
+				}
+				// ブラウザの判定
+				if( preg_match( '/msie ([0-9]{1,}[\.0-9]{0,})/', $ua, $m ) ){
+					$ver = intval( $m[1] );
+					$_browser[] = 'ie';
+					$_browser[] = 'ie' . intval($ver);
+					if( $ver &lt;= 9 ) {
+						$_browser[] = 'ielt9';
+					}
+					if ( $ver &lt;= 8 ) {
+						$_browser[] = 'ielt8';
+					}
+					if ( $ver &lt;= 7 ) {
+						$_browser[] = 'ielt7';
+					}
+					if ( $ver &lt;= 6 ) {
+						$_browser[] = 'ielt6';
+					}
+					if ( $ver &lt;= 5 ) {
+						$_browser[] = 'ielt5';
+					}
+				} elseif ( strpos( $ua, 'chrome' ) !== false ) {
+					$_browser[] = 'chrome';
+				} elseif ( strpos( $ua, 'firefox' ) !== false ) {
+					$_browser[] = 'firefox';
+				} elseif ( strpos( $ua, 'safari' ) !== false ) {
+					$_browser[] = 'safari';
+				} elseif ( strpos( $ua, 'opera' ) !== false ) {
+					$_browser[] = 'opera';
+				}
+			}
+			$_buffer = array_merge( $_browser, $_buffer );
+		}
+		if ( ! empty( $_buffer ) ) {
+			$_buffer = array_unique( $_buffer );
+			$_buffer = array_merge( array_diff( $_buffer, array( &quot;&quot; ) ) );
+			if ( ! empty( $_buffer ) ) {
+				sort( $_buffer );
+				echo implode( ' ', $_buffer );
+			}
+		}
+	} else {
+		$args = func_get_args();
+		if ( ! empty( $args[1] ) ) {
+			$name = implode( ' ', $args );
+		} elseif( is_array( $name ) ) {
+			$name = implode( ' ', $name );
+		}
+		$_buffer = array_merge( $_buffer, explode( ' ', $name ) );
+	}
+}
+?&gt;
+</code></pre>
+
+<p>使い方としては、まずあらかじめHTMLの方に</p>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!doctype html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+	&lt;meta charset=&quot;UTF-8&quot;&gt;
+	&lt;title&gt;Document&lt;/title&gt;
+&lt;/head&gt;
+&lt;body class=&quot;&lt;?php bodyclass(); ?&gt;&quot;&gt;
+	...contents...
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>というふうにbodyタグに仕込んでおきます。
+あとは上記が出力される前に</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+include('bodyclass.php');
+// 引数にclass名を放り込んでいけば、自動でまとめて出力。
+bodyclass( 'test' );//普通。
+bodyclass( 'test2', 'test3 test4' );//関数は何度呼び出してもOKかつ引数はいくつでも。
+bodyclass( array( 'test4', 'test5 test3' ) );//引数は配列でもOK。重複は取り除かれる。
+/*
+上記の結果は
+chrome test test2 test3 test4 test5 win
+と出力される。（OSがWindows、ブラウザがChromeの場合）
+※IEの場合はバージョンまでつく。
+順番は強制的にアルファベット順。（そのほうがページ圧縮率が高いらしい）
+*/
+?&gt;
+</code></pre>
+
+<p>という感じでいけます。
+<a href="https://gist.github.com/4681611" target="_blank" class="btn">Gistにも置いてます</a></p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

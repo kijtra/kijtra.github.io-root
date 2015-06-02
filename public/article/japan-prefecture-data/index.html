@@ -1,0 +1,1543 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>隣接県も含めた都道府県のJSONその他形式のデータ - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/japan-prefecture-data">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="隣接県も含めた都道府県のJSONその他形式のデータ">
+<meta name="description" content="都道府県の情報をまとめておく">
+
+<meta property="article:published_time" content="2014/08/08T00:00:00Z">
+<meta property="article:tag" content="data">
+<link rel="canonical" href="http://kijtra.com/article/japan-prefecture-data">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>隣接県も含めた都道府県のJSONその他形式のデータ</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2014/08/08</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/data">data</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        <p>都道府県の情報をよく使うので使いやすい形にして置いておこうと思いまして。</p>
+
+<p>英語名とか短い名称（東京都→東京とか）をたまに使うのでそういうデータをひとまとめにしておいた。</p>
+
+<p>関東などの地方の分け方はいろいろと形式があると思うけど、<br />
+データとして、子データ（都道府県）の数がなるべく満遍なく散らばるようにした。<br />
+（三重県が関西か東海か迷ったあげく東海にしたけど、三重県の人的にはどうなんだろ・・・）</p>
+
+<p>隣接県については、北海道と沖縄以外は基本的に陸続きのもの。<br />
+すべてWikipediaを目視で作ったので間違いないはず。<br />
+道州制が敷かれるとかない限りは変更はないと思うけど・・・</p>
+
+<p>とりあえずJSONデータ。
+<a href="https://gist.github.com/kijtra/8cb9781f207c770bd166">Gist にも置いておいた</a>。</p>
+
+<pre class="prettyprint linenums"><code class="language-json">{
+	&quot;01&quot;: {
+		&quot;id&quot;: &quot;01&quot;,
+		&quot;name&quot;: &quot;北海道&quot;,
+		&quot;short&quot;: &quot;北海道&quot;,
+		&quot;kana&quot;: &quot;ホッカイドウ&quot;,
+		&quot;en&quot;: &quot;hokkaido&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;02&quot;: {
+				&quot;id&quot;: &quot;02&quot;,
+				&quot;name&quot;: &quot;青森県&quot;
+			}
+		}
+	},
+	&quot;02&quot;: {
+		&quot;id&quot;: &quot;02&quot;,
+		&quot;name&quot;: &quot;青森県&quot;,
+		&quot;short&quot;: &quot;青森&quot;,
+		&quot;kana&quot;: &quot;アオモリケン&quot;,
+		&quot;en&quot;: &quot;aomori&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;01&quot;: {
+				&quot;id&quot;: &quot;01&quot;,
+				&quot;name&quot;: &quot;北海道&quot;
+			},
+			&quot;03&quot;: {
+				&quot;id&quot;: &quot;03&quot;,
+				&quot;name&quot;: &quot;岩手県&quot;
+			},
+			&quot;05&quot;: {
+				&quot;id&quot;: &quot;05&quot;,
+				&quot;name&quot;: &quot;秋田県&quot;
+			}
+		}
+	},
+	&quot;03&quot;: {
+		&quot;id&quot;: &quot;03&quot;,
+		&quot;name&quot;: &quot;岩手県&quot;,
+		&quot;short&quot;: &quot;岩手&quot;,
+		&quot;kana&quot;: &quot;イワテケン&quot;,
+		&quot;en&quot;: &quot;iwate&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;02&quot;: {
+				&quot;id&quot;: &quot;02&quot;,
+				&quot;name&quot;: &quot;青森県&quot;
+			},
+			&quot;04&quot;: {
+				&quot;id&quot;: &quot;04&quot;,
+				&quot;name&quot;: &quot;宮城県&quot;
+			},
+			&quot;05&quot;: {
+				&quot;id&quot;: &quot;05&quot;,
+				&quot;name&quot;: &quot;秋田県&quot;
+			}
+		}
+	},
+	&quot;04&quot;: {
+		&quot;id&quot;: &quot;04&quot;,
+		&quot;name&quot;: &quot;宮城県&quot;,
+		&quot;short&quot;: &quot;宮城&quot;,
+		&quot;kana&quot;: &quot;ミヤギケン&quot;,
+		&quot;en&quot;: &quot;miyagi&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;03&quot;: {
+				&quot;id&quot;: &quot;03&quot;,
+				&quot;name&quot;: &quot;岩手県&quot;
+			},
+			&quot;05&quot;: {
+				&quot;id&quot;: &quot;05&quot;,
+				&quot;name&quot;: &quot;秋田県&quot;
+			},
+			&quot;06&quot;: {
+				&quot;id&quot;: &quot;06&quot;,
+				&quot;name&quot;: &quot;山形県&quot;
+			},
+			&quot;07&quot;: {
+				&quot;id&quot;: &quot;07&quot;,
+				&quot;name&quot;: &quot;福島県&quot;
+			}
+		}
+	},
+	&quot;05&quot;: {
+		&quot;id&quot;: &quot;05&quot;,
+		&quot;name&quot;: &quot;秋田県&quot;,
+		&quot;short&quot;: &quot;秋田&quot;,
+		&quot;kana&quot;: &quot;アキタケン&quot;,
+		&quot;en&quot;: &quot;akita&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;02&quot;: {
+				&quot;id&quot;: &quot;02&quot;,
+				&quot;name&quot;: &quot;青森県&quot;
+			},
+			&quot;03&quot;: {
+				&quot;id&quot;: &quot;03&quot;,
+				&quot;name&quot;: &quot;岩手県&quot;
+			},
+			&quot;04&quot;: {
+				&quot;id&quot;: &quot;04&quot;,
+				&quot;name&quot;: &quot;宮城県&quot;
+			},
+			&quot;06&quot;: {
+				&quot;id&quot;: &quot;06&quot;,
+				&quot;name&quot;: &quot;山形県&quot;
+			}
+		}
+	},
+	&quot;06&quot;: {
+		&quot;id&quot;: &quot;06&quot;,
+		&quot;name&quot;: &quot;山形県&quot;,
+		&quot;short&quot;: &quot;山形&quot;,
+		&quot;kana&quot;: &quot;ヤマガタケン&quot;,
+		&quot;en&quot;: &quot;yamagata&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;04&quot;: {
+				&quot;id&quot;: &quot;04&quot;,
+				&quot;name&quot;: &quot;宮城県&quot;
+			},
+			&quot;05&quot;: {
+				&quot;id&quot;: &quot;05&quot;,
+				&quot;name&quot;: &quot;秋田県&quot;
+			},
+			&quot;07&quot;: {
+				&quot;id&quot;: &quot;07&quot;,
+				&quot;name&quot;: &quot;福島県&quot;
+			},
+			&quot;15&quot;: {
+				&quot;id&quot;: &quot;15&quot;,
+				&quot;name&quot;: &quot;新潟県&quot;
+			}
+		}
+	},
+	&quot;07&quot;: {
+		&quot;id&quot;: &quot;07&quot;,
+		&quot;name&quot;: &quot;福島県&quot;,
+		&quot;short&quot;: &quot;福島&quot;,
+		&quot;kana&quot;: &quot;フクシマケン&quot;,
+		&quot;en&quot;: &quot;fukushima&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 1,
+			&quot;name&quot;: &quot;北海道・東北&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;04&quot;: {
+				&quot;id&quot;: &quot;04&quot;,
+				&quot;name&quot;: &quot;宮城県&quot;
+			},
+			&quot;06&quot;: {
+				&quot;id&quot;: &quot;06&quot;,
+				&quot;name&quot;: &quot;山形県&quot;
+			},
+			&quot;08&quot;: {
+				&quot;id&quot;: &quot;08&quot;,
+				&quot;name&quot;: &quot;茨城県&quot;
+			},
+			&quot;09&quot;: {
+				&quot;id&quot;: &quot;09&quot;,
+				&quot;name&quot;: &quot;栃木県&quot;
+			},
+			&quot;10&quot;: {
+				&quot;id&quot;: &quot;10&quot;,
+				&quot;name&quot;: &quot;群馬県&quot;
+			},
+			&quot;15&quot;: {
+				&quot;id&quot;: &quot;15&quot;,
+				&quot;name&quot;: &quot;新潟県&quot;
+			}
+		}
+	},
+	&quot;08&quot;: {
+		&quot;id&quot;: &quot;08&quot;,
+		&quot;name&quot;: &quot;茨城県&quot;,
+		&quot;short&quot;: &quot;茨城&quot;,
+		&quot;kana&quot;: &quot;イバラキケン&quot;,
+		&quot;en&quot;: &quot;ibaraki&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;07&quot;: {
+				&quot;id&quot;: &quot;07&quot;,
+				&quot;name&quot;: &quot;福島県&quot;
+			},
+			&quot;09&quot;: {
+				&quot;id&quot;: &quot;09&quot;,
+				&quot;name&quot;: &quot;栃木県&quot;
+			},
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			},
+			&quot;12&quot;: {
+				&quot;id&quot;: &quot;12&quot;,
+				&quot;name&quot;: &quot;千葉県&quot;
+			}
+		}
+	},
+	&quot;09&quot;: {
+		&quot;id&quot;: &quot;09&quot;,
+		&quot;name&quot;: &quot;栃木県&quot;,
+		&quot;short&quot;: &quot;栃木&quot;,
+		&quot;kana&quot;: &quot;トチギケン&quot;,
+		&quot;en&quot;: &quot;tochigi&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;07&quot;: {
+				&quot;id&quot;: &quot;07&quot;,
+				&quot;name&quot;: &quot;福島県&quot;
+			},
+			&quot;08&quot;: {
+				&quot;id&quot;: &quot;08&quot;,
+				&quot;name&quot;: &quot;茨城県&quot;
+			},
+			&quot;10&quot;: {
+				&quot;id&quot;: &quot;10&quot;,
+				&quot;name&quot;: &quot;群馬県&quot;
+			},
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			}
+		}
+	},
+	&quot;10&quot;: {
+		&quot;id&quot;: &quot;10&quot;,
+		&quot;name&quot;: &quot;群馬県&quot;,
+		&quot;short&quot;: &quot;群馬&quot;,
+		&quot;kana&quot;: &quot;グンマケン&quot;,
+		&quot;en&quot;: &quot;gunma&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;07&quot;: {
+				&quot;id&quot;: &quot;07&quot;,
+				&quot;name&quot;: &quot;福島県&quot;
+			},
+			&quot;09&quot;: {
+				&quot;id&quot;: &quot;09&quot;,
+				&quot;name&quot;: &quot;栃木県&quot;
+			},
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			},
+			&quot;15&quot;: {
+				&quot;id&quot;: &quot;15&quot;,
+				&quot;name&quot;: &quot;新潟県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			}
+		}
+	},
+	&quot;11&quot;: {
+		&quot;id&quot;: &quot;11&quot;,
+		&quot;name&quot;: &quot;埼玉県&quot;,
+		&quot;short&quot;: &quot;埼玉&quot;,
+		&quot;kana&quot;: &quot;サイタマケン&quot;,
+		&quot;en&quot;: &quot;saitama&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;08&quot;: {
+				&quot;id&quot;: &quot;08&quot;,
+				&quot;name&quot;: &quot;茨城県&quot;
+			},
+			&quot;09&quot;: {
+				&quot;id&quot;: &quot;09&quot;,
+				&quot;name&quot;: &quot;栃木県&quot;
+			},
+			&quot;10&quot;: {
+				&quot;id&quot;: &quot;10&quot;,
+				&quot;name&quot;: &quot;群馬県&quot;
+			},
+			&quot;12&quot;: {
+				&quot;id&quot;: &quot;12&quot;,
+				&quot;name&quot;: &quot;千葉県&quot;
+			},
+			&quot;13&quot;: {
+				&quot;id&quot;: &quot;13&quot;,
+				&quot;name&quot;: &quot;東京都&quot;
+			},
+			&quot;19&quot;: {
+				&quot;id&quot;: &quot;19&quot;,
+				&quot;name&quot;: &quot;山梨県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			}
+		}
+	},
+	&quot;12&quot;: {
+		&quot;id&quot;: &quot;12&quot;,
+		&quot;name&quot;: &quot;千葉県&quot;,
+		&quot;short&quot;: &quot;千葉&quot;,
+		&quot;kana&quot;: &quot;チバケン&quot;,
+		&quot;en&quot;: &quot;chiba&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;08&quot;: {
+				&quot;id&quot;: &quot;08&quot;,
+				&quot;name&quot;: &quot;茨城県&quot;
+			},
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			},
+			&quot;13&quot;: {
+				&quot;id&quot;: &quot;13&quot;,
+				&quot;name&quot;: &quot;東京都&quot;
+			}
+		}
+	},
+	&quot;13&quot;: {
+		&quot;id&quot;: &quot;13&quot;,
+		&quot;name&quot;: &quot;東京都&quot;,
+		&quot;short&quot;: &quot;東京&quot;,
+		&quot;kana&quot;: &quot;トウキョウト&quot;,
+		&quot;en&quot;: &quot;tokyo&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			},
+			&quot;12&quot;: {
+				&quot;id&quot;: &quot;12&quot;,
+				&quot;name&quot;: &quot;千葉県&quot;
+			},
+			&quot;14&quot;: {
+				&quot;id&quot;: &quot;14&quot;,
+				&quot;name&quot;: &quot;神奈川県&quot;
+			},
+			&quot;19&quot;: {
+				&quot;id&quot;: &quot;19&quot;,
+				&quot;name&quot;: &quot;山梨県&quot;
+			}
+		}
+	},
+	&quot;14&quot;: {
+		&quot;id&quot;: &quot;14&quot;,
+		&quot;name&quot;: &quot;神奈川県&quot;,
+		&quot;short&quot;: &quot;神奈川&quot;,
+		&quot;kana&quot;: &quot;カナガワケン&quot;,
+		&quot;en&quot;: &quot;kanagawa&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 2,
+			&quot;name&quot;: &quot;関東&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;13&quot;: {
+				&quot;id&quot;: &quot;13&quot;,
+				&quot;name&quot;: &quot;東京都&quot;
+			},
+			&quot;19&quot;: {
+				&quot;id&quot;: &quot;19&quot;,
+				&quot;name&quot;: &quot;山梨県&quot;
+			},
+			&quot;22&quot;: {
+				&quot;id&quot;: &quot;22&quot;,
+				&quot;name&quot;: &quot;静岡県&quot;
+			}
+		}
+	},
+	&quot;15&quot;: {
+		&quot;id&quot;: &quot;15&quot;,
+		&quot;name&quot;: &quot;新潟県&quot;,
+		&quot;short&quot;: &quot;新潟&quot;,
+		&quot;kana&quot;: &quot;ニイガタケン&quot;,
+		&quot;en&quot;: &quot;niigata&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 3,
+			&quot;name&quot;: &quot;北陸・甲信&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;06&quot;: {
+				&quot;id&quot;: &quot;06&quot;,
+				&quot;name&quot;: &quot;山形県&quot;
+			},
+			&quot;07&quot;: {
+				&quot;id&quot;: &quot;07&quot;,
+				&quot;name&quot;: &quot;福島県&quot;
+			},
+			&quot;10&quot;: {
+				&quot;id&quot;: &quot;10&quot;,
+				&quot;name&quot;: &quot;群馬県&quot;
+			},
+			&quot;16&quot;: {
+				&quot;id&quot;: &quot;16&quot;,
+				&quot;name&quot;: &quot;富山県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			}
+		}
+	},
+	&quot;16&quot;: {
+		&quot;id&quot;: &quot;16&quot;,
+		&quot;name&quot;: &quot;富山県&quot;,
+		&quot;short&quot;: &quot;富山&quot;,
+		&quot;kana&quot;: &quot;トヤマケン&quot;,
+		&quot;en&quot;: &quot;toyama&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 3,
+			&quot;name&quot;: &quot;北陸・甲信&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;15&quot;: {
+				&quot;id&quot;: &quot;15&quot;,
+				&quot;name&quot;: &quot;新潟県&quot;
+			},
+			&quot;17&quot;: {
+				&quot;id&quot;: &quot;17&quot;,
+				&quot;name&quot;: &quot;石川県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			},
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			}
+		}
+	},
+	&quot;17&quot;: {
+		&quot;id&quot;: &quot;17&quot;,
+		&quot;name&quot;: &quot;石川県&quot;,
+		&quot;short&quot;: &quot;石川&quot;,
+		&quot;kana&quot;: &quot;イシカワケン&quot;,
+		&quot;en&quot;: &quot;ishikawa&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 3,
+			&quot;name&quot;: &quot;北陸・甲信&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;16&quot;: {
+				&quot;id&quot;: &quot;16&quot;,
+				&quot;name&quot;: &quot;富山県&quot;
+			},
+			&quot;18&quot;: {
+				&quot;id&quot;: &quot;18&quot;,
+				&quot;name&quot;: &quot;福井県&quot;
+			},
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			}
+		}
+	},
+	&quot;18&quot;: {
+		&quot;id&quot;: &quot;18&quot;,
+		&quot;name&quot;: &quot;福井県&quot;,
+		&quot;short&quot;: &quot;福井&quot;,
+		&quot;kana&quot;: &quot;フクイケン&quot;,
+		&quot;en&quot;: &quot;fukui&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 3,
+			&quot;name&quot;: &quot;北陸・甲信&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;17&quot;: {
+				&quot;id&quot;: &quot;17&quot;,
+				&quot;name&quot;: &quot;石川県&quot;
+			},
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			},
+			&quot;25&quot;: {
+				&quot;id&quot;: &quot;25&quot;,
+				&quot;name&quot;: &quot;滋賀県&quot;
+			},
+			&quot;26&quot;: {
+				&quot;id&quot;: &quot;26&quot;,
+				&quot;name&quot;: &quot;京都府&quot;
+			}
+		}
+	},
+	&quot;19&quot;: {
+		&quot;id&quot;: &quot;19&quot;,
+		&quot;name&quot;: &quot;山梨県&quot;,
+		&quot;short&quot;: &quot;山梨&quot;,
+		&quot;kana&quot;: &quot;ヤマナシケン&quot;,
+		&quot;en&quot;: &quot;yamanashi&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 3,
+			&quot;name&quot;: &quot;北陸・甲信&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			},
+			&quot;13&quot;: {
+				&quot;id&quot;: &quot;13&quot;,
+				&quot;name&quot;: &quot;東京都&quot;
+			},
+			&quot;14&quot;: {
+				&quot;id&quot;: &quot;14&quot;,
+				&quot;name&quot;: &quot;神奈川県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			},
+			&quot;22&quot;: {
+				&quot;id&quot;: &quot;22&quot;,
+				&quot;name&quot;: &quot;静岡県&quot;
+			}
+		}
+	},
+	&quot;20&quot;: {
+		&quot;id&quot;: &quot;20&quot;,
+		&quot;name&quot;: &quot;長野県&quot;,
+		&quot;short&quot;: &quot;長野&quot;,
+		&quot;kana&quot;: &quot;ナガノケン&quot;,
+		&quot;en&quot;: &quot;nagano&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 3,
+			&quot;name&quot;: &quot;北陸・甲信&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;10&quot;: {
+				&quot;id&quot;: &quot;10&quot;,
+				&quot;name&quot;: &quot;群馬県&quot;
+			},
+			&quot;11&quot;: {
+				&quot;id&quot;: &quot;11&quot;,
+				&quot;name&quot;: &quot;埼玉県&quot;
+			},
+			&quot;15&quot;: {
+				&quot;id&quot;: &quot;15&quot;,
+				&quot;name&quot;: &quot;新潟県&quot;
+			},
+			&quot;16&quot;: {
+				&quot;id&quot;: &quot;16&quot;,
+				&quot;name&quot;: &quot;富山県&quot;
+			},
+			&quot;19&quot;: {
+				&quot;id&quot;: &quot;19&quot;,
+				&quot;name&quot;: &quot;山梨県&quot;
+			},
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			},
+			&quot;22&quot;: {
+				&quot;id&quot;: &quot;22&quot;,
+				&quot;name&quot;: &quot;静岡県&quot;
+			},
+			&quot;23&quot;: {
+				&quot;id&quot;: &quot;23&quot;,
+				&quot;name&quot;: &quot;愛知県&quot;
+			}
+		}
+	},
+	&quot;21&quot;: {
+		&quot;id&quot;: &quot;21&quot;,
+		&quot;name&quot;: &quot;岐阜県&quot;,
+		&quot;short&quot;: &quot;岐阜&quot;,
+		&quot;kana&quot;: &quot;ギフケン&quot;,
+		&quot;en&quot;: &quot;gifu&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 4,
+			&quot;name&quot;: &quot;東海&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;16&quot;: {
+				&quot;id&quot;: &quot;16&quot;,
+				&quot;name&quot;: &quot;富山県&quot;
+			},
+			&quot;17&quot;: {
+				&quot;id&quot;: &quot;17&quot;,
+				&quot;name&quot;: &quot;石川県&quot;
+			},
+			&quot;18&quot;: {
+				&quot;id&quot;: &quot;18&quot;,
+				&quot;name&quot;: &quot;福井県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			},
+			&quot;23&quot;: {
+				&quot;id&quot;: &quot;23&quot;,
+				&quot;name&quot;: &quot;愛知県&quot;
+			},
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			},
+			&quot;25&quot;: {
+				&quot;id&quot;: &quot;25&quot;,
+				&quot;name&quot;: &quot;滋賀県&quot;
+			}
+		}
+	},
+	&quot;22&quot;: {
+		&quot;id&quot;: &quot;22&quot;,
+		&quot;name&quot;: &quot;静岡県&quot;,
+		&quot;short&quot;: &quot;静岡&quot;,
+		&quot;kana&quot;: &quot;シズオカケン&quot;,
+		&quot;en&quot;: &quot;shizuoka&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 4,
+			&quot;name&quot;: &quot;東海&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;14&quot;: {
+				&quot;id&quot;: &quot;14&quot;,
+				&quot;name&quot;: &quot;神奈川県&quot;
+			},
+			&quot;19&quot;: {
+				&quot;id&quot;: &quot;19&quot;,
+				&quot;name&quot;: &quot;山梨県&quot;
+			},
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			},
+			&quot;23&quot;: {
+				&quot;id&quot;: &quot;23&quot;,
+				&quot;name&quot;: &quot;愛知県&quot;
+			}
+		}
+	},
+	&quot;23&quot;: {
+		&quot;id&quot;: &quot;23&quot;,
+		&quot;name&quot;: &quot;愛知県&quot;,
+		&quot;short&quot;: &quot;愛知&quot;,
+		&quot;kana&quot;: &quot;アイチケン&quot;,
+		&quot;en&quot;: &quot;aichi&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 4,
+			&quot;name&quot;: &quot;東海&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;20&quot;: {
+				&quot;id&quot;: &quot;20&quot;,
+				&quot;name&quot;: &quot;長野県&quot;
+			},
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			},
+			&quot;22&quot;: {
+				&quot;id&quot;: &quot;22&quot;,
+				&quot;name&quot;: &quot;静岡県&quot;
+			},
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			}
+		}
+	},
+	&quot;24&quot;: {
+		&quot;id&quot;: &quot;24&quot;,
+		&quot;name&quot;: &quot;三重県&quot;,
+		&quot;short&quot;: &quot;三重&quot;,
+		&quot;kana&quot;: &quot;ミエケン&quot;,
+		&quot;en&quot;: &quot;mie&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 4,
+			&quot;name&quot;: &quot;東海&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			},
+			&quot;23&quot;: {
+				&quot;id&quot;: &quot;23&quot;,
+				&quot;name&quot;: &quot;愛知県&quot;
+			},
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			},
+			&quot;25&quot;: {
+				&quot;id&quot;: &quot;25&quot;,
+				&quot;name&quot;: &quot;滋賀県&quot;
+			},
+			&quot;26&quot;: {
+				&quot;id&quot;: &quot;26&quot;,
+				&quot;name&quot;: &quot;京都府&quot;
+			},
+			&quot;29&quot;: {
+				&quot;id&quot;: &quot;29&quot;,
+				&quot;name&quot;: &quot;奈良県&quot;
+			},
+			&quot;30&quot;: {
+				&quot;id&quot;: &quot;30&quot;,
+				&quot;name&quot;: &quot;和歌山県&quot;
+			}
+		}
+	},
+	&quot;25&quot;: {
+		&quot;id&quot;: &quot;25&quot;,
+		&quot;name&quot;: &quot;滋賀県&quot;,
+		&quot;short&quot;: &quot;滋賀&quot;,
+		&quot;kana&quot;: &quot;シガケン&quot;,
+		&quot;en&quot;: &quot;shiga&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 5,
+			&quot;name&quot;: &quot;近畿&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;18&quot;: {
+				&quot;id&quot;: &quot;18&quot;,
+				&quot;name&quot;: &quot;福井県&quot;
+			},
+			&quot;21&quot;: {
+				&quot;id&quot;: &quot;21&quot;,
+				&quot;name&quot;: &quot;岐阜県&quot;
+			},
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			},
+			&quot;26&quot;: {
+				&quot;id&quot;: &quot;26&quot;,
+				&quot;name&quot;: &quot;京都府&quot;
+			}
+		}
+	},
+	&quot;26&quot;: {
+		&quot;id&quot;: &quot;26&quot;,
+		&quot;name&quot;: &quot;京都府&quot;,
+		&quot;short&quot;: &quot;京都&quot;,
+		&quot;kana&quot;: &quot;キョウトフ&quot;,
+		&quot;en&quot;: &quot;kyoto&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 5,
+			&quot;name&quot;: &quot;近畿&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;18&quot;: {
+				&quot;id&quot;: &quot;18&quot;,
+				&quot;name&quot;: &quot;福井県&quot;
+			},
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			},
+			&quot;25&quot;: {
+				&quot;id&quot;: &quot;25&quot;,
+				&quot;name&quot;: &quot;滋賀県&quot;
+			},
+			&quot;27&quot;: {
+				&quot;id&quot;: &quot;27&quot;,
+				&quot;name&quot;: &quot;大阪府&quot;
+			},
+			&quot;28&quot;: {
+				&quot;id&quot;: &quot;28&quot;,
+				&quot;name&quot;: &quot;兵庫県&quot;
+			},
+			&quot;29&quot;: {
+				&quot;id&quot;: &quot;29&quot;,
+				&quot;name&quot;: &quot;奈良県&quot;
+			}
+		}
+	},
+	&quot;27&quot;: {
+		&quot;id&quot;: &quot;27&quot;,
+		&quot;name&quot;: &quot;大阪府&quot;,
+		&quot;short&quot;: &quot;大阪&quot;,
+		&quot;kana&quot;: &quot;オオサカフ&quot;,
+		&quot;en&quot;: &quot;osaka&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 5,
+			&quot;name&quot;: &quot;近畿&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;26&quot;: {
+				&quot;id&quot;: &quot;26&quot;,
+				&quot;name&quot;: &quot;京都府&quot;
+			},
+			&quot;28&quot;: {
+				&quot;id&quot;: &quot;28&quot;,
+				&quot;name&quot;: &quot;兵庫県&quot;
+			},
+			&quot;29&quot;: {
+				&quot;id&quot;: &quot;29&quot;,
+				&quot;name&quot;: &quot;奈良県&quot;
+			},
+			&quot;30&quot;: {
+				&quot;id&quot;: &quot;30&quot;,
+				&quot;name&quot;: &quot;和歌山県&quot;
+			}
+		}
+	},
+	&quot;28&quot;: {
+		&quot;id&quot;: &quot;28&quot;,
+		&quot;name&quot;: &quot;兵庫県&quot;,
+		&quot;short&quot;: &quot;兵庫&quot;,
+		&quot;kana&quot;: &quot;ヒョウゴケン&quot;,
+		&quot;en&quot;: &quot;hyogo&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 5,
+			&quot;name&quot;: &quot;近畿&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;26&quot;: {
+				&quot;id&quot;: &quot;26&quot;,
+				&quot;name&quot;: &quot;京都府&quot;
+			},
+			&quot;27&quot;: {
+				&quot;id&quot;: &quot;27&quot;,
+				&quot;name&quot;: &quot;大阪府&quot;
+			},
+			&quot;31&quot;: {
+				&quot;id&quot;: &quot;31&quot;,
+				&quot;name&quot;: &quot;鳥取県&quot;
+			},
+			&quot;33&quot;: {
+				&quot;id&quot;: &quot;33&quot;,
+				&quot;name&quot;: &quot;岡山県&quot;
+			}
+		}
+	},
+	&quot;29&quot;: {
+		&quot;id&quot;: &quot;29&quot;,
+		&quot;name&quot;: &quot;奈良県&quot;,
+		&quot;short&quot;: &quot;奈良&quot;,
+		&quot;kana&quot;: &quot;ナラケン&quot;,
+		&quot;en&quot;: &quot;nara&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 5,
+			&quot;name&quot;: &quot;近畿&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			},
+			&quot;26&quot;: {
+				&quot;id&quot;: &quot;26&quot;,
+				&quot;name&quot;: &quot;京都府&quot;
+			},
+			&quot;27&quot;: {
+				&quot;id&quot;: &quot;27&quot;,
+				&quot;name&quot;: &quot;大阪府&quot;
+			},
+			&quot;30&quot;: {
+				&quot;id&quot;: &quot;30&quot;,
+				&quot;name&quot;: &quot;和歌山県&quot;
+			}
+		}
+	},
+	&quot;30&quot;: {
+		&quot;id&quot;: &quot;30&quot;,
+		&quot;name&quot;: &quot;和歌山県&quot;,
+		&quot;short&quot;: &quot;和歌山&quot;,
+		&quot;kana&quot;: &quot;ワカヤマケン&quot;,
+		&quot;en&quot;: &quot;wakayama&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 5,
+			&quot;name&quot;: &quot;近畿&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;24&quot;: {
+				&quot;id&quot;: &quot;24&quot;,
+				&quot;name&quot;: &quot;三重県&quot;
+			},
+			&quot;27&quot;: {
+				&quot;id&quot;: &quot;27&quot;,
+				&quot;name&quot;: &quot;大阪府&quot;
+			},
+			&quot;28&quot;: {
+				&quot;id&quot;: &quot;28&quot;,
+				&quot;name&quot;: &quot;兵庫県&quot;
+			},
+			&quot;29&quot;: {
+				&quot;id&quot;: &quot;29&quot;,
+				&quot;name&quot;: &quot;奈良県&quot;
+			}
+		}
+	},
+	&quot;31&quot;: {
+		&quot;id&quot;: &quot;31&quot;,
+		&quot;name&quot;: &quot;鳥取県&quot;,
+		&quot;short&quot;: &quot;鳥取&quot;,
+		&quot;kana&quot;: &quot;トットリケン&quot;,
+		&quot;en&quot;: &quot;tottori&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 6,
+			&quot;name&quot;: &quot;中国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;28&quot;: {
+				&quot;id&quot;: &quot;28&quot;,
+				&quot;name&quot;: &quot;兵庫県&quot;
+			},
+			&quot;32&quot;: {
+				&quot;id&quot;: &quot;32&quot;,
+				&quot;name&quot;: &quot;島根県&quot;
+			},
+			&quot;33&quot;: {
+				&quot;id&quot;: &quot;33&quot;,
+				&quot;name&quot;: &quot;岡山県&quot;
+			},
+			&quot;34&quot;: {
+				&quot;id&quot;: &quot;34&quot;,
+				&quot;name&quot;: &quot;広島県&quot;
+			}
+		}
+	},
+	&quot;32&quot;: {
+		&quot;id&quot;: &quot;32&quot;,
+		&quot;name&quot;: &quot;島根県&quot;,
+		&quot;short&quot;: &quot;島根&quot;,
+		&quot;kana&quot;: &quot;シマネケン&quot;,
+		&quot;en&quot;: &quot;shimane&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 6,
+			&quot;name&quot;: &quot;中国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;31&quot;: {
+				&quot;id&quot;: &quot;31&quot;,
+				&quot;name&quot;: &quot;鳥取県&quot;
+			},
+			&quot;34&quot;: {
+				&quot;id&quot;: &quot;34&quot;,
+				&quot;name&quot;: &quot;広島県&quot;
+			},
+			&quot;35&quot;: {
+				&quot;id&quot;: &quot;35&quot;,
+				&quot;name&quot;: &quot;山口県&quot;
+			}
+		}
+	},
+	&quot;33&quot;: {
+		&quot;id&quot;: &quot;33&quot;,
+		&quot;name&quot;: &quot;岡山県&quot;,
+		&quot;short&quot;: &quot;岡山&quot;,
+		&quot;kana&quot;: &quot;オカヤマケン&quot;,
+		&quot;en&quot;: &quot;okayama&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 6,
+			&quot;name&quot;: &quot;中国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;28&quot;: {
+				&quot;id&quot;: &quot;28&quot;,
+				&quot;name&quot;: &quot;兵庫県&quot;
+			},
+			&quot;31&quot;: {
+				&quot;id&quot;: &quot;31&quot;,
+				&quot;name&quot;: &quot;鳥取県&quot;
+			},
+			&quot;34&quot;: {
+				&quot;id&quot;: &quot;34&quot;,
+				&quot;name&quot;: &quot;広島県&quot;
+			}
+		}
+	},
+	&quot;34&quot;: {
+		&quot;id&quot;: &quot;34&quot;,
+		&quot;name&quot;: &quot;広島県&quot;,
+		&quot;short&quot;: &quot;広島&quot;,
+		&quot;kana&quot;: &quot;ヒロシマケン&quot;,
+		&quot;en&quot;: &quot;hiroshima&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 6,
+			&quot;name&quot;: &quot;中国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;31&quot;: {
+				&quot;id&quot;: &quot;31&quot;,
+				&quot;name&quot;: &quot;鳥取県&quot;
+			},
+			&quot;32&quot;: {
+				&quot;id&quot;: &quot;32&quot;,
+				&quot;name&quot;: &quot;島根県&quot;
+			},
+			&quot;33&quot;: {
+				&quot;id&quot;: &quot;33&quot;,
+				&quot;name&quot;: &quot;岡山県&quot;
+			},
+			&quot;35&quot;: {
+				&quot;id&quot;: &quot;35&quot;,
+				&quot;name&quot;: &quot;山口県&quot;
+			}
+		}
+	},
+	&quot;35&quot;: {
+		&quot;id&quot;: &quot;35&quot;,
+		&quot;name&quot;: &quot;山口県&quot;,
+		&quot;short&quot;: &quot;山口&quot;,
+		&quot;kana&quot;: &quot;ヤマグチケン&quot;,
+		&quot;en&quot;: &quot;yamaguchi&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 6,
+			&quot;name&quot;: &quot;中国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;32&quot;: {
+				&quot;id&quot;: &quot;32&quot;,
+				&quot;name&quot;: &quot;島根県&quot;
+			},
+			&quot;34&quot;: {
+				&quot;id&quot;: &quot;34&quot;,
+				&quot;name&quot;: &quot;広島県&quot;
+			}
+		}
+	},
+	&quot;36&quot;: {
+		&quot;id&quot;: &quot;36&quot;,
+		&quot;name&quot;: &quot;徳島県&quot;,
+		&quot;short&quot;: &quot;徳島&quot;,
+		&quot;kana&quot;: &quot;トクシマケン&quot;,
+		&quot;en&quot;: &quot;tokushima&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 7,
+			&quot;name&quot;: &quot;四国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;37&quot;: {
+				&quot;id&quot;: &quot;37&quot;,
+				&quot;name&quot;: &quot;香川県&quot;
+			},
+			&quot;38&quot;: {
+				&quot;id&quot;: &quot;38&quot;,
+				&quot;name&quot;: &quot;愛媛県&quot;
+			},
+			&quot;39&quot;: {
+				&quot;id&quot;: &quot;39&quot;,
+				&quot;name&quot;: &quot;高知県&quot;
+			}
+		}
+	},
+	&quot;37&quot;: {
+		&quot;id&quot;: &quot;37&quot;,
+		&quot;name&quot;: &quot;香川県&quot;,
+		&quot;short&quot;: &quot;香川&quot;,
+		&quot;kana&quot;: &quot;カガワケン&quot;,
+		&quot;en&quot;: &quot;kagawa&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 7,
+			&quot;name&quot;: &quot;四国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;36&quot;: {
+				&quot;id&quot;: &quot;36&quot;,
+				&quot;name&quot;: &quot;徳島県&quot;
+			},
+			&quot;38&quot;: {
+				&quot;id&quot;: &quot;38&quot;,
+				&quot;name&quot;: &quot;愛媛県&quot;
+			}
+		}
+	},
+	&quot;38&quot;: {
+		&quot;id&quot;: &quot;38&quot;,
+		&quot;name&quot;: &quot;愛媛県&quot;,
+		&quot;short&quot;: &quot;愛媛&quot;,
+		&quot;kana&quot;: &quot;エヒメケン&quot;,
+		&quot;en&quot;: &quot;ehime&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 7,
+			&quot;name&quot;: &quot;四国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;36&quot;: {
+				&quot;id&quot;: &quot;36&quot;,
+				&quot;name&quot;: &quot;徳島県&quot;
+			},
+			&quot;37&quot;: {
+				&quot;id&quot;: &quot;37&quot;,
+				&quot;name&quot;: &quot;香川県&quot;
+			},
+			&quot;39&quot;: {
+				&quot;id&quot;: &quot;39&quot;,
+				&quot;name&quot;: &quot;高知県&quot;
+			}
+		}
+	},
+	&quot;39&quot;: {
+		&quot;id&quot;: &quot;39&quot;,
+		&quot;name&quot;: &quot;高知県&quot;,
+		&quot;short&quot;: &quot;高知&quot;,
+		&quot;kana&quot;: &quot;コウチケン&quot;,
+		&quot;en&quot;: &quot;kochi&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 7,
+			&quot;name&quot;: &quot;四国&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;36&quot;: {
+				&quot;id&quot;: &quot;36&quot;,
+				&quot;name&quot;: &quot;徳島県&quot;
+			},
+			&quot;38&quot;: {
+				&quot;id&quot;: &quot;38&quot;,
+				&quot;name&quot;: &quot;愛媛県&quot;
+			}
+		}
+	},
+	&quot;40&quot;: {
+		&quot;id&quot;: &quot;40&quot;,
+		&quot;name&quot;: &quot;福岡県&quot;,
+		&quot;short&quot;: &quot;福岡&quot;,
+		&quot;kana&quot;: &quot;フクオカケン&quot;,
+		&quot;en&quot;: &quot;fukuoka&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;41&quot;: {
+				&quot;id&quot;: &quot;41&quot;,
+				&quot;name&quot;: &quot;佐賀県&quot;
+			},
+			&quot;43&quot;: {
+				&quot;id&quot;: &quot;43&quot;,
+				&quot;name&quot;: &quot;熊本県&quot;
+			},
+			&quot;44&quot;: {
+				&quot;id&quot;: &quot;44&quot;,
+				&quot;name&quot;: &quot;大分県&quot;
+			}
+		}
+	},
+	&quot;41&quot;: {
+		&quot;id&quot;: &quot;41&quot;,
+		&quot;name&quot;: &quot;佐賀県&quot;,
+		&quot;short&quot;: &quot;佐賀&quot;,
+		&quot;kana&quot;: &quot;サガケン&quot;,
+		&quot;en&quot;: &quot;saga&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;40&quot;: {
+				&quot;id&quot;: &quot;40&quot;,
+				&quot;name&quot;: &quot;福岡県&quot;
+			},
+			&quot;42&quot;: {
+				&quot;id&quot;: &quot;42&quot;,
+				&quot;name&quot;: &quot;長崎県&quot;
+			}
+		}
+	},
+	&quot;42&quot;: {
+		&quot;id&quot;: &quot;42&quot;,
+		&quot;name&quot;: &quot;長崎県&quot;,
+		&quot;short&quot;: &quot;長崎&quot;,
+		&quot;kana&quot;: &quot;ナガサキケン&quot;,
+		&quot;en&quot;: &quot;nagasaki&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;41&quot;: {
+				&quot;id&quot;: &quot;41&quot;,
+				&quot;name&quot;: &quot;佐賀県&quot;
+			}
+		}
+	},
+	&quot;43&quot;: {
+		&quot;id&quot;: &quot;43&quot;,
+		&quot;name&quot;: &quot;熊本県&quot;,
+		&quot;short&quot;: &quot;熊本&quot;,
+		&quot;kana&quot;: &quot;クマモトケン&quot;,
+		&quot;en&quot;: &quot;kumamoto&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;40&quot;: {
+				&quot;id&quot;: &quot;40&quot;,
+				&quot;name&quot;: &quot;福岡県&quot;
+			},
+			&quot;44&quot;: {
+				&quot;id&quot;: &quot;44&quot;,
+				&quot;name&quot;: &quot;大分県&quot;
+			},
+			&quot;45&quot;: {
+				&quot;id&quot;: &quot;45&quot;,
+				&quot;name&quot;: &quot;宮崎県&quot;
+			},
+			&quot;46&quot;: {
+				&quot;id&quot;: &quot;46&quot;,
+				&quot;name&quot;: &quot;鹿児島県&quot;
+			}
+		}
+	},
+	&quot;44&quot;: {
+		&quot;id&quot;: &quot;44&quot;,
+		&quot;name&quot;: &quot;大分県&quot;,
+		&quot;short&quot;: &quot;大分&quot;,
+		&quot;kana&quot;: &quot;オオイタケン&quot;,
+		&quot;en&quot;: &quot;oita&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;40&quot;: {
+				&quot;id&quot;: &quot;40&quot;,
+				&quot;name&quot;: &quot;福岡県&quot;
+			},
+			&quot;43&quot;: {
+				&quot;id&quot;: &quot;43&quot;,
+				&quot;name&quot;: &quot;熊本県&quot;
+			},
+			&quot;45&quot;: {
+				&quot;id&quot;: &quot;45&quot;,
+				&quot;name&quot;: &quot;宮崎県&quot;
+			}
+		}
+	},
+	&quot;45&quot;: {
+		&quot;id&quot;: &quot;45&quot;,
+		&quot;name&quot;: &quot;宮崎県&quot;,
+		&quot;short&quot;: &quot;宮崎&quot;,
+		&quot;kana&quot;: &quot;ミヤザキケン&quot;,
+		&quot;en&quot;: &quot;miyazaki&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;43&quot;: {
+				&quot;id&quot;: &quot;43&quot;,
+				&quot;name&quot;: &quot;熊本県&quot;
+			},
+			&quot;44&quot;: {
+				&quot;id&quot;: &quot;44&quot;,
+				&quot;name&quot;: &quot;大分県&quot;
+			},
+			&quot;46&quot;: {
+				&quot;id&quot;: &quot;46&quot;,
+				&quot;name&quot;: &quot;鹿児島県&quot;
+			}
+		}
+	},
+	&quot;46&quot;: {
+		&quot;id&quot;: &quot;46&quot;,
+		&quot;name&quot;: &quot;鹿児島県&quot;,
+		&quot;short&quot;: &quot;鹿児島&quot;,
+		&quot;kana&quot;: &quot;カゴシマケン&quot;,
+		&quot;en&quot;: &quot;kagoshima&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;43&quot;: {
+				&quot;id&quot;: &quot;43&quot;,
+				&quot;name&quot;: &quot;熊本県&quot;
+			},
+			&quot;45&quot;: {
+				&quot;id&quot;: &quot;45&quot;,
+				&quot;name&quot;: &quot;宮崎県&quot;
+			}
+		}
+	},
+	&quot;47&quot;: {
+		&quot;id&quot;: &quot;47&quot;,
+		&quot;name&quot;: &quot;沖縄県&quot;,
+		&quot;short&quot;: &quot;沖縄&quot;,
+		&quot;kana&quot;: &quot;オキナワケン&quot;,
+		&quot;en&quot;: &quot;okinawa&quot;,
+		&quot;area&quot;: {
+			&quot;id&quot;: 8,
+			&quot;name&quot;: &quot;九州・沖縄&quot;
+		},
+		&quot;neighbor&quot;: {
+			&quot;46&quot;: {
+				&quot;id&quot;: &quot;46&quot;,
+				&quot;name&quot;: &quot;鹿児島県&quot;
+			}
+		}
+	}
+}
+</code></pre>
+
+<p>PHP 向けの serialize</p>
+
+<pre class="prettyprint linenums"><code class="language-text">a:47:{s:2:&quot;01&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;01&quot;;s:4:&quot;name&quot;;s:9:&quot;北海道&quot;;s:5:&quot;short&quot;;s:9:&quot;北海道&quot;;s:4:&quot;kana&quot;;s:18:&quot;ホッカイドウ&quot;;s:2:&quot;en&quot;;s:8:&quot;hokkaido&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:1:{s:2:&quot;02&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;02&quot;;s:4:&quot;name&quot;;s:9:&quot;青森県&quot;;}}}s:2:&quot;02&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;02&quot;;s:4:&quot;name&quot;;s:9:&quot;青森県&quot;;s:5:&quot;short&quot;;s:6:&quot;青森&quot;;s:4:&quot;kana&quot;;s:18:&quot;アオモリケン&quot;;s:2:&quot;en&quot;;s:6:&quot;aomori&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:3:{s:2:&quot;01&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;01&quot;;s:4:&quot;name&quot;;s:9:&quot;北海道&quot;;}s:2:&quot;03&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;03&quot;;s:4:&quot;name&quot;;s:9:&quot;岩手県&quot;;}s:2:&quot;05&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;05&quot;;s:4:&quot;name&quot;;s:9:&quot;秋田県&quot;;}}}s:2:&quot;03&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;03&quot;;s:4:&quot;name&quot;;s:9:&quot;岩手県&quot;;s:5:&quot;short&quot;;s:6:&quot;岩手&quot;;s:4:&quot;kana&quot;;s:15:&quot;イワテケン&quot;;s:2:&quot;en&quot;;s:5:&quot;iwate&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:3:{s:2:&quot;02&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;02&quot;;s:4:&quot;name&quot;;s:9:&quot;青森県&quot;;}s:2:&quot;04&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;04&quot;;s:4:&quot;name&quot;;s:9:&quot;宮城県&quot;;}s:2:&quot;05&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;05&quot;;s:4:&quot;name&quot;;s:9:&quot;秋田県&quot;;}}}s:2:&quot;04&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;04&quot;;s:4:&quot;name&quot;;s:9:&quot;宮城県&quot;;s:5:&quot;short&quot;;s:6:&quot;宮城&quot;;s:4:&quot;kana&quot;;s:15:&quot;ミヤギケン&quot;;s:2:&quot;en&quot;;s:6:&quot;miyagi&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:4:{s:2:&quot;03&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;03&quot;;s:4:&quot;name&quot;;s:9:&quot;岩手県&quot;;}s:2:&quot;05&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;05&quot;;s:4:&quot;name&quot;;s:9:&quot;秋田県&quot;;}s:2:&quot;06&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;06&quot;;s:4:&quot;name&quot;;s:9:&quot;山形県&quot;;}s:2:&quot;07&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;}}}s:2:&quot;05&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;05&quot;;s:4:&quot;name&quot;;s:9:&quot;秋田県&quot;;s:5:&quot;short&quot;;s:6:&quot;秋田&quot;;s:4:&quot;kana&quot;;s:15:&quot;アキタケン&quot;;s:2:&quot;en&quot;;s:5:&quot;akita&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:4:{s:2:&quot;02&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;02&quot;;s:4:&quot;name&quot;;s:9:&quot;青森県&quot;;}s:2:&quot;03&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;03&quot;;s:4:&quot;name&quot;;s:9:&quot;岩手県&quot;;}s:2:&quot;04&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;04&quot;;s:4:&quot;name&quot;;s:9:&quot;宮城県&quot;;}s:2:&quot;06&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;06&quot;;s:4:&quot;name&quot;;s:9:&quot;山形県&quot;;}}}s:2:&quot;06&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;06&quot;;s:4:&quot;name&quot;;s:9:&quot;山形県&quot;;s:5:&quot;short&quot;;s:6:&quot;山形&quot;;s:4:&quot;kana&quot;;s:18:&quot;ヤマガタケン&quot;;s:2:&quot;en&quot;;s:8:&quot;yamagata&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:4:{s:2:&quot;04&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;04&quot;;s:4:&quot;name&quot;;s:9:&quot;宮城県&quot;;}s:2:&quot;05&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;05&quot;;s:4:&quot;name&quot;;s:9:&quot;秋田県&quot;;}s:2:&quot;07&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;}i:15;a:2:{s:2:&quot;id&quot;;s:2:&quot;15&quot;;s:4:&quot;name&quot;;s:9:&quot;新潟県&quot;;}}}s:2:&quot;07&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;s:5:&quot;short&quot;;s:6:&quot;福島&quot;;s:4:&quot;kana&quot;;s:18:&quot;フクシマケン&quot;;s:2:&quot;en&quot;;s:9:&quot;fukushima&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:1;s:4:&quot;name&quot;;s:18:&quot;北海道・東北&quot;;}s:8:&quot;neighbor&quot;;a:6:{s:2:&quot;04&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;04&quot;;s:4:&quot;name&quot;;s:9:&quot;宮城県&quot;;}s:2:&quot;06&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;06&quot;;s:4:&quot;name&quot;;s:9:&quot;山形県&quot;;}s:2:&quot;08&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;08&quot;;s:4:&quot;name&quot;;s:9:&quot;茨城県&quot;;}s:2:&quot;09&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;09&quot;;s:4:&quot;name&quot;;s:9:&quot;栃木県&quot;;}i:10;a:2:{s:2:&quot;id&quot;;s:2:&quot;10&quot;;s:4:&quot;name&quot;;s:9:&quot;群馬県&quot;;}i:15;a:2:{s:2:&quot;id&quot;;s:2:&quot;15&quot;;s:4:&quot;name&quot;;s:9:&quot;新潟県&quot;;}}}s:2:&quot;08&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;08&quot;;s:4:&quot;name&quot;;s:9:&quot;茨城県&quot;;s:5:&quot;short&quot;;s:6:&quot;茨城&quot;;s:4:&quot;kana&quot;;s:18:&quot;イバラキケン&quot;;s:2:&quot;en&quot;;s:7:&quot;ibaraki&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:4:{s:2:&quot;07&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;}s:2:&quot;09&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;09&quot;;s:4:&quot;name&quot;;s:9:&quot;栃木県&quot;;}i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}i:12;a:2:{s:2:&quot;id&quot;;s:2:&quot;12&quot;;s:4:&quot;name&quot;;s:9:&quot;千葉県&quot;;}}}s:2:&quot;09&quot;;a:7:{s:2:&quot;id&quot;;s:2:&quot;09&quot;;s:4:&quot;name&quot;;s:9:&quot;栃木県&quot;;s:5:&quot;short&quot;;s:6:&quot;栃木&quot;;s:4:&quot;kana&quot;;s:15:&quot;トチギケン&quot;;s:2:&quot;en&quot;;s:7:&quot;tochigi&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:4:{s:2:&quot;07&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;}s:2:&quot;08&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;08&quot;;s:4:&quot;name&quot;;s:9:&quot;茨城県&quot;;}i:10;a:2:{s:2:&quot;id&quot;;s:2:&quot;10&quot;;s:4:&quot;name&quot;;s:9:&quot;群馬県&quot;;}i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}}}i:10;a:7:{s:2:&quot;id&quot;;s:2:&quot;10&quot;;s:4:&quot;name&quot;;s:9:&quot;群馬県&quot;;s:5:&quot;short&quot;;s:6:&quot;群馬&quot;;s:4:&quot;kana&quot;;s:15:&quot;グンマケン&quot;;s:2:&quot;en&quot;;s:5:&quot;gunma&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:5:{s:2:&quot;07&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;}s:2:&quot;09&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;09&quot;;s:4:&quot;name&quot;;s:9:&quot;栃木県&quot;;}i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}i:15;a:2:{s:2:&quot;id&quot;;s:2:&quot;15&quot;;s:4:&quot;name&quot;;s:9:&quot;新潟県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}}}i:11;a:7:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;s:5:&quot;short&quot;;s:6:&quot;埼玉&quot;;s:4:&quot;kana&quot;;s:18:&quot;サイタマケン&quot;;s:2:&quot;en&quot;;s:7:&quot;saitama&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:7:{s:2:&quot;08&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;08&quot;;s:4:&quot;name&quot;;s:9:&quot;茨城県&quot;;}s:2:&quot;09&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;09&quot;;s:4:&quot;name&quot;;s:9:&quot;栃木県&quot;;}i:10;a:2:{s:2:&quot;id&quot;;s:2:&quot;10&quot;;s:4:&quot;name&quot;;s:9:&quot;群馬県&quot;;}i:12;a:2:{s:2:&quot;id&quot;;s:2:&quot;12&quot;;s:4:&quot;name&quot;;s:9:&quot;千葉県&quot;;}i:13;a:2:{s:2:&quot;id&quot;;s:2:&quot;13&quot;;s:4:&quot;name&quot;;s:9:&quot;東京都&quot;;}i:19;a:2:{s:2:&quot;id&quot;;s:2:&quot;19&quot;;s:4:&quot;name&quot;;s:9:&quot;山梨県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}}}i:12;a:7:{s:2:&quot;id&quot;;s:2:&quot;12&quot;;s:4:&quot;name&quot;;s:9:&quot;千葉県&quot;;s:5:&quot;short&quot;;s:6:&quot;千葉&quot;;s:4:&quot;kana&quot;;s:12:&quot;チバケン&quot;;s:2:&quot;en&quot;;s:5:&quot;chiba&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:3:{s:2:&quot;08&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;08&quot;;s:4:&quot;name&quot;;s:9:&quot;茨城県&quot;;}i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}i:13;a:2:{s:2:&quot;id&quot;;s:2:&quot;13&quot;;s:4:&quot;name&quot;;s:9:&quot;東京都&quot;;}}}i:13;a:7:{s:2:&quot;id&quot;;s:2:&quot;13&quot;;s:4:&quot;name&quot;;s:9:&quot;東京都&quot;;s:5:&quot;short&quot;;s:6:&quot;東京&quot;;s:4:&quot;kana&quot;;s:18:&quot;トウキョウト&quot;;s:2:&quot;en&quot;;s:5:&quot;tokyo&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}i:12;a:2:{s:2:&quot;id&quot;;s:2:&quot;12&quot;;s:4:&quot;name&quot;;s:9:&quot;千葉県&quot;;}i:14;a:2:{s:2:&quot;id&quot;;s:2:&quot;14&quot;;s:4:&quot;name&quot;;s:12:&quot;神奈川県&quot;;}i:19;a:2:{s:2:&quot;id&quot;;s:2:&quot;19&quot;;s:4:&quot;name&quot;;s:9:&quot;山梨県&quot;;}}}i:14;a:7:{s:2:&quot;id&quot;;s:2:&quot;14&quot;;s:4:&quot;name&quot;;s:12:&quot;神奈川県&quot;;s:5:&quot;short&quot;;s:9:&quot;神奈川&quot;;s:4:&quot;kana&quot;;s:18:&quot;カナガワケン&quot;;s:2:&quot;en&quot;;s:8:&quot;kanagawa&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:2;s:4:&quot;name&quot;;s:6:&quot;関東&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:13;a:2:{s:2:&quot;id&quot;;s:2:&quot;13&quot;;s:4:&quot;name&quot;;s:9:&quot;東京都&quot;;}i:19;a:2:{s:2:&quot;id&quot;;s:2:&quot;19&quot;;s:4:&quot;name&quot;;s:9:&quot;山梨県&quot;;}i:22;a:2:{s:2:&quot;id&quot;;s:2:&quot;22&quot;;s:4:&quot;name&quot;;s:9:&quot;静岡県&quot;;}}}i:15;a:7:{s:2:&quot;id&quot;;s:2:&quot;15&quot;;s:4:&quot;name&quot;;s:9:&quot;新潟県&quot;;s:5:&quot;short&quot;;s:6:&quot;新潟&quot;;s:4:&quot;kana&quot;;s:18:&quot;ニイガタケン&quot;;s:2:&quot;en&quot;;s:7:&quot;niigata&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:3;s:4:&quot;name&quot;;s:15:&quot;北陸・甲信&quot;;}s:8:&quot;neighbor&quot;;a:5:{s:2:&quot;06&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;06&quot;;s:4:&quot;name&quot;;s:9:&quot;山形県&quot;;}s:2:&quot;07&quot;;a:2:{s:2:&quot;id&quot;;s:2:&quot;07&quot;;s:4:&quot;name&quot;;s:9:&quot;福島県&quot;;}i:10;a:2:{s:2:&quot;id&quot;;s:2:&quot;10&quot;;s:4:&quot;name&quot;;s:9:&quot;群馬県&quot;;}i:16;a:2:{s:2:&quot;id&quot;;s:2:&quot;16&quot;;s:4:&quot;name&quot;;s:9:&quot;富山県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}}}i:16;a:7:{s:2:&quot;id&quot;;s:2:&quot;16&quot;;s:4:&quot;name&quot;;s:9:&quot;富山県&quot;;s:5:&quot;short&quot;;s:6:&quot;富山&quot;;s:4:&quot;kana&quot;;s:15:&quot;トヤマケン&quot;;s:2:&quot;en&quot;;s:6:&quot;toyama&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:3;s:4:&quot;name&quot;;s:15:&quot;北陸・甲信&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:15;a:2:{s:2:&quot;id&quot;;s:2:&quot;15&quot;;s:4:&quot;name&quot;;s:9:&quot;新潟県&quot;;}i:17;a:2:{s:2:&quot;id&quot;;s:2:&quot;17&quot;;s:4:&quot;name&quot;;s:9:&quot;石川県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}}}i:17;a:7:{s:2:&quot;id&quot;;s:2:&quot;17&quot;;s:4:&quot;name&quot;;s:9:&quot;石川県&quot;;s:5:&quot;short&quot;;s:6:&quot;石川&quot;;s:4:&quot;kana&quot;;s:18:&quot;イシカワケン&quot;;s:2:&quot;en&quot;;s:8:&quot;ishikawa&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:3;s:4:&quot;name&quot;;s:15:&quot;北陸・甲信&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:16;a:2:{s:2:&quot;id&quot;;s:2:&quot;16&quot;;s:4:&quot;name&quot;;s:9:&quot;富山県&quot;;}i:18;a:2:{s:2:&quot;id&quot;;s:2:&quot;18&quot;;s:4:&quot;name&quot;;s:9:&quot;福井県&quot;;}i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}}}i:18;a:7:{s:2:&quot;id&quot;;s:2:&quot;18&quot;;s:4:&quot;name&quot;;s:9:&quot;福井県&quot;;s:5:&quot;short&quot;;s:6:&quot;福井&quot;;s:4:&quot;kana&quot;;s:15:&quot;フクイケン&quot;;s:2:&quot;en&quot;;s:5:&quot;fukui&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:3;s:4:&quot;name&quot;;s:15:&quot;北陸・甲信&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:17;a:2:{s:2:&quot;id&quot;;s:2:&quot;17&quot;;s:4:&quot;name&quot;;s:9:&quot;石川県&quot;;}i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}i:25;a:2:{s:2:&quot;id&quot;;s:2:&quot;25&quot;;s:4:&quot;name&quot;;s:9:&quot;滋賀県&quot;;}i:26;a:2:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;}}}i:19;a:7:{s:2:&quot;id&quot;;s:2:&quot;19&quot;;s:4:&quot;name&quot;;s:9:&quot;山梨県&quot;;s:5:&quot;short&quot;;s:6:&quot;山梨&quot;;s:4:&quot;kana&quot;;s:18:&quot;ヤマナシケン&quot;;s:2:&quot;en&quot;;s:9:&quot;yamanashi&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:3;s:4:&quot;name&quot;;s:15:&quot;北陸・甲信&quot;;}s:8:&quot;neighbor&quot;;a:5:{i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}i:13;a:2:{s:2:&quot;id&quot;;s:2:&quot;13&quot;;s:4:&quot;name&quot;;s:9:&quot;東京都&quot;;}i:14;a:2:{s:2:&quot;id&quot;;s:2:&quot;14&quot;;s:4:&quot;name&quot;;s:12:&quot;神奈川県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}i:22;a:2:{s:2:&quot;id&quot;;s:2:&quot;22&quot;;s:4:&quot;name&quot;;s:9:&quot;静岡県&quot;;}}}i:20;a:7:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;s:5:&quot;short&quot;;s:6:&quot;長野&quot;;s:4:&quot;kana&quot;;s:15:&quot;ナガノケン&quot;;s:2:&quot;en&quot;;s:6:&quot;nagano&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:3;s:4:&quot;name&quot;;s:15:&quot;北陸・甲信&quot;;}s:8:&quot;neighbor&quot;;a:8:{i:10;a:2:{s:2:&quot;id&quot;;s:2:&quot;10&quot;;s:4:&quot;name&quot;;s:9:&quot;群馬県&quot;;}i:11;a:2:{s:2:&quot;id&quot;;s:2:&quot;11&quot;;s:4:&quot;name&quot;;s:9:&quot;埼玉県&quot;;}i:15;a:2:{s:2:&quot;id&quot;;s:2:&quot;15&quot;;s:4:&quot;name&quot;;s:9:&quot;新潟県&quot;;}i:16;a:2:{s:2:&quot;id&quot;;s:2:&quot;16&quot;;s:4:&quot;name&quot;;s:9:&quot;富山県&quot;;}i:19;a:2:{s:2:&quot;id&quot;;s:2:&quot;19&quot;;s:4:&quot;name&quot;;s:9:&quot;山梨県&quot;;}i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}i:22;a:2:{s:2:&quot;id&quot;;s:2:&quot;22&quot;;s:4:&quot;name&quot;;s:9:&quot;静岡県&quot;;}i:23;a:2:{s:2:&quot;id&quot;;s:2:&quot;23&quot;;s:4:&quot;name&quot;;s:9:&quot;愛知県&quot;;}}}i:21;a:7:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;s:5:&quot;short&quot;;s:6:&quot;岐阜&quot;;s:4:&quot;kana&quot;;s:12:&quot;ギフケン&quot;;s:2:&quot;en&quot;;s:4:&quot;gifu&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:4;s:4:&quot;name&quot;;s:6:&quot;東海&quot;;}s:8:&quot;neighbor&quot;;a:7:{i:16;a:2:{s:2:&quot;id&quot;;s:2:&quot;16&quot;;s:4:&quot;name&quot;;s:9:&quot;富山県&quot;;}i:17;a:2:{s:2:&quot;id&quot;;s:2:&quot;17&quot;;s:4:&quot;name&quot;;s:9:&quot;石川県&quot;;}i:18;a:2:{s:2:&quot;id&quot;;s:2:&quot;18&quot;;s:4:&quot;name&quot;;s:9:&quot;福井県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}i:23;a:2:{s:2:&quot;id&quot;;s:2:&quot;23&quot;;s:4:&quot;name&quot;;s:9:&quot;愛知県&quot;;}i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}i:25;a:2:{s:2:&quot;id&quot;;s:2:&quot;25&quot;;s:4:&quot;name&quot;;s:9:&quot;滋賀県&quot;;}}}i:22;a:7:{s:2:&quot;id&quot;;s:2:&quot;22&quot;;s:4:&quot;name&quot;;s:9:&quot;静岡県&quot;;s:5:&quot;short&quot;;s:6:&quot;静岡&quot;;s:4:&quot;kana&quot;;s:18:&quot;シズオカケン&quot;;s:2:&quot;en&quot;;s:8:&quot;shizuoka&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:4;s:4:&quot;name&quot;;s:6:&quot;東海&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:14;a:2:{s:2:&quot;id&quot;;s:2:&quot;14&quot;;s:4:&quot;name&quot;;s:12:&quot;神奈川県&quot;;}i:19;a:2:{s:2:&quot;id&quot;;s:2:&quot;19&quot;;s:4:&quot;name&quot;;s:9:&quot;山梨県&quot;;}i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}i:23;a:2:{s:2:&quot;id&quot;;s:2:&quot;23&quot;;s:4:&quot;name&quot;;s:9:&quot;愛知県&quot;;}}}i:23;a:7:{s:2:&quot;id&quot;;s:2:&quot;23&quot;;s:4:&quot;name&quot;;s:9:&quot;愛知県&quot;;s:5:&quot;short&quot;;s:6:&quot;愛知&quot;;s:4:&quot;kana&quot;;s:15:&quot;アイチケン&quot;;s:2:&quot;en&quot;;s:5:&quot;aichi&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:4;s:4:&quot;name&quot;;s:6:&quot;東海&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:20;a:2:{s:2:&quot;id&quot;;s:2:&quot;20&quot;;s:4:&quot;name&quot;;s:9:&quot;長野県&quot;;}i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}i:22;a:2:{s:2:&quot;id&quot;;s:2:&quot;22&quot;;s:4:&quot;name&quot;;s:9:&quot;静岡県&quot;;}i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}}}i:24;a:7:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;s:5:&quot;short&quot;;s:6:&quot;三重&quot;;s:4:&quot;kana&quot;;s:12:&quot;ミエケン&quot;;s:2:&quot;en&quot;;s:3:&quot;mie&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:4;s:4:&quot;name&quot;;s:6:&quot;東海&quot;;}s:8:&quot;neighbor&quot;;a:7:{i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}i:23;a:2:{s:2:&quot;id&quot;;s:2:&quot;23&quot;;s:4:&quot;name&quot;;s:9:&quot;愛知県&quot;;}i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}i:25;a:2:{s:2:&quot;id&quot;;s:2:&quot;25&quot;;s:4:&quot;name&quot;;s:9:&quot;滋賀県&quot;;}i:26;a:2:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;}i:29;a:2:{s:2:&quot;id&quot;;s:2:&quot;29&quot;;s:4:&quot;name&quot;;s:9:&quot;奈良県&quot;;}i:30;a:2:{s:2:&quot;id&quot;;s:2:&quot;30&quot;;s:4:&quot;name&quot;;s:12:&quot;和歌山県&quot;;}}}i:25;a:7:{s:2:&quot;id&quot;;s:2:&quot;25&quot;;s:4:&quot;name&quot;;s:9:&quot;滋賀県&quot;;s:5:&quot;short&quot;;s:6:&quot;滋賀&quot;;s:4:&quot;kana&quot;;s:12:&quot;シガケン&quot;;s:2:&quot;en&quot;;s:5:&quot;shiga&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:5;s:4:&quot;name&quot;;s:6:&quot;近畿&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:18;a:2:{s:2:&quot;id&quot;;s:2:&quot;18&quot;;s:4:&quot;name&quot;;s:9:&quot;福井県&quot;;}i:21;a:2:{s:2:&quot;id&quot;;s:2:&quot;21&quot;;s:4:&quot;name&quot;;s:9:&quot;岐阜県&quot;;}i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}i:26;a:2:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;}}}i:26;a:7:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;s:5:&quot;short&quot;;s:6:&quot;京都&quot;;s:4:&quot;kana&quot;;s:15:&quot;キョウトフ&quot;;s:2:&quot;en&quot;;s:5:&quot;kyoto&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:5;s:4:&quot;name&quot;;s:6:&quot;近畿&quot;;}s:8:&quot;neighbor&quot;;a:6:{i:18;a:2:{s:2:&quot;id&quot;;s:2:&quot;18&quot;;s:4:&quot;name&quot;;s:9:&quot;福井県&quot;;}i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}i:25;a:2:{s:2:&quot;id&quot;;s:2:&quot;25&quot;;s:4:&quot;name&quot;;s:9:&quot;滋賀県&quot;;}i:27;a:2:{s:2:&quot;id&quot;;s:2:&quot;27&quot;;s:4:&quot;name&quot;;s:9:&quot;大阪府&quot;;}i:28;a:2:{s:2:&quot;id&quot;;s:2:&quot;28&quot;;s:4:&quot;name&quot;;s:9:&quot;兵庫県&quot;;}i:29;a:2:{s:2:&quot;id&quot;;s:2:&quot;29&quot;;s:4:&quot;name&quot;;s:9:&quot;奈良県&quot;;}}}i:27;a:7:{s:2:&quot;id&quot;;s:2:&quot;27&quot;;s:4:&quot;name&quot;;s:9:&quot;大阪府&quot;;s:5:&quot;short&quot;;s:6:&quot;大阪&quot;;s:4:&quot;kana&quot;;s:15:&quot;オオサカフ&quot;;s:2:&quot;en&quot;;s:5:&quot;osaka&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:5;s:4:&quot;name&quot;;s:6:&quot;近畿&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:26;a:2:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;}i:28;a:2:{s:2:&quot;id&quot;;s:2:&quot;28&quot;;s:4:&quot;name&quot;;s:9:&quot;兵庫県&quot;;}i:29;a:2:{s:2:&quot;id&quot;;s:2:&quot;29&quot;;s:4:&quot;name&quot;;s:9:&quot;奈良県&quot;;}i:30;a:2:{s:2:&quot;id&quot;;s:2:&quot;30&quot;;s:4:&quot;name&quot;;s:12:&quot;和歌山県&quot;;}}}i:28;a:7:{s:2:&quot;id&quot;;s:2:&quot;28&quot;;s:4:&quot;name&quot;;s:9:&quot;兵庫県&quot;;s:5:&quot;short&quot;;s:6:&quot;兵庫&quot;;s:4:&quot;kana&quot;;s:18:&quot;ヒョウゴケン&quot;;s:2:&quot;en&quot;;s:5:&quot;hyogo&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:5;s:4:&quot;name&quot;;s:6:&quot;近畿&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:26;a:2:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;}i:27;a:2:{s:2:&quot;id&quot;;s:2:&quot;27&quot;;s:4:&quot;name&quot;;s:9:&quot;大阪府&quot;;}i:31;a:2:{s:2:&quot;id&quot;;s:2:&quot;31&quot;;s:4:&quot;name&quot;;s:9:&quot;鳥取県&quot;;}i:33;a:2:{s:2:&quot;id&quot;;s:2:&quot;33&quot;;s:4:&quot;name&quot;;s:9:&quot;岡山県&quot;;}}}i:29;a:7:{s:2:&quot;id&quot;;s:2:&quot;29&quot;;s:4:&quot;name&quot;;s:9:&quot;奈良県&quot;;s:5:&quot;short&quot;;s:6:&quot;奈良&quot;;s:4:&quot;kana&quot;;s:12:&quot;ナラケン&quot;;s:2:&quot;en&quot;;s:4:&quot;nara&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:5;s:4:&quot;name&quot;;s:6:&quot;近畿&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}i:26;a:2:{s:2:&quot;id&quot;;s:2:&quot;26&quot;;s:4:&quot;name&quot;;s:9:&quot;京都府&quot;;}i:27;a:2:{s:2:&quot;id&quot;;s:2:&quot;27&quot;;s:4:&quot;name&quot;;s:9:&quot;大阪府&quot;;}i:30;a:2:{s:2:&quot;id&quot;;s:2:&quot;30&quot;;s:4:&quot;name&quot;;s:12:&quot;和歌山県&quot;;}}}i:30;a:7:{s:2:&quot;id&quot;;s:2:&quot;30&quot;;s:4:&quot;name&quot;;s:12:&quot;和歌山県&quot;;s:5:&quot;short&quot;;s:9:&quot;和歌山&quot;;s:4:&quot;kana&quot;;s:18:&quot;ワカヤマケン&quot;;s:2:&quot;en&quot;;s:8:&quot;wakayama&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:5;s:4:&quot;name&quot;;s:6:&quot;近畿&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:24;a:2:{s:2:&quot;id&quot;;s:2:&quot;24&quot;;s:4:&quot;name&quot;;s:9:&quot;三重県&quot;;}i:27;a:2:{s:2:&quot;id&quot;;s:2:&quot;27&quot;;s:4:&quot;name&quot;;s:9:&quot;大阪府&quot;;}i:28;a:2:{s:2:&quot;id&quot;;s:2:&quot;28&quot;;s:4:&quot;name&quot;;s:9:&quot;兵庫県&quot;;}i:29;a:2:{s:2:&quot;id&quot;;s:2:&quot;29&quot;;s:4:&quot;name&quot;;s:9:&quot;奈良県&quot;;}}}i:31;a:7:{s:2:&quot;id&quot;;s:2:&quot;31&quot;;s:4:&quot;name&quot;;s:9:&quot;鳥取県&quot;;s:5:&quot;short&quot;;s:6:&quot;鳥取&quot;;s:4:&quot;kana&quot;;s:18:&quot;トットリケン&quot;;s:2:&quot;en&quot;;s:7:&quot;tottori&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:6;s:4:&quot;name&quot;;s:6:&quot;中国&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:28;a:2:{s:2:&quot;id&quot;;s:2:&quot;28&quot;;s:4:&quot;name&quot;;s:9:&quot;兵庫県&quot;;}i:32;a:2:{s:2:&quot;id&quot;;s:2:&quot;32&quot;;s:4:&quot;name&quot;;s:9:&quot;島根県&quot;;}i:33;a:2:{s:2:&quot;id&quot;;s:2:&quot;33&quot;;s:4:&quot;name&quot;;s:9:&quot;岡山県&quot;;}i:34;a:2:{s:2:&quot;id&quot;;s:2:&quot;34&quot;;s:4:&quot;name&quot;;s:9:&quot;広島県&quot;;}}}i:32;a:7:{s:2:&quot;id&quot;;s:2:&quot;32&quot;;s:4:&quot;name&quot;;s:9:&quot;島根県&quot;;s:5:&quot;short&quot;;s:6:&quot;島根&quot;;s:4:&quot;kana&quot;;s:15:&quot;シマネケン&quot;;s:2:&quot;en&quot;;s:7:&quot;shimane&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:6;s:4:&quot;name&quot;;s:6:&quot;中国&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:31;a:2:{s:2:&quot;id&quot;;s:2:&quot;31&quot;;s:4:&quot;name&quot;;s:9:&quot;鳥取県&quot;;}i:34;a:2:{s:2:&quot;id&quot;;s:2:&quot;34&quot;;s:4:&quot;name&quot;;s:9:&quot;広島県&quot;;}i:35;a:2:{s:2:&quot;id&quot;;s:2:&quot;35&quot;;s:4:&quot;name&quot;;s:9:&quot;山口県&quot;;}}}i:33;a:7:{s:2:&quot;id&quot;;s:2:&quot;33&quot;;s:4:&quot;name&quot;;s:9:&quot;岡山県&quot;;s:5:&quot;short&quot;;s:6:&quot;岡山&quot;;s:4:&quot;kana&quot;;s:18:&quot;オカヤマケン&quot;;s:2:&quot;en&quot;;s:7:&quot;okayama&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:6;s:4:&quot;name&quot;;s:6:&quot;中国&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:28;a:2:{s:2:&quot;id&quot;;s:2:&quot;28&quot;;s:4:&quot;name&quot;;s:9:&quot;兵庫県&quot;;}i:31;a:2:{s:2:&quot;id&quot;;s:2:&quot;31&quot;;s:4:&quot;name&quot;;s:9:&quot;鳥取県&quot;;}i:34;a:2:{s:2:&quot;id&quot;;s:2:&quot;34&quot;;s:4:&quot;name&quot;;s:9:&quot;広島県&quot;;}}}i:34;a:7:{s:2:&quot;id&quot;;s:2:&quot;34&quot;;s:4:&quot;name&quot;;s:9:&quot;広島県&quot;;s:5:&quot;short&quot;;s:6:&quot;広島&quot;;s:4:&quot;kana&quot;;s:18:&quot;ヒロシマケン&quot;;s:2:&quot;en&quot;;s:9:&quot;hiroshima&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:6;s:4:&quot;name&quot;;s:6:&quot;中国&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:31;a:2:{s:2:&quot;id&quot;;s:2:&quot;31&quot;;s:4:&quot;name&quot;;s:9:&quot;鳥取県&quot;;}i:32;a:2:{s:2:&quot;id&quot;;s:2:&quot;32&quot;;s:4:&quot;name&quot;;s:9:&quot;島根県&quot;;}i:33;a:2:{s:2:&quot;id&quot;;s:2:&quot;33&quot;;s:4:&quot;name&quot;;s:9:&quot;岡山県&quot;;}i:35;a:2:{s:2:&quot;id&quot;;s:2:&quot;35&quot;;s:4:&quot;name&quot;;s:9:&quot;山口県&quot;;}}}i:35;a:7:{s:2:&quot;id&quot;;s:2:&quot;35&quot;;s:4:&quot;name&quot;;s:9:&quot;山口県&quot;;s:5:&quot;short&quot;;s:6:&quot;山口&quot;;s:4:&quot;kana&quot;;s:18:&quot;ヤマグチケン&quot;;s:2:&quot;en&quot;;s:9:&quot;yamaguchi&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:6;s:4:&quot;name&quot;;s:6:&quot;中国&quot;;}s:8:&quot;neighbor&quot;;a:2:{i:32;a:2:{s:2:&quot;id&quot;;s:2:&quot;32&quot;;s:4:&quot;name&quot;;s:9:&quot;島根県&quot;;}i:34;a:2:{s:2:&quot;id&quot;;s:2:&quot;34&quot;;s:4:&quot;name&quot;;s:9:&quot;広島県&quot;;}}}i:36;a:7:{s:2:&quot;id&quot;;s:2:&quot;36&quot;;s:4:&quot;name&quot;;s:9:&quot;徳島県&quot;;s:5:&quot;short&quot;;s:6:&quot;徳島&quot;;s:4:&quot;kana&quot;;s:18:&quot;トクシマケン&quot;;s:2:&quot;en&quot;;s:9:&quot;tokushima&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:7;s:4:&quot;name&quot;;s:6:&quot;四国&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:37;a:2:{s:2:&quot;id&quot;;s:2:&quot;37&quot;;s:4:&quot;name&quot;;s:9:&quot;香川県&quot;;}i:38;a:2:{s:2:&quot;id&quot;;s:2:&quot;38&quot;;s:4:&quot;name&quot;;s:9:&quot;愛媛県&quot;;}i:39;a:2:{s:2:&quot;id&quot;;s:2:&quot;39&quot;;s:4:&quot;name&quot;;s:9:&quot;高知県&quot;;}}}i:37;a:7:{s:2:&quot;id&quot;;s:2:&quot;37&quot;;s:4:&quot;name&quot;;s:9:&quot;香川県&quot;;s:5:&quot;short&quot;;s:6:&quot;香川&quot;;s:4:&quot;kana&quot;;s:15:&quot;カガワケン&quot;;s:2:&quot;en&quot;;s:6:&quot;kagawa&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:7;s:4:&quot;name&quot;;s:6:&quot;四国&quot;;}s:8:&quot;neighbor&quot;;a:2:{i:36;a:2:{s:2:&quot;id&quot;;s:2:&quot;36&quot;;s:4:&quot;name&quot;;s:9:&quot;徳島県&quot;;}i:38;a:2:{s:2:&quot;id&quot;;s:2:&quot;38&quot;;s:4:&quot;name&quot;;s:9:&quot;愛媛県&quot;;}}}i:38;a:7:{s:2:&quot;id&quot;;s:2:&quot;38&quot;;s:4:&quot;name&quot;;s:9:&quot;愛媛県&quot;;s:5:&quot;short&quot;;s:6:&quot;愛媛&quot;;s:4:&quot;kana&quot;;s:15:&quot;エヒメケン&quot;;s:2:&quot;en&quot;;s:5:&quot;ehime&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:7;s:4:&quot;name&quot;;s:6:&quot;四国&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:36;a:2:{s:2:&quot;id&quot;;s:2:&quot;36&quot;;s:4:&quot;name&quot;;s:9:&quot;徳島県&quot;;}i:37;a:2:{s:2:&quot;id&quot;;s:2:&quot;37&quot;;s:4:&quot;name&quot;;s:9:&quot;香川県&quot;;}i:39;a:2:{s:2:&quot;id&quot;;s:2:&quot;39&quot;;s:4:&quot;name&quot;;s:9:&quot;高知県&quot;;}}}i:39;a:7:{s:2:&quot;id&quot;;s:2:&quot;39&quot;;s:4:&quot;name&quot;;s:9:&quot;高知県&quot;;s:5:&quot;short&quot;;s:6:&quot;高知&quot;;s:4:&quot;kana&quot;;s:15:&quot;コウチケン&quot;;s:2:&quot;en&quot;;s:5:&quot;kochi&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:7;s:4:&quot;name&quot;;s:6:&quot;四国&quot;;}s:8:&quot;neighbor&quot;;a:2:{i:36;a:2:{s:2:&quot;id&quot;;s:2:&quot;36&quot;;s:4:&quot;name&quot;;s:9:&quot;徳島県&quot;;}i:38;a:2:{s:2:&quot;id&quot;;s:2:&quot;38&quot;;s:4:&quot;name&quot;;s:9:&quot;愛媛県&quot;;}}}i:40;a:7:{s:2:&quot;id&quot;;s:2:&quot;40&quot;;s:4:&quot;name&quot;;s:9:&quot;福岡県&quot;;s:5:&quot;short&quot;;s:6:&quot;福岡&quot;;s:4:&quot;kana&quot;;s:18:&quot;フクオカケン&quot;;s:2:&quot;en&quot;;s:7:&quot;fukuoka&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:41;a:2:{s:2:&quot;id&quot;;s:2:&quot;41&quot;;s:4:&quot;name&quot;;s:9:&quot;佐賀県&quot;;}i:43;a:2:{s:2:&quot;id&quot;;s:2:&quot;43&quot;;s:4:&quot;name&quot;;s:9:&quot;熊本県&quot;;}i:44;a:2:{s:2:&quot;id&quot;;s:2:&quot;44&quot;;s:4:&quot;name&quot;;s:9:&quot;大分県&quot;;}}}i:41;a:7:{s:2:&quot;id&quot;;s:2:&quot;41&quot;;s:4:&quot;name&quot;;s:9:&quot;佐賀県&quot;;s:5:&quot;short&quot;;s:6:&quot;佐賀&quot;;s:4:&quot;kana&quot;;s:12:&quot;サガケン&quot;;s:2:&quot;en&quot;;s:4:&quot;saga&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:2:{i:40;a:2:{s:2:&quot;id&quot;;s:2:&quot;40&quot;;s:4:&quot;name&quot;;s:9:&quot;福岡県&quot;;}i:42;a:2:{s:2:&quot;id&quot;;s:2:&quot;42&quot;;s:4:&quot;name&quot;;s:9:&quot;長崎県&quot;;}}}i:42;a:7:{s:2:&quot;id&quot;;s:2:&quot;42&quot;;s:4:&quot;name&quot;;s:9:&quot;長崎県&quot;;s:5:&quot;short&quot;;s:6:&quot;長崎&quot;;s:4:&quot;kana&quot;;s:18:&quot;ナガサキケン&quot;;s:2:&quot;en&quot;;s:8:&quot;nagasaki&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:1:{i:41;a:2:{s:2:&quot;id&quot;;s:2:&quot;41&quot;;s:4:&quot;name&quot;;s:9:&quot;佐賀県&quot;;}}}i:43;a:7:{s:2:&quot;id&quot;;s:2:&quot;43&quot;;s:4:&quot;name&quot;;s:9:&quot;熊本県&quot;;s:5:&quot;short&quot;;s:6:&quot;熊本&quot;;s:4:&quot;kana&quot;;s:18:&quot;クマモトケン&quot;;s:2:&quot;en&quot;;s:8:&quot;kumamoto&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:4:{i:40;a:2:{s:2:&quot;id&quot;;s:2:&quot;40&quot;;s:4:&quot;name&quot;;s:9:&quot;福岡県&quot;;}i:44;a:2:{s:2:&quot;id&quot;;s:2:&quot;44&quot;;s:4:&quot;name&quot;;s:9:&quot;大分県&quot;;}i:45;a:2:{s:2:&quot;id&quot;;s:2:&quot;45&quot;;s:4:&quot;name&quot;;s:9:&quot;宮崎県&quot;;}i:46;a:2:{s:2:&quot;id&quot;;s:2:&quot;46&quot;;s:4:&quot;name&quot;;s:12:&quot;鹿児島県&quot;;}}}i:44;a:7:{s:2:&quot;id&quot;;s:2:&quot;44&quot;;s:4:&quot;name&quot;;s:9:&quot;大分県&quot;;s:5:&quot;short&quot;;s:6:&quot;大分&quot;;s:4:&quot;kana&quot;;s:18:&quot;オオイタケン&quot;;s:2:&quot;en&quot;;s:4:&quot;oita&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:40;a:2:{s:2:&quot;id&quot;;s:2:&quot;40&quot;;s:4:&quot;name&quot;;s:9:&quot;福岡県&quot;;}i:43;a:2:{s:2:&quot;id&quot;;s:2:&quot;43&quot;;s:4:&quot;name&quot;;s:9:&quot;熊本県&quot;;}i:45;a:2:{s:2:&quot;id&quot;;s:2:&quot;45&quot;;s:4:&quot;name&quot;;s:9:&quot;宮崎県&quot;;}}}i:45;a:7:{s:2:&quot;id&quot;;s:2:&quot;45&quot;;s:4:&quot;name&quot;;s:9:&quot;宮崎県&quot;;s:5:&quot;short&quot;;s:6:&quot;宮崎&quot;;s:4:&quot;kana&quot;;s:18:&quot;ミヤザキケン&quot;;s:2:&quot;en&quot;;s:8:&quot;miyazaki&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:3:{i:43;a:2:{s:2:&quot;id&quot;;s:2:&quot;43&quot;;s:4:&quot;name&quot;;s:9:&quot;熊本県&quot;;}i:44;a:2:{s:2:&quot;id&quot;;s:2:&quot;44&quot;;s:4:&quot;name&quot;;s:9:&quot;大分県&quot;;}i:46;a:2:{s:2:&quot;id&quot;;s:2:&quot;46&quot;;s:4:&quot;name&quot;;s:12:&quot;鹿児島県&quot;;}}}i:46;a:7:{s:2:&quot;id&quot;;s:2:&quot;46&quot;;s:4:&quot;name&quot;;s:12:&quot;鹿児島県&quot;;s:5:&quot;short&quot;;s:9:&quot;鹿児島&quot;;s:4:&quot;kana&quot;;s:18:&quot;カゴシマケン&quot;;s:2:&quot;en&quot;;s:9:&quot;kagoshima&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:2:{i:43;a:2:{s:2:&quot;id&quot;;s:2:&quot;43&quot;;s:4:&quot;name&quot;;s:9:&quot;熊本県&quot;;}i:45;a:2:{s:2:&quot;id&quot;;s:2:&quot;45&quot;;s:4:&quot;name&quot;;s:9:&quot;宮崎県&quot;;}}}i:47;a:7:{s:2:&quot;id&quot;;s:2:&quot;47&quot;;s:4:&quot;name&quot;;s:9:&quot;沖縄県&quot;;s:5:&quot;short&quot;;s:6:&quot;沖縄&quot;;s:4:&quot;kana&quot;;s:18:&quot;オキナワケン&quot;;s:2:&quot;en&quot;;s:7:&quot;okinawa&quot;;s:4:&quot;area&quot;;a:2:{s:2:&quot;id&quot;;i:8;s:4:&quot;name&quot;;s:15:&quot;九州・沖縄&quot;;}s:8:&quot;neighbor&quot;;a:1:{i:46;a:2:{s:2:&quot;id&quot;;s:2:&quot;46&quot;;s:4:&quot;name&quot;;s:12:&quot;鹿児島県&quot;;}}}}
+</code></pre>
+
+<p>SQL版も作ろうと思ったけど隣接県とかの1対多のデータの持たせ方は人それぞれなのでやめといたw</p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

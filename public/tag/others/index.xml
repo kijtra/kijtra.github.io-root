@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/others/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Sat, 04 Jan 2014 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/others/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>WikipediaのURLがツイートしにくい</title>
+      <link>http://kijtra.com/article/wikipedia-url-convert</link>
+      <pubDate>Sat, 04 Jan 2014 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/wikipedia-url-convert</guid>
+      <description>&lt;p&gt;WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。&lt;/p&gt;
+
+&lt;p&gt;あけましておめでとうございます。
+正月に時間があったので、&lt;a href=&#34;http://koding.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;Koding&lt;/a&gt;の使用感を掴むついでに作ってみました。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;WikipediaのURLを短く変換&lt;/em&gt;&lt;/strong&gt;
+&lt;a href=&#34;http://wi.kijtra.kd.io/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;&lt;a href=&#34;http://wi.kijtra.kd.io/&#34;&gt;http://wi.kijtra.kd.io/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;単機能なので特に説明は要らないと思います。
+今年もよろしくお願いします。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>iTunes AppStoreのアプリ画像サイズ</title>
+      <link>http://kijtra.com/article/itunes-appstore-icon-size-list</link>
+      <pubDate>Thu, 16 May 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/itunes-appstore-icon-size-list</guid>
+      <description>&lt;p&gt;iTunesのAppStoreで使われているアプリのアイコン画像、たまに使いたい時がある。
+でもわりとサイズがバラバラなので、どんなサイズがあるのか調べてみたのでメモ。&lt;/p&gt;
+
+&lt;p&gt;思ったより種類があった。
+基本となる画像URLはこちら。Twitter公式アプリの画像。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.png&#34;&gt;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.png&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;サイズは1024x1024とデカいので&lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.png&#34; target=&#34;_blank&#34;&gt;このリンクで確認&lt;/a&gt;。
+上記URLの末尾に、サイズ（と解像度かなにかの数字）を指定すると、そのサイズでの表示ができる。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj&#34;&gt;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj&lt;/a&gt;.&lt;span style=&#34;color:#b94a48&#34;&gt;64x64-75.&lt;/span&gt;png&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;赤字が追加した部分。
+たぶん最大がサイズ指定なしの&lt;strong&gt;1024x1024px&lt;/strong&gt;で、それより小さいものは以下の通り。
+- &lt;strong&gt;&lt;em&gt;29x29-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.29x29-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.29x29-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;42x42-50&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.42x42-50.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.42x42-50.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;53x53-50&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-50.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-50.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;53x53-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;58x58-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.58x58-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.58x58-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;60x60-50&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.60x60-50.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.60x60-50.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;64x64-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.64x64-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.64x64-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;84x84-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.84x84-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.84x84-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;100x100-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.100x100-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.100x100-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;114x114-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.114x114-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.114x114-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;128x128-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.128x128-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.128x128-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;150x150-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.150x150-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.150x150-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;170x170-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.170x170-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.170x170-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;175x175-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.175x175-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.175x175-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;200x200-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.200x200-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.200x200-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;256x256-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.256x256-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.256x256-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;340x340-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.340x340-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.340x340-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;350x350-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.350x350-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.350x350-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;
+- &lt;strong&gt;&lt;em&gt;512x512-75&lt;/em&gt;&lt;/strong&gt;.png
+  &lt;a href=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.512x512-75.png&#34; target=&#34;_blank&#34; style=&#34;border:0;&#34;&gt;&lt;img src=&#34;http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.512x512-75.png&#34; style=&#34;box-shadow:none;&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;なかには中途半端なサイズや角丸じゃないのもあるのがよくわからない。
+たぶんiTunes用サイトで使う時に都度作ったって感じなのかな。
+しかし、&lt;a href=&#34;https://itunes.apple.com/lookup?country=JP&amp;lang=ja-jp&amp;id=333903271&#34; target=&#34;_blank&#34;&gt;公式APIのJSON&lt;/a&gt;を見ると、サイズごとにURLが違う模様。
+それぞれにまた違うサイズがあるかも？&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/middleman/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Tue, 29 Apr 2014 23:21:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/middleman/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ブログ移行。WordPressからCloud9＋Middlemanへ。</title>
+      <link>http://kijtra.com/article/cloud9-and-middleman</link>
+      <pubDate>Tue, 29 Apr 2014 23:21:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cloud9-and-middleman</guid>
+      <description>&lt;p&gt;以前から静的ブログにしたかったのもあり、やっと2014/04/29に移行したので経緯の日記。&lt;/p&gt;
+
+&lt;p&gt;移行前の状況としては、&lt;a href=&#34;http://www.netowl.jp/&#34;&gt;Netowl&lt;/a&gt;の運営する&lt;a href=&#34;http://www.star-domain.jp/&#34;&gt;スタードメイン&lt;/a&gt;というところでドメインを取得した時についてくる無料サーバーでWordPressを使ってた。&lt;br /&gt;
+でも、個人ブログとしてのWordPressはオーバースペック（自由にできすぎる）な気がしてたのと、最近少しMarkdownに慣れてきたのもあり、思い切って静的サイトにすることにした。&lt;/p&gt;
+
+&lt;p&gt;それと、レンタルサーバーとかっていろいろと変えたくなることがあるので、サーバーに縛られない状況にしたいと思った。&lt;br /&gt;
+条件として、わりと厳しめなのを想定した。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;テンプレートが自由にいじれる&lt;/li&gt;
+&lt;li&gt;AdSenseが貼れる&lt;/li&gt;
+&lt;li&gt;Google Analyticsが使える&lt;/li&gt;
+&lt;li&gt;メモ帳的に書ける（つまりMarkdown）&lt;/li&gt;
+&lt;li&gt;サーバーを管理しなくていい&lt;/li&gt;
+&lt;li&gt;サーバーが落ちにくい＆高速&lt;/li&gt;
+&lt;li&gt;以前のURL（特に記事URL）を引き継げる&lt;/li&gt;
+&lt;li&gt;すべて無料である&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;普通にブログプラットフォームを使おうかとも思って以下のようなものを検討した。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://postach.io/&#34;&gt;Postach.io&lt;/a&gt;&lt;br /&gt;
+Evernoteのノートをそのままブログにできる。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://scriptogr.am/&#34;&gt;Scriptogr.am&lt;/a&gt;&lt;br /&gt;
+Dropbox内のMarkdownファイルをブログにできる。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://calepin.co/&#34;&gt;Calepin&lt;/a&gt;&lt;br /&gt;
+これもDropboxのMarkdownをブログに。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/&#34;&gt;Medium&lt;/a&gt;&lt;br /&gt;
+見た目がクール。流行り。だけど自由度激低。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://tumblr.com/&#34;&gt;Tumblr&lt;/a&gt;&lt;br /&gt;
+テキストブログとしては扱いにくい。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.blogger.com&#34;&gt;Blogger&lt;/a&gt;&lt;br /&gt;
+言わずと知れた。でもMarkdown不可。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;どれも条件にはピッタリいかなかった。&lt;br /&gt;
+けどPostach.ioだけはかなり良く、画像なんかもEvernoteに貼るだけだしテンプレもいじれて広告貼れるし。&lt;br /&gt;
+2点だけ、そもそもEvernoteではシンタックスハイライトがやりにくいのと、ノートのタイトルがそのまま（中国語翻訳のローマ字で）URLになるという痛い仕様だった。&lt;br /&gt;
+これじゃタイトルちょっと直しただけで記事URLが変わってしまいSEOに良くない。&lt;br /&gt;
+でもバージョンアップ次第では今後の移行も検討。&lt;/p&gt;
+
+&lt;p&gt;で、巷では静的ブログというのが一部で盛り上がってる（？）ようで、特に&lt;a href=&#34;http://jekyllrb.com/&#34;&gt;Jekyll&lt;/a&gt;というやつが&lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt;と相性が良いということでユーザーが多いようだった。&lt;br /&gt;
+たしかにブログなんて静的なもので十分だと感じてたので静的にしようと決意。&lt;/p&gt;
+
+&lt;p&gt;個人的に、普段&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt;というサービス(PaaS？SaaS？なんだろ)をちょこちょこ使っていて、早速試してみると、全くRuby慣れしてない自分でもなんとなくいけそうだった。&lt;br /&gt;
+で、そのJekyllをブログっぽくしてくれる&lt;a href=&#34;http://octopress.org/&#34;&gt;Octopress&lt;/a&gt;というプラグインがあって、これも試したんだけど、なんか縛りが増えた感じで受け付けなかったのでボツとした。&lt;/p&gt;
+
+&lt;p&gt;Octopressを入れていろいろやってこんがらがったので、新たにCloud9のワークスペースを作って、今度はJekyllと似た感じの&lt;a href=&#34;http://middlemanapp.com/jp/&#34;&gt;Middleman&lt;/a&gt;というものを使ってみることにした。&lt;br /&gt;
+こちらはマニュアルが日本語化されてて、Jekyllを経たこともあり、すんなり受け入れられた。&lt;/p&gt;
+
+&lt;p&gt;このMiddlemanもGitHub Pagesに簡単にデプロイできるってんでこれに決めた。&lt;/p&gt;
+
+&lt;p&gt;というわけで、Cloud9にMiddlemanを入れ、そのままCloud9上でテンプレ編集して記事を書き、GitHub Pagesへデプロイして公開する、という流れで移行の条件を全て満たすことができた。&lt;/p&gt;
+
+&lt;p&gt;実際にどういう手順でやったかはヒマがある時にまた書こうと思う。&lt;br /&gt;
+（ブログで↑こういう終わり方って個人的には嫌いだけどw）&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

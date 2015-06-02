@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/snippet/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Fri, 27 Sep 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/snippet/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>テーブルのセルに斜めの線を引くjQueryプラグイン</title>
+      <link>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</link>
+      <pubDate>Fri, 27 Sep 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</guid>
+      <description>&lt;p&gt;テーブルのセルに斜めの線（分割線？打ち消し線？）をつけるやつをjQueryプラグインとして作ってみた。&lt;/p&gt;
+
+&lt;p&gt;テーブルのセルに斜めの線を引いたりしたいことないですかね。
+必要に迫られてググりまくった情報をもとにjQueryプラグインとして作ってみました。&lt;/p&gt;
+
+&lt;p&gt;言葉では難しいんだけど、要するにこういうことでして。
+&lt;a href=&#34;http://kijtra.com/wp/wp-content/uploads/2013/09/2013-09-27_142602.png&#34;&gt;&lt;img src=&#34;http://kijtra.com/wp/wp-content/uploads/2013/09/2013-09-27_142602.png&#34; alt=&#34;テーブルの斜めの線&#34; width=&#34;276&#34; height=&#34;164&#34; class=&#34;aligncenter&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;コードは以下だけど、&lt;a href=&#34;https://gist.github.com/kijtra/6723306&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;span class=&#34;icon-github-alt&#34;&gt;&lt;/span&gt; Gistにあり〼&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/6723306.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;ウインドウサイズによって幅が変わるようなテーブルには対応していなくて、しかもセルのCSSスタイルによっては表示が微妙になる時がある・・・。&lt;/p&gt;
+
+&lt;p&gt;はじめはCSS3の背景グラデーションでやろうかと思ったけどセルのサイズを固定しないとできなかったので、jQueryでセルの縦横を取得して、それに合わせてボーダーのある要素を傾けるものになってる。
+というかこれHTML5の標準機能とかでできたらなあw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた</title>
+      <link>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
+      <pubDate>Sun, 15 Sep 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
+      <description>
+
+&lt;p&gt;Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。&lt;/p&gt;
+
+&lt;p&gt;Gmail(に限らずだけど)で、時間を指定して送りたいってことありますよね。&lt;br /&gt;
+いろんなアリバイ作りとかで。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://android-smart.com/2012/03/right-inbox.html&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;ブラウザのプラグイン&lt;/a&gt;とかはあるんだけど、会員登録が必要だったり&lt;strong&gt;セキュリティとかどうなの&lt;/strong&gt;的な心配があったりするので、Google Apps Scriptでできそうだなあと思ったら、一応それなりのができたっぽい。&lt;br /&gt;
+「指定の年月日」はもちろん、分刻みで、しかも「安全に」予約送信ができる。&lt;/p&gt;
+
+&lt;p&gt;まず準備（Google Apps Scriptの作成）が必要。&lt;/p&gt;
+
+&lt;p&gt;流れとしては、&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Googleドライブの「作成」→「スクリプト」でスクリプトファイル作成&lt;/li&gt;
+&lt;li&gt;スクリプトファイルに、下記に書いたコードをペースト&lt;/li&gt;
+&lt;li&gt;Gmailのアクセスを許可（自分のアカウントで自分のGmailへのアクセス許可）&lt;/li&gt;
+&lt;li&gt;トリガー（Cronのようなもの）を設定&lt;/li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;という感じ。&lt;/p&gt;
+
+&lt;h3 id=&#34;2014-05-15-追記:23d8c14229023b3f045e00920cd20710&#34;&gt;2014/05/15 追記&lt;/h3&gt;
+
+&lt;p&gt;件名なしでも送りたいとの要望があったので、プログラムを一部修正しました～&lt;/p&gt;
+
+&lt;h3 id=&#34;2014-11-11-追記:23d8c14229023b3f045e00920cd20710&#34;&gt;2014/11/11 追記&lt;/h3&gt;
+
+&lt;p&gt;Fromを変更してもそのメールアドレスで送れていなかったのを修正しました。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;まずは下準備:23d8c14229023b3f045e00920cd20710&#34;&gt;まずは下準備&lt;/h2&gt;
+
+&lt;h3 id=&#34;1-googleドライブでスクリプトファイル作成:23d8c14229023b3f045e00920cd20710&#34;&gt;1. Googleドライブでスクリプトファイル作成&lt;/h3&gt;
+
+&lt;p&gt;Googleドライブに行き、「作成」→「スクリプト」。&lt;br /&gt;
+プロジェクト名（ファイル名）は何でも構わない。&lt;br /&gt;
+今回は「Gmail時間指定送信」という名前にした。&lt;/p&gt;
+
+&lt;h3 id=&#34;2-コードをコピペ:23d8c14229023b3f045e00920cd20710&#34;&gt;2. コードをコピペ&lt;/h3&gt;
+
+&lt;p&gt;コードは以下。そのまんまでOK。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function delaySendDraftMail() {
+  var drafts = GmailApp.getDraftMessages();
+  var len = drafts.length;
+
+  //下書きがなければ終了
+  if (!len) {
+    return false;
+  }
+
+  //現在時刻
+  var now = (new Date()).getTime();
+
+  for (var i = 0, l = len; i &amp;lt; l; i++) {
+    //メールデータをセット
+    var mes = drafts[i];
+    if (&#39;object&#39; !== typeof mes) {
+      continue;
+    }
+
+    //件名を取得
+    var str = mes.getSubject();
+    //件名から日時を抽出
+    var match = str.match(/^(\{(\d{4}[\/\-]\d{1,2}[\/\-]\d{1,2} \d{1,2}:\d{1,2})\}) ?(.*)?/);
+    //日時が抽出できないなら無視
+    if (!match || !match[1]) {
+      continue;
+    }
+
+    //時間を取得
+    var time = (new Date(match[2].replace(/\-/g,&#39;/&#39;)+&#39; +09:00&#39;)).getTime();
+    //時間を取得できない、または未来の時間なら無視
+    if(!time || (time &amp;amp;&amp;amp; time&amp;gt;now)){
+      continue;
+    }
+
+    //各情報をセット
+    var to = mes.getTo();
+    var subject = match[3] || &#39;&#39;;
+    var body = mes.getPlainBody();
+    var options = {}, val;
+
+    //必要な情報がなければ無視
+    if (!to || !body) {
+      continue;
+    }
+
+    // 2014.11.11 From を変更した場合でも対応(ただしFrom名はつけられない模様)
+    var from = mes.getFrom();
+    var aliases = GmailApp.getAliases();
+    for (var i = 0, l = aliases.length; i &amp;lt; l; i++) {
+      var val = aliases[i];
+      // From エイリアス一覧にマッチすれば From として使用
+      if (-1 !== from.indexOf(val)) {
+        options[&#39;from&#39;] = val;
+        break;
+      }
+    }
+
+    if (val = mes.getCc()) {//Cc
+      options[&#39;cc&#39;] = val;
+    }
+
+    if (val = mes.getBcc()) {//Bcc
+      options[&#39;bcc&#39;] = val;
+    }
+
+    if (val = mes.getBody()) {//HTML本文
+      //bodyにdivタグがあればHTMLとみなす
+      if ( val.indexOf(&#39;&amp;lt;div&#39;)!==-1 ) {
+        options[&#39;htmlBody&#39;] = val;
+      }
+    }
+
+    //添付ファイル
+    if (val = mes.getAttachments()) {
+      options[&#39;attachments&#39;] = val;
+    }
+
+    // 送信！
+    var status = GmailApp.sendEmail(to, subject, body, options);
+
+    //送信したら下書きをゴミ箱へ
+    if (status) {
+      mes.moveToTrash();
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;特に怪しいところはない。&lt;br /&gt;
+あと特に複雑なことしてるわけじゃないw&lt;/p&gt;
+
+&lt;h3 id=&#34;3-アクセス許可-コードをテスト実行:23d8c14229023b3f045e00920cd20710&#34;&gt;3. アクセス許可（コードをテスト実行）&lt;/h3&gt;
+
+&lt;p&gt;上記のコードをペーストし、「delaySendDraftMail」という関数を実行すると、初回は以下のような承認ダイアログが出る。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-t8mOTQYP27I/UjVXWm8sOLI/AAAAAAAADWs/2vRpuuBNHRI/s291/2013-09-15_093131.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;承認ダイアログ&#34; src=&#34;http://lh4.ggpht.com/-t8mOTQYP27I/UjVXWm8sOLI/AAAAAAAADWs/2vRpuuBNHRI/s291/2013-09-15_093131.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「続行」すると、次はこれ。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-UsJSPbbY3KQ/UjVXX4hjDoI/AAAAAAAADW0/l267Re4Ut0I/s602/2013-09-15_093222.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;Gmailへのアクセス許可&#34; src=&#34;http://lh4.ggpht.com/-UsJSPbbY3KQ/UjVXX4hjDoI/AAAAAAAADW0/l267Re4Ut0I/s602/2013-09-15_093222.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;4-トリガーを設定:23d8c14229023b3f045e00920cd20710&#34;&gt;4. トリガーを設定&lt;/h3&gt;
+
+&lt;p&gt;スクリプトの「トリガー」を設定する。&lt;/p&gt;
+
+&lt;p&gt;編集画面の上のほうにある時計っぽいマークをクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh6.ggpht.com/-LgQ7EP9JT-s/UjVXYhQShnI/AAAAAAAADW8/pD5muOyR7-Q/s527/2013-09-15_154126.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;トリガーの設定を開く&#34; src=&#34;http://lh6.ggpht.com/-LgQ7EP9JT-s/UjVXYhQShnI/AAAAAAAADW8/pD5muOyR7-Q/s527/2013-09-15_154126.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;まだトリガーがない状態だと思うので「今すぐ追加するにはここをクリックしてください。」をクリックして、「分タイマー」で「1分ごと」に設定する。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-Ywi0JAKJ6Cc/UjVXZk1YPUI/AAAAAAAADXE/uTlJuKwIM4Q/s854/2013-09-15_154211.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「1分ごと」に設定&#34; src=&#34;http://lh4.ggpht.com/-Ywi0JAKJ6Cc/UjVXZk1YPUI/AAAAAAAADXE/uTlJuKwIM4Q/s640/2013-09-15_154211.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;さらに、右側にある「通知」をクリックして、スクリプトの失敗時にメールを受け取るようにしておくといいかも。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-LSakb9PhhWE/UjVXar2wBGI/AAAAAAAADXM/U2EbyhKg1lc/s456/2013-09-15_154308.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;エラーメール受け取りの設定&#34; src=&#34;http://lh4.ggpht.com/-LSakb9PhhWE/UjVXar2wBGI/AAAAAAAADXM/U2EbyhKg1lc/s456/2013-09-15_154308.png&#34; /&gt;&lt;/a&gt;
+「immediately」は「その都度」ってことのようです。&lt;/p&gt;
+
+&lt;p&gt;以上で下準備は完了。&lt;br /&gt;
+このスクリプトファイルについては、今後は放置で。&lt;/p&gt;
+
+&lt;h2 id=&#34;日時指定メールの作成方法:23d8c14229023b3f045e00920cd20710&#34;&gt;日時指定メールの作成方法&lt;/h2&gt;
+
+&lt;p&gt;送信日時を指定したいメールは、Gmailで「&lt;strong&gt;下書き&lt;/strong&gt;」をつくる。&lt;br /&gt;
+その時、&lt;strong&gt;「件名」に日時を指定する&lt;/strong&gt;ことで、その日時に送られる。&lt;/p&gt;
+
+&lt;p&gt;例えば「2013年9月20日の16:32に送信したい」という場合。&lt;br /&gt;
+送りたいメールの、下書きの件名を以下のように記述する。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;span style=&#34;color:#27AE60&#34;&gt;{2013/09/20 16:32}&lt;/span&gt;&lt;span style=&#34;color:#5282D3&#34;&gt;午後4時半になりましたよ！&lt;/span&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;で、そのまま &lt;strong&gt;&lt;em&gt;下書きとして保存しておく&lt;/em&gt;&lt;/strong&gt; 。（というか自動保存）&lt;br /&gt;
+「&lt;span style=&#34;color:green&#34;&gt;{2013/09/20 16:32}&lt;/span&gt;」の部分が送りたい日時、&lt;br /&gt;
+「&lt;span style=&#34;color:#5282D3&#34;&gt;午後4時半になりましたよ！&lt;/span&gt;」の部分が実際の件名になって送信される。&lt;br /&gt;
+逆に、 &lt;strong&gt;&lt;em&gt;件名が上記の形式になっていないものは完全無視&lt;/em&gt;&lt;/strong&gt; 。&lt;/p&gt;
+
+&lt;p&gt;スクリプトの動作としては、&lt;br /&gt;
+下書きの件名に日時が含まれるものがあるか探して、&lt;br /&gt;
+↓&lt;br /&gt;
+見つかったらその日時が過去か調べて、&lt;br /&gt;
+↓&lt;br /&gt;
+過去ならその下書きをもとに新規メールを作成して送信、&lt;br /&gt;
+↓&lt;br /&gt;
+もとの下書きは削除。&lt;br /&gt;
+という流れになっているので、 &lt;strong&gt;&lt;em&gt;送信後はゴミ箱に下書きが残る&lt;/em&gt;&lt;/strong&gt; 。&lt;br /&gt;
+注意点として以下がある。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;「本文インライン画像」には非対応（添付ファイルや普通のHTMLメールはOK）&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;em&gt;例えば数分後に送信したい場合で、下書きの件名に日時を指定したままいつまでも本文を編集していると、Gmailが自動保存→指定時間になっちゃって送信されるってことがあるかもしれない&lt;/em&gt;&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ということで、そんなに大したことじゃないけど、やってる人が見つからなかったので自分で作ってみた。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>IEほかフォームの「placeholder」属性をクロスブラウザで使えるようにする(jQuery不要版)</title>
+      <link>http://kijtra.com/article/cross-browser-placeholder-without-jquer</link>
+      <pubDate>Mon, 08 Apr 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cross-browser-placeholder-without-jquer</guid>
+      <description>&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するってやつです。jQuery不要で単体で使えます。&lt;/p&gt;
+
+&lt;p&gt;placeholder属性は便利なので、サポート外のブラウザでも使いたい！
+これサポートしていないブラウザが「IE9以下」と、けっこうなサポート外ぶりなのでJavaScriptで。&lt;/p&gt;
+
+&lt;p&gt;前にjQueryでやるやつは書いた( &lt;a href=&#34;http://kijtra.com/article/cross-browser-placeholder&#34;&gt;フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)&lt;/a&gt; )んだけど、jQueryなしの需要がありそうだったので作ってみた。&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/5334086.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/5334086&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&amp;nbsp;&lt;/i&gt;Gistにも掲載中&lt;/a&gt;
+使い方としては、上記のコードをコピーして.jsファイルにペーストして、HTMLのどこでもいいので読み込むだけ。
+勝手にwindowのonload後に実行されます。&lt;/p&gt;
+
+&lt;p&gt;placaholderの数だけformのonSubmitを登録してるのとかどうだろ…w
+役に立ちそうならご自由にお使いください。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)</title>
+      <link>http://kijtra.com/article/cross-browser-placeholder</link>
+      <pubDate>Sat, 16 Feb 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cross-browser-placeholder</guid>
+      <description>
+
+&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するスニペット。jQueryが必要版。&lt;/p&gt;
+
+&lt;p&gt;placeholder属性は便利ですよね。さらにユーザーにもわかりやすい。
+でもIE9以下は対応してないのが痛い・・・
+なのでJavaScriptで代替してクロスブラウザにしてしまいましょう。（要jQuery）&lt;/p&gt;
+
+&lt;h1 id=&#34;追記-2013-04-08:9d9f5727c51310c9f6a4e2dd46772fe6&#34;&gt;追記 2013-04-08&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://kijtra.com/article/cross-browser-placeholder-without-jquer&#34;&gt;jQueryなし版もつくってみた&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/4964976.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/4964976&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&amp;nbsp;&lt;/i&gt;Gistにも掲載中&lt;/a&gt;
+実行時にplaceholder属性が使えるかどうかチェックしてるので、使えるブラウザでは無駄な動きはしない。
+いまのところjQueryがないと動かないけど、jQueryなしにする予定。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>HTMLのbodyタグにclass名を追加する関数</title>
+      <link>http://kijtra.com/article/php-add-body-class-function</link>
+      <pubDate>Thu, 31 Jan 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/php-add-body-class-function</guid>
+      <description>&lt;p&gt;PHPで組んでる時、HTMLのbodyタグに動的にclass名を追加するの面倒だったりしませんか。
+いや、たまにあるんです。
+フォームの入力画面→確認画面→送信完了画面とか。
+そんなときにつかえるやつです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function bodyclass( $name = NULL ){
+  static $_buffer = array(), $_browser = array();
+	if ( empty( $name ) ) {
+		if ( empty( $_browser ) ) {
+			$ua = $_SERVER[&#39;HTTP_USER_AGENT&#39;];
+			if ( ! empty( $ua ) ) {
+				// UserAgent(小文字)
+				$ua = strtolower( $ua );
+				// OSの判定
+				if ( preg_match( &#39;/(windows|win32)/i&#39;, $ua ) ) {
+					$_browser[] = &#39;win&#39;;
+				} elseif ( preg_match( &#39;/(macintosh|mac os x)/i&#39;, $ua ) ) {
+					$_browser[] = &#39;mac&#39;;
+				} elseif ( strpos( $ua, &#39;linux&#39; ) !== false ) {
+					$_browser[] = &#39;linux&#39;;
+				} elseif ( strpos( $ua, &#39;iphone&#39; ) !== false ) {
+					$_browser[] = &#39;iphone&#39;;
+				} elseif ( strpos( $ua, &#39;ipod&#39; ) !== false ) {
+					$_browser[] = &#39;ipod&#39;;
+				} elseif ( strpos( $ua, &#39;ipad&#39; ) !== false ) {
+					$_browser[] = &#39;ipad&#39;;
+				} elseif ( strpos( $ua, &#39;android&#39; ) !== false ) {
+					$_browser[] = &#39;android&#39;;
+					if ( strpos( $ua, &#39;mobile&#39; ) !== false ) {
+						$_browser[] = &#39;android-mobile&#39;;
+					}
+				} elseif ( strpos( $ua, &#39;windows phone&#39; ) !== false ) {
+					$_browser[] = &#39;windows-phone&#39;;
+				} elseif ( strpos( $ua, &#39;kindle&#39; ) !== false ) {
+					$_browser[] = &#39;kindle&#39;;
+				}
+				// ブラウザの判定
+				if( preg_match( &#39;/msie ([0-9]{1,}[\.0-9]{0,})/&#39;, $ua, $m ) ){
+					$ver = intval( $m[1] );
+					$_browser[] = &#39;ie&#39;;
+					$_browser[] = &#39;ie&#39; . intval($ver);
+					if( $ver &amp;lt;= 9 ) {
+						$_browser[] = &#39;ielt9&#39;;
+					}
+					if ( $ver &amp;lt;= 8 ) {
+						$_browser[] = &#39;ielt8&#39;;
+					}
+					if ( $ver &amp;lt;= 7 ) {
+						$_browser[] = &#39;ielt7&#39;;
+					}
+					if ( $ver &amp;lt;= 6 ) {
+						$_browser[] = &#39;ielt6&#39;;
+					}
+					if ( $ver &amp;lt;= 5 ) {
+						$_browser[] = &#39;ielt5&#39;;
+					}
+				} elseif ( strpos( $ua, &#39;chrome&#39; ) !== false ) {
+					$_browser[] = &#39;chrome&#39;;
+				} elseif ( strpos( $ua, &#39;firefox&#39; ) !== false ) {
+					$_browser[] = &#39;firefox&#39;;
+				} elseif ( strpos( $ua, &#39;safari&#39; ) !== false ) {
+					$_browser[] = &#39;safari&#39;;
+				} elseif ( strpos( $ua, &#39;opera&#39; ) !== false ) {
+					$_browser[] = &#39;opera&#39;;
+				}
+			}
+			$_buffer = array_merge( $_browser, $_buffer );
+		}
+		if ( ! empty( $_buffer ) ) {
+			$_buffer = array_unique( $_buffer );
+			$_buffer = array_merge( array_diff( $_buffer, array( &amp;quot;&amp;quot; ) ) );
+			if ( ! empty( $_buffer ) ) {
+				sort( $_buffer );
+				echo implode( &#39; &#39;, $_buffer );
+			}
+		}
+	} else {
+		$args = func_get_args();
+		if ( ! empty( $args[1] ) ) {
+			$name = implode( &#39; &#39;, $args );
+		} elseif( is_array( $name ) ) {
+			$name = implode( &#39; &#39;, $name );
+		}
+		$_buffer = array_merge( $_buffer, explode( &#39; &#39;, $name ) );
+	}
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;使い方としては、まずあらかじめHTMLの方に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html lang=&amp;quot;ja&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+	&amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+	&amp;lt;title&amp;gt;Document&amp;lt;/title&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body class=&amp;quot;&amp;lt;?php bodyclass(); ?&amp;gt;&amp;quot;&amp;gt;
+	...contents...
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;というふうにbodyタグに仕込んでおきます。
+あとは上記が出力される前に&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+include(&#39;bodyclass.php&#39;);
+// 引数にclass名を放り込んでいけば、自動でまとめて出力。
+bodyclass( &#39;test&#39; );//普通。
+bodyclass( &#39;test2&#39;, &#39;test3 test4&#39; );//関数は何度呼び出してもOKかつ引数はいくつでも。
+bodyclass( array( &#39;test4&#39;, &#39;test5 test3&#39; ) );//引数は配列でもOK。重複は取り除かれる。
+/*
+上記の結果は
+chrome test test2 test3 test4 test5 win
+と出力される。（OSがWindows、ブラウザがChromeの場合）
+※IEの場合はバージョンまでつく。
+順番は強制的にアルファベット順。（そのほうがページ圧縮率が高いらしい）
+*/
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;という感じでいけます。
+&lt;a href=&#34;https://gist.github.com/4681611&#34; target=&#34;_blank&#34; class=&#34;btn&#34;&gt;Gistにも置いてます&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MySQLで日付から年齢を取得するストアドファンクション</title>
+      <link>http://kijtra.com/article/mysqldate-to-age</link>
+      <pubDate>Mon, 17 Dec 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/mysqldate-to-age</guid>
+      <description>&lt;p&gt;MySQLのSELECT結果とかで生年月日とかの日付を年齢に換算したい、なんてことないですかね。
+関数（ストアドファンクション）にしてみました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DELIMITER //
+DROP FUNCTION IF EXISTS `AGE`//
+CREATE FUNCTION AGE( _DATE_ VARCHAR(20)) RETURNS INT(3)
+LANGUAGE SQL NOT DETERMINISTIC READS SQL DATA
+BEGIN
+	DECLARE ymd INT(10) UNSIGNED;
+	DECLARE age INT(3);
+	SET ymd=CASE
+		WHEN _DATE_ REGEXP &#39;^[0-9]{10}$&#39; THEN FROM_UNIXTIME(_DATE_,&#39;%Y%m%d&#39;)
+		WHEN _DATE_ REGEXP &#39;^[0-9]{4}[0-9]{2}[0-9]{2}$&#39; THEN _DATE_
+		WHEN _DATE_ REGEXP &#39;^[0-9]{4}[-/][0-9]{2}[-/][0-9]{2}$&#39; THEN DATE_FORMAT(_DATE_,&#39;%Y%m%d&#39;)
+		WHEN _DATE_ REGEXP &#39;^[0-9]{4}[-/][0-9]{2}[-/][0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$&#39; THEN DATE_FORMAT(_DATE_,&#39;%Y%m%d&#39;)
+		ELSE NULL END;
+	IF ymd IS NOT NULL THEN
+		SET age=CAST(FLOOR((DATE_FORMAT(CURRENT_DATE(),&#39;%Y%m%d&#39;)-ymd)/10000) AS UNSIGNED);
+	ELSE
+		SET age=NULL;
+	END IF;
+	RETURN age;
+END;
+//
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>配列の好きなところに配列を挿入する関数</title>
+      <link>http://kijtra.com/article/array-insert</link>
+      <pubDate>Tue, 11 Dec 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/array-insert</guid>
+      <description>&lt;p&gt;タイトルまんまだけどわりとこういう関数がないみたいなので作ってみた。&lt;/p&gt;
+
+&lt;p&gt;「&lt;a href=&#34;http://php.net/manual/ja/function.array-splice.php&#34; target=&#34;_blank&#34;&gt;array_splice&lt;/a&gt;」ってのがあるんだけど、配列のキー（添字）が保持されないんで、そこらへんを対応した。
+引数の順番がどういうのがわかりやすいが悩んだけど・・・気に入らない人は変えちゃってください。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// 第一引数：挿入元配列 / 第二引数：挿入位置(ゼロは最初) / 第三引数：挿入したい配列
+function array_insert($origin,$position,$insert){
+	if(!is_array($origin) || !is_array($insert)){
+		return false;
+	}
+	$origin_keys=array_keys($origin);
+	$origin_values=array_values($origin);
+	$insert_keys=array_keys($insert);
+	$insert_values=array_values($insert);
+	array_splice($origin_keys,$position,0,$insert_keys);
+	array_splice($origin_values,$position,0,$insert_values);
+	return array_combine($origin_keys,$origin_values);
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ランダムな文字列を生成するPHP関数</title>
+      <link>http://kijtra.com/article/random-string</link>
+      <pubDate>Mon, 26 Nov 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/random-string</guid>
+      <description>&lt;p&gt;ランダムな文字列を生成する関数。
+第一引数は生成後の文字数、第二匹数は記号を含めるかどうか。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function random_str($len=12,$special=false){
+	$len=empty($len) ? 12 : $len;
+	mt_srand((double)microtime()*1000000);
+	$chars=array(
+		array(
+			&#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39;
+		),
+		array(
+			&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;, &#39;h&#39;, &#39;i&#39;, &#39;j&#39;, &#39;k&#39;, &#39;l&#39;, &#39;m&#39;,
+			&#39;n&#39;, &#39;o&#39;, &#39;p&#39;, &#39;q&#39;, &#39;r&#39;, &#39;s&#39;, &#39;t&#39;, &#39;u&#39;, &#39;v&#39;, &#39;w&#39;, &#39;x&#39;, &#39;y&#39;, &#39;z&#39;
+		),
+		array(
+			&#39;A&#39;, &#39;B&#39;, &#39;C&#39;, &#39;D&#39;, &#39;E&#39;, &#39;F&#39;, &#39;G&#39;, &#39;H&#39;, &#39;I&#39;, &#39;J&#39;, &#39;K&#39;, &#39;L&#39;, &#39;M&#39;,
+			&#39;N&#39;, &#39;O&#39;, &#39;P&#39;, &#39;Q&#39;, &#39;R&#39;, &#39;S&#39;, &#39;T&#39;, &#39;U&#39;, &#39;V&#39;, &#39;W&#39;, &#39;X&#39;, &#39;Y&#39;, &#39;Z&#39;
+		)
+    );
+	if($special){
+		$chars[]=array(
+			&#39;@&#39;, &#39;%&#39;, &#39;^&#39;, &#39;(&#39;, &#39;)&#39;, &#39;_&#39;, &#39;&amp;lt;&#39;, &#39;&amp;gt;&#39;, &#39;{&#39;, &#39;}&#39;, &#39;[&#39;, &#39;]&#39;,&#39;;&#39;, &#39;.&#39;,
+			&#39;/&#39;, &#39;|&#39;, &#39;:&#39;, &#39;&amp;amp;&#39;, &#39;#&#39;, &#39;~&#39;, &#39;&amp;gt;&#39;, &#39;)&#39;, &#39;-&#39;, &#39;?&#39;, &#39;=&#39;, &#39;!&#39;, &#39;$&#39;, &#39;*&#39;
+		);
+	}
+	$num=count($chars)-1;
+	$str=&#39;&#39;;
+	for($i=0;$i&amp;lt;$len;$i++){
+		$c=$chars[mt_rand(0,$num)];
+		$str.=$c[mt_rand(0,count($c)-1)];
+	}
+	return $str;
+}
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/mysql/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Thu, 26 Dec 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/mysql/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>MySQLでLOCATE()とかINSTR()とかPOSITION()とかが大文字・小文字を区別してくれない</title>
+      <link>http://kijtra.com/article/mysql-string-position-upper-lower-case</link>
+      <pubDate>Thu, 26 Dec 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/mysql-string-position-upper-lower-case</guid>
+      <description>&lt;p&gt;MySQLで、文字列内の任意の文字が何文字目に出てくるか取得できるLOCATE関数で、大文字と小文字に関係なく最初の文字を取得してきてしまうので対処メモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/string-functions.html#idm47509624022112&#34;&gt;LOCATE関数&lt;/a&gt;{:target=&amp;rdquo;_blank&amp;rdquo;}と同等の&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/string-functions.html#idm47509624082512&#34;&gt;INSTR関数&lt;/a&gt;とか&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/string-functions.html#idm47509623909712&#34;&gt;POSITION関数&lt;/a&gt;でも同じ症状。
+&lt;a href=&#34;https://gist.github.com/kijtra/8129050&#34;&gt;こちらの自作ストアドファンクション(とPHP関数)&lt;/a&gt;を作る時に悩んだのでメモ。&lt;/p&gt;
+
+&lt;p&gt;以下を実行すると、どうなりますかね。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LOCATE(&#39;M&#39;, &#39;MySQL and me&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;もちろん「1」が返ってくる。&lt;/p&gt;
+
+&lt;p&gt;すると以下はどうか。（「m」が小文字）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LOCATE(&#39;m&#39;, &#39;MySQL and me&#39;);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これも「1」が返ってくる。
+本当は「me」の「m」の場所を返してほしい。&lt;/p&gt;
+
+&lt;p&gt;たぶんDBやテーブルなんかの文字コードに関係するんだと思うけど（そこまでは調べていない・・・）、文字をBINARYに変換するとうまくいった。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;SELECT LOCATE( CAST(&#39;m&#39; AS BINARY), CAST(&#39;MySQL and me&#39; AS BINARY) );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これだと小文字「m」の場所である「11」が返ってきた。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MySQLで ON DUPLICATE KEY UPDATE した時も LAST_INSERT_ID を取得する</title>
+      <link>http://kijtra.com/article/mysql-get-updated-last_insert_id</link>
+      <pubDate>Tue, 19 Feb 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/mysql-get-updated-last_insert_id</guid>
+      <description>&lt;p&gt;MySQLで UPDATE や INSERT&amp;hellip;ON DUPLICATE KEY UPDATE の時とかに LAST_INSERT_ID を取得するメモ。&lt;/p&gt;
+
+&lt;p&gt;MySQLで普通に &lt;code&gt;UPDATE&lt;/code&gt; した時（これはIDわかってるだろうから不要だろうけど）とか、&lt;code&gt;INSERT...ON DUPLICATE KEY UPDATE&lt;/code&gt; した時にも &lt;code&gt;LAST_INSERT_ID&lt;/code&gt; が取得したいって時あるあるですよね。
+普通にSQL文書くとできなかったから不可能だと思ってたけど、できたっぽいのでメモ。&lt;/p&gt;
+
+&lt;p&gt;まず普通のUPDATEのときは、以下のようにする。（「13」てのはプライマリキーのID）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;UPDATE `table_name`
+SET `col` = &#39;hoge&#39;
+WHERE `id` = LAST_INSERT_ID( 13 )
+LIMIT 1;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、最もやりたい &lt;code&gt;ON DUPLICATE KEY UPDATE&lt;/code&gt; のときは以下のように。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;INSERT INTO `table_name` ( `id`, `col1`, `col2` )
+VALUES ( &#39;13&#39;, &#39;val1&#39;, &#39;val2&#39; )
+ON DUPLICATE KEY UPDATE
+  `col1` = VALUES( `col1` ),
+  `col2` = VALUES( `col2` ),
+  `id` = LAST_INSERT_ID( `id` );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;さいごのところがキモですかね。
+これで、mysqli_query(または mysql_query ) の直後に &lt;a href=&#34;http://www.php.net/manual/ja/mysqli.insert-id.php&#34; target=&#34;_blank&#34;&gt;mysqli_last_insert_id(または mysql_last_insert_id )&lt;/a&gt; で取得するか、&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+$id = mysqli_result( mysqli_query( &amp;quot;SELECT LAST_INSERT_ID()&amp;quot; ), 0 );
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;とかでもIDが取得できる。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;LAST_INSERT_ID&lt;/code&gt; に引数があるのは知ってたけど、効果は知らなかった。
+LAST_INSERT_IDに値をセットしておけば、後でまた取り出せるってことだとは思うけど、取り出さなかった時にどこまでそれが保持されるのかとかがやや不安・・・
+この使い方が正しいかどうかはマニュアルに見つからなかったんだけど、以下がそれっぽい記述かな・・・。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;b.テーブルを使用して、次のようにシークエンス番号を生成 :&lt;br /&gt;
+mysql&amp;gt; UPDATE sequence SET id=LAST_INSERT_ID(id+1);&lt;br /&gt;
+mysql&amp;gt; SELECT LAST_INSERT_ID();&lt;br /&gt;
+UPDATE 文はシークエンス カウンタを増分し、LAST_INSERT_ID() への次の呼び出しが更新された値を戻すようにします。&lt;br /&gt;
+SELECT 文はその値を引き出します。&lt;br /&gt;
+mysql_insert_id() C API 関数は、値の入手に使用することもできます。&lt;br /&gt;
+&lt;cite&gt;&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/information-functions.html&#34; target=&#34;_blank&#34;&gt;11.10.3. 情報関数&lt;/a&gt;&lt;/cite&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MySQLで日付から年齢を取得するストアドファンクション</title>
+      <link>http://kijtra.com/article/mysqldate-to-age</link>
+      <pubDate>Mon, 17 Dec 2012 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/mysqldate-to-age</guid>
+      <description>&lt;p&gt;MySQLのSELECT結果とかで生年月日とかの日付を年齢に換算したい、なんてことないですかね。
+関数（ストアドファンクション）にしてみました。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sql&#34;&gt;DELIMITER //
+DROP FUNCTION IF EXISTS `AGE`//
+CREATE FUNCTION AGE( _DATE_ VARCHAR(20)) RETURNS INT(3)
+LANGUAGE SQL NOT DETERMINISTIC READS SQL DATA
+BEGIN
+	DECLARE ymd INT(10) UNSIGNED;
+	DECLARE age INT(3);
+	SET ymd=CASE
+		WHEN _DATE_ REGEXP &#39;^[0-9]{10}$&#39; THEN FROM_UNIXTIME(_DATE_,&#39;%Y%m%d&#39;)
+		WHEN _DATE_ REGEXP &#39;^[0-9]{4}[0-9]{2}[0-9]{2}$&#39; THEN _DATE_
+		WHEN _DATE_ REGEXP &#39;^[0-9]{4}[-/][0-9]{2}[-/][0-9]{2}$&#39; THEN DATE_FORMAT(_DATE_,&#39;%Y%m%d&#39;)
+		WHEN _DATE_ REGEXP &#39;^[0-9]{4}[-/][0-9]{2}[-/][0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}$&#39; THEN DATE_FORMAT(_DATE_,&#39;%Y%m%d&#39;)
+		ELSE NULL END;
+	IF ymd IS NOT NULL THEN
+		SET age=CAST(FLOOR((DATE_FORMAT(CURRENT_DATE(),&#39;%Y%m%d&#39;)-ymd)/10000) AS UNSIGNED);
+	ELSE
+		SET age=NULL;
+	END IF;
+	RETURN age;
+END;
+//
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

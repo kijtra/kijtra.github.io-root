@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/cron/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Mon, 07 Oct 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/cron/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AppFog（のPHP）でCronぽいことを実現する</title>
+      <link>http://kijtra.com/article/cron-in-appfog-php</link>
+      <pubDate>Mon, 07 Oct 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cron-in-appfog-php</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://www.appfog.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;AppFog&lt;/a&gt;でCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。&lt;/p&gt;
+
+&lt;p&gt;だいたいは以下のページの焼き増し。
+&lt;a href=&#34;http://stackoverflow.com/questions/13595025/running-php-workers-on-appfog&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;Stack Overflow : Running PHP workers on AppFog&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;流れとしては、&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Cronするには専用の新規アプリを作る必要があるので作る&lt;/li&gt;
+&lt;li&gt;それをスタンドアロンアプリとして設定&lt;/li&gt;
+&lt;li&gt;常時実行コマンドみたいなやつを設定して特定のPHPファイルを常時実行&lt;/li&gt;
+&lt;li&gt;そのPHP内でCronぽい動きをさせる&lt;/li&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;という感じ。&lt;/p&gt;
+
+&lt;p&gt;まずはローカルでCronテスト用のアプリディレクトリとファイルを作成。
+ここでは例として「&lt;strong&gt;my-cron&lt;/strong&gt;」というアプリ名とする。&lt;/p&gt;
+
+&lt;p&gt;my-cronディレクトリに「&lt;strong&gt;index.php&lt;/strong&gt;」を作成。（ファイル名はなんでも良い）
+このindex.phpの中身は以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+//タイムアウトなしに設定
+set_time_limit(0);
+//延々と繰り返す
+while (true) {
+	//確認のためログに出力される文字
+	echo &amp;quot;Cronテストっす\n&amp;quot;;
+	//指定時間だけ処理止める(ここでは300秒=5分)
+	//ここで止める間隔がCronの実行間隔になる
+	sleep(300);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;あとは基本的にコマンドラインでの作業。
+（appfogの管理画面でもできるかもだけど調べてない）
+※appfogのコマンド「af」は&lt;a href=&#34;https://docs.appfog.com/getting-started/af-cli&#34; target=&#34;_blank&#34; rel=&#34;nofollor&#34;&gt;appfogのCLI&lt;/a&gt;をインストールしておく必要あり&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;# 上で決めたCron用アプリのディレクトリに移動
+$ cd /path/to/my-cron
+# アプリの新規作成ステップ開始
+$ af push
+Would you like to deploy from the current directory? [Yn]:# そのままEnter
+Application Name: my-cron # 上で決めたアプリ名を入力
+Detected a PHP Application, is this correct? [Yn]: n # No(n)を指定
+1: Sinatra
+2: JavaWeb
+3: Spring
+4: Rails
+5: Play
+6: Erlang/OTP Rebar
+7: PHP
+8: Lift
+9: Django
+10: Rack
+11: WSGI
+12: Standalone
+13: Node
+14: Grails
+Select Application Type: 12 # 「Standalone」を指定
+Selected Standalone Application
+1: java
+2: node04
+3: node06
+4: node08
+5: php
+6: python2
+7: ruby18
+8: ruby192
+9: ruby193
+Select Runtime: 5 # 「php」を指定
+Selected php
+Start Command: php index.php # 常時実行コマンド。上で作ったファイル「index.php」
+1: AWS US East - Virginia
+2: AWS EU West - Ireland
+3: AWS Asia SE - Singapore
+4: HP AZ 2 - Las Vegas
+Select Infrastructure: 3 # 任意。ここでは「AWS Asia」
+Application Deployed URL [None]: # そのままEnter
+Memory reservation (128M, 256M, 512M, 1G, 2G) [128M]: # そのままEnter
+How many instances? [1]: # そのままEnter
+Bind existing services to &#39;my-cron&#39;? [yN]: # そのままEnter
+Create services to bind to &#39;my-cron&#39;? [yN]: # そのままEnter
+Would you like to save this configuration? [yN]: # そのままEnter
+# あとは自動出力
+Creating Application: OK
+Uploading Application:
+  Checking for available resources: OK
+  Packing application: OK
+  Uploading (0K): OK
+Push Status: OK
+Staging Application &#39;my-cron&#39;: OK
+Starting Application &#39;my-cron&#39;: OK
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;↑ソースの色付け見難くてスミマセン・・・&lt;/p&gt;
+
+&lt;p&gt;これで、「my-cron」アプリの「index.php」が常時動いてることになるので、
+sleep()で止めるなり指定時間になにか処理するなりしていく模様。
+（PHPが動きっぱなしってのが個人的に気持ち悪いけどw）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
+      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <description>
+
+&lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;
+
+&lt;p&gt;Cron使いたいけど、レンタルサーバーにその機能がない、またはCronつきレンタルサーバー借りる余裕がない。
+そんなことないですかね。ないですかそうですか。いや個人的にあったんでメモ。&lt;/p&gt;
+
+&lt;p&gt;「&lt;a href=&#34;http://www.google.com/script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;」というのがあって、JavaScriptに似たコードを書けばなんかいろいろ動くみたいなんですよ。動く時間も指定できて。無料で。&lt;/p&gt;
+
+&lt;p&gt;「Google Apps」とついてるけど、別に企業アカウントとか独自ドメインとかが必要なわけじゃない。
+必要なのはリクエスト先URLとGoogleアカウントだけ。&lt;/p&gt;
+
+&lt;p&gt;まずGoogleにログインして「&lt;a href=&#34;http://www.google.com/script&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;」にアクセスすると、下のような画面になるので「Start Scripting」をクリック。
+ここは英語だけどその先は日本語。
+&lt;a href=&#34;http://lh3.googleusercontent.com/-gK_O0yT2lpc/UT0sslDYg_I/AAAAAAAADKk/eKp_rfxG-cU/2013-03-11_095900.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Start Scripting」をクリック&#34; src=&#34;http://lh3.googleusercontent.com/-gK_O0yT2lpc/UT0sslDYg_I/AAAAAAAADKk/eKp_rfxG-cU/s650/2013-03-11_095900.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;すると以下の画面に遷移するので、とりあえず「空のプロジェクト」をクリックして、プロジェクトを作成。
+&lt;a href=&#34;http://lh4.ggpht.com/-Wa_FpWI99qw/UT0uHxv3YSI/AAAAAAAADK8/L4CsTMve438/2013-03-11_100530.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「空のプロジェクト」をクリック&#34; src=&#34;http://lh4.ggpht.com/-Wa_FpWI99qw/UT0uHxv3YSI/AAAAAAAADK8/L4CsTMve438/s640/2013-03-11_100530.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;いきなりコードを書く画面になるので、ここに書いていく。
+今回は「&lt;strong&gt;指定時間（または定期的）に、単にURLをリクエストするだけ&lt;/strong&gt;」という要件のものなので、最低限の書き方でいく。
+例えば「&lt;a href=&#34;http://example.com/cron.php」というURLリクエストしたいなら、以下のように記述する。&#34;&gt;http://example.com/cron.php」というURLリクエストしたいなら、以下のように記述する。&lt;/a&gt;
+（エラー処理とかしてない最低限のコード）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myFunction() {
+UrlFetchApp.fetch(&amp;quot;http://example.com/cron.php&amp;quot;);
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;こんだけ！&lt;/p&gt;
+
+&lt;p&gt;Google Apps Scriptに「&lt;strong&gt;UrlFetch&lt;/strong&gt;」という機能があって、指定したURLをリクエストするというもの。
+必要ならリクエスト先URLの結果の文字列も取得できる。&lt;/p&gt;
+
+&lt;p&gt;で、重要なのは指定時間に上記のスクリプトを実行すること。
+Google Apps Scriptではこれを「&lt;strong&gt;&lt;em&gt;トリガー&lt;/em&gt;&lt;/strong&gt;」と読んでるみたい。&lt;/p&gt;
+
+&lt;p&gt;コード編集画面のメニューにある時計マークをクリック。
+&lt;a href=&#34;http://lh3.ggpht.com/-SrYU2KFbKqw/UT0xMMW1KcI/AAAAAAAADLE/UygDuyf4mlg/2013-03-11_101935.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;コード編集画面のメニューにある時計マークをクリック&#34; src=&#34;http://lh3.ggpht.com/-SrYU2KFbKqw/UT0xMMW1KcI/AAAAAAAADLE/UygDuyf4mlg/s640/2013-03-11_101935.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;プロジェクトをまだ保存してなければ、「プロジェクト名の変更」という画面が表示されるので、好きな名前をつける。（その名前でGoogleドライブに保存される）&lt;/p&gt;
+
+&lt;p&gt;「現在のプロジェクトのトリガー」という画面が表示されるので、「今すぐ追加するには・・・」のところをクリック。
+&lt;a href=&#34;http://lh6.ggpht.com/-2eVM3VCh9HQ/UT0yMjcmXZI/AAAAAAAADLM/C39bq-s-hT4/2013-03-11_102357.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「今すぐ追加するには・・・」のところをクリック&#34; src=&#34;http://lh6.ggpht.com/-2eVM3VCh9HQ/UT0yMjcmXZI/AAAAAAAADLM/C39bq-s-hT4/s640/2013-03-11_102357.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そしたら出てきた。Cronぽいものが。&lt;/p&gt;
+
+&lt;p&gt;ここで自由に時間を指定する。
+&lt;a href=&#34;http://lh4.ggpht.com/-mZtVacg0s9o/UT0y4NlG8xI/AAAAAAAADLU/e8cofZNtXUc/2013-03-11_102649.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「今すぐ追加するには・・・」のところをクリック&#34; src=&#34;http://lh4.ggpht.com/-mZtVacg0s9o/UT0y4NlG8xI/AAAAAAAADLU/e8cofZNtXUc/s640/2013-03-11_102649.png&#34; /&gt;&lt;/a&gt;
+選択肢の右にある「通知」では、失敗時の通知をメールで受信できる。
+ここはどうやらログインユーザーのメールアドレスか、Googleドライブでそのプロジェクトを共有しているメールアドレスしか選べないっぽい。
+時間帯を「保存」して、プロジェクトも保存すると、すぐに動きはじめる模様。&lt;/p&gt;
+
+&lt;h2 id=&#34;リクエスト結果をメールで受け取ってみる:99813ee1335af0ac77725bc02bc7cb51&#34;&gt;リクエスト結果をメールで受け取ってみる&lt;/h2&gt;
+
+&lt;p&gt;単にURLをリクエストしただけだと、リクエスト先のプログラムの生死がわからない。
+リクエスト結果をメールで受け取ってみる。&lt;/p&gt;
+
+&lt;p&gt;結果の文字列をメール送信するには、前述のコードを以下のように修正。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;function myFunction() {
+    var response = UrlFetchApp.fetch(&amp;quot;http://example.com/cron.php&amp;quot;);
+    MailApp.sendEmail(
+        &amp;quot;google-user-name@gmail.com&amp;quot;,// 送信先メール
+        &amp;quot;Cronの実行結果ですよ&amp;quot;,// メール件名
+        &amp;quot;&amp;quot;,
+        {
+            htmlBody: response.getContentText()
+        }
+    );
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コード2行目でURLをリクエストし、その結果を「response」にセット。
+&lt;a href=&#34;https://developers.google.com/apps-script/service_mail&#34; target=&#34;_blank&#34;&gt;Mail機能&lt;/a&gt;を使ってメール送信。
+送信先メールアドレスは4行目、その下の5行目はメールの件名になる。&lt;/p&gt;
+
+&lt;p&gt;これでGoogleドライブに保存しておけば、指定時間にせっせと動いてくれる。&lt;/p&gt;
+
+&lt;p&gt;ちなみにGoogleドライブに保存されたプロジェクトを編集する時は、Googleドライブを「Google Apps Scriptアプリ」と「接続」する必要があるみたい。
+要するにGoogleドライブ内へのアクセス許可ということかな。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;あと、注意点として、トリガー設定済みのプロジェクトを削除してもトリガーは止まらなかった。&lt;br /&gt;
+ゴミ箱にある状態だと動き続けるみたい。&lt;br /&gt;
+プロジェクトを削除する場合は、念のためトリガーを削除してからの方がよさそう。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Google Apps Scriptをもっと知りたいなら公式リファレンスを。（まだ英語のみ）&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/service_urlfetch&#34; target=&#34;_blank&#34;&gt;UrlFetch Services&lt;/a&gt;（URLリクエスト機能）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/service_mail&#34; target=&#34;_blank&#34;&gt;Mail Services&lt;/a&gt;（メール機能）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/apps-script/understanding_triggers#TimeTriggers&#34; target=&#34;_blank&#34;&gt;Using Time-Driven Triggers&lt;/a&gt;（時間指定機能の使い方）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;で、気になる制限系だけど、&lt;a href=&#34;https://developers.google.com/apps-script/understanding_triggers#TimeTriggers&#34; target=&#34;_blank&#34;&gt;公式リファレンス&lt;/a&gt;にはなにも書いてない・・・？
+英語だし、指定時間もいくらでも設定できるようだし・・・よくわからない。
+以前はGoogle App Engineでわざわざ&lt;a href=&#34;http://ko-lab.net/twitter/google-app-enginegae%E3%81%A7cron%E5%8B%95%E3%81%8B%E3%81%99%E3%82%84%E3%82%8A%E6%96%B9%E3%82%92%E3%82%86%E3%81%A8%E3%82%8A%E5%90%91%E3%81%91%E3%81%AB%E3%81%BE%E3%81%A8%E3%82%81%E3%81%A6%E3%81%BF/&#34; target=&#34;_blank&#34;&gt;Pythonでcron.yaml書いてやってた&lt;/a&gt;けど、これならデプロイとかエディタすらも不要。
+まだお試し検証中だけど、カジュアルなbot系とかなら良さそうかな。
+もちろんUrlFetch機能はGETもPOSTもできるので、&lt;a href=&#34;http://pipes.yahoo.com/pipes/&#34; target=&#34;_blank&#34;&gt;Yahoo!Pipes&lt;/a&gt;とか&lt;a href=&#34;http://developer.yahoo.com/yql/&#34; target=&#34;_blank&#34;&gt;YQL&lt;/a&gt;とかも使うとわりと夢がひろがりそう。
+（ちなみに公式リファレンスにも&lt;a href=&#34;https://developers.google.com/apps-script/class_urlfetchapp#fetch&#34; target=&#34;_blank&#34;&gt;OAuthが必要なTwitter用サンプルコード&lt;/a&gt;がある）&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

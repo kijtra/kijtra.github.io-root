@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/jquery/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Wed, 11 Mar 2015 00:20:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/jquery/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>モーダル用jQueryプラグインをつくった</title>
+      <link>http://kijtra.com/article/jquery-modal</link>
+      <pubDate>Wed, 11 Mar 2015 00:20:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/jquery-modal</guid>
+      <description>
+
+&lt;p&gt;なかなか理想のモーダル用スクリプトが見つからなかったので勉強を兼ねて作ってみた。&lt;br /&gt;
+なるべく実用的なものにしたつもり・・・。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/kijtra/modaled&#34;&gt;ソースは Github にあり〼。&lt;/a&gt;
+&lt;iframe src=&#34;https://ghbtns.com/github-btn.html?user=kijtra&amp;repo=modaled&amp;type=star&amp;count=true&#34; frameborder=&#34;0&#34; scrolling=&#34;0&#34; width=&#34;170px&#34; height=&#34;20px&#34; style=&#34;margin:0 0 0 10px;vertical-align:middle;&#34;&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;使用例-examples:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;使用例 (examples)&lt;/h2&gt;
+
+&lt;h3 id=&#34;a-href-demo1-class-modaled-インライン要素-inline-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo1&#34; class=&#34;modaled&#34;&gt;インライン要素 (inline)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo1&#34; style=&#34;display:none&#34;&gt;
+    インライン要素の内容です。&lt;br&gt;
+    &amp;lt;a&amp;gt;タグの href と同じIDを持つ要素が表示されます。&lt;br&gt;
+    また、&amp;lt;a&amp;gt;タグに href=&#34;#close&#34; を指定したリンクは閉じるボタンになります。&lt;br&gt;
+    &lt;a href=&#34;#close&#34;&gt;CLOSE&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo1&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;インライン要素 (inline)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo2.html&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;/static/jquery-modal/demo2.html&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;別ページ ※同ドメイン内のみ (ajax)&amp;lt;&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-http-i-giphy-com-fz9wcnzeff5yu-gif-class-modaled-rel-nofollow-画像-別ドメイン可-image-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;http://i.giphy.com/fz9wCNZeff5yU.gif&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;画像 ※別ドメイン可 (image)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;http://i.giphy.com/fz9wCNZeff5yU.gif&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;画像 ※別ドメイン可 (image)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo4-class-modaled-内容切り替え-other-modal-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo4&#34; class=&#34;modaled&#34;&gt;内容切り替え (other modal)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo4&#34; style=&#34;display:none&#34;&gt;
+    読み込んだモーダルの &amp;lt;a&amp;gt;タグにも適用されます。&lt;br&gt;
+    NEXT : &lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo4.html&#34; class=&#34;modaled&#34;&gt;demo4.html&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo4&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;内容切り替え (other modal)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo4&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+	NEXT : &amp;lt;a href=&amp;quot;/static/jquery-modal/demo4.html&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;demo4.html&amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo5-モーダル内のヘッダ-フッタ-header-and-footer-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo5&#34;&gt;モーダル内のヘッダ・フッタ (header and footer)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo5&#34; style=&#34;display:none&#34;&gt;
+    初期状態では全くデザインされていないので、自分でデザインする必要があります。&lt;br&gt;
+    デフォルトではヘッダには「header」、&lt;br&gt;
+    フッタには「footer」というclass名がついています。&lt;br&gt;
+    ※クラス名は設定で変更できます。
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo5&amp;quot;&amp;gt;モーダル内のヘッダ・フッタ (header and footer)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo5&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;a[href=&amp;quot;#demo5&amp;quot;]&#39;).modaled({
+	header: &#39;&amp;lt;i&amp;gt;ヘッダです (header)&amp;lt;/i&amp;gt;&#39;,
+	footer: &#39;&amp;lt;i&amp;gt;フッタです (footer)&amp;lt;/i&amp;gt;　&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;CLOSE&amp;lt;/a&amp;gt;&#39;,
+	headerClass: &#39;ヘッダのclass名&#39;,
+	footerClass: &#39;フッタのclass名&#39;
+});
+&amp;lt;/script&amp;gt;
+
+&amp;lt;!-- または、やや強引ですが表示する内容の data-* 属性に直接設定を書くこともできます --&amp;gt;
+&amp;lt;div id=&amp;quot;demo5&amp;quot; style=&amp;quot;display:none&amp;quot; data-header=&amp;quot;&amp;lt;i&amp;gt;ヘッダです (header)&amp;lt;/i&amp;gt;&amp;quot; data-footer=&amp;quot;&amp;lt;i&amp;gt;フッタです (footer)&amp;lt;/i&amp;gt;&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo6-1-アニメーション例1-animation-example-1-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo6-1&#34;&gt;アニメーション例1 (animation example 1)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo6-1&#34; style=&#34;display:none&#34;&gt;
+    アニメーションは設定で指定できます。&lt;br&gt;
+    これは以下のように指定した例です。
+&lt;pre class=&#34;highlight json&#34;&gt;{
+    acShow : &#39;bounceIn&#39;,
+    acHide : &#39;bounceOut&#39;
+}&lt;/pre&gt;
+    &lt;a href=&#34;#close&#34;&gt;CLOSE&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;a-href-demo6-2-data-ac-show-rotatein-data-ac-hide-hinge-アニメーション例2-animation-example-2-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo6-2&#34; data-ac-show=&#34;rotateIn&#34; data-ac-hide=&#34;hinge&#34;&gt;アニメーション例2 (animation example 2)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo6-2&#34; style=&#34;display:none&#34;&gt;
+    これはリンク自体に data-* 属性を使って指定しています。&lt;br&gt;
+    表示対象の &amp;lt;div&amp;gt; 等の方に data-* 属性で指定することもできます。&lt;br&gt;
+    &lt;a href=&#34;#close&#34;&gt;CLOSE&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;アニメーションには &lt;a href=&#34;http://daneden.github.io/animate.css/&#34; target=&#34;_blank&#34;&gt;Animate.css&lt;/a&gt; が必要です&lt;/strong&gt;。&lt;br /&gt;
+Animate.cssが読み込まれていれば自動的にアニメーション表示になります。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- Animate.cssの読み込み --&amp;gt;
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.1/animate.min.css&amp;quot;&amp;gt;
+
+&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo6-1&amp;quot;&amp;gt;アニメーション例1 (animation example 1)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo6-1&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;a href=&amp;quot;#demo6-2&amp;quot; data-ac-show=&amp;quot;rotateIn&amp;quot; data-ac-hide=&amp;quot;hinge&amp;quot;&amp;gt;アニメーション例2 (animation example 2)&amp;lt;/a&amp;gt;
+
+&amp;lt;div id=&amp;quot;demo6-2&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;a[href=&amp;quot;#demo6-1&amp;quot;]&#39;).modaled({
+	acShow: &#39;bounceIn&#39;,
+	acHide: &#39;bounceOut&#39;
+});
+
+$(&#39;a[href=&amp;quot;#demo6-2&amp;quot;]&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo7-デザイン例-design-example-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo7&#34;&gt;デザイン例 (design example)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo7&#34; style=&#34;display:none&#34;&gt;
+    すこしデザインした例です。&lt;br&gt;
+    基本的にはデザインは自分でやる方向です。&lt;br&gt;
+    &lt;a href=&#34;http://getbootstrap.com/&#34; target=&#34;_blank&#34;&gt;Bootstrap&lt;/a&gt; 等を使っている場合は class名が衝突したりするのでご注意ください。
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo7&amp;quot;&amp;gt;デザイン例 (design example)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo7&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;a[href=&amp;quot;#demo7&amp;quot;]&#39;).modaled({
+	header: &#39;&amp;lt;h3&amp;gt;&amp;lt;i class=&amp;quot;fa fa-leaf&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; デザイン例&amp;lt;/h3&amp;gt;&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;&amp;amp;times;&amp;lt;/a&amp;gt;&#39;,
+	footer: &#39;&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;fa fa-check-circle&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; 閉じる&amp;lt;/a&amp;gt;&#39;,
+	containerClass: &#39;my-modal&#39;,
+	headerClass: &#39;my-header&#39;,
+	footerClass: &#39;my-footer&#39;,
+	contentClass: &#39;my-content&#39;,
+});
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo8-1-class-modaled-オーバーレイのクリックで閉じさせない-disable-overlay-click-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo8-1&#34; class=&#34;modaled&#34;&gt;オーバーレイのクリックで閉じさせない (disable overlay click)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo8-1&#34; style=&#34;display:none&#34; data-overlay-hide-disable=&#34;true&#34;&gt;
+    オーバーレイをクリックしても閉じさせない形式です。&lt;br&gt;
+    必ずリンクをクリックさせたい場合等に使えるかもしれません。&lt;br&gt;
+    また、この次に表示されるモーダルでは自動で閉じる設定がされています。&lt;br&gt;
+    &lt;br&gt;
+    &lt;div style=&#34;text-align:center;font-weight:bold;&#34;&gt;&lt;a href=&#34;#demo8-2&#34; class=&#34;modaled&#34;&gt;OK!&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&#34;demo8-2&#34; style=&#34;display:none&#34; data-auto-hide=&#34;2000&#34;&gt;
+    ありがとうございます！&lt;br&gt;
+    ※自動で閉じます (auto hide after 2000ms)
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo8-1&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;オーバーレイのクリックで閉じさせない (disable overlay click)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容1 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo8-1&amp;quot; style=&amp;quot;display:none&amp;quot; data-overlay-hide-disable=&amp;quot;true&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- 表示する内容2（クリック後） --&amp;gt;
+&amp;lt;div id=&amp;quot;demo8-2&amp;quot; style=&amp;quot;display:none&amp;quot; data-auto-hide=&amp;quot;2000&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ダイナミック表示-dynamic-open:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;ダイナミック表示 (dynamic open)&lt;/h3&gt;
+
+&lt;p&gt;最初に表示されたものです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$.modaled(&#39;Welcome!&amp;lt;br&amp;gt;これはモーダルの見本です。&amp;lt;br&amp;gt;&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;CLOSE&amp;lt;/a&amp;gt;&#39;);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;特徴-feature:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;特徴 (feature)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IE8+&lt;/li&gt;
+&lt;li&gt;レスポンシブ&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://daneden.github.io/animate.css/&#34; target=&#34;_blank&#34;&gt;Animate.css&lt;/a&gt; 対応&lt;/li&gt;
+&lt;li&gt;ダイナミック表示対応&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;オプション-options:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;オプション (options)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;header&lt;/code&gt; - default: empty&lt;br /&gt;
+ヘッダ用HTML&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;footer&lt;/code&gt; - default: empty&lt;br /&gt;
+フッタ用HTML&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;containerClass&lt;/code&gt; - default: &amp;lsquo;modal-container&amp;rsquo;&lt;br /&gt;
+表示モーダル全体を包む&amp;lt;div&amp;gt;のclass名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;headerClass&lt;/code&gt; - default: empty&lt;br /&gt;
+ヘッダのclass名（ヘッダがある場合）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;footerClass&lt;/code&gt; - default: empty&lt;br /&gt;
+フッタのclass名（フッタがある場合）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;contentClass&lt;/code&gt; - default: empty&lt;br /&gt;
+表示コンテンツ部分のclass名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;overlayHideDisable&lt;/code&gt; - default: false&lt;br /&gt;
+オーバーレイクリックで閉じさせないかどうか&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;overlayOpacity&lt;/code&gt; - default: 0.2&lt;br /&gt;
+オーバーレイの透明度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;autoHide&lt;/code&gt; - default: 0&lt;br /&gt;
+自動で閉じる場合のミリ秒（ms）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preload&lt;/code&gt; - default: false&lt;br /&gt;
+リンクコンテンツの場合に先読みするかどうか&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acShow&lt;/code&gt; - default: &amp;lsquo;fadeInDown&amp;rsquo;&lt;br /&gt;
+モーダル表示時のアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acHide&lt;/code&gt; - default: &amp;lsquo;fadeOutDown&amp;rsquo;&lt;br /&gt;
+モーダルを閉じる時のアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acChangeHide&lt;/code&gt; - default: &amp;lsquo;flipOutY&amp;rsquo;&lt;br /&gt;
+モーダル切り替え時に非表示にするアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acChangeShow&lt;/code&gt; - default: &amp;lsquo;flipInY&amp;rsquo;&lt;br /&gt;
+モーダル切り替え時に表示するアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acSpinShow&lt;/code&gt; - default: &amp;lsquo;zoomIn&amp;rsquo;&lt;br /&gt;
+読み込み中（loading）表示するアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acSpinHide&lt;/code&gt; - default: &amp;lsquo;zoomOut&amp;rsquo;&lt;br /&gt;
+読み込み中（loading）を非表示にするアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acOverlayHideDisable&lt;/code&gt; - default: &amp;lsquo;wobble&amp;rsquo;&lt;br /&gt;
+オーバーレイクリック拒否時のアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;beforeShow&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル表示直前に実行される関数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;afterShow&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル表示直後に実行される関数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;beforeClose&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル非表示直前に実行される関数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;afterClose&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル非表示直後に実行される関数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;デフォルトオプションの設定方法は以下です。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;$.modaled.defaults({
+	header: &#39;&amp;lt;div class=&amp;quot; ...&#39;,
+	overlayOpacity: 0.3,
+	beforeShow: function(content, option) {
+		...
+	}
+	...
+});
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

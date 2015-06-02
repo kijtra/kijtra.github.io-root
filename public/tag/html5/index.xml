@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/html5/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Sat, 16 Feb 2013 00:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/html5/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)</title>
+      <link>http://kijtra.com/article/cross-browser-placeholder</link>
+      <pubDate>Sat, 16 Feb 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cross-browser-placeholder</guid>
+      <description>
+
+&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するスニペット。jQueryが必要版。&lt;/p&gt;
+
+&lt;p&gt;placeholder属性は便利ですよね。さらにユーザーにもわかりやすい。
+でもIE9以下は対応してないのが痛い・・・
+なのでJavaScriptで代替してクロスブラウザにしてしまいましょう。（要jQuery）&lt;/p&gt;
+
+&lt;h1 id=&#34;追記-2013-04-08:9d9f5727c51310c9f6a4e2dd46772fe6&#34;&gt;追記 2013-04-08&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://kijtra.com/article/cross-browser-placeholder-without-jquer&#34;&gt;jQueryなし版もつくってみた&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/4964976.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/4964976&#34; class=&#34;btn&#34; target=&#34;_blank&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&amp;nbsp;&lt;/i&gt;Gistにも掲載中&lt;/a&gt;
+実行時にplaceholder属性が使えるかどうかチェックしてるので、使えるブラウザでは無駄な動きはしない。
+いまのところjQueryがないと動かないけど、jQueryなしにする予定。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

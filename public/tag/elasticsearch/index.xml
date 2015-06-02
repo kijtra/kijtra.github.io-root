@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/elasticsearch/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Sat, 24 May 2014 00:17:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Elasticsearch で update する時に配列に値を追加する</title>
+      <link>http://kijtra.com/article/elasticsearch-add-array-value-with-update</link>
+      <pubDate>Sat, 24 May 2014 00:17:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/elasticsearch-add-array-value-with-update</guid>
+      <description>
+
+&lt;p&gt;Elasticsearchで、ドキュメントのフィールドが配列（連想配列）の場合に、そのフィールドの配列に値を追加したい。&lt;/p&gt;
+
+&lt;p&gt;参考にしたのは &lt;a href=&#34;http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-update.html&#34;&gt;Elasticsearch公式サイト&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;単純な配列の場合:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;単純な配列の場合&lt;/h2&gt;
+
+&lt;p&gt;例としてインデックス名「 &lt;strong&gt;sample&lt;/strong&gt; 」、タイプ名「 &lt;strong&gt;mytype&lt;/strong&gt; 」で作成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;まずは普通にデータを入れる:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;まずは普通にデータを入れる&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample/mytype/1&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: [&amp;quot;hoge&amp;quot;] &amp;lt;ここに値を追加したい
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;updateしてみる-失敗例:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;updateしてみる (失敗例)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;{&amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記でupdate後に検索してみると、結果は以下のように、「tags」に指定した値が単純に置き換わってしまう。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;] &amp;lt;「hoge」は残らない
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;解決策:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;解決策&lt;/h3&gt;
+
+&lt;p&gt;この場合は「 &lt;code&gt;script&lt;/code&gt; 」という機能を使って、JavaScriptで配列に追加することができる。&lt;br /&gt;
+さらに、「 &lt;code&gt;upsert&lt;/code&gt; 」という機能で、未登録のドキュメントなら新規登録扱いにできる。&lt;br /&gt;
+（MySQLでいう ON DUPLICATE KEY UPDATE ）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags += val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;params&lt;/code&gt; で設定したキーのもの(上記では &lt;code&gt;val&lt;/code&gt; )が、 &lt;code&gt;script&lt;/code&gt; 内で使えるようになっている。&lt;br /&gt;
+（JavaScriptだけど &lt;code&gt;push()&lt;/code&gt; ではなく &lt;code&gt;+=&lt;/code&gt; な点に注意）&lt;br /&gt;
+ドキュメントがない場合は &lt;code&gt;upsert&lt;/code&gt; に設定したものが挿入される。&lt;br /&gt;
+なので、最初にデータを入れておく必要はない。&lt;/p&gt;
+
+&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: [
+                   &amp;quot;hoge&amp;quot;,
+                   &amp;quot;fuga&amp;quot; &amp;lt;追加できた
+               ]
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;重複しないようにしたい:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;重複しないようにしたい&lt;/h2&gt;
+
+&lt;p&gt;前述のように &lt;code&gt;upsert&lt;/code&gt; を繰り返していると、配列に同じ値がどんどん入ってしまいがち。&lt;br /&gt;
+その場合、連想配列にする。（他の方法がわからなかった）&lt;/p&gt;
+
+&lt;p&gt;※これは連想配列にする必要はなかった。 &lt;a href=&#34;#added1&#34;&gt;下に追記あり&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;フィールドに連想配列を入れるには、マッピングで &lt;code&gt;object&lt;/code&gt; に設定する必要がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot; &amp;lt;ここが最初と違う
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;そして upsert する&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;ctx._source.tags[val] = val&lt;/code&gt; の部分で同じ値は上書きするようにしてる。&lt;/p&gt;
+
+&lt;p&gt;さらに upsert (「tags」に「fuga」を追加) を2回やってみる&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
+    }
+  }
+}
+
+//もっかい同じデータ
+{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: {
+                   &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;,
+                   &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot; &amp;lt;重複せず追加できた
+               }
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちなみに &lt;strong&gt;特定の配列だけ削除&lt;/strong&gt; する方法は不明・・・。&lt;br /&gt;
+update時に連想配列の値を null にしたり、JavaScriptの &lt;code&gt;delete&lt;/code&gt; 使ったりしてみたけど無理だった。&lt;br /&gt;
+データ取得 -&amp;gt; 値を削除 -&amp;gt; 上書きupdateするしかなさそう。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a name=&#34;added1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;追記-配列が重複登録されない方法あった:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;追記：配列が重複登録されない方法あった&lt;/h2&gt;
+
+&lt;p&gt;インデックス作成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json:インデックス作成&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;update (insert)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;if(ctx._source.tags.indexOf(val)==-1){ctx._source.tags+=val}&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;hoge&amp;quot;: [&amp;quot;hoge&amp;quot;]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;JavaScript部分で &lt;code&gt;indexOf&lt;/code&gt; 使って配列を検索できるっぽいので、見つかれば入れない、なければ入れる。&lt;br /&gt;
+連想配列にしなくてもこれでいけた。&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;以下はファセット検索の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/sample/mytype/_search?search_type=count&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;facets&amp;quot;: {
+      &amp;quot;ids&amp;quot;: {
+          &amp;quot;terms&amp;quot;: {
+              &amp;quot;field&amp;quot; : &amp;quot;tags&amp;quot;,
+              &amp;quot;size&amp;quot;: 10,
+              &amp;quot;order&amp;quot; : &amp;quot;count&amp;quot;
+          }
+      }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;facets&amp;quot;: {
+    &amp;quot;ids&amp;quot;: {
+       &amp;quot;_type&amp;quot;: &amp;quot;terms&amp;quot;,
+       &amp;quot;missing&amp;quot;: 0,
+       &amp;quot;total&amp;quot;: 3,
+       &amp;quot;other&amp;quot;: 0,
+       &amp;quot;terms&amp;quot;: [
+          {
+             &amp;quot;term&amp;quot;: &amp;quot;hoge&amp;quot;,
+             &amp;quot;count&amp;quot;: 2
+          },
+          {
+             &amp;quot;term&amp;quot;: &amp;quot;fuga&amp;quot;,
+             &amp;quot;count&amp;quot;: 1
+          }
+       ]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch の Kuromoji でユーザー辞書を使うメモ</title>
+      <link>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</link>
+      <pubDate>Fri, 23 May 2014 00:08:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</guid>
+      <description>
+
+&lt;p&gt;Elasticsearchでの形態素解析はKuromoji一択だけど、やや辞書が貧弱な部分もあるのでユーザー辞書で補う必要がある。&lt;/p&gt;
+
+&lt;p&gt;例えば東京に「西国分寺駅」という駅があるけど、「西国分寺」で形態素解析すると「西」「国分寺」で分かれる。
+読みも「サイコクブンジ」となってしまう。（正しくは「ニシコクブンジ」）
+これはいただけない。&lt;/p&gt;
+
+&lt;h2 id=&#34;参考になったサイト:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;参考になったサイト&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://johtani.jugem.jp/?eid=123&#34;&gt;elasticsearch-analysis-kuromojiでユーザ辞書の利用方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/hello-elasticsearch/833a0704e44b&#34;&gt;Elasticsearch 日本語で全文検索 その２&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;環境:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;環境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CentOS 6.4&lt;/li&gt;
+&lt;li&gt;Elasticsearch 1.1.1
+
+&lt;ul&gt;
+&lt;li&gt;kuromoji 2.0.0&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;辞書ファイルの作成:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;辞書ファイルの作成&lt;/h2&gt;
+
+&lt;p&gt;まず辞書ファイルを作成。
+普通のテキストファイルで、文字コードは &lt;strong&gt;UTF-8&lt;/strong&gt;。拡張子は自由。
+ここでは例として「my_jisho.dic」とした。&lt;/p&gt;
+
+&lt;h3 id=&#34;辞書ファイルの置き場所:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;&lt;strong&gt;辞書ファイルの置き場所&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;ファイルの保存先は
+&lt;code&gt;/etc/elasticsearch/my_jisho.dic&lt;/code&gt;
+でいけた。
+これはもしかしたら Elasticsearch &lt;strong&gt;1.1.1&lt;/strong&gt; だからかも。&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;&lt;i class=&#34;fa fa-info-circle fa-lg&#34;&gt;&lt;/i&gt; 他のサイト等を見ると「(Elasticsearchホーム)/cofig/my_jisho.dic」と書いているところも多かったので、はじめそこに置いてみたんだけどインデックス作成時に「/etc/elasticsearch/ に置け」とエラーが出た。&lt;/small&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;辞書ファイルの書き方:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;&lt;strong&gt;辞書ファイルの書き方&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;ファイルの中身はCSV形式で、以下の並びで書く。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;単語,形態素解析後の単語,読み,品詞
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;「形態素解析後の単語」は、半角スペースで分けると分かち書きされる。&lt;/p&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-lightbulb-o&#34;&gt;&lt;/i&gt; 「東京スカイツリー」の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;東京スカイツリー,東京 スカイツリー,トウキョウ スカイツリー,カスタム名詞
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-lightbulb-o&#34;&gt;&lt;/i&gt; 「西国分寺」の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;西国分寺,西国分寺,ニシコクブンジ,駅名
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;インデックスへの設定:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;インデックスへの設定&lt;/h2&gt;
+
+&lt;p&gt;サンプル用のインデックス作成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/example/&#39; -d &#39;(下のjson)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;settings&amp;quot;: {
+    &amp;quot;analysis&amp;quot;: {
+      &amp;quot;tokenizer&amp;quot;: {
+        &amp;quot;kuromoji&amp;quot;: {
+          &amp;quot;type&amp;quot;: &amp;quot;kuromoji_tokenizer&amp;quot;,
+          &amp;quot;user_dictionary&amp;quot;: &amp;quot;my_jisho.dic&amp;quot; &amp;lt;ここに辞書ファイル
+        }
+      },
+      &amp;quot;analyzer&amp;quot;: {
+        &amp;quot;kuromoji_analyzer&amp;quot;: {
+          &amp;quot;tokenizer&amp;quot;: &amp;quot;kuromoji&amp;quot;,
+          &amp;quot;type&amp;quot;: &amp;quot;custom&amp;quot;,
+          &amp;quot;filter&amp;quot;: [
+            &amp;quot;kuromoji_baseform&amp;quot;,
+            &amp;quot;pos_filter&amp;quot;,
+            &amp;quot;greek_lowercase_filter&amp;quot;,
+            &amp;quot;cjk_width&amp;quot;
+          ]
+        },
+        &amp;quot;yomigana_analyzer&amp;quot;: {
+          &amp;quot;tokenizer&amp;quot;: &amp;quot;kuromoji&amp;quot;,
+          &amp;quot;type&amp;quot;: &amp;quot;custom&amp;quot;,
+          &amp;quot;filter&amp;quot;: [
+            &amp;quot;katakana_readingform&amp;quot;,
+            &amp;quot;cjk_width&amp;quot;
+          ]
+        }
+      }
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解析してみる&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/example/_analyze?analyzer=kuromoji_analyzer&#39; -d &#39;西国分寺&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;tokens&amp;quot;: [
+      {
+         &amp;quot;token&amp;quot;: &amp;quot;西国分寺&amp;quot;,
+         &amp;quot;start_offset&amp;quot;: 2,
+         &amp;quot;end_offset&amp;quot;: 6,
+         &amp;quot;type&amp;quot;: &amp;quot;word&amp;quot;,
+         &amp;quot;position&amp;quot;: 1
+      }
+   ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;加えて読み仮名の確認&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/example/_analyze?analyzer=yomigana_analyzer&#39; -d &#39;西国分寺&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;tokens&amp;quot;: [
+      {
+         &amp;quot;token&amp;quot;: &amp;quot;ニシコクブンジ&amp;quot;,
+         &amp;quot;start_offset&amp;quot;: 2,
+         &amp;quot;end_offset&amp;quot;: 6,
+         &amp;quot;type&amp;quot;: &amp;quot;word&amp;quot;,
+         &amp;quot;position&amp;quot;: 1
+      }
+   ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;できた。&lt;/p&gt;
+
+&lt;p&gt;駅名とかはどっかでデータがほしいけど、読み仮名までサポートしてるデータは無料では配布されてない。
+あと有用そうなのとしては病名とかかなあ。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

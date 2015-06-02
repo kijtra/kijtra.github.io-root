@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>モーダル用jQueryプラグインをつくった - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/jquery-modal">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="モーダル用jQueryプラグインをつくった">
+<meta name="description" content="なかなか理想のモーダル用スクリプトが見つからなかったので勉強を兼ねて作ってみた。なるべく実用的なものにしたつもり・・・。">
+
+<meta property="article:published_time" content="2015/03/03T00:00:00Z">
+<meta property="article:tag" content="jQuery">
+<link rel="canonical" href="http://kijtra.com/article/jquery-modal">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>モーダル用jQueryプラグインをつくった</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2015/03/03</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/jquery">jQuery</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>なかなか理想のモーダル用スクリプトが見つからなかったので勉強を兼ねて作ってみた。<br />
+なるべく実用的なものにしたつもり・・・。</p>
+
+<p><a href="https://github.com/kijtra/modaled">ソースは Github にあり〼。</a>
+<iframe src="https://ghbtns.com/github-btn.html?user=kijtra&repo=modaled&type=star&count=true" frameborder="0" scrolling="0" width="170px" height="20px" style="margin:0 0 0 10px;vertical-align:middle;"></iframe></p>
+
+<h2 id="使用例-examples:7c9faca7886f5760dfa28e395b5e5a30">使用例 (examples)</h2>
+
+<h3 id="a-href-demo1-class-modaled-インライン要素-inline-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo1" class="modaled">インライン要素 (inline)</a></h3>
+
+<div id="demo1" style="display:none">
+    インライン要素の内容です。<br>
+    &lt;a&gt;タグの href と同じIDを持つ要素が表示されます。<br>
+    また、&lt;a&gt;タグに href="#close" を指定したリンクは閉じるボタンになります。<br>
+    <a href="#close">CLOSE</a>
+</div>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;#demo1&quot; class=&quot;modaled&quot;&gt;インライン要素 (inline)&lt;/a&gt;
+
+&lt;!-- 表示する内容 --&gt;
+&lt;div id=&quot;demo1&quot; style=&quot;display:none&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('.modaled').modaled();
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="http://kijtra.com/static/jquery-modal/demo2.html" class="modaled" rel="nofollow">別ページ ※同ドメイン内のみ (ajax)</a></h3>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;/static/jquery-modal/demo2.html&quot; class=&quot;modaled&quot;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;&lt;/a&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('.modaled').modaled();
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-http-i-giphy-com-fz9wcnzeff5yu-gif-class-modaled-rel-nofollow-画像-別ドメイン可-image-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="http://i.giphy.com/fz9wCNZeff5yU.gif" class="modaled" rel="nofollow">画像 ※別ドメイン可 (image)</a></h3>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;http://i.giphy.com/fz9wCNZeff5yU.gif&quot; class=&quot;modaled&quot;&gt;画像 ※別ドメイン可 (image)&lt;/a&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('.modaled').modaled();
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-demo4-class-modaled-内容切り替え-other-modal-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo4" class="modaled">内容切り替え (other modal)</a></h3>
+
+<div id="demo4" style="display:none">
+    読み込んだモーダルの &lt;a&gt;タグにも適用されます。<br>
+    NEXT : <a href="http://kijtra.com/static/jquery-modal/demo4.html" class="modaled">demo4.html</a>
+</div>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;#demo4&quot; class=&quot;modaled&quot;&gt;内容切り替え (other modal)&lt;/a&gt;
+
+&lt;!-- 表示する内容 --&gt;
+&lt;div id=&quot;demo4&quot; style=&quot;display:none&quot;&gt;
+	...
+	NEXT : &lt;a href=&quot;/static/jquery-modal/demo4.html&quot; class=&quot;modaled&quot;&gt;demo4.html&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('.modaled').modaled();
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-demo5-モーダル内のヘッダ-フッタ-header-and-footer-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo5">モーダル内のヘッダ・フッタ (header and footer)</a></h3>
+
+<div id="demo5" style="display:none">
+    初期状態では全くデザインされていないので、自分でデザインする必要があります。<br>
+    デフォルトではヘッダには「header」、<br>
+    フッタには「footer」というclass名がついています。<br>
+    ※クラス名は設定で変更できます。
+</div>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;#demo5&quot;&gt;モーダル内のヘッダ・フッタ (header and footer)&lt;/a&gt;
+
+&lt;!-- 表示する内容 --&gt;
+&lt;div id=&quot;demo5&quot; style=&quot;display:none&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('a[href=&quot;#demo5&quot;]').modaled({
+	header: '&lt;i&gt;ヘッダです (header)&lt;/i&gt;',
+	footer: '&lt;i&gt;フッタです (footer)&lt;/i&gt;　&lt;a href=&quot;#close&quot;&gt;CLOSE&lt;/a&gt;',
+	headerClass: 'ヘッダのclass名',
+	footerClass: 'フッタのclass名'
+});
+&lt;/script&gt;
+
+&lt;!-- または、やや強引ですが表示する内容の data-* 属性に直接設定を書くこともできます --&gt;
+&lt;div id=&quot;demo5&quot; style=&quot;display:none&quot; data-header=&quot;&lt;i&gt;ヘッダです (header)&lt;/i&gt;&quot; data-footer=&quot;&lt;i&gt;フッタです (footer)&lt;/i&gt;&quot;&gt;
+	...
+&lt;/div&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-demo6-1-アニメーション例1-animation-example-1-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo6-1">アニメーション例1 (animation example 1)</a></h3>
+
+<div id="demo6-1" style="display:none">
+    アニメーションは設定で指定できます。<br>
+    これは以下のように指定した例です。
+<pre class="highlight json">{
+    acShow : 'bounceIn',
+    acHide : 'bounceOut'
+}</pre>
+    <a href="#close">CLOSE</a>
+</div>
+
+<h3 id="a-href-demo6-2-data-ac-show-rotatein-data-ac-hide-hinge-アニメーション例2-animation-example-2-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo6-2" data-ac-show="rotateIn" data-ac-hide="hinge">アニメーション例2 (animation example 2)</a></h3>
+
+<div id="demo6-2" style="display:none">
+    これはリンク自体に data-* 属性を使って指定しています。<br>
+    表示対象の &lt;div&gt; 等の方に data-* 属性で指定することもできます。<br>
+    <a href="#close">CLOSE</a>
+</div>
+
+<p><strong>アニメーションには <a href="http://daneden.github.io/animate.css/" target="_blank">Animate.css</a> が必要です</strong>。<br />
+Animate.cssが読み込まれていれば自動的にアニメーション表示になります。</p>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- Animate.cssの読み込み --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.1/animate.min.css&quot;&gt;
+
+&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;#demo6-1&quot;&gt;アニメーション例1 (animation example 1)&lt;/a&gt;
+
+&lt;!-- 表示する内容 --&gt;
+&lt;div id=&quot;demo6-1&quot; style=&quot;display:none&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;a href=&quot;#demo6-2&quot; data-ac-show=&quot;rotateIn&quot; data-ac-hide=&quot;hinge&quot;&gt;アニメーション例2 (animation example 2)&lt;/a&gt;
+
+&lt;div id=&quot;demo6-2&quot; style=&quot;display:none&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('a[href=&quot;#demo6-1&quot;]').modaled({
+	acShow: 'bounceIn',
+	acHide: 'bounceOut'
+});
+
+$('a[href=&quot;#demo6-2&quot;]').modaled();
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-demo7-デザイン例-design-example-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo7">デザイン例 (design example)</a></h3>
+
+<div id="demo7" style="display:none">
+    すこしデザインした例です。<br>
+    基本的にはデザインは自分でやる方向です。<br>
+    <a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> 等を使っている場合は class名が衝突したりするのでご注意ください。
+</div>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;#demo7&quot;&gt;デザイン例 (design example)&lt;/a&gt;
+
+&lt;!-- 表示する内容 --&gt;
+&lt;div id=&quot;demo7&quot; style=&quot;display:none&quot;&gt;
+	...
+&lt;/div&gt;
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('a[href=&quot;#demo7&quot;]').modaled({
+	header: '&lt;h3&gt;&lt;i class=&quot;fa fa-leaf&quot;&gt;&lt;/i&gt; デザイン例&lt;/h3&gt;&lt;a href=&quot;#close&quot;&gt;&amp;times;&lt;/a&gt;',
+	footer: '&lt;a href=&quot;#close&quot;&gt;&lt;i class=&quot;fa fa-check-circle&quot;&gt;&lt;/i&gt; 閉じる&lt;/a&gt;',
+	containerClass: 'my-modal',
+	headerClass: 'my-header',
+	footerClass: 'my-footer',
+	contentClass: 'my-content',
+});
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="a-href-demo8-1-class-modaled-オーバーレイのクリックで閉じさせない-disable-overlay-click-a:7c9faca7886f5760dfa28e395b5e5a30"><a href="#demo8-1" class="modaled">オーバーレイのクリックで閉じさせない (disable overlay click)</a></h3>
+
+<div id="demo8-1" style="display:none" data-overlay-hide-disable="true">
+    オーバーレイをクリックしても閉じさせない形式です。<br>
+    必ずリンクをクリックさせたい場合等に使えるかもしれません。<br>
+    また、この次に表示されるモーダルでは自動で閉じる設定がされています。<br>
+    <br>
+    <div style="text-align:center;font-weight:bold;"><a href="#demo8-2" class="modaled">OK!</a></div>
+</div>
+
+<div id="demo8-2" style="display:none" data-auto-hide="2000">
+    ありがとうございます！<br>
+    ※自動で閉じます (auto hide after 2000ms)
+</div>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- 発火するリンク --&gt;
+&lt;a href=&quot;#demo8-1&quot; class=&quot;modaled&quot;&gt;オーバーレイのクリックで閉じさせない (disable overlay click)&lt;/a&gt;
+
+&lt;!-- 表示する内容1 --&gt;
+&lt;div id=&quot;demo8-1&quot; style=&quot;display:none&quot; data-overlay-hide-disable=&quot;true&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- 表示する内容2（クリック後） --&gt;
+&lt;div id=&quot;demo8-2&quot; style=&quot;display:none&quot; data-auto-hide=&quot;2000&quot;&gt;
+	...
+&lt;/div&gt;
+
+&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$('.modaled').modaled();
+&lt;/script&gt;
+</code></pre>
+
+<hr />
+
+<h3 id="ダイナミック表示-dynamic-open:7c9faca7886f5760dfa28e395b5e5a30">ダイナミック表示 (dynamic open)</h3>
+
+<p>最初に表示されたものです。</p>
+
+<pre class="prettyprint linenums"><code class="language-html">&lt;!-- スクリプト --&gt;
+&lt;script&gt;
+$.modaled('Welcome!&lt;br&gt;これはモーダルの見本です。&lt;br&gt;&lt;a href=&quot;#close&quot;&gt;CLOSE&lt;/a&gt;');
+&lt;/script&gt;
+</code></pre>
+
+<h2 id="特徴-feature:7c9faca7886f5760dfa28e395b5e5a30">特徴 (feature)</h2>
+
+<ul>
+<li>IE8+</li>
+<li>レスポンシブ</li>
+<li><a href="http://daneden.github.io/animate.css/" target="_blank">Animate.css</a> 対応</li>
+<li>ダイナミック表示対応</li>
+</ul>
+
+<h2 id="オプション-options:7c9faca7886f5760dfa28e395b5e5a30">オプション (options)</h2>
+
+<ul>
+<li><code>header</code> - default: empty<br />
+ヘッダ用HTML</li>
+<li><code>footer</code> - default: empty<br />
+フッタ用HTML</li>
+<li><code>containerClass</code> - default: &lsquo;modal-container&rsquo;<br />
+表示モーダル全体を包む&lt;div&gt;のclass名</li>
+<li><code>headerClass</code> - default: empty<br />
+ヘッダのclass名（ヘッダがある場合）</li>
+<li><code>footerClass</code> - default: empty<br />
+フッタのclass名（フッタがある場合）</li>
+<li><code>contentClass</code> - default: empty<br />
+表示コンテンツ部分のclass名</li>
+<li><code>overlayHideDisable</code> - default: false<br />
+オーバーレイクリックで閉じさせないかどうか</li>
+<li><code>overlayOpacity</code> - default: 0.2<br />
+オーバーレイの透明度</li>
+<li><code>autoHide</code> - default: 0<br />
+自動で閉じる場合のミリ秒（ms）</li>
+<li><code>preload</code> - default: false<br />
+リンクコンテンツの場合に先読みするかどうか</li>
+<li><code>acShow</code> - default: &lsquo;fadeInDown&rsquo;<br />
+モーダル表示時のアニメーションclass名（Animate.css）</li>
+<li><code>acHide</code> - default: &lsquo;fadeOutDown&rsquo;<br />
+モーダルを閉じる時のアニメーションclass名（Animate.css）</li>
+<li><code>acChangeHide</code> - default: &lsquo;flipOutY&rsquo;<br />
+モーダル切り替え時に非表示にするアニメーションclass名（Animate.css）</li>
+<li><code>acChangeShow</code> - default: &lsquo;flipInY&rsquo;<br />
+モーダル切り替え時に表示するアニメーションclass名（Animate.css）</li>
+<li><code>acSpinShow</code> - default: &lsquo;zoomIn&rsquo;<br />
+読み込み中（loading）表示するアニメーションclass名（Animate.css）</li>
+<li><code>acSpinHide</code> - default: &lsquo;zoomOut&rsquo;<br />
+読み込み中（loading）を非表示にするアニメーションclass名（Animate.css）</li>
+<li><code>acOverlayHideDisable</code> - default: &lsquo;wobble&rsquo;<br />
+オーバーレイクリック拒否時のアニメーションclass名（Animate.css）</li>
+<li><code>beforeShow</code> - default: null<br />
+モーダル表示直前に実行される関数</li>
+<li><code>afterShow</code> - default: null<br />
+モーダル表示直後に実行される関数</li>
+<li><code>beforeClose</code> - default: null<br />
+モーダル非表示直前に実行される関数</li>
+<li><code>afterClose</code> - default: null<br />
+モーダル非表示直後に実行される関数</li>
+</ul>
+
+<p>デフォルトオプションの設定方法は以下です。</p>
+
+<pre class="prettyprint linenums"><code class="language-js">$.modaled.defaults({
+	header: '&lt;div class=&quot; ...',
+	overlayOpacity: 0.3,
+	beforeShow: function(content, option) {
+		...
+	}
+	...
+});
+</code></pre>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

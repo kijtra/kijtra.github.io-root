@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/atom/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Mon, 25 May 2015 23:00:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/atom/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</title>
+      <link>http://kijtra.com/article/my-atom-packages</link>
+      <pubDate>Mon, 25 May 2015 23:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/my-atom-packages</guid>
+      <description>&lt;p&gt;最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。&lt;/p&gt;
+
+&lt;p&gt;基本的にWeb系＋PHPの開発が多いのと、環境がWindowsなので、そのような傾向にある。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/emmet&#34;&gt;emmet&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+HTML等を簡単な記述でコーディングできるプラグイン。&lt;br /&gt;
+他のエディタもすべて必ず入れてる。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/minimap&#34;&gt;minimap&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+エディタの横にファイルの全体像を表示する。スクロールバー代わりに便利。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/japanese-wrap&#34;&gt;japanese-wrap&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+日本語の文章がウインドウの端で改行されるようにする。Atomのv0.201.0時点でも公式対応されていないので必要。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/atom-color-highlight&#34;&gt;atom-color-highlight&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コード中のCSSカラーっぽい文字を検出して背景にその色を表示してくれる。&lt;br /&gt;
+Sublime Textの&lt;a href=&#34;https://packagecontrol.io/packages/Color%20Highlighter&#34;&gt;Color Highlighter&lt;/a&gt;が便利だったので同等のものを。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/c3aaeeee1875bec435e468f58357becbac26367a/68747470733a2f2f7261772e6769746875622e636f6d2f61626533332f61746f6d2d636f6c6f722d686967686c696768742f6d61737465722f61746f6d2d636f6c6f722d686967686c696768742d7661726961626c65732e676966&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/project-manager&#34;&gt;project-manager&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+プロジェクトを管理するプラグイン。デフォルト機能にしてほしい。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/open-last-project&#34;&gt;open-last-project&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Atom起動時、最後に開いていたプロジェクトを開くプラグイン。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/atom-terminal&#34;&gt;atom-terminal&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+いま開いているプロジェクトのディレクトリでターミナル系アプリを起動するプラグイン。&lt;br /&gt;
+ちなみに個人的に&lt;a href=&#34;https://conemu.github.io/&#34;&gt;ConEmu&lt;/a&gt;でGit Bashをメインに使っている。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/linter&#34;&gt;linter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コードのリアルタイムエラー検出。これ単体では意味がなく、以下のように言語ごとに用意する。
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atom.io/packages/linter-jshint&#34;&gt;linter-jshint&lt;/a&gt; JavaScript用。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atom.io/packages/linter-less&#34;&gt;linter-less&lt;/a&gt; LESS用。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atom.io/packages/linter-php&#34;&gt;linter-php&lt;/a&gt; PHP用。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/chary-tree-view&#34;&gt;chary-tree-view&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+左サイドのファイルツリーで、シングルクリックのプレビューを表示しないプラグイン。&lt;br /&gt;
+Atomではファイルツリーのシングルクリックでプレビューとして開く仕様になっているけど、個人的にこれがけっこうストレスで、Minifyされたファイルや巨大ファイル（2MBの制限はあるけど）をクリックしてしまうとAtomがフリーズすることがちょこちょこあった。（流行りなのか、他のエディタでもそういう傾向があるみたい）&lt;br /&gt;
+オフにしたくて&lt;a href=&#34;http://ja.stackoverflow.com/q/10485/3876&#34;&gt;StackOverflowで質問してみた&lt;/a&gt;ところ、心優しい人が速攻で作ってくれたもの。有り難し。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/git-plus&#34;&gt;git-plus&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+ターミナル系アプリを使わなくてもGitコマンドを使えるプラグイン。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/git-control&#34;&gt;git-control&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+GitをGUIで操作するプラグイン。簡易&lt;a href=&#34;https://www.sourcetreeapp.com/&#34;&gt;SourceTree&lt;/a&gt;のようなもの。&lt;br /&gt;
+基本的にGitの状態をざっと確認するのに使ってる。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/e35620a073ae64498e9dbff837aa273d3dcb263d/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6a61636f67722f61746f6d2d6769742d636f6e74726f6c2f6d61737465722f73637265656e73686f74732f6769742d30312e706e67&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/less-autocompile&#34;&gt;less-autocompile&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+LESSファイルの保存時にCSSにコンパイルする。（npmでlessをインストールしておく必要あり）&lt;br /&gt;
+個人的にSASSやSCSSよりLESSを使うことが多いので。&lt;br /&gt;
+このプラグインはファイル監視系ではなく、.lessファイルの1行目に出力先ファイル名や圧縮有無、ソースマップ有無などをコメントとして書くだけなので手軽で自由が効く。&lt;br /&gt;
+SASSな人は「&lt;a href=&#34;https://atom.io/packages/sass-autocompile&#34;&gt;sass-autocompile&lt;/a&gt;」が同じ機能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/tool-bar&#34;&gt;tool-bar&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+エディタの上下左右好きなところにボタンを設置する。基本的にメインメニューやコマンドパレットのショートカット。&lt;br /&gt;
+次項目のflex-tool-barと組み合わせて好きなボタンが入れられる。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/8387595328108e1dce2b658a6827140047e286e9/687474703a2f2f636c2e6c792f696d6167652f3277307533633178314b33572f53637265656e73686f742d323031352d30342d32312d31362e34362e34392e706e67&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/flex-tool-bar&#34;&gt;flex-tool-bar&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+上記tool-barに依存したプラグイン。好きなアイコン＆コマンドでボタンを設置できる。&lt;br /&gt;
+普通のURLでリンクも貼れるし、そのURL機能を使ってアプリのショートカットにもできる。&lt;br /&gt;
+設定はAtomの設定フォルダ（~/.atom）の直下に &lt;code&gt;toolbar.json&lt;/code&gt; というファイルを作って、そこに書く。&lt;br /&gt;
+例として&lt;a href=&#34;https://gist.github.com/kijtra/6b74e2decc14cbbde01a&#34;&gt;個人的な設定をGistに書いておいた&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/script&#34;&gt;script&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コードの一部を選択してこのプラグインを使うと、その部分のコードを実行してくれる。いろんな言語に対応してて便利。&lt;br /&gt;
+PHPでUNIX時間をDateTimeにしたりとかよく使う。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/405fb492595dd819647af375b68c716fd862ee80/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f313639343035352f333232363230312f63343538616362632d663036372d313165332d383461302d6461323766653333346635652e676966&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/php-documentation-online&#34;&gt;php-documentation-online&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+PHP者用。コード中の関数にカーソルを合わせて &lt;kbd&gt;F4&lt;/kbd&gt; キーで公式ドキュメントが表示される。&lt;br /&gt;
+デフォルトでは英語版なので、ソースを書き換えて日本語版に飛ぶようにしてる。&lt;br /&gt;
+設定場所はプラグインのフォルダ内 &lt;code&gt;lib/php-documentation-online.coffee&lt;/code&gt; の28行目、
+&lt;code&gt;http://php.net/manual/en/&lt;/code&gt; → &lt;code&gt;http://php.net/manual/ja/&lt;/code&gt; に。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/SFTP-deployment&#34;&gt;SFTP-deployment&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+(S)FTPでサーバーにアップ＆ダウンロードできる。Windowsだとダウンロードが不安定だったりdeprecationのコード使ってたりで今のところあまり実用的じゃない。&lt;br /&gt;
+けどアップデート待ちで一応入れてる。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/language-nginx&#34;&gt;language-nginx&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+nginxのconfファイルのシンタックスハイライト。完全な感じではない。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/language-apache&#34;&gt;language-apache&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Apache系（htaccessなど）のシンタックスハイライト。公式に取り込んでほしい。&lt;/li&gt;
+&lt;li&gt;ちなみにテーマは &lt;a href=&#34;https://atom.io/themes/seti-ui&#34;&gt;Seti-ui&lt;/a&gt; を使ってる。（&lt;a href=&#34;https://atom.io/packages/file-icons&#34;&gt;file-icons&lt;/a&gt;を使わなくてもいいので）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Atomはまだ起動が遅かったりプラグインの完成度が高くなかったりするけど、少し使い慣れてきたので継続してみる。&lt;br /&gt;
+来月（2015年6月）にはメジャーバージョンになるっぽいので期待してる。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

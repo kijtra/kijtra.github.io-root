@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>Sublime Text 3 のインストール～設定メモ - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/sublime-text-3-install-and-settings">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="Sublime Text 3 のインストール～設定メモ">
+<meta name="description" content="Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ">
+
+<meta property="article:published_time" content="2014/07/07T00:00:00Z">
+<meta property="article:tag" content="Sublime Text">
+<link rel="canonical" href="http://kijtra.com/article/sublime-text-3-install-and-settings">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>Sublime Text 3 のインストール～設定メモ</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2014/07/07</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/sublime-text">Sublime Text</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ。</p>
+
+<h2 id="開発バージョンをダウンロード:73589e8d2639747e5931f20bd3d44061">開発バージョンをダウンロード</h2>
+
+<p>巷では Sublime Text の <a href="http://www.sublimetext.com/2">バージョン2</a> を使っている人が多いようだけど、バージョン <strong>3</strong> を使う。<br />
+バージョン3の方が起動など動作が速く、サイドバーのファイルアイコン(あとで「テーマ」の部分で紹介)に対応してる。</p>
+
+<p>現時点(2014/07/05)では Build 3062 が最新だった。</p>
+
+<p><strong><a href="http://www.sublimetext.com/3dev">Sublime Text Dev Builds</a></strong> <a href="http://www.sublimetext.com/3dev">http://www.sublimetext.com/3dev</a></p>
+
+<p>ちなみに Portable Version を Dropbox に入れて使ってる。</p>
+
+<h2 id="まずは-package-control-をインストール:73589e8d2639747e5931f20bd3d44061">まずは「Package Control」をインストール</h2>
+
+<p>Sublime Text をはじめて起動したら、まずはこれを入れる。<br />
+<strong><a href="https://sublime.wbond.net/">Package Control</a></strong> <a href="https://sublime.wbond.net/">https://sublime.wbond.net/</a></p>
+
+<p>インストール手順は、Sublime Text を起動し、<kbd>Ctrl</kbd> + <kbd>`</kbd>(<kbd>@</kbd>キー) を押してコンソールを表示させ、公式コードをそのままコピー＆ペーストして <kbd>Enter</kbd>。<br />
+コピーするコードは <a href="https://sublime.wbond.net/installation">ここのページのもの(「SUBLIME TEXT 3」のタブ内)を使用する</a> 。<br />
+※上記ページに「コードの再配布はするな」と書いてあるのでここには書けない</p>
+
+<h2 id="プラグイン:73589e8d2639747e5931f20bd3d44061">プラグイン</h2>
+
+<p>プラグインはなるべく Package Control で入れられるものに限定したい。<br />
+各プラグインのインストールは、 Sublime Text 起動時に　<kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>P</kbd> でコマンドリストを表示させ、「Package Control: Install Package」を探して <kbd>Enter</kbd>。<br />
+コマンドリストの検索窓に「 <span style="font-family:serif"><strong>I</strong></span> 」を入力して、そこから探して <kbd>Enter</kbd> しておくと、次回からは「<span style="font-family:serif">I</span>」検索で「Package Control: Install Package」が最初に出るのでなるべくやっておく。<br />
+「Package Control: Install Package」を <kbd>Enter</kbd> したら Package Control のサーバーから一覧が読み込まれるので、以下の各プラグイン名で検索して <kbd>Enter</kbd> するとインストールされる。</p>
+
+<h3 id="おすすめ系:73589e8d2639747e5931f20bd3d44061">おすすめ系</h3>
+
+<ul>
+<li><p><strong><a href="https://sublime.wbond.net/packages/Emmet">Emmet</a></strong><br />
+<a href="https://code.google.com/p/zen-coding/">Zen Coding</a> の進化系。コーディングする人は必須で覚えた方がいい。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/SideBarEnhancements">SidebarEnhancements</a></strong><br />
+Sublime Text のサイドバーでの右クリック項目を拡張してくれる。<br />
+例えば「このファイルを指定のアプリケーションで開く(Open With&hellip;)」とか「実行する(Open/Run)」とか、デフォルトでは付いていないので。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/ConvertToUTF8">ConvertToUTF8</a></strong><br />
+マルチバイト文字が含まれるファイルをUTF8に変換して表示。<br />
+デフォルトでは Shift-JIS とか文字化けしたりするので、とりあえず入れておく。<br />
+絶対に UTF-8 しか扱わない自信があればいらないかも。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/BracketHighlighter">BracketHighlighter</a></strong><br />
+HTMLの開始タグ～終了タグや、コードのカッコのペアをわかりやすく表示してくれる。<br />
+この終了タグってどのdivだ？みたいなのに無駄な時間を取られないようにしたい。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/IMESupport">IMESupport</a></strong><br />
+Windowsのみ。 Sublime Text デフォルト状態では日本語入力変換がウインドウ左下の方に表示されるため視点が定まらないけど、これを入れるとキャレットの部分で表示されて便利。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/SFTP">SFTP</a></strong><br />
+Sublime Text 単体で(S)FTPできるプラグイン。有料($20)だけど、度々出る警告を無視できるならとりあえずは無料で使い続けられる(機能の制限は特に無い)。
+SFTPと公開鍵認証に対応してるのはこのプラグインぐらいしかないので、自己投資と思って買ってしまうのがおすすめ。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/SublimeLinter">Sublime​Linter</a></strong><br />
+コードの間違いを警告してくれるプラグイン。言語ごとに Sublime​Linter プラグインがあって、これはその基板となるプラグインなので入れておく。<br />
+言語ごとのものは <a href="https://sublime.wbond.net/search/SublimeLinter">検索すると希望のものが見つかるはず</a>。</p></li>
+</ul>
+
+<h3 id="個人的に必要系:73589e8d2639747e5931f20bd3d44061">個人的に必要系</h3>
+
+<ul>
+<li><p><strong><a href="https://sublime.wbond.net/packages/Diffy">Diffy</a></strong><br />
+2つのファイルの差分を表示してくれるプラグイン。<br />
+Sublime Text で <kbd>Shift</kbd> + <kbd>Alt</kbd> + <kbd>2</kbd>(<kbd>&ldquo;</kbd>) を押してウインドウを分割して比較したいファイルを開き、<kbd>Ctrl</kbd> + <kbd>K</kbd> + <kbd>D</kbd>で差分がハイライトされる。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/ApacheConf.tmLanguage">ApacheConf.tmLanguage</a></strong><br />
+Apache系の .conf ファイルや .htaccess なんかをシンタックスハイライトしてくれるプラグイン。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/Git">Git</a></strong><br />
+コマンドウインドウからGit系コマンドが実行できる。<br />
+単体で動くものではなく、 <a href="http://git-scm.com/">Git</a> 自体がインストールされていて、かつパスが通ってる必要がある。<br />
+コミット時のコメントがわかりにくい。コミットコマンドを打つと Sublime Text で新規タブが開くので、その一番上にコメントを書いて「保存せずタブを閉じる」。<br />
+ちなみに日本語でコメントすると動かないので注意。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/OmniMarkupPreviewer">Omni​Markup​Previewer</a></strong><br />
+Markdown をブラウザでリアルタイムプレビューしてくれるプラグイン。Markdown をHTMLに変換できたりもする。<br />
+このブログは Markdown で書いており、プレビュー具合もいい(特にコード部分のシンタックスハイライトとか)ので個人的に便利。<br />
+ちなみに Sublime Text はデフォルトで Markdown をシンタックスハイライトしてくれないので、別途カラースキーマをインストールする必要がある(「テーマ」の部分で紹介)。</p></li>
+
+<li><p><strong><a href="https://sublime.wbond.net/packages/LESS">LESS</a></strong><br />
+LESSファイルのシンタックスハイライト用プラグイン。<br />
+SASSよりLESSの方が使う頻度が高いので。</p></li>
+</ul>
+
+<p>上記以外は状況によって。<br />
+<a href="https://sublime.wbond.net/packages/Vagrant">Vagrant</a> とか <a href="https://sublime.wbond.net/packages/Compass">Compass</a> とか <a href="https://sublime.wbond.net/packages/Terminal">Terminal</a> とかは便利かも。</p>
+
+<h2 id="追加設定:73589e8d2639747e5931f20bd3d44061">追加設定</h2>
+
+<p><a href="http://brdr-mmrndm.tumblr.com/post/80456872825/sublime-text">こちらのページ</a>にあるように、
+メニューの「Preferences -&gt; Settings - User」を開いて、 <code>draw_indent_guides</code>、 <code>indent_guide_options</code>、 <code>match_brackets</code> の設定を追記するとさらに見やすくなる。<br />
+また、そのほか上からデフォルトでない設定。</p>
+
+<ul>
+<li><code>&quot;font_face&quot;: &quot;Consolas&quot;</code><br />
+個人的にフォントは Consolas にしてる</li>
+<li><code>&quot;bold_folder_labels&quot;: true</code><br />
+サイドバーのフォルダ名を太字にして区別しやすくする</li>
+<li><code>&quot;word_wrap&quot;: true</code><br />
+ウインドウの端で折り返す</li>
+<li><code>&quot;preview_on_click&quot;: false</code><br />
+サイドバーでのファイルクリック時にいちいちファイルが開く動作が困る(大きいファイルなど)のでオフに</li>
+<li><code>&quot;highlight_line&quot;: true</code><br />
+編集してる行をハイライトする</li>
+<li><code>&quot;draw_white_space&quot;: &quot;all&quot;</code>
+常に半角スペースを「・」で表示(デフォルトはテキスト選択時のみ)</li>
+<li><code>&quot;atomic_save&quot;: true</code><br />
+保存時に一時ファイルを使う(?)ような機能みたいだけど、他のアプリケーションで同時に開けなかったりするのでオフに</li>
+</ul>
+
+<pre class="prettyprint linenums"><code class="language-json">{
+	&quot;draw_indent_guides&quot;: true,
+	&quot;indent_guide_options&quot;: [&quot;draw_normal&quot;, &quot;draw_active&quot;],
+	&quot;match_brackets&quot;: false,
+
+	&quot;font_face&quot;: &quot;Consolas&quot;,
+	&quot;bold_folder_labels&quot;: true,
+	&quot;word_wrap&quot;: true,
+	&quot;preview_on_click&quot;: false,
+	&quot;highlight_line&quot;: true,
+	&quot;draw_white_space&quot;: &quot;all&quot;,
+	&quot;atomic_save&quot;: true
+}
+</code></pre>
+
+<h2 id="テーマ:73589e8d2639747e5931f20bd3d44061">テーマ</h2>
+
+<p>去年あたりからコード書く場合はダーク系テーマが見やすいと気づいた。<br />
+Sublime Text は「テーマ」が枠のデザイン(サイドバーとかタブとか)で、「カラースキーマ」は入力部分の見た目となっていて、それぞれ違うものが使えるので好みによって。<br />
+<a href="https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png" target="_blank"><img src="https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png" align="right" hspace="10" alt="Sublime Text のファイルアイコン"></a> テーマでは <a href="https://sublime.wbond.net/packages/Theme%20-%20Flatland">Flatland</a> とか <a href="https://sublime.wbond.net/packages/Theme%20-%20Soda">Soda</a> とかがカッコいいので人気みたいだけど、<br />
+個人的に「ファイルアイコン」が表示できるものを必要条件としているため、以下のテーマを使ってる。</p>
+
+<p><strong><a href="https://sublime.wbond.net/packages/Theme%20-%20Aprosopo">Aprosopo</a></strong></p>
+
+<p>ファイルアイコンというのは Sublime Text 3 の 開発版 Build 3062 から導入されたもので、これまでサイドバーのアイコンはフォルダにしか表示されなかったけど、各ファイルにもアイコンが表示できるようになった機能。<br />
+拡張子ごとにアイコンが変わったりするので見やすくなる。<br />
+これまでフォルダとファイルの階層のインデントが少しわかりにくくて誤操作も多かったんだけど、この機能で解消された。<br />
+前述した Flatland とか Soda とかはまだこの機能に対応してないのが惜しい。</p>
+
+<p>Aprosopo はダークテーマとライトテーマがあって、しかも設定が Preferences メニューから簡単に変えられる(いちいち設定ファイルに書かなくてもいい)ので気に入ってる。</p>
+
+<h2 id="カラースキーマ:73589e8d2639747e5931f20bd3d44061">カラースキーマ</h2>
+
+<p>これは完全に好みや気分。<br />
+いまは <strong><a href="https://sublime.wbond.net/packages/Theme%20-%20Cobalt2">Cobalt2</a></strong> の背景色をカスタマイズしたものを使ってる。<br />
+Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リンク先で見た目のキャプチャ見れます)<br />
+ちなみに色のカスタマイズは <a href="https://sublime.wbond.net/packages/ColorSchemeEditor">Color​Scheme​Editor</a> を使うと手軽に変更できる。<br />
+(しょっちゅう使うものでもないのでプラグインで紹介してない)</p>
+
+<p>気分でよく変える人なんかは <a href="https://sublime.wbond.net/packages/Dayle%20Rees%20Color%20Schemes">Dayle Rees Color Schemes</a> のプラグインが便利。<br />
+このプラグインはインストールすると <a href="http://daylerees.github.io/">たくさんのカラースキーマ</a> が一括インストールされるので、好みのものが見つかるはず。</p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

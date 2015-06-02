@@ -1,0 +1,3468 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/post/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Tue, 02 Jun 2015 18:39:32 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ブログのバックエンドを「Hugo」に変更</title>
+      <link>http://kijtra.com/article/change-to-hugo</link>
+      <pubDate>Tue, 02 Jun 2015 18:39:32 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/change-to-hugo</guid>
+      <description>&lt;p&gt;いったんテスト投稿&lt;/p&gt;
+
+&lt;p&gt;テスト投稿です。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</title>
+      <link>http://kijtra.com/article/my-atom-packages</link>
+      <pubDate>Mon, 25 May 2015 23:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/my-atom-packages</guid>
+      <description>&lt;p&gt;最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。&lt;/p&gt;
+
+&lt;p&gt;基本的にWeb系＋PHPの開発が多いのと、環境がWindowsなので、そのような傾向にある。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/emmet&#34;&gt;emmet&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+HTML等を簡単な記述でコーディングできるプラグイン。&lt;br /&gt;
+他のエディタもすべて必ず入れてる。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/minimap&#34;&gt;minimap&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+エディタの横にファイルの全体像を表示する。スクロールバー代わりに便利。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/japanese-wrap&#34;&gt;japanese-wrap&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+日本語の文章がウインドウの端で改行されるようにする。Atomのv0.201.0時点でも公式対応されていないので必要。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/atom-color-highlight&#34;&gt;atom-color-highlight&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コード中のCSSカラーっぽい文字を検出して背景にその色を表示してくれる。&lt;br /&gt;
+Sublime Textの&lt;a href=&#34;https://packagecontrol.io/packages/Color%20Highlighter&#34;&gt;Color Highlighter&lt;/a&gt;が便利だったので同等のものを。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/c3aaeeee1875bec435e468f58357becbac26367a/68747470733a2f2f7261772e6769746875622e636f6d2f61626533332f61746f6d2d636f6c6f722d686967686c696768742f6d61737465722f61746f6d2d636f6c6f722d686967686c696768742d7661726961626c65732e676966&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/project-manager&#34;&gt;project-manager&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+プロジェクトを管理するプラグイン。デフォルト機能にしてほしい。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/open-last-project&#34;&gt;open-last-project&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Atom起動時、最後に開いていたプロジェクトを開くプラグイン。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/atom-terminal&#34;&gt;atom-terminal&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+いま開いているプロジェクトのディレクトリでターミナル系アプリを起動するプラグイン。&lt;br /&gt;
+ちなみに個人的に&lt;a href=&#34;https://conemu.github.io/&#34;&gt;ConEmu&lt;/a&gt;でGit Bashをメインに使っている。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/linter&#34;&gt;linter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コードのリアルタイムエラー検出。これ単体では意味がなく、以下のように言語ごとに用意する。
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://atom.io/packages/linter-jshint&#34;&gt;linter-jshint&lt;/a&gt; JavaScript用。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atom.io/packages/linter-less&#34;&gt;linter-less&lt;/a&gt; LESS用。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://atom.io/packages/linter-php&#34;&gt;linter-php&lt;/a&gt; PHP用。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/chary-tree-view&#34;&gt;chary-tree-view&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+左サイドのファイルツリーで、シングルクリックのプレビューを表示しないプラグイン。&lt;br /&gt;
+Atomではファイルツリーのシングルクリックでプレビューとして開く仕様になっているけど、個人的にこれがけっこうストレスで、Minifyされたファイルや巨大ファイル（2MBの制限はあるけど）をクリックしてしまうとAtomがフリーズすることがちょこちょこあった。（流行りなのか、他のエディタでもそういう傾向があるみたい）&lt;br /&gt;
+オフにしたくて&lt;a href=&#34;http://ja.stackoverflow.com/q/10485/3876&#34;&gt;StackOverflowで質問してみた&lt;/a&gt;ところ、心優しい人が速攻で作ってくれたもの。有り難し。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/git-plus&#34;&gt;git-plus&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+ターミナル系アプリを使わなくてもGitコマンドを使えるプラグイン。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/git-control&#34;&gt;git-control&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+GitをGUIで操作するプラグイン。簡易&lt;a href=&#34;https://www.sourcetreeapp.com/&#34;&gt;SourceTree&lt;/a&gt;のようなもの。&lt;br /&gt;
+基本的にGitの状態をざっと確認するのに使ってる。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/e35620a073ae64498e9dbff837aa273d3dcb263d/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6a61636f67722f61746f6d2d6769742d636f6e74726f6c2f6d61737465722f73637265656e73686f74732f6769742d30312e706e67&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/less-autocompile&#34;&gt;less-autocompile&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+LESSファイルの保存時にCSSにコンパイルする。（npmでlessをインストールしておく必要あり）&lt;br /&gt;
+個人的にSASSやSCSSよりLESSを使うことが多いので。&lt;br /&gt;
+このプラグインはファイル監視系ではなく、.lessファイルの1行目に出力先ファイル名や圧縮有無、ソースマップ有無などをコメントとして書くだけなので手軽で自由が効く。&lt;br /&gt;
+SASSな人は「&lt;a href=&#34;https://atom.io/packages/sass-autocompile&#34;&gt;sass-autocompile&lt;/a&gt;」が同じ機能。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/tool-bar&#34;&gt;tool-bar&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+エディタの上下左右好きなところにボタンを設置する。基本的にメインメニューやコマンドパレットのショートカット。&lt;br /&gt;
+次項目のflex-tool-barと組み合わせて好きなボタンが入れられる。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/8387595328108e1dce2b658a6827140047e286e9/687474703a2f2f636c2e6c792f696d6167652f3277307533633178314b33572f53637265656e73686f742d323031352d30342d32312d31362e34362e34392e706e67&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/flex-tool-bar&#34;&gt;flex-tool-bar&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+上記tool-barに依存したプラグイン。好きなアイコン＆コマンドでボタンを設置できる。&lt;br /&gt;
+普通のURLでリンクも貼れるし、そのURL機能を使ってアプリのショートカットにもできる。&lt;br /&gt;
+設定はAtomの設定フォルダ（~/.atom）の直下に &lt;code&gt;toolbar.json&lt;/code&gt; というファイルを作って、そこに書く。&lt;br /&gt;
+例として&lt;a href=&#34;https://gist.github.com/kijtra/6b74e2decc14cbbde01a&#34;&gt;個人的な設定をGistに書いておいた&lt;/a&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/script&#34;&gt;script&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コードの一部を選択してこのプラグインを使うと、その部分のコードを実行してくれる。いろんな言語に対応してて便利。&lt;br /&gt;
+PHPでUNIX時間をDateTimeにしたりとかよく使う。&lt;br /&gt;
+&lt;img src=&#34;https://i.github-camo.com/405fb492595dd819647af375b68c716fd862ee80/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f313639343035352f333232363230312f63343538616362632d663036372d313165332d383461302d6461323766653333346635652e676966&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/php-documentation-online&#34;&gt;php-documentation-online&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+PHP者用。コード中の関数にカーソルを合わせて &lt;kbd&gt;F4&lt;/kbd&gt; キーで公式ドキュメントが表示される。&lt;br /&gt;
+デフォルトでは英語版なので、ソースを書き換えて日本語版に飛ぶようにしてる。&lt;br /&gt;
+設定場所はプラグインのフォルダ内 &lt;code&gt;lib/php-documentation-online.coffee&lt;/code&gt; の28行目、
+&lt;code&gt;http://php.net/manual/en/&lt;/code&gt; → &lt;code&gt;http://php.net/manual/ja/&lt;/code&gt; に。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/SFTP-deployment&#34;&gt;SFTP-deployment&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+(S)FTPでサーバーにアップ＆ダウンロードできる。Windowsだとダウンロードが不安定だったりdeprecationのコード使ってたりで今のところあまり実用的じゃない。&lt;br /&gt;
+けどアップデート待ちで一応入れてる。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/language-nginx&#34;&gt;language-nginx&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+nginxのconfファイルのシンタックスハイライト。完全な感じではない。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/language-apache&#34;&gt;language-apache&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Apache系（htaccessなど）のシンタックスハイライト。公式に取り込んでほしい。&lt;/li&gt;
+&lt;li&gt;ちなみにテーマは &lt;a href=&#34;https://atom.io/themes/seti-ui&#34;&gt;Seti-ui&lt;/a&gt; を使ってる。（&lt;a href=&#34;https://atom.io/packages/file-icons&#34;&gt;file-icons&lt;/a&gt;を使わなくてもいいので）&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Atomはまだ起動が遅かったりプラグインの完成度が高くなかったりするけど、少し使い慣れてきたので継続してみる。&lt;br /&gt;
+来月（2015年6月）にはメジャーバージョンになるっぽいので期待してる。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PackagistとComposerで自作パッケージを使う</title>
+      <link>http://kijtra.com/article/original-library-using-composer-packagist</link>
+      <pubDate>Wed, 20 May 2015 12:02:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/original-library-using-composer-packagist</guid>
+      <description>
+
+&lt;p&gt;自分で作ったPHPのパッケージ（ライブラリ）を Packagist に登録して、Composer から使えるようにしてみたのでメモ。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://getcomposer.org/&#34;&gt;Composer&lt;/a&gt; でダウンロードするパッケージは、基本的には &lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; にあるものからダウンロードされる。&lt;br /&gt;
+個人的によく使う自作ライブラリ等も Composer で依存関係を解消しつつ使いたいなあと思ってやってみた。&lt;/p&gt;
+
+&lt;h2 id=&#34;全体の流れ:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;全体の流れ&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;コードを書く&lt;/li&gt;
+&lt;li&gt;（してなければ）&lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt; にユーザー登録する&lt;/li&gt;
+&lt;li&gt;（してなければ）&lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; にユーザー登録する&lt;/li&gt;
+&lt;li&gt;GitHub にリポジトリを作る&lt;/li&gt;
+&lt;li&gt;そのリポジトリと Packagist を連携させる&lt;/li&gt;
+&lt;li&gt;書いたコードを GitHubリポジトリ にプッシュ&lt;/li&gt;
+&lt;li&gt;Packagist に公開（自動）&lt;/li&gt;
+&lt;li&gt;Composer から使う&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;まあ普通なら 1 をコピペして済むんだけど Composer から使ってみたかったので。&lt;/p&gt;
+
+&lt;h2 id=&#34;コードを書くにあたって-composer-json-の作成:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;コードを書くにあたって（composer.json の作成）&lt;/h2&gt;
+
+&lt;p&gt;自作パッケージのルートに &lt;strong&gt;composer.json&lt;/strong&gt; というファイルを作成して、Composer でどう扱ってもらうかを記述する必要がある。&lt;/p&gt;
+
+&lt;p&gt;簡単に作成するには、ルートディレクトリでターミナルやコマンドプロンプトを開き、以下のコマンドを打つ。（&lt;a href=&#34;https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx&#34;&gt;Composerインストール&lt;/a&gt;済みが前提）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;php composer.phar init
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;composer.json を作成するための質問をいくつか訊かれるため、それに入力していくことで自動生成される。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;# パッケージ名（「ベンダー（ユーザー）名/パッケージ名」の形式）
+Package name (&amp;lt;vendor&amp;gt;/&amp;lt;name&amp;gt;) [kijtra/oreore-lib]: kijtra/oreore-lib
+# パッケージの概要
+Description []: オッス！オラ、オレオレライブラリ！
+# 作成者（あなた）
+Author [kijtra &amp;lt;kijtra@gmail.com&amp;gt;]:
+# 依存パッケージの最低限の安定バージョン（「stable」が無難）
+Minimum Stability []: stable
+# パッケージの種類（なんでも良いようだけど「library」とかで）
+Package Type []: library
+# ライセンス（今回はまず自分しか使わないので無保証なMIT）
+License []: MIT
+
+Define your dependencies. # 「依存関係を決めてね」
+
+# 依存するパッケージがありますか？
+Would you like to define your dependencies (require) interactively [yes]?
+# 検索する依存パッケージ名（例：monolog/monolog）
+Search for a package: monolog/monolog
+# 検索した依存パッケージで使用するバージョン
+Enter the version constraint to require (or leave blank to use the latest version): @stable
+# ほかに検索する場合（なければそのまま Enter）
+Search for a package:
+# 開発時に依存するパッケージがありますか？（以降は上記と同じ。なければ「no」）
+Would you like to define your dev dependencies (require-dev) interactively [yes]? no
+
+{
+    &amp;quot;name&amp;quot;: &amp;quot;kijtra/oreore-lib&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;オッス！オラ、オレオレライブラリ！&amp;quot;,
+    &amp;quot;type&amp;quot;: &amp;quot;library&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;,
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;monolog/monolog&amp;quot;: &amp;quot;@stable&amp;quot;
+    },
+    &amp;quot;authors&amp;quot;: [
+        {
+            &amp;quot;name&amp;quot;: &amp;quot;kijtra&amp;quot;,
+            &amp;quot;email&amp;quot;: &amp;quot;kijtra@gmail.com&amp;quot;
+        }
+    ]
+}
+# 「上のようなファイルが作られるけどいいかな？」（そのまま Enter）
+Do you confirm generation [yes]?
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで &lt;strong&gt;composer.json&lt;/strong&gt; が生成されてるはず。&lt;br /&gt;
+で、もしPHPのバージョン制限とかあるなら追記しておく。&lt;br /&gt;
+また、「autoload」での振る舞いも記述しておくと良いので、最終的な composer.json ファイルは以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;kijtra/oreore-lib&amp;quot;,
+    &amp;quot;description&amp;quot;: &amp;quot;オッス！オラ、オレオレライブラリ！&amp;quot;,
+    &amp;quot;type&amp;quot;: &amp;quot;library&amp;quot;,
+    &amp;quot;license&amp;quot;: &amp;quot;MIT&amp;quot;,
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;monolog/monolog&amp;quot;: &amp;quot;@stable&amp;quot;
+    },
+    &amp;quot;authors&amp;quot;: [
+        {
+            &amp;quot;name&amp;quot;: &amp;quot;kijtra&amp;quot;,
+            &amp;quot;email&amp;quot;: &amp;quot;kijtra@gmail.com&amp;quot;
+        }
+    ],
+
+    //--以下追記--
+
+    &amp;quot;keywords&amp;quot;: [&amp;quot;オレオレ&amp;quot;, &amp;quot;自作&amp;quot;], //（任意）Packagistでの検索でタグ指定できる
+
+    &amp;quot;require&amp;quot;: {
+        &amp;quot;php&amp;quot;: &amp;quot;&amp;gt;=5.3.2&amp;quot; //PHP５．３．２以上推奨
+    },
+
+    &amp;quot;autoload&amp;quot;: {
+        &amp;quot;psr-4&amp;quot;: { //（ファイル構成が）PSR-4形式で作りましたよ
+            &amp;quot;Kijtra\\&amp;quot;: &amp;quot;src&amp;quot; //ファイル群は「src」ディレクトリの中ですよ
+        }
+	},
+
+    &amp;quot;include-path&amp;quot;: [&amp;quot;src/&amp;quot;] //（開発時用）「src」ディレクトリ内からautoload
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;開発時には開発ディレクトリのルートで以下を実行しておき、Composer の基本ファイルをダウンロードする。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;php composer.phar install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;そうすると vendor ディレクトリが作成され、 vendor/autoload.php が使用できる。&lt;br /&gt;
+上記 composer.json の最終行にある &lt;code&gt;&amp;quot;include-path&amp;quot;: [&amp;quot;src/&amp;quot;]&lt;/code&gt; は、この時に必要。&lt;/p&gt;
+
+&lt;p&gt;「PSR-4」というのはPHPでクラスファイルをオートロードする際のディレクトリやファイルの命名規則等のことで、ここでは説明しないので &lt;a href=&#34;https://www.google.co.jp/search?q=PSR-4%E3%81%A8%E3%81%AF&#34;&gt;Googleで「PSR-4とは」&lt;/a&gt; を。&lt;/p&gt;
+
+&lt;h2 id=&#34;github-と-packagist-の連携:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;GitHub と Packagist の連携&lt;/h2&gt;
+
+&lt;p&gt;パッケージをGitHubに置く前に、Packagist との連携を設定しておく。&lt;/p&gt;
+
+&lt;p&gt;まずは事前に &lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; の &lt;strong&gt;API Token&lt;/strong&gt; を取得する。&lt;br /&gt;
+Packagist のマイページに「&lt;strong&gt;Show API Token&lt;/strong&gt;」というリンクがあるので、クリックすると API Token が表示される。&lt;br /&gt;
+それをコピーしておく。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh4.googleusercontent.com/kENdHHVR4B4SfhR7HTv7fdzr2H-6IYAVPAdq2UGByo8=w782-h451-no&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;Packagist の API Token を取得&#34; src=&#34;https://lh4.googleusercontent.com/kENdHHVR4B4SfhR7HTv7fdzr2H-6IYAVPAdq2UGByo8=w782-h451-no&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;次に &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt; に行き、リポジトリを作ったら、そのリポジトリの &lt;strong&gt;Settings 画面&lt;/strong&gt;（右メニュー）に行く。&lt;/p&gt;
+
+&lt;p&gt;左メニューの「&lt;strong&gt;Webhooks &amp;amp; Services&lt;/strong&gt;」というページに行き、「Services」の「&lt;strong&gt;Add service&lt;/strong&gt;」から「&lt;strong&gt;Packagist&lt;/strong&gt;」を検索。&lt;br /&gt;
+クリックで追加。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh3.googleusercontent.com/-JqmxdtL8V_s/VVvekOrNwyI/AAAAAAAADgc/iU_uwNJ-dVw/w1003-h405-no/2015-05-15_103417.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Webhooks &amp;amp; Services」から「Packagist」を検索し追加&#34; src=&#34;https://lh3.googleusercontent.com/-JqmxdtL8V_s/VVvekOrNwyI/AAAAAAAADgc/iU_uwNJ-dVw/w1003-h405-no/2015-05-15_103417.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;入力欄に以下のように入れ、「&lt;strong&gt;Add service&lt;/strong&gt;」ボタンで追加。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;User&lt;/strong&gt; ・・・Packagist のユーザー名&lt;br /&gt;
+&lt;strong&gt;Token&lt;/strong&gt; ・・・Packagist の API Token&lt;br /&gt;
+&lt;strong&gt;Domain&lt;/strong&gt; ・・・空のままでOK&lt;br /&gt;
+&lt;strong&gt;Active&lt;/strong&gt; ・・・チェックする&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh6.googleusercontent.com/-5BoKQ-2qUYk/VVvekWQo7II/AAAAAAAADgk/mOGKrutfJNA/w957-h740-no/2015-05-15_104025.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Webhooks &amp;amp; Services」から「Packagist」を検索し追加&#34; src=&#34;https://lh6.googleusercontent.com/-5BoKQ-2qUYk/VVvekWQo7II/AAAAAAAADgk/mOGKrutfJNA/w957-h740-no/2015-05-15_104025.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これで GitHub にプッシュすれば自動的に Packagist に反映されるようになる。&lt;/p&gt;
+
+&lt;h2 id=&#34;バージョン管理:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;バージョン管理&lt;/h2&gt;
+
+&lt;p&gt;ここまででもう Composer から使える状態なんだけど、パッケージのバージョンをどうリリースするかわからなかったので少しとまどってしまった。&lt;br /&gt;
+（デフォルトではバージョンなしで「dev-master」のみ）&lt;/p&gt;
+
+&lt;p&gt;なんてことはない。Git で push する前にタグとしてバージョンを記述するだけだった。&lt;br /&gt;
+例えば以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git add . # Addして
+git commit -m &amp;quot;オッス！リリースすっぞ！&amp;quot; # Commitして
+git tag -a 0.0.1 # ここでバージョン用タグ作成
+git push origin master # Push
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コミットの前後とかは関係なさそう？プッシュ前ならどこでもいい？みたいだけど、上記でできてる。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;あとがき:5c8e7c8b9fb5a02dfee7514e0c72e253&#34;&gt;あとがき&lt;/h3&gt;
+
+&lt;p&gt;これまでPHPのパッケージ群といえば &lt;a href=&#34;https://pear.php.net/manual/ja/&#34;&gt;PEAR&lt;/a&gt; だったけど、もう最近では &lt;a href=&#34;https://getcomposer.org/&#34;&gt;Composer&lt;/a&gt; ばかりになってしまった。&lt;br /&gt;
+PEAR はメンテナンスされていないものが多くてインストールも面倒で個人的にはあまり好きじゃなかったので、Composer はけっこう便利に使ってる。&lt;/p&gt;
+
+&lt;p&gt;自作のパッケージを登録しておいて、いつでも（依存関係を解消しつつ）使える状態にしておくのはとても便利だと思った。&lt;/p&gt;
+
+&lt;p&gt;だけど、&lt;a href=&#34;https://packagist.org/&#34;&gt;Packagist&lt;/a&gt; での検索でひっかかってしまうので、あまりにプライベートなものとかはセキュリティ的に危ないまたは恥ずかしくて申し訳ない気持ちに。（GitHub もそうだけど）&lt;br /&gt;
+検索にヒットしないように設定できたらいいかも。&lt;/p&gt;
+
+&lt;p&gt;ちなみに今回試しに作ったのは Yahoo JAPAN の &lt;a href=&#34;http://developer.yahoo.co.jp/webapi/map/&#34;&gt;YOLPのAPI&lt;/a&gt; を扱うもの。&lt;/p&gt;
+
+&lt;p&gt;Packagist: &lt;strong&gt;&lt;a href=&#34;https://packagist.org/packages/kijtra/yolp&#34;&gt;kijtra/yolp&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+GitHub: &lt;strong&gt;&lt;a href=&#34;https://github.com/kijtra/yolp&#34;&gt;kijtra/yolp&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;おそらく放置の可能性が高いので composer.json の中身とかを見るぐらいでお願いしますw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</title>
+      <link>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
+      <pubDate>Thu, 16 Apr 2015 16:06:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
+      <description>
+
+&lt;p&gt;Google Apps Script でこれまでTwitterのボットを作ってたんだけど、OAuthConfig のサポートが2015年4月20日に終了するってのを見つけて焦って変更したメモ。&lt;/p&gt;
+
+&lt;p&gt;これまでGoogle Apps ScriptでTwitter APIを利用する場合、OAuth認証に「&lt;strong&gt;&lt;a href=&#34;https://developers.google.com/apps-script/reference/url-fetch/o-auth-config&#34;&gt;OAuthConfig&lt;/a&gt;&lt;/strong&gt;」というクラスを使うのが一般的だった。&lt;br /&gt;
+でも先日見てみると以下の一文が。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Warning&lt;/strong&gt;: Google&amp;rsquo;s OAuth 1.0 support was deprecated in 2012 and is scheduled to be shut down on April 20, 2015. Scripts using OAuthConfig to connect to a Google API should instead use the &lt;a href=&#34;https://github.com/googlesamples/apps-script-oauth2&#34;&gt;OAuth2 for Apps Script&lt;/a&gt; library.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;英語はあまり得意でないのでGoogleで翻訳すると、&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;警告：GoogleのOAuthの1.0のサポートは2012年に廃止されましたし、OAuthConfigを使用して2015年のスクリプトではなくAppsスクリプトライブラリのOAuth2を使用する必要があり、GoogleのAPIに接続するために、4月20日にシャットダウンされる予定です。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;とのこと。&lt;br /&gt;
+確かに OAuthConfig を使用したプログラムを動かすと警告が出てる。&lt;br /&gt;
+まずいなー自作せんといかんかなーと思っていろいろと調べてみたところ、&lt;strong&gt;&lt;a href=&#34;https://github.com/googlesamples/apps-script-oauth1&#34;&gt;Googleが用意したOAuth1用ライブラリ(GitHub)&lt;/a&gt;&lt;/strong&gt;を使うのが良さそうな感じだったので、手順をまとめておく。&lt;/p&gt;
+
+&lt;h2 id=&#34;step1-プロジェクトの作成:1654966ff700aeb4f8ee7d95b62403f2&#34;&gt;Step1. プロジェクトの作成&lt;/h2&gt;
+
+&lt;p&gt;プロジェクトといっても単にGoogleドライブにファイルを作るだけ。&lt;br /&gt;
+スプレッドシートを新規作成して上部メニュー「ツール」→「スクリプトエディタ」にいくか、またはスクリプトファイル自体を新規作成してもOK。&lt;br /&gt;
+ログの記録とかにスプレッドシートが使えるので、できれば前者がいいと思う。&lt;/p&gt;
+
+&lt;h2 id=&#34;step2-oauthライブラリの取得:1654966ff700aeb4f8ee7d95b62403f2&#34;&gt;Step2. OAuthライブラリの取得&lt;/h2&gt;
+
+&lt;p&gt;スクリプトエディタを開き、上部メニュー「リソース」→「ライブラリ&amp;hellip;」をクリック。&lt;br /&gt;
+開いたダイアログにある「ライブラリを検索」の入力欄に以下の文字を入力して検索（「選択」ボタン）する。
+&lt;code&gt;Mb2Vpd5nfD3Pz-_a-39Q4VfxhMjh3Sh48&lt;/code&gt;&lt;br /&gt;
+そうすると、以下の図のようにOAuth1用ライブラリが出るので、最新バージョンを選択して「保存」する。（Google製のライブラリなのでご安心を）&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh5.googleusercontent.com/-Y0JexgZ4FLY/VS9jkx9CPdI/AAAAAAAADfo/qjpCGInBkwQ/w694-h417-no/2015-04-16_120428.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ライブラリ読み込みダイアログ&#34; src=&#34;https://lh5.googleusercontent.com/-Y0JexgZ4FLY/VS9jkx9CPdI/AAAAAAAADfo/qjpCGInBkwQ/w694-h417-no/2015-04-16_120428.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これでとりあえずはOAuth1ライブラリが使えるようになった。&lt;br /&gt;
+ちなみにこれらの手順は &lt;a href=&#34;https://github.com/googlesamples/apps-script-oauth1/blob/master/README.md&#34;&gt;公式GitHubのREADME&lt;/a&gt; に書いてある。&lt;/p&gt;
+
+&lt;h2 id=&#34;step3-twitter-api用スクリプトの作成:1654966ff700aeb4f8ee7d95b62403f2&#34;&gt;Step3. Twitter API用スクリプトの作成&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/googlesamples/apps-script-oauth1/blob/master/README.md&#34;&gt;公式GitHubのREADME&lt;/a&gt; の通りに進めて問題ないけど、ここらへんは以下のスクリプトを自作した。&lt;br /&gt;
+&lt;a href=&#34;https://gist.github.com/kijtra/f4cdd8775277372d42f7&#34;&gt;&lt;i class=&#34;fa fa-github&#34;&gt;&lt;/i&gt; Gistにあり〼。&lt;/a&gt;&lt;br /&gt;
+これを「twitter.gs」等のファイル名でプロジェクトエディタに新規作成＆コピペする。&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/f4cdd8775277372d42f7.js&#34;&gt;&lt;/script&gt;
+
+&lt;h2 id=&#34;step4-twitterアプリ側の設定:1654966ff700aeb4f8ee7d95b62403f2&#34;&gt;Step4. Twitterアプリ側の設定&lt;/h2&gt;
+
+&lt;p&gt;OAuth後のコールバック先URLをこれまでと変更する必要がある。&lt;br /&gt;
+&lt;a href=&#34;https://apps.twitter.com/&#34;&gt;Twitterアプリの管理ページ&lt;/a&gt;で、&lt;strong&gt;Callback URL&lt;/strong&gt;に以下のようなURLを設定する。&lt;br /&gt;
+&lt;code&gt;https://script.google.com/macros/d/[プロジェクト キー]/usercallback&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh6.googleusercontent.com/-mEGyfYGF2Ng/VS9jmDNTSoI/AAAAAAAADfo/LddrM3jl43w/w1056-h259-no/2015-04-16_162213.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;コールバックURLの入力欄&#34; src=&#34;https://lh6.googleusercontent.com/-mEGyfYGF2Ng/VS9jmDNTSoI/AAAAAAAADfo/LddrM3jl43w/w1056-h259-no/2015-04-16_162213.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「&lt;strong&gt;プロジェクト キー&lt;/strong&gt;」というのは、Google Apps Scriptのプロジェクトに付いているキー。&lt;br /&gt;
+スクリプトエディタの上部メニュー「ファイル」→「プロジェクトのプロパティ」をクリックすると確認できる。&lt;br /&gt;
+このキーは前述の自作スクリプト内でも使うので、ついでにコピペしておく。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh4.googleusercontent.com/-ma8FgouRKmI/VS9jlBunX3I/AAAAAAAADfo/aCYvvWZdlXI/w586-h427-no/2015-04-16_123848.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;プロジェクト キーの確認&#34; src=&#34;https://lh4.googleusercontent.com/-ma8FgouRKmI/VS9jlBunX3I/AAAAAAAADfo/aCYvvWZdlXI/w586-h427-no/2015-04-16_123848.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step5-oauth認証する:1654966ff700aeb4f8ee7d95b62403f2&#34;&gt;Step5. OAuth認証する&lt;/h2&gt;
+
+&lt;p&gt;自作スクリプトに、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;プロジェクト キー&lt;/li&gt;
+&lt;li&gt;Twitterの Consumer Key&lt;/li&gt;
+&lt;li&gt;Twitterの Consumer Secre&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;を記載したら、初回のOAuth認証用にいくつかの関数を用意しているので、「&lt;code&gt;twitterAuthorizeUrl&lt;/code&gt;」というのを実行する。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh4.googleusercontent.com/-fLiwVXhwWyY/VS9jlgKjH7I/AAAAAAAADfo/M6o0jDoBTUQ/w399-h164-no/2015-04-16_143608.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;OAuth用関数の実行&#34; src=&#34;https://lh4.googleusercontent.com/-fLiwVXhwWyY/VS9jlgKjH7I/AAAAAAAADfo/M6o0jDoBTUQ/w399-h164-no/2015-04-16_143608.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;画面には何も出ないけど、上部メニュー「表示」→「ログ」を開くと承認用のURLが出力されている。
+これをコピーしてブラウザでアクセスすると、Twitterのアプリ承認画面に行くので承認する。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh4.googleusercontent.com/-dDk3p-mvLBY/VS9jlrsIrSI/AAAAAAAADfo/MPlKB5rDy9A/w684-h442-no/2015-04-16_143941.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;OAuth認証用URLをコピーする&#34; src=&#34;https://lh4.googleusercontent.com/-dDk3p-mvLBY/VS9jlrsIrSI/AAAAAAAADfo/MPlKB5rDy9A/w684-h442-no/2015-04-16_143941.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ここまでの手順が正しく設定されていれば、承認後は画面が切り替わって「認証に成功しました」という文字が出る（ハズ）。&lt;/p&gt;
+
+&lt;h2 id=&#34;step6-テストする:1654966ff700aeb4f8ee7d95b62403f2&#34;&gt;Step6. テストする&lt;/h2&gt;
+
+&lt;p&gt;これでOAuth認証が通ったと思うのでボットが作成できる。&lt;br /&gt;
+ツイッターのAPI自体は&lt;a href=&#34;https://dev.twitter.com/rest/public&#34;&gt;公式 REST API ドキュメント&lt;/a&gt;を参照のこと。
+簡単に自作スクリプトの説明をしておくと、こんな感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;///// 基本的な使用方法 /////
+
+// 以下は api.twitter.com/1.1/statuses/update.json を実行する例
+
+var data = {
+    &amp;quot;status&amp;quot;: &amp;quot;ツイート文&amp;quot;
+};
+
+var res = Twitter.api(&amp;quot;statuses/update&amp;quot;, data);
+
+/*
+第一引数：APIのパス（api.twitter.com/1.1/～.jsonの間のパス）
+第二引数：パラメータ（JSON形式）
+*/
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記の他にいくつか簡易化した関数を用意した。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;// ツイートを検索
+var res = Twitter.search(&amp;quot;検索文字&amp;quot;);
+
+// 自分のタイムラインを取得
+var res = Twitter.tl();
+
+// 特定ユーザーのタイムラインを取得
+var res = Twitter.usertl(&amp;quot;スクリーンネーム&amp;quot;);
+
+// ツイートする
+var res = Twitter.tweet(&amp;quot;ツイート文&amp;quot;);
+
+// トレンドの取得（デフォルトは日本全国対象。引数にWOEID指定でその地域のトレンド）
+var res = Twitter.trends();
+
+// トレンドのワードのみ取得（引数は上と同じ）
+var res = Twitter.trendWords();
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;OAuthConfigの廃止はけっこう前から警告が出てたみたいだけど、対策しているような情報はググってもほとんど見当たらなかったので、Google Apps Scriptでボット作ってる人はほとんどいない模様w&lt;br /&gt;
+以前 &lt;a href=&#34;http://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
+提供元には特に何か対策してるっぽいことは書いてなさそう・・・動いてるからまあいいけど。&lt;/p&gt;
+
+&lt;p&gt;ついでに &lt;a href=&#34;https://dev.twitter.com/oauth/application-only&#34;&gt;OAuth2でのTwitter API（Application-only authentication）&lt;/a&gt; も少し見てみたんだけど、わりと簡単なプログラムでデータを取得できるみたい。&lt;br /&gt;
+接続が簡単なかわりに更新系のAPIが利用できなかったりするけど、API使用階数の制限が少し緩和されるっぽい・・・？&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>モーダル用jQueryプラグインをつくった</title>
+      <link>http://kijtra.com/article/jquery-modal</link>
+      <pubDate>Wed, 11 Mar 2015 00:20:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/jquery-modal</guid>
+      <description>
+
+&lt;p&gt;なかなか理想のモーダル用スクリプトが見つからなかったので勉強を兼ねて作ってみた。&lt;br /&gt;
+なるべく実用的なものにしたつもり・・・。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/kijtra/modaled&#34;&gt;ソースは Github にあり〼。&lt;/a&gt;
+&lt;iframe src=&#34;https://ghbtns.com/github-btn.html?user=kijtra&amp;repo=modaled&amp;type=star&amp;count=true&#34; frameborder=&#34;0&#34; scrolling=&#34;0&#34; width=&#34;170px&#34; height=&#34;20px&#34; style=&#34;margin:0 0 0 10px;vertical-align:middle;&#34;&gt;&lt;/iframe&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;使用例-examples:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;使用例 (examples)&lt;/h2&gt;
+
+&lt;h3 id=&#34;a-href-demo1-class-modaled-インライン要素-inline-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo1&#34; class=&#34;modaled&#34;&gt;インライン要素 (inline)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo1&#34; style=&#34;display:none&#34;&gt;
+    インライン要素の内容です。&lt;br&gt;
+    &amp;lt;a&amp;gt;タグの href と同じIDを持つ要素が表示されます。&lt;br&gt;
+    また、&amp;lt;a&amp;gt;タグに href=&#34;#close&#34; を指定したリンクは閉じるボタンになります。&lt;br&gt;
+    &lt;a href=&#34;#close&#34;&gt;CLOSE&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo1&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;インライン要素 (inline)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo1&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo2.html&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;/static/jquery-modal/demo2.html&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;別ページ ※同ドメイン内のみ (ajax)&amp;lt;&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-http-i-giphy-com-fz9wcnzeff5yu-gif-class-modaled-rel-nofollow-画像-別ドメイン可-image-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;http://i.giphy.com/fz9wCNZeff5yU.gif&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;画像 ※別ドメイン可 (image)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;http://i.giphy.com/fz9wCNZeff5yU.gif&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;画像 ※別ドメイン可 (image)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo4-class-modaled-内容切り替え-other-modal-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo4&#34; class=&#34;modaled&#34;&gt;内容切り替え (other modal)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo4&#34; style=&#34;display:none&#34;&gt;
+    読み込んだモーダルの &amp;lt;a&amp;gt;タグにも適用されます。&lt;br&gt;
+    NEXT : &lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo4.html&#34; class=&#34;modaled&#34;&gt;demo4.html&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo4&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;内容切り替え (other modal)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo4&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+	NEXT : &amp;lt;a href=&amp;quot;/static/jquery-modal/demo4.html&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;demo4.html&amp;lt;/a&amp;gt;
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo5-モーダル内のヘッダ-フッタ-header-and-footer-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo5&#34;&gt;モーダル内のヘッダ・フッタ (header and footer)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo5&#34; style=&#34;display:none&#34;&gt;
+    初期状態では全くデザインされていないので、自分でデザインする必要があります。&lt;br&gt;
+    デフォルトではヘッダには「header」、&lt;br&gt;
+    フッタには「footer」というclass名がついています。&lt;br&gt;
+    ※クラス名は設定で変更できます。
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo5&amp;quot;&amp;gt;モーダル内のヘッダ・フッタ (header and footer)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo5&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;a[href=&amp;quot;#demo5&amp;quot;]&#39;).modaled({
+	header: &#39;&amp;lt;i&amp;gt;ヘッダです (header)&amp;lt;/i&amp;gt;&#39;,
+	footer: &#39;&amp;lt;i&amp;gt;フッタです (footer)&amp;lt;/i&amp;gt;　&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;CLOSE&amp;lt;/a&amp;gt;&#39;,
+	headerClass: &#39;ヘッダのclass名&#39;,
+	footerClass: &#39;フッタのclass名&#39;
+});
+&amp;lt;/script&amp;gt;
+
+&amp;lt;!-- または、やや強引ですが表示する内容の data-* 属性に直接設定を書くこともできます --&amp;gt;
+&amp;lt;div id=&amp;quot;demo5&amp;quot; style=&amp;quot;display:none&amp;quot; data-header=&amp;quot;&amp;lt;i&amp;gt;ヘッダです (header)&amp;lt;/i&amp;gt;&amp;quot; data-footer=&amp;quot;&amp;lt;i&amp;gt;フッタです (footer)&amp;lt;/i&amp;gt;&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo6-1-アニメーション例1-animation-example-1-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo6-1&#34;&gt;アニメーション例1 (animation example 1)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo6-1&#34; style=&#34;display:none&#34;&gt;
+    アニメーションは設定で指定できます。&lt;br&gt;
+    これは以下のように指定した例です。
+&lt;pre class=&#34;highlight json&#34;&gt;{
+    acShow : &#39;bounceIn&#39;,
+    acHide : &#39;bounceOut&#39;
+}&lt;/pre&gt;
+    &lt;a href=&#34;#close&#34;&gt;CLOSE&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;a-href-demo6-2-data-ac-show-rotatein-data-ac-hide-hinge-アニメーション例2-animation-example-2-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo6-2&#34; data-ac-show=&#34;rotateIn&#34; data-ac-hide=&#34;hinge&#34;&gt;アニメーション例2 (animation example 2)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo6-2&#34; style=&#34;display:none&#34;&gt;
+    これはリンク自体に data-* 属性を使って指定しています。&lt;br&gt;
+    表示対象の &amp;lt;div&amp;gt; 等の方に data-* 属性で指定することもできます。&lt;br&gt;
+    &lt;a href=&#34;#close&#34;&gt;CLOSE&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;アニメーションには &lt;a href=&#34;http://daneden.github.io/animate.css/&#34; target=&#34;_blank&#34;&gt;Animate.css&lt;/a&gt; が必要です&lt;/strong&gt;。&lt;br /&gt;
+Animate.cssが読み込まれていれば自動的にアニメーション表示になります。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- Animate.cssの読み込み --&amp;gt;
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.1/animate.min.css&amp;quot;&amp;gt;
+
+&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo6-1&amp;quot;&amp;gt;アニメーション例1 (animation example 1)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo6-1&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;a href=&amp;quot;#demo6-2&amp;quot; data-ac-show=&amp;quot;rotateIn&amp;quot; data-ac-hide=&amp;quot;hinge&amp;quot;&amp;gt;アニメーション例2 (animation example 2)&amp;lt;/a&amp;gt;
+
+&amp;lt;div id=&amp;quot;demo6-2&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;a[href=&amp;quot;#demo6-1&amp;quot;]&#39;).modaled({
+	acShow: &#39;bounceIn&#39;,
+	acHide: &#39;bounceOut&#39;
+});
+
+$(&#39;a[href=&amp;quot;#demo6-2&amp;quot;]&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo7-デザイン例-design-example-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo7&#34;&gt;デザイン例 (design example)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo7&#34; style=&#34;display:none&#34;&gt;
+    すこしデザインした例です。&lt;br&gt;
+    基本的にはデザインは自分でやる方向です。&lt;br&gt;
+    &lt;a href=&#34;http://getbootstrap.com/&#34; target=&#34;_blank&#34;&gt;Bootstrap&lt;/a&gt; 等を使っている場合は class名が衝突したりするのでご注意ください。
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo7&amp;quot;&amp;gt;デザイン例 (design example)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo7&amp;quot; style=&amp;quot;display:none&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;a[href=&amp;quot;#demo7&amp;quot;]&#39;).modaled({
+	header: &#39;&amp;lt;h3&amp;gt;&amp;lt;i class=&amp;quot;fa fa-leaf&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; デザイン例&amp;lt;/h3&amp;gt;&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;&amp;amp;times;&amp;lt;/a&amp;gt;&#39;,
+	footer: &#39;&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;fa fa-check-circle&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; 閉じる&amp;lt;/a&amp;gt;&#39;,
+	containerClass: &#39;my-modal&#39;,
+	headerClass: &#39;my-header&#39;,
+	footerClass: &#39;my-footer&#39;,
+	contentClass: &#39;my-content&#39;,
+});
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;a-href-demo8-1-class-modaled-オーバーレイのクリックで閉じさせない-disable-overlay-click-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;#demo8-1&#34; class=&#34;modaled&#34;&gt;オーバーレイのクリックで閉じさせない (disable overlay click)&lt;/a&gt;&lt;/h3&gt;
+
+&lt;div id=&#34;demo8-1&#34; style=&#34;display:none&#34; data-overlay-hide-disable=&#34;true&#34;&gt;
+    オーバーレイをクリックしても閉じさせない形式です。&lt;br&gt;
+    必ずリンクをクリックさせたい場合等に使えるかもしれません。&lt;br&gt;
+    また、この次に表示されるモーダルでは自動で閉じる設定がされています。&lt;br&gt;
+    &lt;br&gt;
+    &lt;div style=&#34;text-align:center;font-weight:bold;&#34;&gt;&lt;a href=&#34;#demo8-2&#34; class=&#34;modaled&#34;&gt;OK!&lt;/a&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&#34;demo8-2&#34; style=&#34;display:none&#34; data-auto-hide=&#34;2000&#34;&gt;
+    ありがとうございます！&lt;br&gt;
+    ※自動で閉じます (auto hide after 2000ms)
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
+&amp;lt;a href=&amp;quot;#demo8-1&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;オーバーレイのクリックで閉じさせない (disable overlay click)&amp;lt;/a&amp;gt;
+
+&amp;lt;!-- 表示する内容1 --&amp;gt;
+&amp;lt;div id=&amp;quot;demo8-1&amp;quot; style=&amp;quot;display:none&amp;quot; data-overlay-hide-disable=&amp;quot;true&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- 表示する内容2（クリック後） --&amp;gt;
+&amp;lt;div id=&amp;quot;demo8-2&amp;quot; style=&amp;quot;display:none&amp;quot; data-auto-hide=&amp;quot;2000&amp;quot;&amp;gt;
+	...
+&amp;lt;/div&amp;gt;
+
+&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;.modaled&#39;).modaled();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;ダイナミック表示-dynamic-open:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;ダイナミック表示 (dynamic open)&lt;/h3&gt;
+
+&lt;p&gt;最初に表示されたものです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- スクリプト --&amp;gt;
+&amp;lt;script&amp;gt;
+$.modaled(&#39;Welcome!&amp;lt;br&amp;gt;これはモーダルの見本です。&amp;lt;br&amp;gt;&amp;lt;a href=&amp;quot;#close&amp;quot;&amp;gt;CLOSE&amp;lt;/a&amp;gt;&#39;);
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;特徴-feature:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;特徴 (feature)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IE8+&lt;/li&gt;
+&lt;li&gt;レスポンシブ&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://daneden.github.io/animate.css/&#34; target=&#34;_blank&#34;&gt;Animate.css&lt;/a&gt; 対応&lt;/li&gt;
+&lt;li&gt;ダイナミック表示対応&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;オプション-options:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;オプション (options)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;header&lt;/code&gt; - default: empty&lt;br /&gt;
+ヘッダ用HTML&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;footer&lt;/code&gt; - default: empty&lt;br /&gt;
+フッタ用HTML&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;containerClass&lt;/code&gt; - default: &amp;lsquo;modal-container&amp;rsquo;&lt;br /&gt;
+表示モーダル全体を包む&amp;lt;div&amp;gt;のclass名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;headerClass&lt;/code&gt; - default: empty&lt;br /&gt;
+ヘッダのclass名（ヘッダがある場合）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;footerClass&lt;/code&gt; - default: empty&lt;br /&gt;
+フッタのclass名（フッタがある場合）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;contentClass&lt;/code&gt; - default: empty&lt;br /&gt;
+表示コンテンツ部分のclass名&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;overlayHideDisable&lt;/code&gt; - default: false&lt;br /&gt;
+オーバーレイクリックで閉じさせないかどうか&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;overlayOpacity&lt;/code&gt; - default: 0.2&lt;br /&gt;
+オーバーレイの透明度&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;autoHide&lt;/code&gt; - default: 0&lt;br /&gt;
+自動で閉じる場合のミリ秒（ms）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preload&lt;/code&gt; - default: false&lt;br /&gt;
+リンクコンテンツの場合に先読みするかどうか&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acShow&lt;/code&gt; - default: &amp;lsquo;fadeInDown&amp;rsquo;&lt;br /&gt;
+モーダル表示時のアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acHide&lt;/code&gt; - default: &amp;lsquo;fadeOutDown&amp;rsquo;&lt;br /&gt;
+モーダルを閉じる時のアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acChangeHide&lt;/code&gt; - default: &amp;lsquo;flipOutY&amp;rsquo;&lt;br /&gt;
+モーダル切り替え時に非表示にするアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acChangeShow&lt;/code&gt; - default: &amp;lsquo;flipInY&amp;rsquo;&lt;br /&gt;
+モーダル切り替え時に表示するアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acSpinShow&lt;/code&gt; - default: &amp;lsquo;zoomIn&amp;rsquo;&lt;br /&gt;
+読み込み中（loading）表示するアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acSpinHide&lt;/code&gt; - default: &amp;lsquo;zoomOut&amp;rsquo;&lt;br /&gt;
+読み込み中（loading）を非表示にするアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;acOverlayHideDisable&lt;/code&gt; - default: &amp;lsquo;wobble&amp;rsquo;&lt;br /&gt;
+オーバーレイクリック拒否時のアニメーションclass名（Animate.css）&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;beforeShow&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル表示直前に実行される関数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;afterShow&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル表示直後に実行される関数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;beforeClose&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル非表示直前に実行される関数&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;afterClose&lt;/code&gt; - default: null&lt;br /&gt;
+モーダル非表示直後に実行される関数&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;デフォルトオプションの設定方法は以下です。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;$.modaled.defaults({
+	header: &#39;&amp;lt;div class=&amp;quot; ...&#39;,
+	overlayOpacity: 0.3,
+	beforeShow: function(content, option) {
+		...
+	}
+	...
+});
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHPで変数を便利にSet/Getする関数をつくった</title>
+      <link>http://kijtra.com/article/php-function-vars</link>
+      <pubDate>Tue, 10 Feb 2015 09:50:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/php-function-vars</guid>
+      <description>&lt;p&gt;PHPでグローバルな変数を扱う時に &lt;code&gt;$GLOBALS&lt;/code&gt; とか &lt;a href=&#34;http://php.net/manual/ja/language.variables.superglobals.php&#34;&gt;スーパーグローバル変数&lt;/a&gt; の汚染とかあんまり使いたくなかったので、手軽にできる関数を作った。&lt;/p&gt;
+
+&lt;p&gt;まずはコード。&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/kijtra/78c54a12cfbf3c4432f3.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;第一引数がキー、第二引数が値で、値がある場合はSet、値がない場合はGetになる。&lt;br /&gt;
+基本的な使い方としては以下のような感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+// キーを「A」、値を「B」とした変数のセット
+vars(&#39;A&#39;, &#39;B&#39;);
+
+// キー「A」を取得
+echo vars(&#39;A&#39;); //　-&amp;gt; &amp;quot;B&amp;quot;
+
+
+
+// 「A」を上書き
+vars(&#39;A&#39;, &#39;Aval&#39;);
+
+// 再びキー「A」を取得
+echo vars(&#39;A&#39;); //　-&amp;gt; &amp;quot;Aval&amp;quot;
+
+
+
+// もちろん多次元配列などもセット可能
+$value = array(
+    &#39;C1&#39; =&amp;gt; &#39;C1val&#39;,
+    &#39;C2&#39; =&amp;gt; array(
+        &#39;C2-1&#39; =&amp;gt; &#39;C2-1val&#39;,
+        &#39;C2-2&#39; =&amp;gt; &#39;C2-2val&#39;,
+        &#39;C2-3&#39; =&amp;gt; &#39;C2-3val&#39;,
+    )
+);
+vars(&#39;C&#39;, $value);
+
+
+
+// 引数なしの場合はセットした全部を取得
+$all = vars();
+/*
+array(
+    &#39;A&#39; =&amp;gt; &#39;Aval&#39;,
+    &#39;C&#39; =&amp;gt; array(
+        &#39;C1&#39; =&amp;gt; &#39;C1val&#39;,
+        &#39;C2&#39; =&amp;gt; array(
+            &#39;C2-1&#39; =&amp;gt; &#39;C2-1val&#39;,
+            &#39;C2-2&#39; =&amp;gt; &#39;C2-2val&#39;,
+            &#39;C2-3&#39; =&amp;gt; &#39;C2-3val&#39;
+        )
+    )
+)
+*/
+
+
+// 存在しないキーの場合はnull
+var_dump(vars(&#39;who&#39;)); // -&amp;gt; null
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;大きな特徴は、多次元配列を入れた時に下層の配列へは &lt;strong&gt;ドットつなぎの文字列で簡単にアクセスできる&lt;/strong&gt; 点。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// 上の例でセットした「C2-2」の値を取得
+echo vars(&#39;C.C2.C2-2&#39;); // -&amp;gt; &amp;quot;C2-2val&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;で、下層の配列の一部を上書きしたいことがあるけど、その場合もドットつなぎで。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// 上の例でセットした「C2-2」の値を再セット
+vars(&#39;C.C2.C2-2&#39;, &#39;C2-2 is override!&#39;);
+
+echo vars(&#39;C.C2.C2-2&#39;); // -&amp;gt; &amp;quot;C2-2 is override!&amp;quot;
+
+
+// この時、「C」の配列全体は以下のようになっている
+array(
+    &#39;C1&#39; =&amp;gt; &#39;C1val&#39;,
+    &#39;C2&#39; =&amp;gt; array(
+        &#39;C2-1&#39; =&amp;gt; &#39;C2-1val&#39;,
+        &#39;C2-2&#39; =&amp;gt; &#39;C2-2 is override!&#39;, // ここだけ上書き済み
+        &#39;C2-3&#39; =&amp;gt; &#39;C2-3val&#39;,
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ドットつなぎでの取得は &lt;code&gt;static&lt;/code&gt; 変数でプチキャッシュしてるので2回目以降は速いはず。&lt;/p&gt;
+
+&lt;p&gt;あと、関数内で &lt;code&gt;array_replace_recursive&lt;/code&gt; という関数を使ってる。&lt;br /&gt;
+これは PHP5.3 からの機能なので、それ以下のバージョンの場合は &lt;a href=&#34;http://php.net/manual/ja/function.array-replace-recursive.php#109390&#34;&gt;公式ドキュメントにあるユーザー関数&lt;/a&gt; を書いておく必要がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+if (!function_exists(&#39;array_replace_recursive&#39;))
+{
+	// http://php.net/manual/ja/function.array-replace-recursive.php#109390
+	function array_replace_recursive($base, $replacements)
+	{
+		foreach (array_slice(func_get_args(), 1) as $replacements) {
+			$bref_stack = array(&amp;amp;$base);
+			$head_stack = array($replacements);
+
+			do {
+				end($bref_stack);
+
+				$bref = &amp;amp;$bref_stack[key($bref_stack)];
+				$head = array_pop($head_stack);
+
+				unset($bref_stack[key($bref_stack)]);
+
+				foreach (array_keys($head) as $key) {
+					if (isset($key, $bref) &amp;amp;&amp;amp; is_array($bref[$key]) &amp;amp;&amp;amp; is_array($head[$key])) {
+						$bref_stack[] = &amp;amp;$bref[$key];
+						$head_stack[] = $head[$key];
+					} else {
+						$bref[$key] = $head[$key];
+					}
+				}
+			} while(count($head_stack));
+		}
+
+		return $base;
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;余談だけど、この &lt;code&gt;vars&lt;/code&gt; は個人的によく使ってる関数なんだけど、関数名がなんかしっくりこない。&lt;br /&gt;
+&lt;code&gt;var()&lt;/code&gt; という名前は予約後で使えないので、よく使うので短く書くために &lt;code&gt;v()&lt;/code&gt; とかにしようかと思ったけど、これもなんだかなあw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
+      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
+      <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
+      <description>&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
+
+&lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
+取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
+なので、執筆時点でまだパブリックに取得できる「&lt;strong&gt;japanese__ja@holiday.calendar.google.com&lt;/strong&gt;」の方でやることにした。&lt;br /&gt;
+祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function japan_holiday() {
+	// カレンダーID
+	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+
+	// 取得期間
+	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
+	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
+
+	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	if (!empty($result)) {
+		$json = json_decode($result, true);
+		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
+			$datas = array();
+			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
+				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
+				$datas[$date] = array(
+					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
+					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
+				);
+			}
+			ksort($datas);
+			return $datas;
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上記の関数を実行すると、以下のような結果で返ってくる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+array (
+  20140101 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/01&#39;,
+    &#39;title&#39; =&amp;gt; &#39;元日&#39;,
+  ),
+  20140113 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;成人の日&#39;,
+  ),
+  20140211 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/02/11&#39;,
+    &#39;title&#39; =&amp;gt; &#39;建国記念の日&#39;,
+  ),
+  20140321 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/03/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;春分の日&#39;,
+  ),
+  20140429 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/04/29&#39;,
+    &#39;title&#39; =&amp;gt; &#39;昭和の日&#39;,
+  ),
+  20140503 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;憲法記念日&#39;,
+  ),
+  20140504 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/04&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日&#39;,
+  ),
+  20140505 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/05&#39;,
+    &#39;title&#39; =&amp;gt; &#39;こどもの日&#39;,
+  ),
+  20140506 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/06&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日 振替休日&#39;,
+  ),
+  20140721 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/07/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;海の日&#39;,
+  ),
+  20140915 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/15&#39;,
+    &#39;title&#39; =&amp;gt; &#39;敬老の日&#39;,
+  ),
+  20140923 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;秋分の日&#39;,
+  ),
+  20141013 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/10/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;体育の日&#39;,
+  ),
+  20141103 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;文化の日&#39;,
+  ),
+  20141123 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日&#39;,
+  ),
+  20141124 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/24&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日 振替休日&#39;,
+  ),
+  20141223 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/12/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;天皇誕生日&#39;,
+  ),
+)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス</title>
+      <link>http://kijtra.com/article/adsense-php-class-for-feature-phone</link>
+      <pubDate>Sun, 05 Oct 2014 10:30:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
+      <description>
+
+&lt;p&gt;携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)&lt;/p&gt;
+
+&lt;p&gt;Web上の携帯(フィーチャーフォン/ガラケー)サイト制作の情報って、もうすっかり古いものしか残ってないけど、まだ消滅したわけじゃないので作り続けてるわけです。&lt;br /&gt;
+実際、自分が関わってるサイトでは非スマホでフィーチャーフォン/ガラケーのユーザーがまだ約2割もいる！&lt;br /&gt;
+業種やコンテンツによってはまだ需要があって、しかもAdSenseのCTRはPCなんかよりはるかに高い(ミスクリックしやすい…？)。&lt;br /&gt;
+ということで、携帯(フィーチャーフォン/ガラケー)サイトがあるならばAdSenseを貼らないテはないんだけど、いかんせんGoogle公式のPHP用AdSenseコードがイマイチなので、クラスを作った。&lt;/p&gt;
+
+&lt;p&gt;Gogoleでは「WAPブラウザ用広告」という名前にしてるみたい。&lt;br /&gt;
+AdSenseのコード改変は違反じゃないのかと思う人もいるかもしれないけど、違反になるのはユーザー体験を損ねたりする場合であって、今回のPHPの場合は&lt;a href=&#34;https://support.google.com/adsense/answer/14204?hl=ja&#34;&gt;Google自身が外部リソースに頼れと誘導してる&lt;/a&gt;ので問題ないはず。&lt;/p&gt;
+
+&lt;h2 id=&#34;まず広告の作成:f9eda87e7a311ad08923afb954329951&#34;&gt;まず広告の作成&lt;/h2&gt;
+
+&lt;p&gt;AdSense管理画面の「&lt;a href=&#34;https://www.google.com/adsense/app#myads-viewall-adunits&#34;&gt;広告の設定&lt;/a&gt;」に行き、左メニューの「&lt;strong&gt;モバイルコンテンツ&lt;/strong&gt;」から広告を作成する。&lt;br /&gt;
+すでに広告作ってる場合はそれを使ってもいいかも。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;携帯サイトAdSense用広告の作成&#34; src=&#34;https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;広告作成の際にPHP用のコードが選択できるので、それを選択してコードを生成。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;PHP用AdSenseコードの生成&#34; src=&#34;https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;広告のコードが発行されるので、とりあえずメモ帳かなにかにコピペしておく。&lt;br /&gt;
+(あとでこのコード内の記述を使用)
+&lt;a href=&#34;https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;携帯サイト用AdSense広告のコード&#34; src=&#34;https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;携帯サイトadsense用phpクラスのコード:f9eda87e7a311ad08923afb954329951&#34;&gt;携帯サイトAdSense用PHPクラスのコード&lt;/h2&gt;
+
+&lt;p&gt;以下のコードをどこかに配置。&lt;br /&gt;
+&lt;a href=&#34;https://gist.github.com/kijtra/4f7b49f9c466a95463c8#file-adsense_for_keitai-php&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&lt;/i&gt; Gistにもあり(最新)&lt;/a&gt;&lt;br /&gt;
+10行目の「&lt;strong&gt;ca-mb-pub-XXXXXXXXXXXXXXX&lt;/strong&gt;」には、AdSenseコードにある「&lt;code&gt;$GLOBALS[&#39;google&#39;][&#39;client&#39;]&lt;/code&gt;」の値を入れておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+class adsenseForKeitai
+{
+	private $ad_url = &#39;http://pagead2.googlesyndication.com/pagead/ads&#39;;
+	private $timeout = 3;//second
+
+	private $params = array(
+		&#39;slot&#39; =&amp;gt; null,
+		&#39;client&#39; =&amp;gt; &#39;ca-mb-pub-XXXXXXXXXXXXXXX&#39;,
+
+		&#39;ad_type&#39; =&amp;gt; &#39;text_image&#39;,
+		&#39;format&#39; =&amp;gt; &#39;mobile_single&#39;,
+		&#39;markup&#39; =&amp;gt; &#39;xhtml&#39;,
+		&#39;output&#39; =&amp;gt; &#39;xhtml&#39;,
+		&#39;oe&#39; =&amp;gt; &#39;utf8&#39;,
+
+		&#39;https&#39; =&amp;gt; false,
+		&#39;ip&#39; =&amp;gt; null,
+		&#39;ref&#39; =&amp;gt; null,
+		&#39;url&#39; =&amp;gt; null,
+		&#39;useragent&#39; =&amp;gt; null,
+
+		&#39;color_border&#39; =&amp;gt; &#39;FFFFFF&#39;,
+		&#39;color_bg&#39; =&amp;gt; &#39;FFFFFF&#39;,
+		&#39;color_link&#39; =&amp;gt; &#39;0053F9&#39;,
+		&#39;color_text&#39; =&amp;gt; &#39;000000&#39;,
+		&#39;color_url&#39; =&amp;gt; &#39;828282&#39;,
+	);
+
+	public function __construct($slot = null, $charset = &#39;utf8&#39;)
+	{
+		$this-&amp;gt;params[&#39;slotname&#39;] = $slot;
+		$this-&amp;gt;params[&#39;oe&#39;] = $charset;
+
+		$this-&amp;gt;params[&#39;ip&#39;] = $_SERVER[&#39;REMOTE_ADDR&#39;];
+		$this-&amp;gt;params[&#39;useragent&#39;] = (!empty($_SERVER[&#39;HTTP_USER_AGENT&#39;]) ? $_SERVER[&#39;HTTP_USER_AGENT&#39;] : null);
+		$this-&amp;gt;params[&#39;ref&#39;] = (!empty($_SERVER[&#39;HTTP_REFERER&#39;]) ? $_SERVER[&#39;HTTP_REFERER&#39;] : null);
+		$this-&amp;gt;params[&#39;url&#39;] = $_SERVER[&#39;HTTP_HOST&#39;].$_SERVER[&#39;REQUEST_URI&#39;];
+
+		if (
+			(!empty($_SERVER[&#39;HTTPS&#39;]) &amp;amp;&amp;amp; (&#39;on&#39; == strtolower($_SERVER[&#39;HTTPS&#39;]) || &#39;1&#39; == strtolower($_SERVER[&#39;HTTPS&#39;])))
+			|| (!empty($_SERVER[&#39;SERVER_PORT&#39;]) &amp;amp;&amp;amp; (443 === (int)$_SERVER[&#39;SERVER_PORT&#39;])
+		)) {
+			$this-&amp;gt;params[&#39;https&#39;] = true;
+		}
+
+		$this-&amp;gt;params[&#39;dt&#39;] = time();
+
+		// Screen Resolutions
+		$res = null;
+		if (!empty($_SERVER[&#39;HTTP_UA_PIXELS&#39;])) {
+			$res = $_SERVER[&#39;HTTP_UA_PIXELS&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_UP_DEVCAP_SCREENPIXELS&#39;])) {
+			$res = $_SERVER[&#39;HTTP_X_UP_DEVCAP_SCREENPIXELS&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_JPHONE_DISPLAY&#39;])) {
+			$res = $_SERVER[&#39;HTTP_X_JPHONE_DISPLAY&#39;];
+		}
+
+		if (!empty($res) &amp;amp;&amp;amp; preg_match(&#39;/\A(\d+)[x,\*](\d+)\z/&#39;, $res, $match)) {
+			$this-&amp;gt;params[&#39;u_w&#39;] = $match[1];
+			$this-&amp;gt;params[&#39;u_h&#39;] = $match[2];
+		}
+
+		// MUID
+		if (!empty($_SERVER[&#39;HTTP_X_DCMGUID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_DCMGUID&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_UP_SUBNO&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_UP_SUBNO&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_JPHONE_UID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_JPHONE_UID&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_EM_UID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_EM_UID&#39;];
+		}
+
+		// Via and Accept
+		if (!empty($_SERVER[&#39;HTTP_VIA&#39;])) {
+			$this-&amp;gt;params[&#39;via&#39;] = $_SERVER[&#39;HTTP_VIA&#39;];
+		}
+
+		// Accept
+		if (!empty($_SERVER[&#39;HTTP_ACCEPT&#39;])) {
+			$this-&amp;gt;params[&#39;accept&#39;] = $_SERVER[&#39;HTTP_ACCEPT&#39;];
+		}
+	}
+
+	public function client($id = null)
+	{
+		if (!empty($id) &amp;amp;&amp;amp; false !== strpos($id, &#39;pub-&#39;)) {
+			$this-&amp;gt;params[&#39;client&#39;] = $id;
+		}
+
+		return $this;
+	}
+
+	public function slot($id = null)
+	{
+		if (!empty($id) &amp;amp;&amp;amp; ctype_digit(strval($id))) {
+			$this-&amp;gt;params[&#39;slotname&#39;] = $id;
+		}
+
+		return $this;
+	}
+
+	public function param($param = null)
+	{
+		if (!empty($param) &amp;amp;&amp;amp; is_array($param)) {
+			$this-&amp;gt;params = array_merge($this-&amp;gt;params, $param);
+		}
+
+		return $this;
+	}
+
+	public function color() {return $this-&amp;gt;colors();}//alias
+	public function colors($param = null)
+	{
+		if (!empty($param) &amp;amp;&amp;amp; is_array($param)) {
+			foreach($param as $key =&amp;gt; $val) {
+				$val = str_replace(&#39;#&#39;, &#39;&#39;, $val);
+				if (!preg_match(&#39;/\A[a-f0-9]{6}\z/i&#39;, $val)) {
+					if (preg_match(&#39;/\A([a-f0-9])([a-f0-9])([a-f0-9])\z/i&#39;, $val, $m)) {
+						$val = $m[1].$m[1].$m[2].$m[2].$m[3].$m[3];
+					} else {
+						continue;
+					}
+				}
+				if (0 !== strpos($key, &#39;color_&#39;)) {
+					$key = &#39;color_&#39;.$key;
+				}
+
+				$this-&amp;gt;params[$key] = strtoupper($val);
+			}
+		}
+
+		return $this;
+	}
+
+	private function request()
+	{
+		static $buffer = null;
+		if (!empty($buffer)) {
+			return $buffer;
+		}
+
+		if (empty($this-&amp;gt;params[&#39;client&#39;]) || empty($this-&amp;gt;params[&#39;slotname&#39;])) {
+			return false;
+		}
+
+		if (0 !== strpos($this-&amp;gt;params[&#39;client&#39;], &#39;ca-&#39;)) {
+			$this-&amp;gt;params[&#39;client&#39;] = &#39;ca-mb-&#39;.$this-&amp;gt;params[&#39;client&#39;];
+		}
+
+		$url = $this-&amp;gt;ad_url.&#39;?&#39;.http_build_query($this-&amp;gt;params);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this-&amp;gt;timeout);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this-&amp;gt;timeout);
+		//curl_setopt($ch, CURLOPT_HEADER, true);
+		$content = curl_exec($ch);
+		curl_close($ch);
+
+		if (!empty($content)) {
+			return $buffer = $content;
+		}
+	}
+
+	public function get()
+	{
+		return $this-&amp;gt;request();
+	}
+
+	public function show()
+	{
+		echo $this-&amp;gt;request();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;表示する:f9eda87e7a311ad08923afb954329951&#34;&gt;表示する&lt;/h2&gt;
+
+&lt;p&gt;広告を表示したい箇所に、以下のようなコードを書く。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+//スロットIDを指定して表示
+$class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;show();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)&lt;/code&gt; の部分は、&lt;br /&gt;
+AdSenseコードにある &lt;code&gt;$GLOBALS[&#39;google&#39;][&#39;slotname&#39;]&lt;/code&gt; の値を入れる(数字のみ)。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show()&lt;/code&gt; は出力も兼ねてるので、 &lt;code&gt;echo&lt;/code&gt; を書く必要はなし。&lt;br /&gt;
+(echoしたくない場合のために一応 &lt;code&gt;get()&lt;/code&gt; というのも用意してある)&lt;/p&gt;
+
+&lt;p&gt;もし広告のリンクとかテキストとかの色を変えたい場合は以下のようなこともできる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+// 広告の色設定(指定できるのは以下の5種類のみっぽい)
+$color = array(
+    &#39;border&#39; =&amp;gt; &#39;FFFFFF&#39;,// 枠線の色
+	&#39;bg&#39; =&amp;gt; &#39;FFFFFF&#39;,// 背景色
+	&#39;link&#39; =&amp;gt; &#39;0053F9&#39;,// リンク(タイトル)の色
+	&#39;text&#39; =&amp;gt; &#39;000000&#39;,// 通常テキスト色
+	&#39;url&#39; =&amp;gt; &#39;828282&#39;,// URL部分の色(携帯用は関係ないかも)
+);
+
+//スロットIDを指定して、色をセットして表示
+$class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;color($color)-&amp;gt;show();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;関連情報:f9eda87e7a311ad08923afb954329951&#34;&gt;関連情報&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/68724?ctx=as2&amp;amp;rd=1&#34;&gt;モバイル用AdSenseのヘルプ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/185668?hl=ja&#34;&gt;AdSenseモバイル広告の種類とサイズ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/1354736?hl=ja&#34;&gt;AdSense 広告コードの改変について&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>隣接県も含めた都道府県のJSONその他形式のデータ</title>
+      <link>http://kijtra.com/article/japan-prefecture-data</link>
+      <pubDate>Tue, 12 Aug 2014 11:25:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/japan-prefecture-data</guid>
+      <description>&lt;p&gt;都道府県の情報をよく使うので使いやすい形にして置いておこうと思いまして。&lt;/p&gt;
+
+&lt;p&gt;英語名とか短い名称（東京都→東京とか）をたまに使うのでそういうデータをひとまとめにしておいた。&lt;/p&gt;
+
+&lt;p&gt;関東などの地方の分け方はいろいろと形式があると思うけど、&lt;br /&gt;
+データとして、子データ（都道府県）の数がなるべく満遍なく散らばるようにした。&lt;br /&gt;
+（三重県が関西か東海か迷ったあげく東海にしたけど、三重県の人的にはどうなんだろ・・・）&lt;/p&gt;
+
+&lt;p&gt;隣接県については、北海道と沖縄以外は基本的に陸続きのもの。&lt;br /&gt;
+すべてWikipediaを目視で作ったので間違いないはず。&lt;br /&gt;
+道州制が敷かれるとかない限りは変更はないと思うけど・・・&lt;/p&gt;
+
+&lt;p&gt;とりあえずJSONデータ。
+&lt;a href=&#34;https://gist.github.com/kijtra/8cb9781f207c770bd166&#34;&gt;Gist にも置いておいた&lt;/a&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+	&amp;quot;01&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;01&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;北海道&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;北海道&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ホッカイドウ&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;hokkaido&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;02&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;02&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;青森県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;02&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;02&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;青森県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;青森&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;アオモリケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;aomori&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;01&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;01&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;北海道&amp;quot;
+			},
+			&amp;quot;03&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;03&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岩手県&amp;quot;
+			},
+			&amp;quot;05&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;05&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;秋田県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;03&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;03&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;岩手県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;岩手&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;イワテケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;iwate&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;02&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;02&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;青森県&amp;quot;
+			},
+			&amp;quot;04&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;04&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮城県&amp;quot;
+			},
+			&amp;quot;05&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;05&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;秋田県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;04&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;04&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;宮城県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;宮城&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ミヤギケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;miyagi&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;03&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;03&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岩手県&amp;quot;
+			},
+			&amp;quot;05&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;05&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;秋田県&amp;quot;
+			},
+			&amp;quot;06&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;06&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山形県&amp;quot;
+			},
+			&amp;quot;07&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;05&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;05&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;秋田県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;秋田&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;アキタケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;akita&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;02&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;02&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;青森県&amp;quot;
+			},
+			&amp;quot;03&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;03&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岩手県&amp;quot;
+			},
+			&amp;quot;04&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;04&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮城県&amp;quot;
+			},
+			&amp;quot;06&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;06&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山形県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;06&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;06&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;山形県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;山形&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ヤマガタケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;yamagata&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;04&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;04&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮城県&amp;quot;
+			},
+			&amp;quot;05&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;05&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;秋田県&amp;quot;
+			},
+			&amp;quot;07&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;
+			},
+			&amp;quot;15&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;15&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;新潟県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;07&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;福島&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;フクシマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;fukushima&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 1,
+			&amp;quot;name&amp;quot;: &amp;quot;北海道・東北&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;04&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;04&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮城県&amp;quot;
+			},
+			&amp;quot;06&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;06&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山形県&amp;quot;
+			},
+			&amp;quot;08&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;08&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;茨城県&amp;quot;
+			},
+			&amp;quot;09&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;09&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;栃木県&amp;quot;
+			},
+			&amp;quot;10&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;10&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;群馬県&amp;quot;
+			},
+			&amp;quot;15&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;15&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;新潟県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;08&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;08&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;茨城県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;茨城&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;イバラキケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;ibaraki&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;07&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;
+			},
+			&amp;quot;09&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;09&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;栃木県&amp;quot;
+			},
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			},
+			&amp;quot;12&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;12&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;千葉県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;09&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;09&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;栃木県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;栃木&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;トチギケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;tochigi&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;07&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;
+			},
+			&amp;quot;08&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;08&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;茨城県&amp;quot;
+			},
+			&amp;quot;10&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;10&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;群馬県&amp;quot;
+			},
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;10&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;10&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;群馬県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;群馬&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;グンマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;gunma&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;07&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;
+			},
+			&amp;quot;09&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;09&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;栃木県&amp;quot;
+			},
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			},
+			&amp;quot;15&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;15&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;新潟県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;11&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;埼玉&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;サイタマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;saitama&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;08&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;08&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;茨城県&amp;quot;
+			},
+			&amp;quot;09&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;09&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;栃木県&amp;quot;
+			},
+			&amp;quot;10&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;10&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;群馬県&amp;quot;
+			},
+			&amp;quot;12&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;12&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;千葉県&amp;quot;
+			},
+			&amp;quot;13&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;13&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;東京都&amp;quot;
+			},
+			&amp;quot;19&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;19&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山梨県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;12&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;12&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;千葉県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;千葉&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;チバケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;chiba&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;08&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;08&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;茨城県&amp;quot;
+			},
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			},
+			&amp;quot;13&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;13&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;東京都&amp;quot;
+			}
+		}
+	},
+	&amp;quot;13&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;13&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;東京都&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;東京&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;トウキョウト&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;tokyo&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			},
+			&amp;quot;12&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;12&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;千葉県&amp;quot;
+			},
+			&amp;quot;14&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;14&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;神奈川県&amp;quot;
+			},
+			&amp;quot;19&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;19&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山梨県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;14&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;14&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;神奈川県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;神奈川&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;カナガワケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;kanagawa&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 2,
+			&amp;quot;name&amp;quot;: &amp;quot;関東&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;13&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;13&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;東京都&amp;quot;
+			},
+			&amp;quot;19&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;19&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山梨県&amp;quot;
+			},
+			&amp;quot;22&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;22&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;静岡県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;15&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;15&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;新潟県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;新潟&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ニイガタケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;niigata&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 3,
+			&amp;quot;name&amp;quot;: &amp;quot;北陸・甲信&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;06&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;06&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山形県&amp;quot;
+			},
+			&amp;quot;07&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;07&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福島県&amp;quot;
+			},
+			&amp;quot;10&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;10&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;群馬県&amp;quot;
+			},
+			&amp;quot;16&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;16&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;富山県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;16&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;16&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;富山県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;富山&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;トヤマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;toyama&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 3,
+			&amp;quot;name&amp;quot;: &amp;quot;北陸・甲信&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;15&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;15&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;新潟県&amp;quot;
+			},
+			&amp;quot;17&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;17&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;石川県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			},
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;17&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;17&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;石川県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;石川&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;イシカワケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;ishikawa&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 3,
+			&amp;quot;name&amp;quot;: &amp;quot;北陸・甲信&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;16&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;16&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;富山県&amp;quot;
+			},
+			&amp;quot;18&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;18&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福井県&amp;quot;
+			},
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;18&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;18&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;福井県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;福井&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;フクイケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;fukui&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 3,
+			&amp;quot;name&amp;quot;: &amp;quot;北陸・甲信&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;17&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;17&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;石川県&amp;quot;
+			},
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			},
+			&amp;quot;25&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;25&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;滋賀県&amp;quot;
+			},
+			&amp;quot;26&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;
+			}
+		}
+	},
+	&amp;quot;19&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;19&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;山梨県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;山梨&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ヤマナシケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;yamanashi&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 3,
+			&amp;quot;name&amp;quot;: &amp;quot;北陸・甲信&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			},
+			&amp;quot;13&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;13&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;東京都&amp;quot;
+			},
+			&amp;quot;14&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;14&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;神奈川県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			},
+			&amp;quot;22&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;22&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;静岡県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;20&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;長野&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ナガノケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;nagano&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 3,
+			&amp;quot;name&amp;quot;: &amp;quot;北陸・甲信&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;10&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;10&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;群馬県&amp;quot;
+			},
+			&amp;quot;11&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;11&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;埼玉県&amp;quot;
+			},
+			&amp;quot;15&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;15&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;新潟県&amp;quot;
+			},
+			&amp;quot;16&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;16&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;富山県&amp;quot;
+			},
+			&amp;quot;19&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;19&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山梨県&amp;quot;
+			},
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			},
+			&amp;quot;22&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;22&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;静岡県&amp;quot;
+			},
+			&amp;quot;23&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;23&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛知県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;21&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;岐阜&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ギフケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;gifu&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 4,
+			&amp;quot;name&amp;quot;: &amp;quot;東海&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;16&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;16&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;富山県&amp;quot;
+			},
+			&amp;quot;17&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;17&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;石川県&amp;quot;
+			},
+			&amp;quot;18&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;18&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福井県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			},
+			&amp;quot;23&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;23&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛知県&amp;quot;
+			},
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			},
+			&amp;quot;25&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;25&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;滋賀県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;22&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;22&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;静岡県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;静岡&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;シズオカケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;shizuoka&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 4,
+			&amp;quot;name&amp;quot;: &amp;quot;東海&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;14&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;14&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;神奈川県&amp;quot;
+			},
+			&amp;quot;19&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;19&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山梨県&amp;quot;
+			},
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			},
+			&amp;quot;23&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;23&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛知県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;23&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;23&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;愛知県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;愛知&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;アイチケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;aichi&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 4,
+			&amp;quot;name&amp;quot;: &amp;quot;東海&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;20&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;20&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長野県&amp;quot;
+			},
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			},
+			&amp;quot;22&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;22&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;静岡県&amp;quot;
+			},
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;24&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;三重&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ミエケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;mie&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 4,
+			&amp;quot;name&amp;quot;: &amp;quot;東海&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			},
+			&amp;quot;23&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;23&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛知県&amp;quot;
+			},
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			},
+			&amp;quot;25&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;25&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;滋賀県&amp;quot;
+			},
+			&amp;quot;26&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;
+			},
+			&amp;quot;29&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;29&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;奈良県&amp;quot;
+			},
+			&amp;quot;30&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;30&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;和歌山県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;25&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;25&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;滋賀県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;滋賀&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;シガケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;shiga&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 5,
+			&amp;quot;name&amp;quot;: &amp;quot;近畿&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;18&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;18&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福井県&amp;quot;
+			},
+			&amp;quot;21&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;21&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岐阜県&amp;quot;
+			},
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			},
+			&amp;quot;26&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;
+			}
+		}
+	},
+	&amp;quot;26&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;京都&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;キョウトフ&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;kyoto&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 5,
+			&amp;quot;name&amp;quot;: &amp;quot;近畿&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;18&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;18&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福井県&amp;quot;
+			},
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			},
+			&amp;quot;25&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;25&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;滋賀県&amp;quot;
+			},
+			&amp;quot;27&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;27&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大阪府&amp;quot;
+			},
+			&amp;quot;28&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;28&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;兵庫県&amp;quot;
+			},
+			&amp;quot;29&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;29&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;奈良県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;27&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;27&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;大阪府&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;大阪&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;オオサカフ&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;osaka&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 5,
+			&amp;quot;name&amp;quot;: &amp;quot;近畿&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;26&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;
+			},
+			&amp;quot;28&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;28&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;兵庫県&amp;quot;
+			},
+			&amp;quot;29&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;29&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;奈良県&amp;quot;
+			},
+			&amp;quot;30&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;30&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;和歌山県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;28&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;28&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;兵庫県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;兵庫&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ヒョウゴケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;hyogo&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 5,
+			&amp;quot;name&amp;quot;: &amp;quot;近畿&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;26&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;
+			},
+			&amp;quot;27&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;27&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大阪府&amp;quot;
+			},
+			&amp;quot;31&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;31&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鳥取県&amp;quot;
+			},
+			&amp;quot;33&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;33&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岡山県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;29&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;29&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;奈良県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;奈良&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ナラケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;nara&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 5,
+			&amp;quot;name&amp;quot;: &amp;quot;近畿&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			},
+			&amp;quot;26&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;26&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;京都府&amp;quot;
+			},
+			&amp;quot;27&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;27&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大阪府&amp;quot;
+			},
+			&amp;quot;30&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;30&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;和歌山県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;30&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;30&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;和歌山県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;和歌山&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ワカヤマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;wakayama&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 5,
+			&amp;quot;name&amp;quot;: &amp;quot;近畿&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;24&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;24&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;三重県&amp;quot;
+			},
+			&amp;quot;27&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;27&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大阪府&amp;quot;
+			},
+			&amp;quot;28&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;28&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;兵庫県&amp;quot;
+			},
+			&amp;quot;29&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;29&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;奈良県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;31&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;31&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;鳥取県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;鳥取&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;トットリケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;tottori&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 6,
+			&amp;quot;name&amp;quot;: &amp;quot;中国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;28&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;28&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;兵庫県&amp;quot;
+			},
+			&amp;quot;32&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;32&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;島根県&amp;quot;
+			},
+			&amp;quot;33&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;33&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岡山県&amp;quot;
+			},
+			&amp;quot;34&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;34&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;広島県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;32&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;32&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;島根県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;島根&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;シマネケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;shimane&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 6,
+			&amp;quot;name&amp;quot;: &amp;quot;中国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;31&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;31&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鳥取県&amp;quot;
+			},
+			&amp;quot;34&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;34&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;広島県&amp;quot;
+			},
+			&amp;quot;35&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;35&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山口県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;33&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;33&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;岡山県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;岡山&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;オカヤマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;okayama&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 6,
+			&amp;quot;name&amp;quot;: &amp;quot;中国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;28&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;28&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;兵庫県&amp;quot;
+			},
+			&amp;quot;31&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;31&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鳥取県&amp;quot;
+			},
+			&amp;quot;34&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;34&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;広島県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;34&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;34&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;広島県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;広島&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ヒロシマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;hiroshima&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 6,
+			&amp;quot;name&amp;quot;: &amp;quot;中国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;31&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;31&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鳥取県&amp;quot;
+			},
+			&amp;quot;32&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;32&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;島根県&amp;quot;
+			},
+			&amp;quot;33&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;33&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;岡山県&amp;quot;
+			},
+			&amp;quot;35&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;35&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;山口県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;35&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;35&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;山口県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;山口&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ヤマグチケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;yamaguchi&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 6,
+			&amp;quot;name&amp;quot;: &amp;quot;中国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;32&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;32&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;島根県&amp;quot;
+			},
+			&amp;quot;34&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;34&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;広島県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;36&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;36&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;徳島県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;徳島&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;トクシマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;tokushima&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 7,
+			&amp;quot;name&amp;quot;: &amp;quot;四国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;37&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;37&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;香川県&amp;quot;
+			},
+			&amp;quot;38&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;38&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛媛県&amp;quot;
+			},
+			&amp;quot;39&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;39&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;高知県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;37&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;37&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;香川県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;香川&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;カガワケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;kagawa&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 7,
+			&amp;quot;name&amp;quot;: &amp;quot;四国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;36&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;36&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;徳島県&amp;quot;
+			},
+			&amp;quot;38&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;38&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛媛県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;38&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;38&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;愛媛県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;愛媛&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;エヒメケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;ehime&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 7,
+			&amp;quot;name&amp;quot;: &amp;quot;四国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;36&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;36&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;徳島県&amp;quot;
+			},
+			&amp;quot;37&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;37&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;香川県&amp;quot;
+			},
+			&amp;quot;39&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;39&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;高知県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;39&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;39&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;高知県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;高知&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;コウチケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;kochi&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 7,
+			&amp;quot;name&amp;quot;: &amp;quot;四国&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;36&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;36&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;徳島県&amp;quot;
+			},
+			&amp;quot;38&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;38&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;愛媛県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;40&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;40&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;福岡県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;福岡&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;フクオカケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;fukuoka&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;41&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;41&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;佐賀県&amp;quot;
+			},
+			&amp;quot;43&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;43&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;熊本県&amp;quot;
+			},
+			&amp;quot;44&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;44&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大分県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;41&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;41&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;佐賀県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;佐賀&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;サガケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;saga&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;40&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;40&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福岡県&amp;quot;
+			},
+			&amp;quot;42&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;42&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;長崎県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;42&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;42&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;長崎県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;長崎&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ナガサキケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;nagasaki&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;41&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;41&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;佐賀県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;43&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;43&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;熊本県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;熊本&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;クマモトケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;kumamoto&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;40&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;40&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福岡県&amp;quot;
+			},
+			&amp;quot;44&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;44&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大分県&amp;quot;
+			},
+			&amp;quot;45&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;45&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮崎県&amp;quot;
+			},
+			&amp;quot;46&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;46&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鹿児島県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;44&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;44&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;大分県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;大分&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;オオイタケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;oita&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;40&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;40&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;福岡県&amp;quot;
+			},
+			&amp;quot;43&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;43&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;熊本県&amp;quot;
+			},
+			&amp;quot;45&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;45&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮崎県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;45&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;45&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;宮崎県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;宮崎&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;ミヤザキケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;miyazaki&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;43&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;43&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;熊本県&amp;quot;
+			},
+			&amp;quot;44&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;44&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;大分県&amp;quot;
+			},
+			&amp;quot;46&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;46&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鹿児島県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;46&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;46&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;鹿児島県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;鹿児島&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;カゴシマケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;kagoshima&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;43&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;43&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;熊本県&amp;quot;
+			},
+			&amp;quot;45&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;45&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;宮崎県&amp;quot;
+			}
+		}
+	},
+	&amp;quot;47&amp;quot;: {
+		&amp;quot;id&amp;quot;: &amp;quot;47&amp;quot;,
+		&amp;quot;name&amp;quot;: &amp;quot;沖縄県&amp;quot;,
+		&amp;quot;short&amp;quot;: &amp;quot;沖縄&amp;quot;,
+		&amp;quot;kana&amp;quot;: &amp;quot;オキナワケン&amp;quot;,
+		&amp;quot;en&amp;quot;: &amp;quot;okinawa&amp;quot;,
+		&amp;quot;area&amp;quot;: {
+			&amp;quot;id&amp;quot;: 8,
+			&amp;quot;name&amp;quot;: &amp;quot;九州・沖縄&amp;quot;
+		},
+		&amp;quot;neighbor&amp;quot;: {
+			&amp;quot;46&amp;quot;: {
+				&amp;quot;id&amp;quot;: &amp;quot;46&amp;quot;,
+				&amp;quot;name&amp;quot;: &amp;quot;鹿児島県&amp;quot;
+			}
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;PHP 向けの serialize&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-text&#34;&gt;a:47:{s:2:&amp;quot;01&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;01&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;北海道&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:9:&amp;quot;北海道&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ホッカイドウ&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;hokkaido&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:1:{s:2:&amp;quot;02&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;02&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;青森県&amp;quot;;}}}s:2:&amp;quot;02&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;02&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;青森県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;青森&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;アオモリケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:6:&amp;quot;aomori&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{s:2:&amp;quot;01&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;01&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;北海道&amp;quot;;}s:2:&amp;quot;03&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;03&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岩手県&amp;quot;;}s:2:&amp;quot;05&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;05&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;秋田県&amp;quot;;}}}s:2:&amp;quot;03&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;03&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岩手県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;岩手&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;イワテケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;iwate&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{s:2:&amp;quot;02&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;02&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;青森県&amp;quot;;}s:2:&amp;quot;04&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;04&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮城県&amp;quot;;}s:2:&amp;quot;05&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;05&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;秋田県&amp;quot;;}}}s:2:&amp;quot;04&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;04&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮城県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;宮城&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;ミヤギケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:6:&amp;quot;miyagi&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{s:2:&amp;quot;03&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;03&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岩手県&amp;quot;;}s:2:&amp;quot;05&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;05&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;秋田県&amp;quot;;}s:2:&amp;quot;06&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;06&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山形県&amp;quot;;}s:2:&amp;quot;07&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;}}}s:2:&amp;quot;05&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;05&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;秋田県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;秋田&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;アキタケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;akita&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{s:2:&amp;quot;02&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;02&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;青森県&amp;quot;;}s:2:&amp;quot;03&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;03&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岩手県&amp;quot;;}s:2:&amp;quot;04&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;04&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮城県&amp;quot;;}s:2:&amp;quot;06&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;06&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山形県&amp;quot;;}}}s:2:&amp;quot;06&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;06&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山形県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;山形&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ヤマガタケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;yamagata&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{s:2:&amp;quot;04&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;04&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮城県&amp;quot;;}s:2:&amp;quot;05&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;05&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;秋田県&amp;quot;;}s:2:&amp;quot;07&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;}i:15;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;15&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;新潟県&amp;quot;;}}}s:2:&amp;quot;07&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;福島&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;フクシマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:9:&amp;quot;fukushima&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:1;s:4:&amp;quot;name&amp;quot;;s:18:&amp;quot;北海道・東北&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:6:{s:2:&amp;quot;04&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;04&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮城県&amp;quot;;}s:2:&amp;quot;06&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;06&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山形県&amp;quot;;}s:2:&amp;quot;08&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;08&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;茨城県&amp;quot;;}s:2:&amp;quot;09&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;09&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;栃木県&amp;quot;;}i:10;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;10&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;群馬県&amp;quot;;}i:15;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;15&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;新潟県&amp;quot;;}}}s:2:&amp;quot;08&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;08&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;茨城県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;茨城&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;イバラキケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;ibaraki&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{s:2:&amp;quot;07&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;}s:2:&amp;quot;09&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;09&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;栃木県&amp;quot;;}i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}i:12;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;12&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;千葉県&amp;quot;;}}}s:2:&amp;quot;09&amp;quot;;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;09&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;栃木県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;栃木&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;トチギケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;tochigi&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{s:2:&amp;quot;07&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;}s:2:&amp;quot;08&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;08&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;茨城県&amp;quot;;}i:10;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;10&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;群馬県&amp;quot;;}i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}}}i:10;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;10&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;群馬県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;群馬&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;グンマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;gunma&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:5:{s:2:&amp;quot;07&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;}s:2:&amp;quot;09&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;09&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;栃木県&amp;quot;;}i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}i:15;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;15&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;新潟県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}}}i:11;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;埼玉&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;サイタマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;saitama&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:7:{s:2:&amp;quot;08&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;08&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;茨城県&amp;quot;;}s:2:&amp;quot;09&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;09&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;栃木県&amp;quot;;}i:10;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;10&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;群馬県&amp;quot;;}i:12;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;12&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;千葉県&amp;quot;;}i:13;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;13&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;東京都&amp;quot;;}i:19;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;19&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山梨県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}}}i:12;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;12&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;千葉県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;千葉&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:12:&amp;quot;チバケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;chiba&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{s:2:&amp;quot;08&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;08&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;茨城県&amp;quot;;}i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}i:13;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;13&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;東京都&amp;quot;;}}}i:13;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;13&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;東京都&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;東京&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;トウキョウト&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;tokyo&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}i:12;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;12&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;千葉県&amp;quot;;}i:14;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;14&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;神奈川県&amp;quot;;}i:19;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;19&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山梨県&amp;quot;;}}}i:14;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;14&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;神奈川県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:9:&amp;quot;神奈川&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;カナガワケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;kanagawa&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:2;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;関東&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:13;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;13&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;東京都&amp;quot;;}i:19;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;19&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山梨県&amp;quot;;}i:22;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;22&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;静岡県&amp;quot;;}}}i:15;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;15&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;新潟県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;新潟&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ニイガタケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;niigata&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:3;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;北陸・甲信&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:5:{s:2:&amp;quot;06&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;06&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山形県&amp;quot;;}s:2:&amp;quot;07&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;07&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福島県&amp;quot;;}i:10;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;10&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;群馬県&amp;quot;;}i:16;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;16&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;富山県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}}}i:16;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;16&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;富山県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;富山&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;トヤマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:6:&amp;quot;toyama&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:3;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;北陸・甲信&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:15;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;15&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;新潟県&amp;quot;;}i:17;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;17&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;石川県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}}}i:17;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;17&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;石川県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;石川&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;イシカワケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;ishikawa&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:3;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;北陸・甲信&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:16;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;16&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;富山県&amp;quot;;}i:18;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;18&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福井県&amp;quot;;}i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}}}i:18;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;18&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福井県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;福井&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;フクイケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;fukui&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:3;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;北陸・甲信&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:17;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;17&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;石川県&amp;quot;;}i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}i:25;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;25&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;滋賀県&amp;quot;;}i:26;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;}}}i:19;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;19&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山梨県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;山梨&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ヤマナシケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:9:&amp;quot;yamanashi&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:3;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;北陸・甲信&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:5:{i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}i:13;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;13&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;東京都&amp;quot;;}i:14;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;14&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;神奈川県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}i:22;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;22&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;静岡県&amp;quot;;}}}i:20;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;長野&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;ナガノケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:6:&amp;quot;nagano&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:3;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;北陸・甲信&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:8:{i:10;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;10&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;群馬県&amp;quot;;}i:11;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;11&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;埼玉県&amp;quot;;}i:15;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;15&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;新潟県&amp;quot;;}i:16;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;16&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;富山県&amp;quot;;}i:19;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;19&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山梨県&amp;quot;;}i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}i:22;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;22&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;静岡県&amp;quot;;}i:23;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;23&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛知県&amp;quot;;}}}i:21;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;岐阜&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:12:&amp;quot;ギフケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:4:&amp;quot;gifu&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:4;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;東海&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:7:{i:16;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;16&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;富山県&amp;quot;;}i:17;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;17&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;石川県&amp;quot;;}i:18;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;18&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福井県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}i:23;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;23&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛知県&amp;quot;;}i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}i:25;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;25&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;滋賀県&amp;quot;;}}}i:22;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;22&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;静岡県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;静岡&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;シズオカケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;shizuoka&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:4;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;東海&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:14;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;14&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;神奈川県&amp;quot;;}i:19;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;19&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山梨県&amp;quot;;}i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}i:23;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;23&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛知県&amp;quot;;}}}i:23;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;23&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛知県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;愛知&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;アイチケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;aichi&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:4;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;東海&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:20;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;20&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長野県&amp;quot;;}i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}i:22;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;22&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;静岡県&amp;quot;;}i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}}}i:24;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;三重&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:12:&amp;quot;ミエケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:3:&amp;quot;mie&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:4;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;東海&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:7:{i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}i:23;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;23&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛知県&amp;quot;;}i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}i:25;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;25&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;滋賀県&amp;quot;;}i:26;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;}i:29;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;29&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;奈良県&amp;quot;;}i:30;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;30&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;和歌山県&amp;quot;;}}}i:25;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;25&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;滋賀県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;滋賀&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:12:&amp;quot;シガケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;shiga&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:5;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;近畿&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:18;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;18&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福井県&amp;quot;;}i:21;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;21&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岐阜県&amp;quot;;}i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}i:26;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;}}}i:26;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;京都&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;キョウトフ&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;kyoto&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:5;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;近畿&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:6:{i:18;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;18&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福井県&amp;quot;;}i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}i:25;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;25&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;滋賀県&amp;quot;;}i:27;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;27&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大阪府&amp;quot;;}i:28;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;28&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;兵庫県&amp;quot;;}i:29;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;29&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;奈良県&amp;quot;;}}}i:27;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;27&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大阪府&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;大阪&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;オオサカフ&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;osaka&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:5;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;近畿&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:26;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;}i:28;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;28&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;兵庫県&amp;quot;;}i:29;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;29&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;奈良県&amp;quot;;}i:30;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;30&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;和歌山県&amp;quot;;}}}i:28;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;28&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;兵庫県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;兵庫&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ヒョウゴケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;hyogo&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:5;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;近畿&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:26;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;}i:27;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;27&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大阪府&amp;quot;;}i:31;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;31&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;鳥取県&amp;quot;;}i:33;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;33&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岡山県&amp;quot;;}}}i:29;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;29&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;奈良県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;奈良&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:12:&amp;quot;ナラケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:4:&amp;quot;nara&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:5;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;近畿&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}i:26;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;26&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;京都府&amp;quot;;}i:27;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;27&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大阪府&amp;quot;;}i:30;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;30&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;和歌山県&amp;quot;;}}}i:30;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;30&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;和歌山県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:9:&amp;quot;和歌山&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ワカヤマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;wakayama&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:5;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;近畿&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:24;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;24&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;三重県&amp;quot;;}i:27;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;27&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大阪府&amp;quot;;}i:28;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;28&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;兵庫県&amp;quot;;}i:29;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;29&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;奈良県&amp;quot;;}}}i:31;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;31&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;鳥取県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;鳥取&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;トットリケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;tottori&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:6;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;中国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:28;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;28&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;兵庫県&amp;quot;;}i:32;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;32&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;島根県&amp;quot;;}i:33;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;33&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岡山県&amp;quot;;}i:34;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;34&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;広島県&amp;quot;;}}}i:32;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;32&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;島根県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;島根&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;シマネケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;shimane&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:6;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;中国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:31;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;31&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;鳥取県&amp;quot;;}i:34;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;34&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;広島県&amp;quot;;}i:35;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;35&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山口県&amp;quot;;}}}i:33;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;33&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岡山県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;岡山&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;オカヤマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;okayama&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:6;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;中国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:28;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;28&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;兵庫県&amp;quot;;}i:31;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;31&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;鳥取県&amp;quot;;}i:34;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;34&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;広島県&amp;quot;;}}}i:34;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;34&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;広島県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;広島&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ヒロシマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:9:&amp;quot;hiroshima&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:6;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;中国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:31;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;31&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;鳥取県&amp;quot;;}i:32;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;32&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;島根県&amp;quot;;}i:33;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;33&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;岡山県&amp;quot;;}i:35;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;35&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山口県&amp;quot;;}}}i:35;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;35&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;山口県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;山口&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ヤマグチケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:9:&amp;quot;yamaguchi&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:6;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;中国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:2:{i:32;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;32&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;島根県&amp;quot;;}i:34;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;34&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;広島県&amp;quot;;}}}i:36;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;36&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;徳島県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;徳島&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;トクシマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:9:&amp;quot;tokushima&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:7;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;四国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:37;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;37&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;香川県&amp;quot;;}i:38;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;38&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛媛県&amp;quot;;}i:39;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;39&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;高知県&amp;quot;;}}}i:37;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;37&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;香川県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;香川&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;カガワケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:6:&amp;quot;kagawa&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:7;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;四国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:2:{i:36;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;36&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;徳島県&amp;quot;;}i:38;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;38&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛媛県&amp;quot;;}}}i:38;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;38&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛媛県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;愛媛&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;エヒメケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;ehime&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:7;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;四国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:36;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;36&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;徳島県&amp;quot;;}i:37;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;37&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;香川県&amp;quot;;}i:39;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;39&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;高知県&amp;quot;;}}}i:39;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;39&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;高知県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;高知&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:15:&amp;quot;コウチケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:5:&amp;quot;kochi&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:7;s:4:&amp;quot;name&amp;quot;;s:6:&amp;quot;四国&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:2:{i:36;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;36&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;徳島県&amp;quot;;}i:38;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;38&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;愛媛県&amp;quot;;}}}i:40;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;40&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福岡県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;福岡&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;フクオカケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;fukuoka&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:41;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;41&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;佐賀県&amp;quot;;}i:43;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;43&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;熊本県&amp;quot;;}i:44;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;44&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大分県&amp;quot;;}}}i:41;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;41&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;佐賀県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;佐賀&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:12:&amp;quot;サガケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:4:&amp;quot;saga&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:2:{i:40;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;40&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福岡県&amp;quot;;}i:42;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;42&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長崎県&amp;quot;;}}}i:42;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;42&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;長崎県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;長崎&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ナガサキケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;nagasaki&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:1:{i:41;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;41&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;佐賀県&amp;quot;;}}}i:43;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;43&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;熊本県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;熊本&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;クマモトケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;kumamoto&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:4:{i:40;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;40&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福岡県&amp;quot;;}i:44;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;44&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大分県&amp;quot;;}i:45;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;45&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮崎県&amp;quot;;}i:46;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;46&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;鹿児島県&amp;quot;;}}}i:44;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;44&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大分県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;大分&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;オオイタケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:4:&amp;quot;oita&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:40;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;40&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;福岡県&amp;quot;;}i:43;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;43&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;熊本県&amp;quot;;}i:45;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;45&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮崎県&amp;quot;;}}}i:45;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;45&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮崎県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;宮崎&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;ミヤザキケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:8:&amp;quot;miyazaki&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:3:{i:43;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;43&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;熊本県&amp;quot;;}i:44;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;44&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;大分県&amp;quot;;}i:46;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;46&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;鹿児島県&amp;quot;;}}}i:46;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;46&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;鹿児島県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:9:&amp;quot;鹿児島&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;カゴシマケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:9:&amp;quot;kagoshima&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:2:{i:43;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;43&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;熊本県&amp;quot;;}i:45;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;45&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;宮崎県&amp;quot;;}}}i:47;a:7:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;47&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:9:&amp;quot;沖縄県&amp;quot;;s:5:&amp;quot;short&amp;quot;;s:6:&amp;quot;沖縄&amp;quot;;s:4:&amp;quot;kana&amp;quot;;s:18:&amp;quot;オキナワケン&amp;quot;;s:2:&amp;quot;en&amp;quot;;s:7:&amp;quot;okinawa&amp;quot;;s:4:&amp;quot;area&amp;quot;;a:2:{s:2:&amp;quot;id&amp;quot;;i:8;s:4:&amp;quot;name&amp;quot;;s:15:&amp;quot;九州・沖縄&amp;quot;;}s:8:&amp;quot;neighbor&amp;quot;;a:1:{i:46;a:2:{s:2:&amp;quot;id&amp;quot;;s:2:&amp;quot;46&amp;quot;;s:4:&amp;quot;name&amp;quot;;s:12:&amp;quot;鹿児島県&amp;quot;;}}}}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SQL版も作ろうと思ったけど隣接県とかの1対多のデータの持たせ方は人それぞれなのでやめといたw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Sublime Text 3 のインストール～設定メモ</title>
+      <link>http://kijtra.com/article/sublime-text-3-install-and-settings</link>
+      <pubDate>Fri, 04 Jul 2014 12:07:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/sublime-text-3-install-and-settings</guid>
+      <description>
+
+&lt;p&gt;Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ。&lt;/p&gt;
+
+&lt;h2 id=&#34;開発バージョンをダウンロード:73589e8d2639747e5931f20bd3d44061&#34;&gt;開発バージョンをダウンロード&lt;/h2&gt;
+
+&lt;p&gt;巷では Sublime Text の &lt;a href=&#34;http://www.sublimetext.com/2&#34;&gt;バージョン2&lt;/a&gt; を使っている人が多いようだけど、バージョン &lt;strong&gt;3&lt;/strong&gt; を使う。&lt;br /&gt;
+バージョン3の方が起動など動作が速く、サイドバーのファイルアイコン(あとで「テーマ」の部分で紹介)に対応してる。&lt;/p&gt;
+
+&lt;p&gt;現時点(2014/07/05)では Build 3062 が最新だった。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/3dev&#34;&gt;Sublime Text Dev Builds&lt;/a&gt;&lt;/strong&gt; &lt;a href=&#34;http://www.sublimetext.com/3dev&#34;&gt;http://www.sublimetext.com/3dev&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ちなみに Portable Version を Dropbox に入れて使ってる。&lt;/p&gt;
+
+&lt;h2 id=&#34;まずは-package-control-をインストール:73589e8d2639747e5931f20bd3d44061&#34;&gt;まずは「Package Control」をインストール&lt;/h2&gt;
+
+&lt;p&gt;Sublime Text をはじめて起動したら、まずはこれを入れる。&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/&#34;&gt;Package Control&lt;/a&gt;&lt;/strong&gt; &lt;a href=&#34;https://sublime.wbond.net/&#34;&gt;https://sublime.wbond.net/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;インストール手順は、Sublime Text を起動し、&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;`&lt;/kbd&gt;(&lt;kbd&gt;@&lt;/kbd&gt;キー) を押してコンソールを表示させ、公式コードをそのままコピー＆ペーストして &lt;kbd&gt;Enter&lt;/kbd&gt;。&lt;br /&gt;
+コピーするコードは &lt;a href=&#34;https://sublime.wbond.net/installation&#34;&gt;ここのページのもの(「SUBLIME TEXT 3」のタブ内)を使用する&lt;/a&gt; 。&lt;br /&gt;
+※上記ページに「コードの再配布はするな」と書いてあるのでここには書けない&lt;/p&gt;
+
+&lt;h2 id=&#34;プラグイン:73589e8d2639747e5931f20bd3d44061&#34;&gt;プラグイン&lt;/h2&gt;
+
+&lt;p&gt;プラグインはなるべく Package Control で入れられるものに限定したい。&lt;br /&gt;
+各プラグインのインストールは、 Sublime Text 起動時に　&lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;P&lt;/kbd&gt; でコマンドリストを表示させ、「Package Control: Install Package」を探して &lt;kbd&gt;Enter&lt;/kbd&gt;。&lt;br /&gt;
+コマンドリストの検索窓に「 &lt;span style=&#34;font-family:serif&#34;&gt;&lt;strong&gt;I&lt;/strong&gt;&lt;/span&gt; 」を入力して、そこから探して &lt;kbd&gt;Enter&lt;/kbd&gt; しておくと、次回からは「&lt;span style=&#34;font-family:serif&#34;&gt;I&lt;/span&gt;」検索で「Package Control: Install Package」が最初に出るのでなるべくやっておく。&lt;br /&gt;
+「Package Control: Install Package」を &lt;kbd&gt;Enter&lt;/kbd&gt; したら Package Control のサーバーから一覧が読み込まれるので、以下の各プラグイン名で検索して &lt;kbd&gt;Enter&lt;/kbd&gt; するとインストールされる。&lt;/p&gt;
+
+&lt;h3 id=&#34;おすすめ系:73589e8d2639747e5931f20bd3d44061&#34;&gt;おすすめ系&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Emmet&#34;&gt;Emmet&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;https://code.google.com/p/zen-coding/&#34;&gt;Zen Coding&lt;/a&gt; の進化系。コーディングする人は必須で覚えた方がいい。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SideBarEnhancements&#34;&gt;SidebarEnhancements&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Sublime Text のサイドバーでの右クリック項目を拡張してくれる。&lt;br /&gt;
+例えば「このファイルを指定のアプリケーションで開く(Open With&amp;hellip;)」とか「実行する(Open/Run)」とか、デフォルトでは付いていないので。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/ConvertToUTF8&#34;&gt;ConvertToUTF8&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+マルチバイト文字が含まれるファイルをUTF8に変換して表示。&lt;br /&gt;
+デフォルトでは Shift-JIS とか文字化けしたりするので、とりあえず入れておく。&lt;br /&gt;
+絶対に UTF-8 しか扱わない自信があればいらないかも。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/BracketHighlighter&#34;&gt;BracketHighlighter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+HTMLの開始タグ～終了タグや、コードのカッコのペアをわかりやすく表示してくれる。&lt;br /&gt;
+この終了タグってどのdivだ？みたいなのに無駄な時間を取られないようにしたい。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/IMESupport&#34;&gt;IMESupport&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Windowsのみ。 Sublime Text デフォルト状態では日本語入力変換がウインドウ左下の方に表示されるため視点が定まらないけど、これを入れるとキャレットの部分で表示されて便利。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SFTP&#34;&gt;SFTP&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Sublime Text 単体で(S)FTPできるプラグイン。有料($20)だけど、度々出る警告を無視できるならとりあえずは無料で使い続けられる(機能の制限は特に無い)。
+SFTPと公開鍵認証に対応してるのはこのプラグインぐらいしかないので、自己投資と思って買ってしまうのがおすすめ。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SublimeLinter&#34;&gt;Sublime​Linter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コードの間違いを警告してくれるプラグイン。言語ごとに Sublime​Linter プラグインがあって、これはその基板となるプラグインなので入れておく。&lt;br /&gt;
+言語ごとのものは &lt;a href=&#34;https://sublime.wbond.net/search/SublimeLinter&#34;&gt;検索すると希望のものが見つかるはず&lt;/a&gt;。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;個人的に必要系:73589e8d2639747e5931f20bd3d44061&#34;&gt;個人的に必要系&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Diffy&#34;&gt;Diffy&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+2つのファイルの差分を表示してくれるプラグイン。&lt;br /&gt;
+Sublime Text で &lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Alt&lt;/kbd&gt; + &lt;kbd&gt;2&lt;/kbd&gt;(&lt;kbd&gt;&amp;ldquo;&lt;/kbd&gt;) を押してウインドウを分割して比較したいファイルを開き、&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;K&lt;/kbd&gt; + &lt;kbd&gt;D&lt;/kbd&gt;で差分がハイライトされる。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/ApacheConf.tmLanguage&#34;&gt;ApacheConf.tmLanguage&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Apache系の .conf ファイルや .htaccess なんかをシンタックスハイライトしてくれるプラグイン。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Git&#34;&gt;Git&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+コマンドウインドウからGit系コマンドが実行できる。&lt;br /&gt;
+単体で動くものではなく、 &lt;a href=&#34;http://git-scm.com/&#34;&gt;Git&lt;/a&gt; 自体がインストールされていて、かつパスが通ってる必要がある。&lt;br /&gt;
+コミット時のコメントがわかりにくい。コミットコマンドを打つと Sublime Text で新規タブが開くので、その一番上にコメントを書いて「保存せずタブを閉じる」。&lt;br /&gt;
+ちなみに日本語でコメントすると動かないので注意。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/OmniMarkupPreviewer&#34;&gt;Omni​Markup​Previewer&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+Markdown をブラウザでリアルタイムプレビューしてくれるプラグイン。Markdown をHTMLに変換できたりもする。&lt;br /&gt;
+このブログは Markdown で書いており、プレビュー具合もいい(特にコード部分のシンタックスハイライトとか)ので個人的に便利。&lt;br /&gt;
+ちなみに Sublime Text はデフォルトで Markdown をシンタックスハイライトしてくれないので、別途カラースキーマをインストールする必要がある(「テーマ」の部分で紹介)。&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/LESS&#34;&gt;LESS&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+LESSファイルのシンタックスハイライト用プラグイン。&lt;br /&gt;
+SASSよりLESSの方が使う頻度が高いので。&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;上記以外は状況によって。&lt;br /&gt;
+&lt;a href=&#34;https://sublime.wbond.net/packages/Vagrant&#34;&gt;Vagrant&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Compass&#34;&gt;Compass&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Terminal&#34;&gt;Terminal&lt;/a&gt; とかは便利かも。&lt;/p&gt;
+
+&lt;h2 id=&#34;追加設定:73589e8d2639747e5931f20bd3d44061&#34;&gt;追加設定&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://brdr-mmrndm.tumblr.com/post/80456872825/sublime-text&#34;&gt;こちらのページ&lt;/a&gt;にあるように、
+メニューの「Preferences -&amp;gt; Settings - User」を開いて、 &lt;code&gt;draw_indent_guides&lt;/code&gt;、 &lt;code&gt;indent_guide_options&lt;/code&gt;、 &lt;code&gt;match_brackets&lt;/code&gt; の設定を追記するとさらに見やすくなる。&lt;br /&gt;
+また、そのほか上からデフォルトでない設定。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;font_face&amp;quot;: &amp;quot;Consolas&amp;quot;&lt;/code&gt;&lt;br /&gt;
+個人的にフォントは Consolas にしてる&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;bold_folder_labels&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+サイドバーのフォルダ名を太字にして区別しやすくする&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;word_wrap&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+ウインドウの端で折り返す&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;preview_on_click&amp;quot;: false&lt;/code&gt;&lt;br /&gt;
+サイドバーでのファイルクリック時にいちいちファイルが開く動作が困る(大きいファイルなど)のでオフに&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;highlight_line&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+編集してる行をハイライトする&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;draw_white_space&amp;quot;: &amp;quot;all&amp;quot;&lt;/code&gt;
+常に半角スペースを「・」で表示(デフォルトはテキスト選択時のみ)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;&amp;quot;atomic_save&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
+保存時に一時ファイルを使う(?)ような機能みたいだけど、他のアプリケーションで同時に開けなかったりするのでオフに&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+	&amp;quot;draw_indent_guides&amp;quot;: true,
+	&amp;quot;indent_guide_options&amp;quot;: [&amp;quot;draw_normal&amp;quot;, &amp;quot;draw_active&amp;quot;],
+	&amp;quot;match_brackets&amp;quot;: false,
+
+	&amp;quot;font_face&amp;quot;: &amp;quot;Consolas&amp;quot;,
+	&amp;quot;bold_folder_labels&amp;quot;: true,
+	&amp;quot;word_wrap&amp;quot;: true,
+	&amp;quot;preview_on_click&amp;quot;: false,
+	&amp;quot;highlight_line&amp;quot;: true,
+	&amp;quot;draw_white_space&amp;quot;: &amp;quot;all&amp;quot;,
+	&amp;quot;atomic_save&amp;quot;: true
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;テーマ:73589e8d2639747e5931f20bd3d44061&#34;&gt;テーマ&lt;/h2&gt;
+
+&lt;p&gt;去年あたりからコード書く場合はダーク系テーマが見やすいと気づいた。&lt;br /&gt;
+Sublime Text は「テーマ」が枠のデザイン(サイドバーとかタブとか)で、「カラースキーマ」は入力部分の見た目となっていて、それぞれ違うものが使えるので好みによって。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png&#34; align=&#34;right&#34; hspace=&#34;10&#34; alt=&#34;Sublime Text のファイルアイコン&#34;&gt;&lt;/a&gt; テーマでは &lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Flatland&#34;&gt;Flatland&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Soda&#34;&gt;Soda&lt;/a&gt; とかがカッコいいので人気みたいだけど、&lt;br /&gt;
+個人的に「ファイルアイコン」が表示できるものを必要条件としているため、以下のテーマを使ってる。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Aprosopo&#34;&gt;Aprosopo&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;ファイルアイコンというのは Sublime Text 3 の 開発版 Build 3062 から導入されたもので、これまでサイドバーのアイコンはフォルダにしか表示されなかったけど、各ファイルにもアイコンが表示できるようになった機能。&lt;br /&gt;
+拡張子ごとにアイコンが変わったりするので見やすくなる。&lt;br /&gt;
+これまでフォルダとファイルの階層のインデントが少しわかりにくくて誤操作も多かったんだけど、この機能で解消された。&lt;br /&gt;
+前述した Flatland とか Soda とかはまだこの機能に対応してないのが惜しい。&lt;/p&gt;
+
+&lt;p&gt;Aprosopo はダークテーマとライトテーマがあって、しかも設定が Preferences メニューから簡単に変えられる(いちいち設定ファイルに書かなくてもいい)ので気に入ってる。&lt;/p&gt;
+
+&lt;h2 id=&#34;カラースキーマ:73589e8d2639747e5931f20bd3d44061&#34;&gt;カラースキーマ&lt;/h2&gt;
+
+&lt;p&gt;これは完全に好みや気分。&lt;br /&gt;
+いまは &lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Cobalt2&#34;&gt;Cobalt2&lt;/a&gt;&lt;/strong&gt; の背景色をカスタマイズしたものを使ってる。&lt;br /&gt;
+Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リンク先で見た目のキャプチャ見れます)&lt;br /&gt;
+ちなみに色のカスタマイズは &lt;a href=&#34;https://sublime.wbond.net/packages/ColorSchemeEditor&#34;&gt;Color​Scheme​Editor&lt;/a&gt; を使うと手軽に変更できる。&lt;br /&gt;
+(しょっちゅう使うものでもないのでプラグインで紹介してない)&lt;/p&gt;
+
+&lt;p&gt;気分でよく変える人なんかは &lt;a href=&#34;https://sublime.wbond.net/packages/Dayle%20Rees%20Color%20Schemes&#34;&gt;Dayle Rees Color Schemes&lt;/a&gt; のプラグインが便利。&lt;br /&gt;
+このプラグインはインストールすると &lt;a href=&#34;http://daylerees.github.io/&#34;&gt;たくさんのカラースキーマ&lt;/a&gt; が一括インストールされるので、好みのものが見つかるはず。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch で update する時に配列に値を追加する</title>
+      <link>http://kijtra.com/article/elasticsearch-add-array-value-with-update</link>
+      <pubDate>Sat, 24 May 2014 00:17:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/elasticsearch-add-array-value-with-update</guid>
+      <description>
+
+&lt;p&gt;Elasticsearchで、ドキュメントのフィールドが配列（連想配列）の場合に、そのフィールドの配列に値を追加したい。&lt;/p&gt;
+
+&lt;p&gt;参考にしたのは &lt;a href=&#34;http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-update.html&#34;&gt;Elasticsearch公式サイト&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;単純な配列の場合:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;単純な配列の場合&lt;/h2&gt;
+
+&lt;p&gt;例としてインデックス名「 &lt;strong&gt;sample&lt;/strong&gt; 」、タイプ名「 &lt;strong&gt;mytype&lt;/strong&gt; 」で作成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;まずは普通にデータを入れる:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;まずは普通にデータを入れる&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample/mytype/1&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: [&amp;quot;hoge&amp;quot;] &amp;lt;ここに値を追加したい
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;updateしてみる-失敗例:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;updateしてみる (失敗例)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;{&amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記でupdate後に検索してみると、結果は以下のように、「tags」に指定した値が単純に置き換わってしまう。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;] &amp;lt;「hoge」は残らない
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;解決策:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;解決策&lt;/h3&gt;
+
+&lt;p&gt;この場合は「 &lt;code&gt;script&lt;/code&gt; 」という機能を使って、JavaScriptで配列に追加することができる。&lt;br /&gt;
+さらに、「 &lt;code&gt;upsert&lt;/code&gt; 」という機能で、未登録のドキュメントなら新規登録扱いにできる。&lt;br /&gt;
+（MySQLでいう ON DUPLICATE KEY UPDATE ）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags += val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;params&lt;/code&gt; で設定したキーのもの(上記では &lt;code&gt;val&lt;/code&gt; )が、 &lt;code&gt;script&lt;/code&gt; 内で使えるようになっている。&lt;br /&gt;
+（JavaScriptだけど &lt;code&gt;push()&lt;/code&gt; ではなく &lt;code&gt;+=&lt;/code&gt; な点に注意）&lt;br /&gt;
+ドキュメントがない場合は &lt;code&gt;upsert&lt;/code&gt; に設定したものが挿入される。&lt;br /&gt;
+なので、最初にデータを入れておく必要はない。&lt;/p&gt;
+
+&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: [
+                   &amp;quot;hoge&amp;quot;,
+                   &amp;quot;fuga&amp;quot; &amp;lt;追加できた
+               ]
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;重複しないようにしたい:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;重複しないようにしたい&lt;/h2&gt;
+
+&lt;p&gt;前述のように &lt;code&gt;upsert&lt;/code&gt; を繰り返していると、配列に同じ値がどんどん入ってしまいがち。&lt;br /&gt;
+その場合、連想配列にする。（他の方法がわからなかった）&lt;/p&gt;
+
+&lt;p&gt;※これは連想配列にする必要はなかった。 &lt;a href=&#34;#added1&#34;&gt;下に追記あり&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;フィールドに連想配列を入れるには、マッピングで &lt;code&gt;object&lt;/code&gt; に設定する必要がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot; &amp;lt;ここが最初と違う
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;そして upsert する&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;ctx._source.tags[val] = val&lt;/code&gt; の部分で同じ値は上書きするようにしてる。&lt;/p&gt;
+
+&lt;p&gt;さらに upsert (「tags」に「fuga」を追加) を2回やってみる&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
+    }
+  }
+}
+
+//もっかい同じデータ
+{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: {
+                   &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;,
+                   &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot; &amp;lt;重複せず追加できた
+               }
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちなみに &lt;strong&gt;特定の配列だけ削除&lt;/strong&gt; する方法は不明・・・。&lt;br /&gt;
+update時に連想配列の値を null にしたり、JavaScriptの &lt;code&gt;delete&lt;/code&gt; 使ったりしてみたけど無理だった。&lt;br /&gt;
+データ取得 -&amp;gt; 値を削除 -&amp;gt; 上書きupdateするしかなさそう。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a name=&#34;added1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;追記-配列が重複登録されない方法あった:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;追記：配列が重複登録されない方法あった&lt;/h2&gt;
+
+&lt;p&gt;インデックス作成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json:インデックス作成&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;update (insert)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;if(ctx._source.tags.indexOf(val)==-1){ctx._source.tags+=val}&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;hoge&amp;quot;: [&amp;quot;hoge&amp;quot;]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;JavaScript部分で &lt;code&gt;indexOf&lt;/code&gt; 使って配列を検索できるっぽいので、見つかれば入れない、なければ入れる。&lt;br /&gt;
+連想配列にしなくてもこれでいけた。&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;以下はファセット検索の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/sample/mytype/_search?search_type=count&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;facets&amp;quot;: {
+      &amp;quot;ids&amp;quot;: {
+          &amp;quot;terms&amp;quot;: {
+              &amp;quot;field&amp;quot; : &amp;quot;tags&amp;quot;,
+              &amp;quot;size&amp;quot;: 10,
+              &amp;quot;order&amp;quot; : &amp;quot;count&amp;quot;
+          }
+      }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;facets&amp;quot;: {
+    &amp;quot;ids&amp;quot;: {
+       &amp;quot;_type&amp;quot;: &amp;quot;terms&amp;quot;,
+       &amp;quot;missing&amp;quot;: 0,
+       &amp;quot;total&amp;quot;: 3,
+       &amp;quot;other&amp;quot;: 0,
+       &amp;quot;terms&amp;quot;: [
+          {
+             &amp;quot;term&amp;quot;: &amp;quot;hoge&amp;quot;,
+             &amp;quot;count&amp;quot;: 2
+          },
+          {
+             &amp;quot;term&amp;quot;: &amp;quot;fuga&amp;quot;,
+             &amp;quot;count&amp;quot;: 1
+          }
+       ]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch の Kuromoji でユーザー辞書を使うメモ</title>
+      <link>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</link>
+      <pubDate>Fri, 23 May 2014 00:08:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</guid>
+      <description>
+
+&lt;p&gt;Elasticsearchでの形態素解析はKuromoji一択だけど、やや辞書が貧弱な部分もあるのでユーザー辞書で補う必要がある。&lt;/p&gt;
+
+&lt;p&gt;例えば東京に「西国分寺駅」という駅があるけど、「西国分寺」で形態素解析すると「西」「国分寺」で分かれる。
+読みも「サイコクブンジ」となってしまう。（正しくは「ニシコクブンジ」）
+これはいただけない。&lt;/p&gt;
+
+&lt;h2 id=&#34;参考になったサイト:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;参考になったサイト&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://johtani.jugem.jp/?eid=123&#34;&gt;elasticsearch-analysis-kuromojiでユーザ辞書の利用方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/hello-elasticsearch/833a0704e44b&#34;&gt;Elasticsearch 日本語で全文検索 その２&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;環境:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;環境&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CentOS 6.4&lt;/li&gt;
+&lt;li&gt;Elasticsearch 1.1.1
+
+&lt;ul&gt;
+&lt;li&gt;kuromoji 2.0.0&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;辞書ファイルの作成:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;辞書ファイルの作成&lt;/h2&gt;
+
+&lt;p&gt;まず辞書ファイルを作成。
+普通のテキストファイルで、文字コードは &lt;strong&gt;UTF-8&lt;/strong&gt;。拡張子は自由。
+ここでは例として「my_jisho.dic」とした。&lt;/p&gt;
+
+&lt;h3 id=&#34;辞書ファイルの置き場所:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;&lt;strong&gt;辞書ファイルの置き場所&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;ファイルの保存先は
+&lt;code&gt;/etc/elasticsearch/my_jisho.dic&lt;/code&gt;
+でいけた。
+これはもしかしたら Elasticsearch &lt;strong&gt;1.1.1&lt;/strong&gt; だからかも。&lt;/p&gt;
+
+&lt;p&gt;&lt;small&gt;&lt;i class=&#34;fa fa-info-circle fa-lg&#34;&gt;&lt;/i&gt; 他のサイト等を見ると「(Elasticsearchホーム)/cofig/my_jisho.dic」と書いているところも多かったので、はじめそこに置いてみたんだけどインデックス作成時に「/etc/elasticsearch/ に置け」とエラーが出た。&lt;/small&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;辞書ファイルの書き方:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;&lt;strong&gt;辞書ファイルの書き方&lt;/strong&gt;&lt;/h3&gt;
+
+&lt;p&gt;ファイルの中身はCSV形式で、以下の並びで書く。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;単語,形態素解析後の単語,読み,品詞
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;「形態素解析後の単語」は、半角スペースで分けると分かち書きされる。&lt;/p&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-lightbulb-o&#34;&gt;&lt;/i&gt; 「東京スカイツリー」の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;東京スカイツリー,東京 スカイツリー,トウキョウ スカイツリー,カスタム名詞
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;i class=&#34;fa fa-lightbulb-o&#34;&gt;&lt;/i&gt; 「西国分寺」の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;西国分寺,西国分寺,ニシコクブンジ,駅名
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;インデックスへの設定:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;インデックスへの設定&lt;/h2&gt;
+
+&lt;p&gt;サンプル用のインデックス作成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/example/&#39; -d &#39;(下のjson)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;settings&amp;quot;: {
+    &amp;quot;analysis&amp;quot;: {
+      &amp;quot;tokenizer&amp;quot;: {
+        &amp;quot;kuromoji&amp;quot;: {
+          &amp;quot;type&amp;quot;: &amp;quot;kuromoji_tokenizer&amp;quot;,
+          &amp;quot;user_dictionary&amp;quot;: &amp;quot;my_jisho.dic&amp;quot; &amp;lt;ここに辞書ファイル
+        }
+      },
+      &amp;quot;analyzer&amp;quot;: {
+        &amp;quot;kuromoji_analyzer&amp;quot;: {
+          &amp;quot;tokenizer&amp;quot;: &amp;quot;kuromoji&amp;quot;,
+          &amp;quot;type&amp;quot;: &amp;quot;custom&amp;quot;,
+          &amp;quot;filter&amp;quot;: [
+            &amp;quot;kuromoji_baseform&amp;quot;,
+            &amp;quot;pos_filter&amp;quot;,
+            &amp;quot;greek_lowercase_filter&amp;quot;,
+            &amp;quot;cjk_width&amp;quot;
+          ]
+        },
+        &amp;quot;yomigana_analyzer&amp;quot;: {
+          &amp;quot;tokenizer&amp;quot;: &amp;quot;kuromoji&amp;quot;,
+          &amp;quot;type&amp;quot;: &amp;quot;custom&amp;quot;,
+          &amp;quot;filter&amp;quot;: [
+            &amp;quot;katakana_readingform&amp;quot;,
+            &amp;quot;cjk_width&amp;quot;
+          ]
+        }
+      }
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;解析してみる&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/example/_analyze?analyzer=kuromoji_analyzer&#39; -d &#39;西国分寺&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;tokens&amp;quot;: [
+      {
+         &amp;quot;token&amp;quot;: &amp;quot;西国分寺&amp;quot;,
+         &amp;quot;start_offset&amp;quot;: 2,
+         &amp;quot;end_offset&amp;quot;: 6,
+         &amp;quot;type&amp;quot;: &amp;quot;word&amp;quot;,
+         &amp;quot;position&amp;quot;: 1
+      }
+   ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;加えて読み仮名の確認&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/example/_analyze?analyzer=yomigana_analyzer&#39; -d &#39;西国分寺&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;tokens&amp;quot;: [
+      {
+         &amp;quot;token&amp;quot;: &amp;quot;ニシコクブンジ&amp;quot;,
+         &amp;quot;start_offset&amp;quot;: 2,
+         &amp;quot;end_offset&amp;quot;: 6,
+         &amp;quot;type&amp;quot;: &amp;quot;word&amp;quot;,
+         &amp;quot;position&amp;quot;: 1
+      }
+   ]
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;できた。&lt;/p&gt;
+
+&lt;p&gt;駅名とかはどっかでデータがほしいけど、読み仮名までサポートしてるデータは無料では配布されてない。
+あと有用そうなのとしては病名とかかなあ。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>2つの配列が同じものかどうかチェックするPHP関数</title>
+      <link>http://kijtra.com/article/php-check-same-array</link>
+      <pubDate>Tue, 13 May 2014 11:07:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/php-check-same-array</guid>
+      <description>&lt;p&gt;PHPで、配列の内容が同じかどうかチェックしたい時に使う関数。&lt;br /&gt;
+連想配列の階層が深くても可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function is_same_array($array1 = null, $array2 = null)
+{
+    if (empty($array1) &amp;amp;&amp;amp; empty($array2)) {
+        return true;
+    } elseif(
+        (empty($array1) &amp;amp;&amp;amp; !empty($array2))
+        || (!empty($array1) &amp;amp;&amp;amp; empty($array2))
+    ) {
+        return false;
+    } elseif(
+        (is_array($array1) &amp;amp;&amp;amp; !is_array($array2))
+        || (!is_array($array1) &amp;amp;&amp;amp; is_array($array2))
+    ) {
+        return false;
+    }
+
+    foreach($array1 as $key =&amp;gt; $value) {
+        if (is_array($value)) {
+            if (!isset($array2[$key])) {
+                return false;
+            } elseif(!is_array($array2[$key])) {
+                return false;
+            } elseif (!is_same_array($value, $array2[$key])) {
+                return false;
+            }
+        } elseif(!array_key_exists($key, $array2) || $array2[$key] !== $value) {
+            return false;
+        }
+    }
+
+    return true;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;機能としては「ただ同じかどうか判断するだけ」（返り値は &lt;code&gt;true&lt;/code&gt; か &lt;code&gt;false&lt;/code&gt; のみ）なので。&lt;br /&gt;
+参考にしたのが&lt;a href=&#34;http://us3.php.net/manual/ja/function.array-diff-assoc.php#73972&#34;&gt;こちらの関数&lt;/a&gt;なので、diff取りたい場合はいいかも。&lt;/p&gt;
+
+&lt;p&gt;パフォーマンスは悪そうだけど、配列の順番が違ってもチェックできるのがメリットかな・・・&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>ブログ移行。WordPressからCloud9＋Middlemanへ。</title>
+      <link>http://kijtra.com/article/cloud9-and-middleman</link>
+      <pubDate>Tue, 29 Apr 2014 23:21:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cloud9-and-middleman</guid>
+      <description>&lt;p&gt;以前から静的ブログにしたかったのもあり、やっと2014/04/29に移行したので経緯の日記。&lt;/p&gt;
+
+&lt;p&gt;移行前の状況としては、&lt;a href=&#34;http://www.netowl.jp/&#34;&gt;Netowl&lt;/a&gt;の運営する&lt;a href=&#34;http://www.star-domain.jp/&#34;&gt;スタードメイン&lt;/a&gt;というところでドメインを取得した時についてくる無料サーバーでWordPressを使ってた。&lt;br /&gt;
+でも、個人ブログとしてのWordPressはオーバースペック（自由にできすぎる）な気がしてたのと、最近少しMarkdownに慣れてきたのもあり、思い切って静的サイトにすることにした。&lt;/p&gt;
+
+&lt;p&gt;それと、レンタルサーバーとかっていろいろと変えたくなることがあるので、サーバーに縛られない状況にしたいと思った。&lt;br /&gt;
+条件として、わりと厳しめなのを想定した。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;テンプレートが自由にいじれる&lt;/li&gt;
+&lt;li&gt;AdSenseが貼れる&lt;/li&gt;
+&lt;li&gt;Google Analyticsが使える&lt;/li&gt;
+&lt;li&gt;メモ帳的に書ける（つまりMarkdown）&lt;/li&gt;
+&lt;li&gt;サーバーを管理しなくていい&lt;/li&gt;
+&lt;li&gt;サーバーが落ちにくい＆高速&lt;/li&gt;
+&lt;li&gt;以前のURL（特に記事URL）を引き継げる&lt;/li&gt;
+&lt;li&gt;すべて無料である&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;普通にブログプラットフォームを使おうかとも思って以下のようなものを検討した。&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;http://postach.io/&#34;&gt;Postach.io&lt;/a&gt;&lt;br /&gt;
+Evernoteのノートをそのままブログにできる。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://scriptogr.am/&#34;&gt;Scriptogr.am&lt;/a&gt;&lt;br /&gt;
+Dropbox内のMarkdownファイルをブログにできる。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://calepin.co/&#34;&gt;Calepin&lt;/a&gt;&lt;br /&gt;
+これもDropboxのMarkdownをブログに。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://medium.com/&#34;&gt;Medium&lt;/a&gt;&lt;br /&gt;
+見た目がクール。流行り。だけど自由度激低。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://tumblr.com/&#34;&gt;Tumblr&lt;/a&gt;&lt;br /&gt;
+テキストブログとしては扱いにくい。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.blogger.com&#34;&gt;Blogger&lt;/a&gt;&lt;br /&gt;
+言わずと知れた。でもMarkdown不可。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;どれも条件にはピッタリいかなかった。&lt;br /&gt;
+けどPostach.ioだけはかなり良く、画像なんかもEvernoteに貼るだけだしテンプレもいじれて広告貼れるし。&lt;br /&gt;
+2点だけ、そもそもEvernoteではシンタックスハイライトがやりにくいのと、ノートのタイトルがそのまま（中国語翻訳のローマ字で）URLになるという痛い仕様だった。&lt;br /&gt;
+これじゃタイトルちょっと直しただけで記事URLが変わってしまいSEOに良くない。&lt;br /&gt;
+でもバージョンアップ次第では今後の移行も検討。&lt;/p&gt;
+
+&lt;p&gt;で、巷では静的ブログというのが一部で盛り上がってる（？）ようで、特に&lt;a href=&#34;http://jekyllrb.com/&#34;&gt;Jekyll&lt;/a&gt;というやつが&lt;a href=&#34;https://pages.github.com/&#34;&gt;GitHub Pages&lt;/a&gt;と相性が良いということでユーザーが多いようだった。&lt;br /&gt;
+たしかにブログなんて静的なもので十分だと感じてたので静的にしようと決意。&lt;/p&gt;
+
+&lt;p&gt;個人的に、普段&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt;というサービス(PaaS？SaaS？なんだろ)をちょこちょこ使っていて、早速試してみると、全くRuby慣れしてない自分でもなんとなくいけそうだった。&lt;br /&gt;
+で、そのJekyllをブログっぽくしてくれる&lt;a href=&#34;http://octopress.org/&#34;&gt;Octopress&lt;/a&gt;というプラグインがあって、これも試したんだけど、なんか縛りが増えた感じで受け付けなかったのでボツとした。&lt;/p&gt;
+
+&lt;p&gt;Octopressを入れていろいろやってこんがらがったので、新たにCloud9のワークスペースを作って、今度はJekyllと似た感じの&lt;a href=&#34;http://middlemanapp.com/jp/&#34;&gt;Middleman&lt;/a&gt;というものを使ってみることにした。&lt;br /&gt;
+こちらはマニュアルが日本語化されてて、Jekyllを経たこともあり、すんなり受け入れられた。&lt;/p&gt;
+
+&lt;p&gt;このMiddlemanもGitHub Pagesに簡単にデプロイできるってんでこれに決めた。&lt;/p&gt;
+
+&lt;p&gt;というわけで、Cloud9にMiddlemanを入れ、そのままCloud9上でテンプレ編集して記事を書き、GitHub Pagesへデプロイして公開する、という流れで移行の条件を全て満たすことができた。&lt;/p&gt;
+
+&lt;p&gt;実際にどういう手順でやったかはヒマがある時にまた書こうと思う。&lt;br /&gt;
+（ブログで↑こういう終わり方って個人的には嫌いだけどw）&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>WikipediaのURLがツイートしにくい</title>
+      <link>http://kijtra.com/article/wikipedia-url-convert</link>
+      <pubDate>Sat, 04 Jan 2014 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/wikipedia-url-convert</guid>
+      <description>&lt;p&gt;WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。&lt;/p&gt;
+
+&lt;p&gt;あけましておめでとうございます。
+正月に時間があったので、&lt;a href=&#34;http://koding.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;Koding&lt;/a&gt;の使用感を掴むついでに作ってみました。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;WikipediaのURLを短く変換&lt;/em&gt;&lt;/strong&gt;
+&lt;a href=&#34;http://wi.kijtra.kd.io/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;&lt;a href=&#34;http://wi.kijtra.kd.io/&#34;&gt;http://wi.kijtra.kd.io/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;単機能なので特に説明は要らないと思います。
+今年もよろしくお願いします。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

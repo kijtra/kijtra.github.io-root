@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>PackagistとComposerで自作パッケージを使う - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/original-library-using-composer-packagist">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="PackagistとComposerで自作パッケージを使う">
+<meta name="description" content="自分で作ったPHPのパッケージ（ライブラリ）を Packagist に登録して、Composer から使えるようにしてみたのでメモ。">
+
+<meta property="article:published_time" content="2015/05/05T00:00:00Z">
+<meta property="article:tag" content="PHP">
+<link rel="canonical" href="http://kijtra.com/article/original-library-using-composer-packagist">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>PackagistとComposerで自作パッケージを使う</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2015/05/05</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/php">PHP</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>自分で作ったPHPのパッケージ（ライブラリ）を Packagist に登録して、Composer から使えるようにしてみたのでメモ。</p>
+
+<p><a href="https://getcomposer.org/">Composer</a> でダウンロードするパッケージは、基本的には <a href="https://packagist.org/">Packagist</a> にあるものからダウンロードされる。<br />
+個人的によく使う自作ライブラリ等も Composer で依存関係を解消しつつ使いたいなあと思ってやってみた。</p>
+
+<h2 id="全体の流れ:5c8e7c8b9fb5a02dfee7514e0c72e253">全体の流れ</h2>
+
+<ol>
+<li>コードを書く</li>
+<li>（してなければ）<a href="https://github.com/">GitHub</a> にユーザー登録する</li>
+<li>（してなければ）<a href="https://packagist.org/">Packagist</a> にユーザー登録する</li>
+<li>GitHub にリポジトリを作る</li>
+<li>そのリポジトリと Packagist を連携させる</li>
+<li>書いたコードを GitHubリポジトリ にプッシュ</li>
+<li>Packagist に公開（自動）</li>
+<li>Composer から使う</li>
+</ol>
+
+<p>まあ普通なら 1 をコピペして済むんだけど Composer から使ってみたかったので。</p>
+
+<h2 id="コードを書くにあたって-composer-json-の作成:5c8e7c8b9fb5a02dfee7514e0c72e253">コードを書くにあたって（composer.json の作成）</h2>
+
+<p>自作パッケージのルートに <strong>composer.json</strong> というファイルを作成して、Composer でどう扱ってもらうかを記述する必要がある。</p>
+
+<p>簡単に作成するには、ルートディレクトリでターミナルやコマンドプロンプトを開き、以下のコマンドを打つ。（<a href="https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx">Composerインストール</a>済みが前提）</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">php composer.phar init
+</code></pre>
+
+<p>composer.json を作成するための質問をいくつか訊かれるため、それに入力していくことで自動生成される。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh"># パッケージ名（「ベンダー（ユーザー）名/パッケージ名」の形式）
+Package name (&lt;vendor&gt;/&lt;name&gt;) [kijtra/oreore-lib]: kijtra/oreore-lib
+# パッケージの概要
+Description []: オッス！オラ、オレオレライブラリ！
+# 作成者（あなた）
+Author [kijtra &lt;kijtra@gmail.com&gt;]:
+# 依存パッケージの最低限の安定バージョン（「stable」が無難）
+Minimum Stability []: stable
+# パッケージの種類（なんでも良いようだけど「library」とかで）
+Package Type []: library
+# ライセンス（今回はまず自分しか使わないので無保証なMIT）
+License []: MIT
+
+Define your dependencies. # 「依存関係を決めてね」
+
+# 依存するパッケージがありますか？
+Would you like to define your dependencies (require) interactively [yes]?
+# 検索する依存パッケージ名（例：monolog/monolog）
+Search for a package: monolog/monolog
+# 検索した依存パッケージで使用するバージョン
+Enter the version constraint to require (or leave blank to use the latest version): @stable
+# ほかに検索する場合（なければそのまま Enter）
+Search for a package:
+# 開発時に依存するパッケージがありますか？（以降は上記と同じ。なければ「no」）
+Would you like to define your dev dependencies (require-dev) interactively [yes]? no
+
+{
+    &quot;name&quot;: &quot;kijtra/oreore-lib&quot;,
+    &quot;description&quot;: &quot;オッス！オラ、オレオレライブラリ！&quot;,
+    &quot;type&quot;: &quot;library&quot;,
+    &quot;license&quot;: &quot;MIT&quot;,
+    &quot;require&quot;: {
+        &quot;monolog/monolog&quot;: &quot;@stable&quot;
+    },
+    &quot;authors&quot;: [
+        {
+            &quot;name&quot;: &quot;kijtra&quot;,
+            &quot;email&quot;: &quot;kijtra@gmail.com&quot;
+        }
+    ]
+}
+# 「上のようなファイルが作られるけどいいかな？」（そのまま Enter）
+Do you confirm generation [yes]?
+
+</code></pre>
+
+<p>これで <strong>composer.json</strong> が生成されてるはず。<br />
+で、もしPHPのバージョン制限とかあるなら追記しておく。<br />
+また、「autoload」での振る舞いも記述しておくと良いので、最終的な composer.json ファイルは以下のようになる。</p>
+
+<pre class="prettyprint linenums"><code class="language-json">{
+    &quot;name&quot;: &quot;kijtra/oreore-lib&quot;,
+    &quot;description&quot;: &quot;オッス！オラ、オレオレライブラリ！&quot;,
+    &quot;type&quot;: &quot;library&quot;,
+    &quot;license&quot;: &quot;MIT&quot;,
+    &quot;require&quot;: {
+        &quot;monolog/monolog&quot;: &quot;@stable&quot;
+    },
+    &quot;authors&quot;: [
+        {
+            &quot;name&quot;: &quot;kijtra&quot;,
+            &quot;email&quot;: &quot;kijtra@gmail.com&quot;
+        }
+    ],
+
+    //--以下追記--
+
+    &quot;keywords&quot;: [&quot;オレオレ&quot;, &quot;自作&quot;], //（任意）Packagistでの検索でタグ指定できる
+
+    &quot;require&quot;: {
+        &quot;php&quot;: &quot;&gt;=5.3.2&quot; //PHP５．３．２以上推奨
+    },
+
+    &quot;autoload&quot;: {
+        &quot;psr-4&quot;: { //（ファイル構成が）PSR-4形式で作りましたよ
+            &quot;Kijtra\\&quot;: &quot;src&quot; //ファイル群は「src」ディレクトリの中ですよ
+        }
+	},
+
+    &quot;include-path&quot;: [&quot;src/&quot;] //（開発時用）「src」ディレクトリ内からautoload
+}
+</code></pre>
+
+<p>開発時には開発ディレクトリのルートで以下を実行しておき、Composer の基本ファイルをダウンロードする。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">php composer.phar install
+</code></pre>
+
+<p>そうすると vendor ディレクトリが作成され、 vendor/autoload.php が使用できる。<br />
+上記 composer.json の最終行にある <code>&quot;include-path&quot;: [&quot;src/&quot;]</code> は、この時に必要。</p>
+
+<p>「PSR-4」というのはPHPでクラスファイルをオートロードする際のディレクトリやファイルの命名規則等のことで、ここでは説明しないので <a href="https://www.google.co.jp/search?q=PSR-4%E3%81%A8%E3%81%AF">Googleで「PSR-4とは」</a> を。</p>
+
+<h2 id="github-と-packagist-の連携:5c8e7c8b9fb5a02dfee7514e0c72e253">GitHub と Packagist の連携</h2>
+
+<p>パッケージをGitHubに置く前に、Packagist との連携を設定しておく。</p>
+
+<p>まずは事前に <a href="https://packagist.org/">Packagist</a> の <strong>API Token</strong> を取得する。<br />
+Packagist のマイページに「<strong>Show API Token</strong>」というリンクがあるので、クリックすると API Token が表示される。<br />
+それをコピーしておく。</p>
+
+<p><a href="https://lh4.googleusercontent.com/kENdHHVR4B4SfhR7HTv7fdzr2H-6IYAVPAdq2UGByo8=w782-h451-no" target="_blank"><img class="aligncenter" alt="Packagist の API Token を取得" src="https://lh4.googleusercontent.com/kENdHHVR4B4SfhR7HTv7fdzr2H-6IYAVPAdq2UGByo8=w782-h451-no" /></a></p>
+
+<p>次に <a href="https://github.com/">GitHub</a> に行き、リポジトリを作ったら、そのリポジトリの <strong>Settings 画面</strong>（右メニュー）に行く。</p>
+
+<p>左メニューの「<strong>Webhooks &amp; Services</strong>」というページに行き、「Services」の「<strong>Add service</strong>」から「<strong>Packagist</strong>」を検索。<br />
+クリックで追加。</p>
+
+<p><a href="https://lh3.googleusercontent.com/-JqmxdtL8V_s/VVvekOrNwyI/AAAAAAAADgc/iU_uwNJ-dVw/w1003-h405-no/2015-05-15_103417.png" target="_blank"><img class="aligncenter" alt="「Webhooks &amp; Services」から「Packagist」を検索し追加" src="https://lh3.googleusercontent.com/-JqmxdtL8V_s/VVvekOrNwyI/AAAAAAAADgc/iU_uwNJ-dVw/w1003-h405-no/2015-05-15_103417.png" /></a></p>
+
+<p>入力欄に以下のように入れ、「<strong>Add service</strong>」ボタンで追加。</p>
+
+<p><strong>User</strong> ・・・Packagist のユーザー名<br />
+<strong>Token</strong> ・・・Packagist の API Token<br />
+<strong>Domain</strong> ・・・空のままでOK<br />
+<strong>Active</strong> ・・・チェックする</p>
+
+<p><a href="https://lh6.googleusercontent.com/-5BoKQ-2qUYk/VVvekWQo7II/AAAAAAAADgk/mOGKrutfJNA/w957-h740-no/2015-05-15_104025.png" target="_blank"><img class="aligncenter" alt="「Webhooks &amp; Services」から「Packagist」を検索し追加" src="https://lh6.googleusercontent.com/-5BoKQ-2qUYk/VVvekWQo7II/AAAAAAAADgk/mOGKrutfJNA/w957-h740-no/2015-05-15_104025.png" /></a></p>
+
+<p>これで GitHub にプッシュすれば自動的に Packagist に反映されるようになる。</p>
+
+<h2 id="バージョン管理:5c8e7c8b9fb5a02dfee7514e0c72e253">バージョン管理</h2>
+
+<p>ここまででもう Composer から使える状態なんだけど、パッケージのバージョンをどうリリースするかわからなかったので少しとまどってしまった。<br />
+（デフォルトではバージョンなしで「dev-master」のみ）</p>
+
+<p>なんてことはない。Git で push する前にタグとしてバージョンを記述するだけだった。<br />
+例えば以下のような感じ。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">git add . # Addして
+git commit -m &quot;オッス！リリースすっぞ！&quot; # Commitして
+git tag -a 0.0.1 # ここでバージョン用タグ作成
+git push origin master # Push
+</code></pre>
+
+<p>コミットの前後とかは関係なさそう？プッシュ前ならどこでもいい？みたいだけど、上記でできてる。</p>
+
+<hr />
+
+<h3 id="あとがき:5c8e7c8b9fb5a02dfee7514e0c72e253">あとがき</h3>
+
+<p>これまでPHPのパッケージ群といえば <a href="https://pear.php.net/manual/ja/">PEAR</a> だったけど、もう最近では <a href="https://getcomposer.org/">Composer</a> ばかりになってしまった。<br />
+PEAR はメンテナンスされていないものが多くてインストールも面倒で個人的にはあまり好きじゃなかったので、Composer はけっこう便利に使ってる。</p>
+
+<p>自作のパッケージを登録しておいて、いつでも（依存関係を解消しつつ）使える状態にしておくのはとても便利だと思った。</p>
+
+<p>だけど、<a href="https://packagist.org/">Packagist</a> での検索でひっかかってしまうので、あまりにプライベートなものとかはセキュリティ的に危ないまたは恥ずかしくて申し訳ない気持ちに。（GitHub もそうだけど）<br />
+検索にヒットしないように設定できたらいいかも。</p>
+
+<p>ちなみに今回試しに作ったのは Yahoo JAPAN の <a href="http://developer.yahoo.co.jp/webapi/map/">YOLPのAPI</a> を扱うもの。</p>
+
+<p>Packagist: <strong><a href="https://packagist.org/packages/kijtra/yolp">kijtra/yolp</a></strong><br />
+GitHub: <strong><a href="https://github.com/kijtra/yolp">kijtra/yolp</a></strong></p>
+
+<p>おそらく放置の可能性が高いので composer.json の中身とかを見るぐらいでお願いしますw</p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

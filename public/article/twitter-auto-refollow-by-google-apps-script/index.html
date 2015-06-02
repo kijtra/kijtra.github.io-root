@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>Twitterのフォロー返し（リフォロー）をGoogle Apps Scriptで自動化する - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="Twitterのフォロー返し（リフォロー）をGoogle Apps Scriptで自動化する">
+<meta name="description" content="Twitterのフォロー返し（リフォロー）を、Goolge Apps Scriptを使って自動化する方法。">
+
+<meta property="article:published_time" content="2013/05/05T00:00:00Z">
+<meta property="article:tag" content="Google"><meta property="article:tag" content="Google Apps Script">
+<link rel="canonical" href="http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>Twitterのフォロー返し（リフォロー）をGoogle Apps Scriptで自動化する</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2013/05/05</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google">Google</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google-apps-script">Google Apps Script</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>TwitterでBot等を運用していると、「フォローを返す」というのはわりと重要。
+相互フォローならDMもやりとりできるし、「フォローしてくれるならフォローする」という人もいるのでフォロワーが増える可能性がある。
+ということでフォロー返し（リフォロー）を自動化するやつを作ってみた。</p>
+
+<p>大まかな流れとしては、</p>
+
+<ol>
+<li><strong>Twitterの自分用アプリを作成（なければ）</strong></li>
+<li><strong>Twitterの設定で新しいフォロワーが増えたらメール通知するようにする</strong></li>
+<li><strong>Google Apps Scriptで、そのメールをチェック</strong></li>
+<li><strong>TwitterのAPIでフォローを返す</strong></li>
+<li><strong>メールを既読にする</strong></li>
+</ol>
+
+<p>という感じ。</p>
+
+<h2 id="step0-twitterのアプリを作成-なければ:e1078a7c72fac2ac1280e610d5475cb4">Step0. Twitterのアプリを作成（なければ）</h2>
+
+<p>TwitterのAPIを使うので、Twitterアプリが必要になる。
+※画像は<a href="http://kijtra.com/article/twitter-backup-to-google-drive" target="_blank">以前の記事</a>の使い回しなので、アプリ名の意味とかは無視してください</p>
+
+<p><a href="https://dev.twitter.com/" target="_blank"><a href="https://dev.twitter.com/">https://dev.twitter.com/</a></a>にアクセスし、自分のTwitterアカウントでサインイン。
+<a href="http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s990/2013-03-21_111512.png" target="_blank"><img class="aligncenter" alt="自分のTwitterアカウントでサインイン" src="http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s640/2013-03-21_111512.png" /></a></p>
+
+<p><a href="https://dev.twitter.com/apps">My applications</a>へ移動。
+<a href="https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png" target="_blank"><img class="aligncenter" alt="My applicationsへ移動" src="https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png" /></a></p>
+
+<p>右上の「Create a new application」をクリックし、必要な情報を入力。
+<a href="https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s981/2013-03-21_122459.png" target="_blank"><img class="aligncenter" alt="「Create a new application」をクリック" src="https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s640/2013-03-21_122459.png" /></a></p>
+
+<p>「Name」はなんでもいいけど、誰かが同じ名前のアプリを作ってるとエラーになる。
+「Description」も適当に。文字数が少ないとエラー。
+「Website」もなんでもOK。とりあえずGoogleドライブのURLにした。
+<span style="color:#B94A48">「Callback URL」は必ず「<strong style="color:#B94A48"><a href="https://spreadsheets.google.com/macros">https://spreadsheets.google.com/macros</a></strong>」にする</span>必要がある。</p>
+
+<p>入力したら「Developer Rules Of The Road」の同意にチェックし、CAPTCHAに表示された文字を入力して「Create your Twitter application」ボタンをクリック。
+アプリケーションが作成された。</p>
+
+<p>必要になるのは「<strong>Consumer key</strong>」と「<strong>Consumer secret</strong>」のランダムな文字。
+これをメモしておく。
+<a href="http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s986/2013-03-21_112853.png" target="_blank"><img class="aligncenter" alt="アプリケーションが作成された" src="http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s640/2013-03-21_112853.png" /></a></p>
+
+<h2 id="step1-twitterのメール通知設定:e1078a7c72fac2ac1280e610d5475cb4">Step1. Twitterのメール通知設定</h2>
+
+<p>フォロワーが増えた時にメールが来るようにする。
+ちなみにGoogle Apps Scriptを使って作るので、<strong>Gmail宛てに受け取るようになってないといけない</strong>。
+<a href="http://lh6.ggpht.com/-4rBz8t_vOyQ/UYB6mo1XqmI/AAAAAAAADSU/31rk0DiZPY0/s854/2013-05-01_111358.png" target="_blank"><img src="http://lh6.ggpht.com/-4rBz8t_vOyQ/UYB6mo1XqmI/AAAAAAAADSU/31rk0DiZPY0/s640/2013-05-01_111358.png" alt="Twitterでメール通知設定" class="aligncenter"></a></p>
+
+<h2 id="step2-スクリプトを新規作成:e1078a7c72fac2ac1280e610d5475cb4">Step2. スクリプトを新規作成</h2>
+
+<p><a href="https://drive.google.com/" target="_blank">Googleドライブ</a>で「<strong>スクリプト</strong>」を新規作成する。
+<a href="http://lh5.ggpht.com/-sQ60u60UQrQ/UYB6l4XhJ2I/AAAAAAAADSI/Q1Wnn-Ig--s/s423/2013-05-01_110827.png" target="_blank"><img src="http://lh5.ggpht.com/-sQ60u60UQrQ/UYB6l4XhJ2I/AAAAAAAADSI/Q1Wnn-Ig--s/s423/2013-05-01_110827.png" alt="Google Apps Scriptで新規作成" class="aligncenter"></a></p>
+
+<h2 id="step3-twitterアプリの情報を設定:e1078a7c72fac2ac1280e610d5475cb4">Step3. Twitterアプリの情報を設定</h2>
+
+<p>「ファイル」メニューの「<strong>プロジェクトのプロパティ</strong>」を開く。
+<a href="http://lh5.ggpht.com/-acQyAI-SK2c/UYB6l33pjmI/AAAAAAAADSQ/GsJyVcDlAIo/s404/2013-05-01_110933.png" target="_blank"><img src="http://lh5.ggpht.com/-acQyAI-SK2c/UYB6l33pjmI/AAAAAAAADSQ/GsJyVcDlAIo/s404/2013-05-01_110933.png" alt="「プロジェクトのプロパティ」を開く" class="aligncenter"></a></p>
+
+<p>「プロジェクトのプロパティ」タブに移り、
+「<strong>twitterConsumerKey</strong>」＝ <strong>Step0で取得した「Consumer key」</strong>
+「<strong>twitterConsumerSecret</strong>」＝ <strong>Step0で取得した「Consumer secret」</strong>
+を設定する。
+（プロパティ名は上記のまま記入してください）
+<a href="http://lh5.ggpht.com/-MJcdqJpboPo/UYB6l-OB7II/AAAAAAAADSM/bkb5ODFF-lY/s584/2013-05-01_111054.png" target="_blank"><img src="http://lh5.ggpht.com/-MJcdqJpboPo/UYB6l-OB7II/AAAAAAAADSM/bkb5ODFF-lY/s584/2013-05-01_111054.png" alt="プロパティ設定" class="aligncenter"></a></p>
+
+<h2 id="step4-google-apps-scriptの記述:e1078a7c72fac2ac1280e610d5475cb4">Step4. Google Apps Scriptの記述</h2>
+
+<p>以下のコードをペーストして保存。</p>
+
+<pre class="prettyprint linenums"><code class="language-js">function twitterReFollow(){
+  // Twitter用OAuthコンフィグ
+  var oAuthConfig = UrlFetchApp.addOAuthService(&quot;twitter&quot;);
+  oAuthConfig.setAccessTokenUrl(&quot;http://api.twitter.com/oauth/access_token&quot;);
+  oAuthConfig.setRequestTokenUrl(&quot;http://api.twitter.com/oauth/request_token&quot;);
+  oAuthConfig.setAuthorizationUrl(&quot;http://api.twitter.com/oauth/authorize&quot;);
+  oAuthConfig.setConsumerKey(ScriptProperties.getProperty(&quot;twitterConsumerKey&quot;));
+  oAuthConfig.setConsumerSecret(ScriptProperties.getProperty(&quot;twitterConsumerSecret&quot;));
+  try {
+    // 自分のTwitter情報を取得
+    var url = &quot;https://api.twitter.com/1.1/account/verify_credentials.json&quot;;
+    var me = UrlFetchApp.fetch(url,{method:&quot;get&quot;,oAuthServiceName:&quot;twitter&quot;,oAuthUseToken:&quot;always&quot;});
+    me = Utilities.jsonParse(me.getContentText());
+    // 情報が取れなければ終了
+    if(!me.screen_name) {
+      return false;
+    }
+    me = me.screen_name;
+    // Gmailからフォローされたメールを取得
+    var threads = GmailApp.search('is:unread from:(twitter.com) subject:(フォローされ)',0,50);
+    var reg = new RegExp(&quot;\@([a-zA-Z0-9_]*(?!&quot;+me+&quot;))&quot;,&quot;i&quot;);
+    var followers = new Array();
+    for(var i = threads.length; i--;) {
+      var message = threads[i].getMessages()[0];
+      var body = message.getBody();
+      // メール本文からスクリーンネームを抜き出す
+      if(body.indexOf(me)&gt;=0 &amp;&amp; body.match(reg)) {
+        var screen = RegExp.$1;
+        if(screen &amp;&amp; screen != me){
+          followers.push({id:message.getId(), screen:screen});
+        }
+      }
+    }
+    // データがなければ終了
+    if(!followers.length) {
+      return false;
+    }
+    // 全員をフォローする
+    var options = {
+      &quot;method&quot;:&quot;POST&quot;,
+      &quot;oAuthServiceName&quot;:&quot;twitter&quot;,
+      &quot;oAuthUseToken&quot;:&quot;always&quot;
+    };
+    for(var i = followers.length; i--;) {
+      var follower = followers[i];
+      var url = &quot;https://api.twitter.com/1.1/friendships/create.json?follow=true&amp;screen_name=&quot; + follower.screen;
+      var result = UrlFetchApp.fetch(url, options);
+      if(200 === result.getResponseCode()){
+        result = Utilities.jsonParse(result.getContentText());
+        // フォローに成功したらメールを既読にする
+        if(result.following) {
+          GmailApp.markThreadRead(GmailApp.getThreadById(follower.id));
+        }
+      }
+    }
+  } catch (e) {
+    Logger.log(e.toString());
+  }
+}
+</code></pre>
+
+<h2 id="step5-google-apps-scriptの実行テスト:e1078a7c72fac2ac1280e610d5475cb4">Step5. Google Apps Scriptの実行テスト</h2>
+
+<p>上部メニューの「実行」から「twitterReFollow」をクリック。
+<a href="http://lh5.ggpht.com/-8Rd33lyeQQI/UYCDEy8pvcI/AAAAAAAADSw/yjgS_raL9Fc/s406/2013-05-01_115052.png" target="_blank"><img src="http://lh5.ggpht.com/-8Rd33lyeQQI/UYCDEy8pvcI/AAAAAAAADSw/yjgS_raL9Fc/s406/2013-05-01_115052.png" alt="関数を実行" class="aligncenter"></a></p>
+
+<p>Twitterの承認とかGmailの承認とかが出てくるので、すべて「OK」か「承認」をクリックする。
+警告などが出なくなるまで何度か実行した方が良いかも。</p>
+
+<h2 id="step6-自動実行を設定:e1078a7c72fac2ac1280e610d5475cb4">Step6. 自動実行を設定</h2>
+
+<p>上部の時計っぽいアイコンをクリックすると自動実行の設定が開くので、「今すぐ追加するにはここをクリックしてください。」のリンクをクリックする。
+<a href="http://lh5.ggpht.com/-j1wo8dMEUe0/UYCEVI9IcSI/AAAAAAAADS8/tE6aZYJcsPI/s922/2013-05-01_115607.png" target="_blank"><img src="http://lh5.ggpht.com/-j1wo8dMEUe0/UYCEVI9IcSI/AAAAAAAADS8/tE6aZYJcsPI/s640/2013-05-01_115607.png" alt="自動実行の設定" class="aligncenter"></a>
+時間割は好きなタイミングにするといいと思う。</p>
+
+<p>以上、あとは放っておけば自動フォロー返しが動くと思う。
+ちなみにフォロー返しが実行されるとメールは既読になるので、その点はご注意を。</p>
+
+    </div>
+</article>
+
+<div class="ad ad-article-bottom">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:300px;height:250px"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="6446299037"></ins>
+    <script>
+    (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/atom">Atom</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+</body>
+</html>
+

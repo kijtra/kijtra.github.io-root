@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/adsense/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Sun, 05 Oct 2014 10:30:00 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/adsense/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス</title>
+      <link>http://kijtra.com/article/adsense-php-class-for-feature-phone</link>
+      <pubDate>Sun, 05 Oct 2014 10:30:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
+      <description>
+
+&lt;p&gt;携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)&lt;/p&gt;
+
+&lt;p&gt;Web上の携帯(フィーチャーフォン/ガラケー)サイト制作の情報って、もうすっかり古いものしか残ってないけど、まだ消滅したわけじゃないので作り続けてるわけです。&lt;br /&gt;
+実際、自分が関わってるサイトでは非スマホでフィーチャーフォン/ガラケーのユーザーがまだ約2割もいる！&lt;br /&gt;
+業種やコンテンツによってはまだ需要があって、しかもAdSenseのCTRはPCなんかよりはるかに高い(ミスクリックしやすい…？)。&lt;br /&gt;
+ということで、携帯(フィーチャーフォン/ガラケー)サイトがあるならばAdSenseを貼らないテはないんだけど、いかんせんGoogle公式のPHP用AdSenseコードがイマイチなので、クラスを作った。&lt;/p&gt;
+
+&lt;p&gt;Gogoleでは「WAPブラウザ用広告」という名前にしてるみたい。&lt;br /&gt;
+AdSenseのコード改変は違反じゃないのかと思う人もいるかもしれないけど、違反になるのはユーザー体験を損ねたりする場合であって、今回のPHPの場合は&lt;a href=&#34;https://support.google.com/adsense/answer/14204?hl=ja&#34;&gt;Google自身が外部リソースに頼れと誘導してる&lt;/a&gt;ので問題ないはず。&lt;/p&gt;
+
+&lt;h2 id=&#34;まず広告の作成:f9eda87e7a311ad08923afb954329951&#34;&gt;まず広告の作成&lt;/h2&gt;
+
+&lt;p&gt;AdSense管理画面の「&lt;a href=&#34;https://www.google.com/adsense/app#myads-viewall-adunits&#34;&gt;広告の設定&lt;/a&gt;」に行き、左メニューの「&lt;strong&gt;モバイルコンテンツ&lt;/strong&gt;」から広告を作成する。&lt;br /&gt;
+すでに広告作ってる場合はそれを使ってもいいかも。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;携帯サイトAdSense用広告の作成&#34; src=&#34;https://lh4.googleusercontent.com/-AaQ9gDcHZP4/VDCd6o1vemI/AAAAAAAADck/MDLZhXjp2sY/w496-h277-no/2014-10-05_101554.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;広告作成の際にPHP用のコードが選択できるので、それを選択してコードを生成。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;PHP用AdSenseコードの生成&#34; src=&#34;https://lh3.googleusercontent.com/-2sCbQH4qoBU/VDCd6h8HvrI/AAAAAAAADcs/F7dpwzXIRFs/w373-h199-no/2014-10-05_101737.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;広告のコードが発行されるので、とりあえずメモ帳かなにかにコピペしておく。&lt;br /&gt;
+(あとでこのコード内の記述を使用)
+&lt;a href=&#34;https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;携帯サイト用AdSense広告のコード&#34; src=&#34;https://lh5.googleusercontent.com/-RXz_kT9KGfQ/VDCd6kulqOI/AAAAAAAADco/3Z-oZmD8wFs/w693-h448-no/2014-10-05_102229.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;携帯サイトadsense用phpクラスのコード:f9eda87e7a311ad08923afb954329951&#34;&gt;携帯サイトAdSense用PHPクラスのコード&lt;/h2&gt;
+
+&lt;p&gt;以下のコードをどこかに配置。&lt;br /&gt;
+&lt;a href=&#34;https://gist.github.com/kijtra/4f7b49f9c466a95463c8#file-adsense_for_keitai-php&#34;&gt;&lt;i class=&#34;icon-github&#34;&gt;&lt;/i&gt; Gistにもあり(最新)&lt;/a&gt;&lt;br /&gt;
+10行目の「&lt;strong&gt;ca-mb-pub-XXXXXXXXXXXXXXX&lt;/strong&gt;」には、AdSenseコードにある「&lt;code&gt;$GLOBALS[&#39;google&#39;][&#39;client&#39;]&lt;/code&gt;」の値を入れておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+class adsenseForKeitai
+{
+	private $ad_url = &#39;http://pagead2.googlesyndication.com/pagead/ads&#39;;
+	private $timeout = 3;//second
+
+	private $params = array(
+		&#39;slot&#39; =&amp;gt; null,
+		&#39;client&#39; =&amp;gt; &#39;ca-mb-pub-XXXXXXXXXXXXXXX&#39;,
+
+		&#39;ad_type&#39; =&amp;gt; &#39;text_image&#39;,
+		&#39;format&#39; =&amp;gt; &#39;mobile_single&#39;,
+		&#39;markup&#39; =&amp;gt; &#39;xhtml&#39;,
+		&#39;output&#39; =&amp;gt; &#39;xhtml&#39;,
+		&#39;oe&#39; =&amp;gt; &#39;utf8&#39;,
+
+		&#39;https&#39; =&amp;gt; false,
+		&#39;ip&#39; =&amp;gt; null,
+		&#39;ref&#39; =&amp;gt; null,
+		&#39;url&#39; =&amp;gt; null,
+		&#39;useragent&#39; =&amp;gt; null,
+
+		&#39;color_border&#39; =&amp;gt; &#39;FFFFFF&#39;,
+		&#39;color_bg&#39; =&amp;gt; &#39;FFFFFF&#39;,
+		&#39;color_link&#39; =&amp;gt; &#39;0053F9&#39;,
+		&#39;color_text&#39; =&amp;gt; &#39;000000&#39;,
+		&#39;color_url&#39; =&amp;gt; &#39;828282&#39;,
+	);
+
+	public function __construct($slot = null, $charset = &#39;utf8&#39;)
+	{
+		$this-&amp;gt;params[&#39;slotname&#39;] = $slot;
+		$this-&amp;gt;params[&#39;oe&#39;] = $charset;
+
+		$this-&amp;gt;params[&#39;ip&#39;] = $_SERVER[&#39;REMOTE_ADDR&#39;];
+		$this-&amp;gt;params[&#39;useragent&#39;] = (!empty($_SERVER[&#39;HTTP_USER_AGENT&#39;]) ? $_SERVER[&#39;HTTP_USER_AGENT&#39;] : null);
+		$this-&amp;gt;params[&#39;ref&#39;] = (!empty($_SERVER[&#39;HTTP_REFERER&#39;]) ? $_SERVER[&#39;HTTP_REFERER&#39;] : null);
+		$this-&amp;gt;params[&#39;url&#39;] = $_SERVER[&#39;HTTP_HOST&#39;].$_SERVER[&#39;REQUEST_URI&#39;];
+
+		if (
+			(!empty($_SERVER[&#39;HTTPS&#39;]) &amp;amp;&amp;amp; (&#39;on&#39; == strtolower($_SERVER[&#39;HTTPS&#39;]) || &#39;1&#39; == strtolower($_SERVER[&#39;HTTPS&#39;])))
+			|| (!empty($_SERVER[&#39;SERVER_PORT&#39;]) &amp;amp;&amp;amp; (443 === (int)$_SERVER[&#39;SERVER_PORT&#39;])
+		)) {
+			$this-&amp;gt;params[&#39;https&#39;] = true;
+		}
+
+		$this-&amp;gt;params[&#39;dt&#39;] = time();
+
+		// Screen Resolutions
+		$res = null;
+		if (!empty($_SERVER[&#39;HTTP_UA_PIXELS&#39;])) {
+			$res = $_SERVER[&#39;HTTP_UA_PIXELS&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_UP_DEVCAP_SCREENPIXELS&#39;])) {
+			$res = $_SERVER[&#39;HTTP_X_UP_DEVCAP_SCREENPIXELS&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_JPHONE_DISPLAY&#39;])) {
+			$res = $_SERVER[&#39;HTTP_X_JPHONE_DISPLAY&#39;];
+		}
+
+		if (!empty($res) &amp;amp;&amp;amp; preg_match(&#39;/\A(\d+)[x,\*](\d+)\z/&#39;, $res, $match)) {
+			$this-&amp;gt;params[&#39;u_w&#39;] = $match[1];
+			$this-&amp;gt;params[&#39;u_h&#39;] = $match[2];
+		}
+
+		// MUID
+		if (!empty($_SERVER[&#39;HTTP_X_DCMGUID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_DCMGUID&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_UP_SUBNO&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_UP_SUBNO&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_JPHONE_UID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_JPHONE_UID&#39;];
+		} elseif(!empty($_SERVER[&#39;HTTP_X_EM_UID&#39;])) {
+			$this-&amp;gt;params[&#39;muid&#39;] = $_SERVER[&#39;HTTP_X_EM_UID&#39;];
+		}
+
+		// Via and Accept
+		if (!empty($_SERVER[&#39;HTTP_VIA&#39;])) {
+			$this-&amp;gt;params[&#39;via&#39;] = $_SERVER[&#39;HTTP_VIA&#39;];
+		}
+
+		// Accept
+		if (!empty($_SERVER[&#39;HTTP_ACCEPT&#39;])) {
+			$this-&amp;gt;params[&#39;accept&#39;] = $_SERVER[&#39;HTTP_ACCEPT&#39;];
+		}
+	}
+
+	public function client($id = null)
+	{
+		if (!empty($id) &amp;amp;&amp;amp; false !== strpos($id, &#39;pub-&#39;)) {
+			$this-&amp;gt;params[&#39;client&#39;] = $id;
+		}
+
+		return $this;
+	}
+
+	public function slot($id = null)
+	{
+		if (!empty($id) &amp;amp;&amp;amp; ctype_digit(strval($id))) {
+			$this-&amp;gt;params[&#39;slotname&#39;] = $id;
+		}
+
+		return $this;
+	}
+
+	public function param($param = null)
+	{
+		if (!empty($param) &amp;amp;&amp;amp; is_array($param)) {
+			$this-&amp;gt;params = array_merge($this-&amp;gt;params, $param);
+		}
+
+		return $this;
+	}
+
+	public function color() {return $this-&amp;gt;colors();}//alias
+	public function colors($param = null)
+	{
+		if (!empty($param) &amp;amp;&amp;amp; is_array($param)) {
+			foreach($param as $key =&amp;gt; $val) {
+				$val = str_replace(&#39;#&#39;, &#39;&#39;, $val);
+				if (!preg_match(&#39;/\A[a-f0-9]{6}\z/i&#39;, $val)) {
+					if (preg_match(&#39;/\A([a-f0-9])([a-f0-9])([a-f0-9])\z/i&#39;, $val, $m)) {
+						$val = $m[1].$m[1].$m[2].$m[2].$m[3].$m[3];
+					} else {
+						continue;
+					}
+				}
+				if (0 !== strpos($key, &#39;color_&#39;)) {
+					$key = &#39;color_&#39;.$key;
+				}
+
+				$this-&amp;gt;params[$key] = strtoupper($val);
+			}
+		}
+
+		return $this;
+	}
+
+	private function request()
+	{
+		static $buffer = null;
+		if (!empty($buffer)) {
+			return $buffer;
+		}
+
+		if (empty($this-&amp;gt;params[&#39;client&#39;]) || empty($this-&amp;gt;params[&#39;slotname&#39;])) {
+			return false;
+		}
+
+		if (0 !== strpos($this-&amp;gt;params[&#39;client&#39;], &#39;ca-&#39;)) {
+			$this-&amp;gt;params[&#39;client&#39;] = &#39;ca-mb-&#39;.$this-&amp;gt;params[&#39;client&#39;];
+		}
+
+		$url = $this-&amp;gt;ad_url.&#39;?&#39;.http_build_query($this-&amp;gt;params);
+		$ch = curl_init($url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $this-&amp;gt;timeout);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this-&amp;gt;timeout);
+		//curl_setopt($ch, CURLOPT_HEADER, true);
+		$content = curl_exec($ch);
+		curl_close($ch);
+
+		if (!empty($content)) {
+			return $buffer = $content;
+		}
+	}
+
+	public function get()
+	{
+		return $this-&amp;gt;request();
+	}
+
+	public function show()
+	{
+		echo $this-&amp;gt;request();
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;表示する:f9eda87e7a311ad08923afb954329951&#34;&gt;表示する&lt;/h2&gt;
+
+&lt;p&gt;広告を表示したい箇所に、以下のようなコードを書く。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+//スロットIDを指定して表示
+$class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;show();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)&lt;/code&gt; の部分は、&lt;br /&gt;
+AdSenseコードにある &lt;code&gt;$GLOBALS[&#39;google&#39;][&#39;slotname&#39;]&lt;/code&gt; の値を入れる(数字のみ)。&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show()&lt;/code&gt; は出力も兼ねてるので、 &lt;code&gt;echo&lt;/code&gt; を書く必要はなし。&lt;br /&gt;
+(echoしたくない場合のために一応 &lt;code&gt;get()&lt;/code&gt; というのも用意してある)&lt;/p&gt;
+
+&lt;p&gt;もし広告のリンクとかテキストとかの色を変えたい場合は以下のようなこともできる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+// クラス作成
+$class = new adsenseForKeitai();
+
+// 広告の色設定(指定できるのは以下の5種類のみっぽい)
+$color = array(
+    &#39;border&#39; =&amp;gt; &#39;FFFFFF&#39;,// 枠線の色
+	&#39;bg&#39; =&amp;gt; &#39;FFFFFF&#39;,// 背景色
+	&#39;link&#39; =&amp;gt; &#39;0053F9&#39;,// リンク(タイトル)の色
+	&#39;text&#39; =&amp;gt; &#39;000000&#39;,// 通常テキスト色
+	&#39;url&#39; =&amp;gt; &#39;828282&#39;,// URL部分の色(携帯用は関係ないかも)
+);
+
+//スロットIDを指定して、色をセットして表示
+$class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;color($color)-&amp;gt;show();
+?&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;関連情報:f9eda87e7a311ad08923afb954329951&#34;&gt;関連情報&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/68724?ctx=as2&amp;amp;rd=1&#34;&gt;モバイル用AdSenseのヘルプ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/185668?hl=ja&#34;&gt;AdSenseモバイル広告の種類とサイズ&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://support.google.com/adsense/answer/1354736?hl=ja&#34;&gt;AdSense 広告コードの改変について&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
