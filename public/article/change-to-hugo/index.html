@@ -75,9 +75,213 @@
     </div>
 
     <div class="body">
-        <p>いったんテスト投稿</p>
+        
 
-<p>テスト投稿です。</p>
+<p>ブログのバックエンドを全面変更したので記録ついでにメモ。</p>
+
+<p>これまで、ブログのバックエンドは以下のような構成だった。</p>
+
+<ul>
+<li>開発環境 → <a href="https://c9.io/">Cloud9</a></li>
+<li>エディタ  →  同上</li>
+<li>CMS → <a href="https://middlemanapp.com/jp/">Middleman</a>(Ruby)</li>
+<li>ホスティング → <a href="https://pages.github.com/">GitHub Pages</a></li>
+</ul>
+
+<p>Cloud9 に Middleman をインストールし、その Cloud9 上で Markdown ファイルを編集し、Cloud9 上でプレビューして確認、そのまま GitHub Pages にデプロイ（公開）。<br />
+この構成でネットとブラウザさえあればどこでも編集・公開できるんだけど、去年あたりから Cloud9 が無料版と有料版の差をつけはじめ、無料版ではサーバーの起動が非常に遅くなってややストレスに。<br />
+とうことで最近になって環境を変えることにした。</p>
+
+<p>自分の行動からして出先でブログ更新とかまずやらない（推敲のみ）ので、素直にローカルPCで記事作成してから GitHub Pages にデプロイするようにした。<br />
+でも新規投稿時の記事リンク貼りとかいちいち作業するわけにもいかないので静的サイトジェネレータを探してみたところ、ローカルで動かすなら <strong><a href="http://gohugo.io/">Hugo</a></strong> が最適な感じだった。<br />
+現状の環境は以下な感じ。</p>
+
+<ul>
+<li>開発環境 → ローカル（Windows）</li>
+<li>エディタ  →  Atom（デフォルトの <a href="https://github.com/atom/markdown-preview">Markdown Preview</a> 機能）</li>
+<li>CMS → <a href="http://gohugo.io/">Hugo</a></li>
+<li>ホスティング → <a href="https://pages.github.com/">GitHub Pages</a></li>
+</ul>
+
+<p>Hugo は Go言語 で制作されていて、Windows用に .exe ファイルが1つだけのアプリとして<a href="https://github.com/spf13/hugo/releases">提供されている</a>。<br />
+なので、基本はコマンドプロンプトで hugo.exe （ダウンロード時はファイル名が違うのでリネームする）を呼び出しての作業になる。</p>
+
+<p>1ファイルなのでブログのリポジトリにそのまま入れて作業している。<br />
+で、ブログのリポジトリ自体は Dropbox にまるごと入れてるので Dropbox と Git があればどこでも作業ができなくもない（やらんけどw）。</p>
+
+<h2 id="hugo-のインストール:1d76fd942bc4cf526400338024bd2133">Hugo のインストール</h2>
+
+<p><a href="https://github.com/spf13/hugo/releases">Hugo の GitHub から最新版アプリをダウンロード</a>。<br />
+ウチの環境は Windows7 64-bit なので <strong>hugo_0.xx_windows_amd64.zip</strong> をダウンロードして解凍。<br />
+中に <strong>hugo_0.xx_windows_amd64.exe</strong> があるので、「 <strong>hugo.exe</strong> 」にリネームしてパスの通ったところに置くか、ウチのようにローカルのブログ用リポジトリのルートフォルダに入れる（そこでしか作業しない場合）。</p>
+
+<h2 id="サイトの作成:1d76fd942bc4cf526400338024bd2133">サイトの作成</h2>
+
+<p>コマンドプロンプトを開き、ローカルのブログ用フォルダ（空フォルダ。あるのは hugo.exe のみ）に移動。<br />
+以下のコマンドで初期構成が生成される。</p>
+
+<pre class="prettyprint linenums"><code class="language-bash">hugo new site ./
+</code></pre>
+
+<p>ファイル構成は自動で以下のように作られる。</p>
+
+<pre class="prettyprint linenums"><code class="language-bash">▸ archetypes/  # ページ(mdファイル)のデフォルトテンプレート
+▸ content/ # ここの中身が最終的に静的サイトとして生成される
+▸ layouts/ # レイアウト、テーマ関連
+▸ static/ # 画像やCSS、JSとかを管理する
+  config.toml # サイト設定ファイル
+</code></pre>
+
+<p>基本設定などは、基本的に生成された「config.toml」ファイルに書く。<br />
+個人的に toml という形式が慣れなかったので <strong>config.yaml</strong> ファイルにすることにした。<br />
+設定ファイルは config.toml →なければ config.yaml →なければ config.json という順番で自動判別してくれる。</p>
+
+<h2 id="テーマ-ページテンプレート-の作成:1d76fd942bc4cf526400338024bd2133">テーマ（ページテンプレート）の作成</h2>
+
+<p><code>themes</code> フォルダがなければ作っておく。<br />
+特にこだわりがなければ<a href="https://github.com/spf13/hugoThemes">公式テーマの集まってる処</a>があるので、そこから落としてきて <code>themes</code> に入れる。</p>
+
+<p>今回は自前のデザインを引き継ぐので自作することになったので、他のテーマを参考にしつつ、同じく <code>themes</code> に作って入れた。<br />
+自前テーマの作り方は<a href="http://gohugo.io/themes/creation/">公式ドキュメント（英語）</a>を参照。<br />
+基本的に<a href="http://golang.org/pkg/html/template/">Go言語のHTMLテンプレート機能</a>に沿って記述する。  （<a href="https://mustache.github.io/">mustache</a>に似てる）</p>
+
+<h2 id="記事-ページ-の作成:1d76fd942bc4cf526400338024bd2133">記事（ページ）の作成</h2>
+
+<p><code>content</code> フォルダに Markdown ファイル（拡張子は .md または .markdown）を入れると、それが最終的にテーマ（テンプレート）を通してHTMLファイルとして生成される。<br />
+ウチの場合、記事ページは <code>/article/xxxxxxx</code> というURL構成なので、 <code>content/article/xxxxxxxx.md</code> というファイルを作っていく。</p>
+
+<h3 id="markdownフォーマットの設定:1d76fd942bc4cf526400338024bd2133">Markdownフォーマットの設定</h3>
+
+<p>Markdown は <a href="http://gohugo.io/content/front-matter/">Front Matter</a> という形式で書くんだけど、デフォルトでは toml（TOML Front Matter） の形式になっている。<br />
+これも個人的に慣れてない（＆旧記事ページが対応してない）ので <strong>YAML Front Matter</strong> 形式で書けるようにする。<br />
+<code>config.yaml</code> に以下の一行を追加。（なければ）</p>
+
+<pre class="prettyprint linenums"><code class="language-yaml">metaDataFormat:  &quot;yaml&quot;
+</code></pre>
+
+<h3 id="architypes-の作成:1d76fd942bc4cf526400338024bd2133">architypes の作成</h3>
+
+<p><code>architypes</code> フォルダが空の場合、とりあえず「**<code>default.md</code>**」というファイルがないとページ作成時にエラーが出る。<br />
+<code>default.md</code> の中身はページ生成時のデフォルトテンプレートとして使われる。<br />
+例としては以下のようなもの。</p>
+
+<pre class="prettyprint linenums"><code class="language-md:architypes/default.md">---
+tags:
+categories:
+---
+</code></pre>
+
+<h3 id="新規投稿ページの作成:1d76fd942bc4cf526400338024bd2133">新規投稿ページの作成</h3>
+
+<p>以下のコマンドで新規ページが作成される。  （ブログのルートフォルダで実行）</p>
+
+<pre class="prettyprint linenums"><code class="language-bash">hugo new article/new-post-dayo.md
+</code></pre>
+
+<p>上記コマンドは <code>content/article/new-post-dayo.md</code> を生成するコマンド。<br />
+実行すると以下のようなファイルが作られる。（<code>architypes/default.md</code> の内容が反映される）</p>
+
+<pre class="prettyprint linenums"><code class="language-md">---
+date: 2015-06-01T10:51:30+09:00
+title: new post dayo
+tags:
+categories:
+---
+</code></pre>
+
+<h2 id="サイトのプレビュー:1d76fd942bc4cf526400338024bd2133">サイトのプレビュー</h2>
+
+<p>記事ファイルができたらプレビューしてみる。コマンドは以下。</p>
+
+<pre class="prettyprint linenums"><code class="language-bash">hugo server --watch
+</code></pre>
+
+<p>実行すると以下のような表示が出る。</p>
+
+<pre class="prettyprint linenums"><code class="language-bash">0 draft content
+0 future content
+1 pages created
+0 paginator pages created
+0 categories created
+in 258 ms
+Watching for changes in C:\xxxxxxx\xxxxxx\{content,layouts,static,themes\kijtra}
+Serving pages from C:\xxxxxxx\xxxxxx\public
+Web Server is available at http://127.0.0.1:1313/
+Press Ctrl+C to stop
+</code></pre>
+
+<p>これで <code>http://127.0.0.1:1313/</code> をブラウザで開いてプレビューできる。<br />
+<code>--watch</code> はリアルタイムプレビューのオプションで、ファイル変更を監視してくれる。</p>
+
+<p>プレビューすると自動的に <code>public</code> というフォルダが生成されている。<br />
+このフォルダが公開対象フォルダ(GitHub Pagesに置くフォルダ)になる。</p>
+
+<h2 id="github-pagesでの公開:1d76fd942bc4cf526400338024bd2133">GitHub Pagesでの公開</h2>
+
+<p>単純に生成されたファイルを GitHub Pages 用リポジトリにプッシュすれば公開される。<br />
+でも個人的にサイトのルートフォルダごと GitHub で管理したかったので<a href="http://gohugo.io/tutorials/github-pages-blog/">公式ドキュメントのGitHub Pagesで公開する方法（英語）</a>を参考にした。</p>
+
+<p>この方法でやる場合、GitHubに<strong>2つのリポジトリが必要になる</strong>。<br />
+ひとつはサイトの全ファイル用、もうひとつは公開用（<em>username</em>.github.io）。</p>
+
+<p>おおまかな手順としては、全ファイル用リポジトリにファイルを置き、<code>public</code> フォルダのみ <a href="https://git-scm.com/book/ja/v1/Git-%E3%81%AE%E3%81%95%E3%81%BE%E3%81%96%E3%81%BE%E3%81%AA%E3%83%84%E3%83%BC%E3%83%AB-%E3%82%B5%E3%83%96%E3%83%A2%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB">git submodule</a> 機能で別リポジトリにする。</p>
+
+<p>例としては、最初に以下のコマンドでリポジトリを設定した。<br />
+（すべてルートディレクトリ作業）</p>
+
+<pre class="prettyprint linenums"><code class="language-sh"># Gitの初期化
+git init
+git remote add origin https://github.com/&lt;全ファイル用リポジトリ&gt;.git
+
+# サイトをビルド
+hugo
+
+# いったんpublicフォルダを削除（いつでも生成できるので心配無用）
+rm -rf public
+
+# gitにファイル追加
+git add -A
+
+# いったんコミット（プッシュはまだしない）
+git commit -m &quot;before add submodule&quot;
+
+# publicフォルダのみ公開用リポジトリとして管理
+git submodule add git@github.com:&lt;公開用リポジトリ&gt;.git public
+</code></pre>
+
+<p>これで公開の準備ができた。</p>
+
+<p>実際に公開する時には毎回いくつかのコマンドが必要「になって面倒なので、以下のような<strong>deploy.sh</strong>というファイルを用意しておく。<br />
+※ Windowsでshファイルを実行するので、Git Bash(<a href="https://msysgit.github.io/">Git for Windows</a>)が入っている必要がある</p>
+
+<pre class="prettyprint linenums"><code class="language-sh:deploy.sh">#!/bin/bash
+
+echo -e &quot;\033[0;32mDeploying updates to GitHub...\033[0m&quot;
+
+# サイトをビルド
+hugo
+
+# 変更ファイルをgitに追加
+git add -A
+
+# コミット（引数があればそれをコミットメッセージにする）
+msg=&quot;rebuilding site `date`&quot;
+if [ $# -eq 1 ]
+  then msg=&quot;$1&quot;
+fi
+git commit -m &quot;$msg&quot;
+
+# 親フォルダ（全ファイル）をプッシュ
+git push origin master
+
+# 公開用フォルダ（サブモジュール）をプッシュ
+git subtree push --prefix=public https://github.com/&lt;公開用リポジトリ&gt;.git master
+</code></pre>
+
+<p>で、今後公開する時は以下のコマンドだけで公開可能。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">deploy.sh &quot;コミットメッセージ&quot;
+</code></pre>
 
     </div>
 </article>
