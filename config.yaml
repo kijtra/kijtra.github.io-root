@@ -9,7 +9,7 @@ disqusShortname: "kijtra"
 params:
     description: "Webのこととかそのたもろもろ"
     author: "きじとら"
-#    googleAnalytics: "UA-20642126-2"
+    googleAnalytics: "UA-20642126-2"
 
 indexes:
   tag: "tag"
