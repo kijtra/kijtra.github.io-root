@@ -75,4 +75,35 @@
 </div>
 {{ end }}
 
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "name": "{{ .Title }}",
+    "url": "{{ .Permalink }}",
+    "datePublished": "{{ .Date.Format "2006-01-01T00:00:00" }}+09:00",
+    "wordCount": {{ .WordCount }},
+    "description": "{{ .Description }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ .Site.Params.author }}",
+        "url": "{{ .Site.BaseURL }}",
+        "image": "{{ .Site.Params.avatar }}"
+    },
+    "isPartOf": {
+        "@type": "Blog",
+        "name": "{{ .Site.Title }}",
+        "url": "{{ .Site.BaseURL }}",
+        "image": "{{ .Site.Params.avatar }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ .Site.Params.author }}",
+            "url": "{{ .Site.BaseURL }}",
+            "image": "{{ .Site.Params.avatar }}"
+        },
+        "description": "{{ .Site.Params.description }}"
+    }
+}
+</script>
+
 {{ partial "footer.html" . }}

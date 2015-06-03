@@ -189,6 +189,103 @@
 
 
 
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Blog",
+    "name": "きじとら",
+    "url": "http:\/\/kijtra.com\/",
+    "image": "http:\/\/kijtra.com\/avatar.png",
+    "author": {
+        "@type": "Person",
+        "name": "きじとら",
+        "url": "http:\/\/kijtra.com\/",
+        "image": "http:\/\/kijtra.com\/avatar.png"
+    },
+    "description": "Webのこととかそのたもろもろ",
+    "blogPosts": [
+        {
+            "@type": "BlogPosting",
+            "name": "Elasticsearch で update する時に配列に値を追加する",
+            "url": "http:\/\/kijtra.com\/article\/elasticsearch-add-array-value-with-update",
+            "datePublished": "2014-05-05T00:00:00+09:00",
+            "description": "Elasticsearchで、ドキュメントのフィールドが配列（連想配列）の場合に、そのフィールドの配列に値を追加したい。"
+        }
+        ,{
+            "@type": "BlogPosting",
+            "name": "Elasticsearch の Kuromoji でユーザー辞書を使うメモ",
+            "url": "http:\/\/kijtra.com\/article\/elasticsearch-kuromoji-user-dictionary",
+            "datePublished": "2014-05-05T00:00:00+09:00",
+            "description": "Elasticsearchでの形態素解析はKuromoji一択だけど、やや辞書が貧弱な部分もあるのでユーザー辞書で補う必要がある。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "2つの配列が同じものかどうかチェックするPHP関数",
+            "url": "http:\/\/kijtra.com\/article\/php-check-same-array",
+            "datePublished": "2014-05-05T00:00:00+09:00",
+            "description": "PHPで、配列の内容が同じかどうかチェックしたい時に使う関数。  連想配列の階層が深くても可。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "ブログ移行。WordPressからCloud9＋Middlemanへ。",
+            "url": "http:\/\/kijtra.com\/article\/cloud9-and-middleman",
+            "datePublished": "2014-04-04T00:00:00+09:00",
+            "description": "以前から静的ブログにしたかったのもあり、やっと2014\/04\/29に移行したので経緯の日記。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "WikipediaのURLがツイートしにくい",
+            "url": "http:\/\/kijtra.com\/article\/wikipedia-url-convert",
+            "datePublished": "2014-01-01T00:00:00+09:00",
+            "description": "WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "MySQLでLOCATE()とかINSTR()とかPOSITION()とかが大文字・小文字を区別してくれない",
+            "url": "http:\/\/kijtra.com\/article\/mysql-string-position-upper-lower-case",
+            "datePublished": "2013-12-12T00:00:00+09:00",
+            "description": "MySQLで、文字列内の任意の文字が何文字目に出てくるか取得できるLOCATE関数で、大文字と小文字に関係なく最初の文字を取得してきてしまうので対処メモ。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "PubSubHubbubにURLをプッシュするPHP関数",
+            "url": "http:\/\/kijtra.com\/article\/push-pubsubhubbub-php",
+            "datePublished": "2013-12-12T00:00:00+09:00",
+            "description": "Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "AppFog（のPHP）でCronぽいことを実現する",
+            "url": "http:\/\/kijtra.com\/article\/cron-in-appfog-php",
+            "datePublished": "2013-10-10T00:00:00+09:00",
+            "description": "AppFogでCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "テーブルのセルに斜めの線を引くjQueryプラグイン",
+            "url": "http:\/\/kijtra.com\/article\/diagonal-line-in-table-cell-jquery-plugin",
+            "datePublished": "2013-09-09T00:00:00+09:00",
+            "description": "テーブルのセルに斜めの線（分割線？打ち消し線？）をつけるやつをjQueryプラグインとして作ってみた。"
+        }
+    
+        ,{
+            "@type": "BlogPosting",
+            "name": "Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた",
+            "url": "http:\/\/kijtra.com\/article\/gmail-delay-send-by-google-apps-script",
+            "datePublished": "2013-09-09T00:00:00+09:00",
+            "description": "Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。"
+        }
+    ]
+}
+</script>
+
 
             </div>
 
@@ -265,6 +362,7 @@
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
 <script src="http://kijtra.com/js/twitprof.js"></script>
 <script>$('.socialcounts').socialCounts();</script>
+
 
 
 

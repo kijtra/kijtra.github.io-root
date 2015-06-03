@@ -28,6 +28,7 @@
 {{ if isset .Params "js" }}{{ range .Params.js }}<script src="{{ . }}"></script>
 {{ end }}{{ end }}
 
+
 {{ with .Site.DisqusShortname }}
 <script type="text/javascript">
 var disqus_shortname = '{{ . }}';

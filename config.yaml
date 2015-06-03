@@ -9,6 +9,7 @@ disqusShortname: "kijtra"
 params:
     description: "Webのこととかそのたもろもろ"
     author: "きじとら"
+    avatar: "http://kijtra.com/avatar.png"
     googleAnalytics: "UA-20642126-2"
 
 indexes:

@@ -15,11 +15,60 @@
 
 <h1><i class="icon-tag"></i> {{ .Title }}</h1>
 <ul class="posts">
-    {{ range .Data.Pages }}
+    {{ range .Paginator.Pages }}
         {{ .Render "summary"}}
     {{ end }}
 </ul>
 
 {{ partial "pagination.html" . }}
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Article",
+    "name": "{{ .Title }}の記事一覧",
+    "url": "{{ .Site.BaseURL }}{{ trim .Paginator.URL "/" }}",
+    "description": "「{{ .Title }}」のタグが付いた記事の一覧です{{ if gt .Paginator.PageNumber 1 }}（{{ .Paginator.PageNumber }}ページ目）{{ end }}",
+    "articleSection": "{{ .Title }}",
+    "pagination": "1-{{ .Paginator.TotalPages }}",
+    "pageStart": {{ add (mul (sub .Paginator.PageNumber 1) .Paginator.PageSize) 1 }},
+    "pageEnd": {{ add (mul (sub .Paginator.PageNumber 1) .Paginator.PageSize) .Paginator.NumberOfElements }},
+    "author": {
+        "@type": "Person",
+        "name": "{{ .Site.Params.author }}",
+        "url": "{{ .Site.BaseURL }}",
+        "image": "{{ .Site.Params.avatar }}"
+    },
+    "hasPart": [{{ range first 1 .Paginator.Pages }}
+        {
+            "@type": "BlogPosting",
+            "name": "{{ .Title }}",
+            "url": "{{ .Permalink }}",
+            "datePublished": "{{ .Date.Format "2006-01-01T00:00:00" }}+09:00",
+            "description": "{{ .Description }}"
+        }{{ end }}{{ range $index, $element := .Paginator.Pages }}{{ if gt $index 0 }}
+        ,{
+            "@type": "BlogPosting",
+            "name": "{{ .Title }}",
+            "url": "{{ .Permalink }}",
+            "datePublished": "{{ .Date.Format "2006-01-01T00:00:00" }}+09:00",
+            "description": "{{ .Description }}"
+        }{{ end }}{{ end }}
+    ],
+    "isPartOf": {
+        "@type": "Blog",
+        "name": "{{ .Site.Title }}",
+        "url": "{{ .Site.BaseURL }}",
+        "image": "{{ .Site.Params.avatar }}",
+        "author": {
+            "@type": "Person",
+            "name": "{{ .Site.Params.author }}",
+            "url": "{{ .Site.BaseURL }}",
+            "image": "{{ .Site.Params.avatar }}"
+        },
+        "description": "{{ .Site.Params.description }}"
+    }
+}
+</script>
 
 {{ partial "footer.html" . }}

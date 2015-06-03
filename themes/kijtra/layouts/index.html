@@ -22,4 +22,37 @@
 
 {{ partial "pagination.html" . }}
 
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Blog",
+    "name": "{{ .Site.Title }}",
+    "url": "{{ .Site.BaseURL }}",
+    "image": "{{ .Site.Params.avatar }}",
+    "author": {
+        "@type": "Person",
+        "name": "{{ .Site.Params.author }}",
+        "url": "{{ .Site.BaseURL }}",
+        "image": "{{ .Site.Params.avatar }}"
+    },
+    "description": "{{ .Site.Params.description }}",
+    "blogPosts": [{{ range first 1 .Paginator.Pages }}
+        {
+            "@type": "BlogPosting",
+            "name": "{{ .Title }}",
+            "url": "{{ .Permalink }}",
+            "datePublished": "{{ .Date.Format "2006-01-01T00:00:00" }}+09:00",
+            "description": "{{ .Description }}"
+        }{{ end }}{{ range $index, $element := .Paginator.Pages }}{{ if gt $index 0 }}
+        ,{
+            "@type": "BlogPosting",
+            "name": "{{ .Title }}",
+            "url": "{{ .Permalink }}",
+            "datePublished": "{{ .Date.Format "2006-01-01T00:00:00" }}+09:00",
+            "description": "{{ .Description }}"
+        }
+    {{ end }}{{ end }}]
+}
+</script>
+
 {{ partial "footer.html" . }}
