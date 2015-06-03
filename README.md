@@ -18,7 +18,7 @@ http://gohugo.io/tutorials/github-pages-blog/#hosting-personal-organization-page
 git init
 git config user.name "kijtra"
 git config user.email "kijtra[at]gmail.com"
-git remote add origin https://github.com/kijtra/kijtra.github.io-root.git
+git remote add origin git@github.com:kijtra/kijtra.github.io-root.git
 ```
 
 ```sh
