@@ -1,4 +1,4 @@
-// out: ../../static/css/blog.css, compress: false, sourcemap: true
+// out: ../../static/css/blog.css, compress: true, sourcemap: true
 
 @import "modules/variables.scss";
 @import "../Skeleton-2.0.4/css/normalize";
@@ -513,10 +513,10 @@ body.article {
     float:right;
 }
 
-@import "modules/sidebar.scss";
+@import "modules/sidebar";
 
 // Tablet
-@media (max-width: 767px) { @import "modules/tablet.scss"; }
+@media (max-width: 767px) { @import "modules/tablet"; }
 
 // Phone
-@media (max-width: 568px) { @import "modules/mobile.scss"; }
+@media (max-width: 568px) { @import "modules/mobile"; }
