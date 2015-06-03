@@ -1,0 +1,18 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {{ range .Data.Pages }}
+    <url>
+        <loc>{{ .Permalink }}</loc>
+        <lastmod>{{ safeHTML ( .Date.Format "2006-01-02T15:04:05-07:00" ) }}</lastmod>{{ with .Sitemap.ChangeFreq }}
+        <changefreq>{{ . }}</changefreq>{{ end }}{{ if ge .Sitemap.Priority 1 }}
+        <priority>{{ .Sitemap.Priority }}</priority>{{ end }}
+    </url>
+    {{ end }}
+    {{ $baseurl := .Site.BaseURL }}{{ $modified := safeHTML ( .Site.LastChange.Format "2006-01-02T15:04:05-07:00" ) }}
+    {{ range $key, $value := .Site.Taxonomies.tag }}
+    <url>
+        <loc>{{ $baseurl }}tag/{{ $key | urlize }}</loc>
+        <lastmod>{{ $modified }}</lastmod>
+        <priority>0.5</priority>
+    </url>
+    {{ end }}
+</urlset>
