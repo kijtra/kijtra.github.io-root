@@ -3,7 +3,7 @@ title: "いま入れてるAtomプラグイン（パッケージ）メモ（2015�
 slug: "my-atom-packages"
 date: "2015-05-25T23:00:00+09:00"
 description: "最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。"
-tag: ["Atom"]
+tag: ["Editor"]
 ---
 
 最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。
@@ -68,9 +68,13 @@ tag: ["Atom"]
   デフォルトでは英語版なので、ソースを書き換えて日本語版に飛ぶようにしてる。  
   設定場所はプラグインのフォルダ内 `lib/php-documentation-online.coffee` の28行目、
   `http://php.net/manual/en/` → `http://php.net/manual/ja/` に。
-- **[SFTP-deployment](https://atom.io/packages/SFTP-deployment)**  
-  (S)FTPでサーバーにアップ＆ダウンロードできる。Windowsだとダウンロードが不安定だったりdeprecationのコード使ってたりで今のところあまり実用的じゃない。  
-  けどアップデート待ちで一応入れてる。
+- ~~[SFTP-deployment](https://atom.io/packages/SFTP-deployment)~~  
+  ~~(S)FTPでサーバーにアップ＆ダウンロードできる。Windowsだとダウンロードが不安定だったりdeprecationのコード使ってたりで今のところあまり実用的じゃない。  
+  けどアップデート待ちで一応入れてる。~~
+- **[Remote-FTP](https://atom.io/packages/remote-ftp)**  
+  上の SFTP-Deploymentはやはり不安定すぎるのでこちらに変更した。  
+  リモートファイル用のサイドバーが出るので確認がしやすく、Atom 1.0 にも対応している。
+  ![](https://i.github-camo.com/719a05ed4e28c2224f52b30ab08bd2d8e6af8a58/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6d6772656e6965722f72656d6f74652d6674702f6d61737465722f73637265656e73686f742e706e67)
 - **[language-nginx](https://atom.io/packages/language-nginx)**  
   nginxのconfファイルのシンタックスハイライト。完全な感じではない。
 - **[language-apache](https://atom.io/packages/language-apache)**  

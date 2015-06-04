@@ -200,12 +200,6 @@
     </url>
     
     <url>
-        <loc>http://kijtra.com/tag/atom</loc>
-        <lastmod>2015-06-02T18:39:32+09:00</lastmod>
-        <priority>0.5</priority>
-    </url>
-    
-    <url>
         <loc>http://kijtra.com/tag/cron</loc>
         <lastmod>2015-06-02T18:39:32+09:00</lastmod>
         <priority>0.5</priority>
@@ -219,6 +213,12 @@
     
     <url>
         <loc>http://kijtra.com/tag/data</loc>
+        <lastmod>2015-06-02T18:39:32+09:00</lastmod>
+        <priority>0.5</priority>
+    </url>
+    
+    <url>
+        <loc>http://kijtra.com/tag/editor</loc>
         <lastmod>2015-06-02T18:39:32+09:00</lastmod>
         <priority>0.5</priority>
     </url>

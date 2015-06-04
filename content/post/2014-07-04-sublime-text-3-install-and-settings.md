@@ -3,7 +3,7 @@ title: "Sublime Text 3 のインストール～設定メモ"
 slug: "sublime-text-3-install-and-settings"
 date: "2014-07-04T12:07:00+09:00"
 description: "Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ"
-tag: ["Sublime Text"]
+tag: ["Sublime Text", "Editor"]
 ---
 
 Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ。

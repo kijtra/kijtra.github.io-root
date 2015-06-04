@@ -295,9 +295,13 @@ PHP者用。コード中の関数にカーソルを合わせて &lt;kbd&gt;F4&lt
 デフォルトでは英語版なので、ソースを書き換えて日本語版に飛ぶようにしてる。&lt;br /&gt;
 設定場所はプラグインのフォルダ内 &lt;code&gt;lib/php-documentation-online.coffee&lt;/code&gt; の28行目、
 &lt;code&gt;http://php.net/manual/en/&lt;/code&gt; → &lt;code&gt;http://php.net/manual/ja/&lt;/code&gt; に。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/SFTP-deployment&#34;&gt;SFTP-deployment&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-(S)FTPでサーバーにアップ＆ダウンロードできる。Windowsだとダウンロードが不安定だったりdeprecationのコード使ってたりで今のところあまり実用的じゃない。&lt;br /&gt;
-けどアップデート待ちで一応入れてる。&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&#34;https://atom.io/packages/SFTP-deployment&#34;&gt;SFTP-deployment&lt;/a&gt;&lt;/del&gt;&lt;br /&gt;
+&lt;del&gt;(S)FTPでサーバーにアップ＆ダウンロードできる。Windowsだとダウンロードが不安定だったりdeprecationのコード使ってたりで今のところあまり実用的じゃない。&lt;br /&gt;
+けどアップデート待ちで一応入れてる。&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/remote-ftp&#34;&gt;Remote-FTP&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+上の SFTP-Deploymentはやはり不安定すぎるのでこちらに変更した。&lt;br /&gt;
+リモートファイル用のサイドバーが出るので確認がしやすく、Atom 1.0 にも対応している。
+&lt;img src=&#34;https://i.github-camo.com/719a05ed4e28c2224f52b30ab08bd2d8e6af8a58/68747470733a2f2f7261772e67697468756275736572636f6e74656e742e636f6d2f6d6772656e6965722f72656d6f74652d6674702f6d61737465722f73637265656e73686f742e706e67&#34; alt=&#34;&#34; /&gt;&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/language-nginx&#34;&gt;language-nginx&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
 nginxのconfファイルのシンタックスハイライト。完全な感じではない。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;a href=&#34;https://atom.io/packages/language-apache&#34;&gt;language-apache&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;

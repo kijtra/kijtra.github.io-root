@@ -3,7 +3,7 @@ title: "Sublime Text 2 のPortable版でSASSをスタンドアローンで使う
 slug: "sublime-text-2-sass-standalone"
 date: "2013-07-26T00:00:00+09:00"
 description: "Sublime Text 2 をportable版で使ってて、SASSもRubyとか入れずにポータブルにできないかと思ったら、そういうソフトを見つけたので設定メモ"
-tag: ["CSS", "Sublime Text"]
+tag: ["CSS", "Sublime Text", "Editor"]
 ---
 
 Sublime Text 2 をportable版で使ってて、SASSもRubyとか入れずにポータブルにできないかと思ったら、そういうソフトを見つけたので設定メモ（Windowsのみ）。
