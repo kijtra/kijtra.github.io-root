@@ -6,8 +6,111 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Tue, 02 Jun 2015 18:39:32 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2015 17:34:27 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Windows 10 で自分の開発環境が動くのか試す</title>
+      <link>http://kijtra.com/article/windows10-app-operation-check</link>
+      <pubDate>Fri, 05 Jun 2015 17:34:27 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/windows10-app-operation-check</guid>
+      <description>
+
+&lt;p&gt;Windows 10 にアップデートしたとして、自分の最低限の開発環境が維持できるのか一応試してみた。&lt;/p&gt;
+
+&lt;p&gt;試したWindows 10 は以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://windows.microsoft.com/ja-jp/windows/preview-iso-update-1504&#34;&gt;Windows 10 Insider Preview (x86) - ビルド 10074&lt;/a&gt;（のISOファイル）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.virtualbox.org&#34;&gt;VirtualBox&lt;/a&gt; 4.3.28&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;VirtualBoxで動かす手順は以下のページを参考にさせてもらいました。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&#34;http://whois.hatenablog.com/entry/2015/03/27/113645&#34;&gt;Windows10 テクニカルプレビューをVirtualBoxにインストールする方法&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;※個人的な最低限のアプリのみ。&lt;br /&gt;
+※OKかどうかは単に「起動した」という時点までの確認。&lt;br /&gt;
+※&lt;strong&gt;結局のところ動かないものはなさそうだった。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;sublime-text-2-http-www-sublimetext-com-2-ver-2-0-2-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/2&#34;&gt;Sublime Text 2&lt;/a&gt; ver 2.0.2&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://packagecontrol.io/&#34;&gt;Package Control&lt;/a&gt;入れて&lt;a href=&#34;https://packagecontrol.io/packages/SFTP&#34;&gt;SFTPプラグイン&lt;/a&gt;入れるまで確認。&lt;br /&gt;
+何度かPackage Controlの警告っぽいのが出たけど動く。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/rlDwFPV0cyDgkFKY6eedYMNTJU9be7cU_SkStAia8Ko=w689-h575-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/rlDwFPV0cyDgkFKY6eedYMNTJU9be7cU_SkStAia8Ko=w689-h575-no&#34; alt=&#34;Windows10でのSublime Text 2&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;sublime-text-3-http-www-sublimetext-com-3-build-3083-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/3&#34;&gt;Sublime Text 3&lt;/a&gt; build 3083&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://packagecontrol.io/&#34;&gt;Package Control&lt;/a&gt;入れて&lt;a href=&#34;https://packagecontrol.io/packages/SFTP&#34;&gt;SFTPプラグイン&lt;/a&gt;入れるまで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/IAU-ymYV-Pzy0AaloYlioT50g2p2iBX2oZ2IZqeQEH4=w692-h578-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/IAU-ymYV-Pzy0AaloYlioT50g2p2iBX2oZ2IZqeQEH4=w692-h578-no&#34; alt=&#34;Windows10でのSublime Text 3&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;atom-http-atom-io-ver-0-205-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://atom.io&#34;&gt;Atom&lt;/a&gt; ver 0.205&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;起動まで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/PE1Kx20NQytqB-BogsGwgbmzaaPo1wO_S-lJiHQYTzk=w891-h679-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/PE1Kx20NQytqB-BogsGwgbmzaaPo1wO_S-lJiHQYTzk=w891-h679-no&#34; alt=&#34;Windows10でのAtom&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;git-for-windows-http-atom-io-ver-1-9-5-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://atom.io&#34;&gt;Git for Windows&lt;/a&gt; ver 1.9.5&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;起動まで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/tB_fEPPJfWyUvjlSFUln7re5iiOK3qHQFyPxZRD-rnE=w683-h492-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/tB_fEPPJfWyUvjlSFUln7re5iiOK3qHQFyPxZRD-rnE=w683-h492-no&#34; alt=&#34;Windows10でのGit for Windows&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;xampp-http-www-chiark-greenend-org-uk-sgtatham-putty-index-html-ver-3-2-1-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.chiark.greenend.org.uk/~sgtatham/putty/index.html&#34;&gt;XAMPP&lt;/a&gt; ver 3.2.1&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Apache、MySQL起動まで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/fmLzKFaDmkGn0ArPD9GrmvvOiHv3r90Fh0v7mt5GK-M=w768-h506-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/fmLzKFaDmkGn0ArPD9GrmvvOiHv3r90Fh0v7mt5GK-M=w768-h506-no&#34; alt=&#34;Windows10でのXAMPP&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;秀丸エディタ-http-hide-maruo-co-jp-software-hidemaru-html-ver-8-52-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://hide.maruo.co.jp/software/hidemaru.html&#34;&gt;秀丸エディタ&lt;/a&gt; ver 8.52&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;まだバリバリ愛用中w　起動まで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/-kS4svYzhHsn-lqlZtXEaJKqtrVWreptSLmkdXSxKdM=w841-h559-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/-kS4svYzhHsn-lqlZtXEaJKqtrVWreptSLmkdXSxKdM=w841-h559-no&#34; alt=&#34;Windows10での秀丸エディタ&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;putty-http-www-chiark-greenend-org-uk-sgtatham-putty-index-html-ver-0-64-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.chiark.greenend.org.uk/~sgtatham/putty/index.html&#34;&gt;PuTTY&lt;/a&gt; ver 0.64&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;起動して特定ホストに接続するまで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/PKuwq_6BhwaK5YfULoKfaisLVZ0ryb271Yoo2jGlUOE=w493-h415-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/PKuwq_6BhwaK5YfULoKfaisLVZ0ryb271Yoo2jGlUOE=w493-h415-no&#34; alt=&#34;Windows10でのPuTTY&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;winscp-http-winscp-net-eng-docs-lang-jp-ver-5-7-3-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://winscp.net/eng/docs/lang:jp&#34;&gt;WinSCP&lt;/a&gt; ver 5.7.3&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;起動して特定サーバーに接続するまで確認。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/wOJsRmjExknKKw5jJJI1lW9ErAcq8SALuc2rZmWcz_E=w663-h458-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/wOJsRmjExknKKw5jJJI1lW9ErAcq8SALuc2rZmWcz_E=w663-h458-no&#34; alt=&#34;Windows10でのWinSCP&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;heidisql-http-www-heidisql-com-ver-9-2-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.heidisql.com/&#34;&gt;HeidiSQL&lt;/a&gt; ver 9.2&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;起動して特定サーバーに接続するまで確認。あんまり使ってる人いないかもだけど。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/NaJ_AeuE6MV7R1phMQapW56EsbLwfHFLoB6O8TgH4_s=w722-h452-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/NaJ_AeuE6MV7R1phMQapW56EsbLwfHFLoB6O8TgH4_s=w722-h452-no&#34; alt=&#34;Windows10でのHeidiSQL&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;その他-oneget-https-oneget-org-にて:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;その他（&lt;a href=&#34;https://oneget.org&#34;&gt;OneGet&lt;/a&gt; にて）&lt;/strong&gt;&lt;/h2&gt;
+
+&lt;p&gt;Windows 10 からはパッケージマネージャとして「OneGet」が標準装備。&lt;br /&gt;
+デフォルトではプロバイダに&lt;a href=&#34;https://chocolatey.org/&#34;&gt;Chocolatey&lt;/a&gt;がないので、&lt;a href=&#34;https://github.com/OneGet/oneget/wiki/cmdlets&#34;&gt;ここの説明&lt;/a&gt;にしたがって組み込んで、プログラミング系のものを入れてみた。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/g04zjpoKj7A7Md-LQUgvp5oUGmMoS0PKKHwdtIAWqpA=w716-h443-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/g04zjpoKj7A7Md-LQUgvp5oUGmMoS0PKKHwdtIAWqpA=w716-h443-no&#34; alt=&#34;Windows10でのOneGetの結果&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Windows 10 自体は（VirtualBox上だけど）わりとサクサク動く感じだった。&lt;br /&gt;
+IEに取って代わったSpartanは本当にWebのブラウズのみ特化した感じ。&lt;br /&gt;
+Windowsストア（β）はまだまだ業務系アプリが少なくて今のところ用なしだった。&lt;br /&gt;
+あとは、シャットダウン系のボタンがなぜか「仕事率」という名前だったり、&lt;br /&gt;
+Windowsボタン（画面左下のやつ）が効かなくなったり、&lt;br /&gt;
+Spartanがいつのまにか終了してたり、&lt;br /&gt;
+ダウンロードファイルの検証に10分ほどかかったり（で結局ダウンロードできなかったり）、&lt;br /&gt;
+各種アプリがなかなか起動しなかったり（PowerShellの起動に5分ほどかかった）&lt;br /&gt;
+・・・といったところがあったので、まだ不安なところもあるかな・・・&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>ブログのバックエンドを「Hugo」に変更</title>
@@ -3650,25 +3753,6 @@ Dropbox内のMarkdownファイルをブログにできる。&lt;/li&gt;
 
 &lt;p&gt;実際にどういう手順でやったかはヒマがある時にまた書こうと思う。&lt;br /&gt;
 （ブログで↑こういう終わり方って個人的には嫌いだけどw）&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>WikipediaのURLがツイートしにくい</title>
-      <link>http://kijtra.com/article/wikipedia-url-convert</link>
-      <pubDate>Sat, 04 Jan 2014 00:00:00 +0900</pubDate>
-      
-      <guid>http://kijtra.com/article/wikipedia-url-convert</guid>
-      <description>&lt;p&gt;WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。&lt;/p&gt;
-
-&lt;p&gt;あけましておめでとうございます。
-正月に時間があったので、&lt;a href=&#34;http://koding.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;Koding&lt;/a&gt;の使用感を掴むついでに作ってみました。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;WikipediaのURLを短く変換&lt;/em&gt;&lt;/strong&gt;
-&lt;a href=&#34;http://wi.kijtra.kd.io/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;&lt;a href=&#34;http://wi.kijtra.kd.io/&#34;&gt;http://wi.kijtra.kd.io/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;単機能なので特に説明は要らないと思います。
-今年もよろしくお願いします。&lt;/p&gt;
 </description>
     </item>
     

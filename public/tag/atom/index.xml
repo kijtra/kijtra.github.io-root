@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/atom/</link>
+    <link>http://localhost:1313/tag/atom/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Mon, 25 May 2015 23:00:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/atom/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tag/atom/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</title>
-      <link>http://kijtra.com/article/my-atom-packages</link>
+      <link>http://localhost:1313/article/my-atom-packages</link>
       <pubDate>Mon, 25 May 2015 23:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/my-atom-packages</guid>
+      <guid>http://localhost:1313/article/my-atom-packages</guid>
       <description>&lt;p&gt;最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。&lt;/p&gt;
 
 &lt;p&gt;基本的にWeb系＋PHPの開発が多いのと、環境がWindowsなので、そのような傾向にある。&lt;/p&gt;
