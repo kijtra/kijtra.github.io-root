@@ -6,6 +6,11 @@ hr {
 
 .ad-article-bottom {
     text-align:center;
+
+    .columns {
+        width:300px;
+        margin-left:-15px;
+    }
 }
 
 .container {
@@ -111,7 +116,35 @@ hr {
             margin:40px 0 0;
 
             h3 {
+                display: table;
+                border-collapse:collapse;
+                text-align: center;
+                white-space: nowrap;
+                font-size:$font-medium + 100;
                 margin-bottom:-10px;
+
+                &:after,
+                &:before {
+                    content: '';
+                    display: table-cell;
+                    width: 50%;
+                    background: linear-gradient(transparent 50%, currentColor 50%, currentColor calc(50% + 2px), transparent calc(50% + 2px));
+                    background-clip: padding;
+                }
+
+                &:after {
+                    border-left: 1em solid transparent;
+                }
+
+                &:before {
+                    border-right: 1em solid transparent;
+                }
+
+                i {
+                    position:relative;
+                    top:.15em;
+                    font-size:$font-large;
+                }
             }
 
             ul {
@@ -124,8 +157,13 @@ hr {
                 ul {
                     overflow:hidden;
                     li {
-                        width:50%;
-                        float:left;
+                        width:48%;
+                        display: inline-block;
+                        vertical-align: top;
+
+                        &:nth-child(even) {
+                            float:right;
+                        }
                     }
                 }
             }
