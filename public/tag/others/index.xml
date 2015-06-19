@@ -10,14 +10,14 @@
     <atom:link href="http://kijtra.com/tag/others/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>日付に関する様々な（「今日は何の日」的な）情報を取得するAPIを作ってみた</title>
+      <title>日付に関する様々な情報を取得するAPIを作ってみた</title>
       <link>http://kijtra.com/article/date-info-api-v1</link>
       <pubDate>Fri, 19 Jun 2015 15:08:36 +0900</pubDate>
       
       <guid>http://kijtra.com/article/date-info-api-v1</guid>
       <description>
 
-&lt;p&gt;指定した日付に関する様々な情報（旧暦とか六曜とか）を取得するシンプルなAPIを（自分のために）作ってみた。&lt;/p&gt;
+&lt;p&gt;指定した日付に関する様々な（「今日は何の日」的な）情報を取得するシンプルなAPIを（自分のために）作ってみた。&lt;/p&gt;
 
 &lt;p&gt;例えば「今日の六曜（大安とかそういうの）は？」といった場合、まずは旧暦の日付を求める必要がある。&lt;br /&gt;
 &lt;a href=&#34;https://ja.wikipedia.org/wiki/%E6%97%A7%E6%9A%A6#.E3.80.8C.E6.97.A7.E6.9A.A6.E3.80.8D.E3.81.AE.E8.A8.88.E7.AE.97&#34;&gt;旧暦の計算&lt;/a&gt;なんかはすごく面倒くさいため、単に六曜を表示するだけでも大掛かりっぽくなってしまう。&lt;br /&gt;
