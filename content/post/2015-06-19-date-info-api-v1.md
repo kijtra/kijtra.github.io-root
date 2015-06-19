@@ -21,7 +21,7 @@ title: "旧暦や六曜など日付に関する情報を取得できるAPIを作
 
 ## リクエストパラメータ
 
-パラメータは1つだけです。
+JSONPを使用しない場合、Access-Control-Allow-Originを `*` に設定しているため直接取得できると思います。
 
 <div class="table">
     <table>
@@ -43,13 +43,23 @@ title: "旧暦や六曜など日付に関する情報を取得できるAPIを作
                     </div>
                 </td>
             </tr>
+            <tr>
+                <th class="w30">callback</th>
+                <td>
+                    JSONPで取得する際に使用してください
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
 
 ### リクエスト例
 
-[`https://dateinfoapi.appspot.com/v1?date=2015-06-19`](https://dateinfoapi.appspot.com/v1?date=2015-06-19)
+通常  
+[`https://dateinfoapi.appspot.com/v1?date=2015-06-19`](https://dateinfoapi.appspot.com/v1?date=2015-06-19)  
+  
+JSONPの場合  
+[`https://dateinfoapi.appspot.com/v1?date=2015-06-19`](https://dateinfoapi.appspot.com/v1?date=2015-06-19&callback=function_name)
 
 
 ## レスポンスパラメータ

@@ -31,7 +31,7 @@
 
 &lt;h2 id=&#34;リクエストパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;リクエストパラメータ&lt;/h2&gt;
 
-&lt;p&gt;パラメータは1つだけです。&lt;/p&gt;
+&lt;p&gt;JSONPを使用しない場合、Access-Control-Allow-Originを &lt;code&gt;*&lt;/code&gt; に設定しているため直接取得できると思います。&lt;/p&gt;
 
 &lt;div class=&#34;table&#34;&gt;
     &lt;table&gt;
@@ -53,13 +53,23 @@
                     &lt;/div&gt;
                 &lt;/td&gt;
             &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th class=&#34;w30&#34;&gt;callback&lt;/th&gt;
+                &lt;td&gt;
+                    JSONPで取得する際に使用してください
+                &lt;/td&gt;
+            &lt;/tr&gt;
         &lt;/tbody&gt;
     &lt;/table&gt;
 &lt;/div&gt;
 
 &lt;h3 id=&#34;リクエスト例:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;リクエスト例&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;通常&lt;br /&gt;
+&lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;JSONPの場合&lt;br /&gt;
+&lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&amp;amp;callback=function_name&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;レスポンスパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;レスポンスパラメータ&lt;/h2&gt;
 

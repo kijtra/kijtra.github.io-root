@@ -92,7 +92,7 @@
 
 <h2 id="リクエストパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0">リクエストパラメータ</h2>
 
-<p>パラメータは1つだけです。</p>
+<p>JSONPを使用しない場合、Access-Control-Allow-Originを <code>*</code> に設定しているため直接取得できると思います。</p>
 
 <div class="table">
     <table>
@@ -114,13 +114,23 @@
                     </div>
                 </td>
             </tr>
+            <tr>
+                <th class="w30">callback</th>
+                <td>
+                    JSONPで取得する際に使用してください
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
 
 <h3 id="リクエスト例:855a73b9cbbdda0a2bfb5acab02a8dc0">リクエスト例</h3>
 
-<p><a href="https://dateinfoapi.appspot.com/v1?date=2015-06-19"><code>https://dateinfoapi.appspot.com/v1?date=2015-06-19</code></a></p>
+<p>通常<br />
+<a href="https://dateinfoapi.appspot.com/v1?date=2015-06-19"><code>https://dateinfoapi.appspot.com/v1?date=2015-06-19</code></a></p>
+
+<p>JSONPの場合<br />
+<a href="https://dateinfoapi.appspot.com/v1?date=2015-06-19&amp;callback=function_name"><code>https://dateinfoapi.appspot.com/v1?date=2015-06-19</code></a></p>
 
 <h2 id="レスポンスパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0">レスポンスパラメータ</h2>
 
@@ -646,7 +656,7 @@
     "name": "旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた",
     "url": "http:\/\/kijtra.com\/article\/date-info-api-v1",
     "datePublished": "2015-06-06T00:00:00+09:00",
-    "wordCount":  328 ,
+    "wordCount":  335 ,
     "description": "",
     "author": {
         "@type": "Person",
