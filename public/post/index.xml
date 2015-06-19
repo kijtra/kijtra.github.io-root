@@ -10,7 +10,7 @@
     <atom:link href="http://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>旧暦、六曜等の日付に関する様々な情報を取得するAPIを作ってみた</title>
+      <title>旧暦、六曜等の日付に関する情報を取得できるAPIを作ってみた</title>
       <link>http://kijtra.com/article/date-info-api-v1</link>
       <pubDate>Fri, 19 Jun 2015 15:08:36 +0900</pubDate>
       
