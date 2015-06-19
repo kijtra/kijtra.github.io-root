@@ -69,7 +69,7 @@
 &lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;JSONPの場合&lt;br /&gt;
-&lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&amp;amp;callback=function_name&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&amp;amp;callback=function_name&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&amp;amp;callback=function_name&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;レスポンスパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;レスポンスパラメータ&lt;/h2&gt;
 

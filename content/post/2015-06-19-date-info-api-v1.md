@@ -57,9 +57,9 @@ JSONPを使用しない場合、Access-Control-Allow-Originを `*` に設定し�
 
 通常  
 [`https://dateinfoapi.appspot.com/v1?date=2015-06-19`](https://dateinfoapi.appspot.com/v1?date=2015-06-19)  
-  
+
 JSONPの場合  
-[`https://dateinfoapi.appspot.com/v1?date=2015-06-19`](https://dateinfoapi.appspot.com/v1?date=2015-06-19&callback=function_name)
+[`https://dateinfoapi.appspot.com/v1?date=2015-06-19&callback=function_name`](https://dateinfoapi.appspot.com/v1?date=2015-06-19&callback=function_name)
 
 
 ## レスポンスパラメータ
