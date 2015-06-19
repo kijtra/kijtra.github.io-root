@@ -1,9 +1,5 @@
 ---
-css: []
 date: 2015-06-19T15:08:36+09:00
-js: []
-ogp:
-  image: null
 slug: "date-info-api-v1"
 tag: ["Others", "Data"]
 title: "旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた"
@@ -218,7 +214,7 @@ title: "旧暦や六曜など日付に関する情報を取得できるAPIを作
                 <th nowrap="nowrap">moon</th>
                 <td nowrap="nowrap">integer</td>
                 <td>
-                    指定日の<a href="https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8" target="_blank" rel="nofollow">月相</a>数。0～27（28でないことに注意）の数値。
+                    指定日の<a href="https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8" target="_blank" rel="nofollow">月相</a>（月齢）数。0～27（28でないことに注意）の数値。
                     <div class="help">
                         （例）2
                     </div>
@@ -529,6 +525,6 @@ title: "旧暦や六曜など日付に関する情報を取得できるAPIを作
 - 祝日の取得には[Python 用祝日判定コード](http://www.h3.dion.ne.jp/~sakatsu/holiday_logic5.htm#Python)を使わせてもらった。  
   一部動かない部分があったので `import datetime` の部分を  
   `import datetime, math, sys` に変更した。
-- 月相の計算には [Astral](https://pypi.python.org/pypi/astral/0.8.1) を使った。 [PyEphem](http://rhodesmill.org/pyephem/) というのが精度がいいみたいだけどGAEでは動かなさそうだった。
+- 月相（月齢）の計算には [Astral](https://pypi.python.org/pypi/astral/0.8.1) を使った。 [PyEphem](http://rhodesmill.org/pyephem/) というのが精度がいいみたいだけどGAEでは動かなさそうだった。
 - 最も苦戦したのが「指定日がその月の第何曜日か」の部分。「第○曜日が何日か」の算出はたくさん見つかるんだけど、その逆がなかなか思いつかなくてw  
   結局 `ceil((日 + 7 - 曜日) / 7)` という簡単なことだった。

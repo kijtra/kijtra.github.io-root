@@ -223,7 +223,7 @@
                 &lt;th nowrap=&#34;nowrap&#34;&gt;moon&lt;/th&gt;
                 &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
                 &lt;td&gt;
-                    指定日の&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;月相&lt;/a&gt;数。0～27（28でないことに注意）の数値。
+                    指定日の&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;月相&lt;/a&gt;（月齢）数。0～27（28でないことに注意）の数値。
                     &lt;div class=&#34;help&#34;&gt;
                         （例）2
                     &lt;/div&gt;
@@ -532,7 +532,7 @@
 &lt;li&gt;祝日の取得には&lt;a href=&#34;http://www.h3.dion.ne.jp/~sakatsu/holiday_logic5.htm#Python&#34;&gt;Python 用祝日判定コード&lt;/a&gt;を使わせてもらった。&lt;br /&gt;
 一部動かない部分があったので &lt;code&gt;import datetime&lt;/code&gt; の部分を&lt;br /&gt;
 &lt;code&gt;import datetime, math, sys&lt;/code&gt; に変更した。&lt;/li&gt;
-&lt;li&gt;月相の計算には &lt;a href=&#34;https://pypi.python.org/pypi/astral/0.8.1&#34;&gt;Astral&lt;/a&gt; を使った。 &lt;a href=&#34;http://rhodesmill.org/pyephem/&#34;&gt;PyEphem&lt;/a&gt; というのが精度がいいみたいだけどGAEでは動かなさそうだった。&lt;/li&gt;
+&lt;li&gt;月相（月齢）の計算には &lt;a href=&#34;https://pypi.python.org/pypi/astral/0.8.1&#34;&gt;Astral&lt;/a&gt; を使った。 &lt;a href=&#34;http://rhodesmill.org/pyephem/&#34;&gt;PyEphem&lt;/a&gt; というのが精度がいいみたいだけどGAEでは動かなさそうだった。&lt;/li&gt;
 &lt;li&gt;最も苦戦したのが「指定日がその月の第何曜日か」の部分。「第○曜日が何日か」の算出はたくさん見つかるんだけど、その逆がなかなか思いつかなくてw&lt;br /&gt;
 結局 &lt;code&gt;ceil((日 + 7 - 曜日) / 7)&lt;/code&gt; という簡単なことだった。&lt;/li&gt;
 &lt;/ul&gt;

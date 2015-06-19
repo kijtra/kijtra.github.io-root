@@ -30,7 +30,6 @@
 <meta property="og:title" content="旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた">
 <meta name="description" content="">
 
-<meta property="og:image" content="">
 <meta property="article:published_time" content="2015/06/06T00:00:00Z">
 <meta property="article:tag" content="Others"><meta property="article:tag" content="Data">
 <link rel="canonical" href="http://kijtra.com/article/date-info-api-v1">
@@ -285,7 +284,7 @@
                 <th nowrap="nowrap">moon</th>
                 <td nowrap="nowrap">integer</td>
                 <td>
-                    指定日の<a href="https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8" target="_blank" rel="nofollow">月相</a>数。0～27（28でないことに注意）の数値。
+                    指定日の<a href="https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8" target="_blank" rel="nofollow">月相</a>（月齢）数。0～27（28でないことに注意）の数値。
                     <div class="help">
                         （例）2
                     </div>
@@ -594,7 +593,7 @@
 <li>祝日の取得には<a href="http://www.h3.dion.ne.jp/~sakatsu/holiday_logic5.htm#Python">Python 用祝日判定コード</a>を使わせてもらった。<br />
 一部動かない部分があったので <code>import datetime</code> の部分を<br />
 <code>import datetime, math, sys</code> に変更した。</li>
-<li>月相の計算には <a href="https://pypi.python.org/pypi/astral/0.8.1">Astral</a> を使った。 <a href="http://rhodesmill.org/pyephem/">PyEphem</a> というのが精度がいいみたいだけどGAEでは動かなさそうだった。</li>
+<li>月相（月齢）の計算には <a href="https://pypi.python.org/pypi/astral/0.8.1">Astral</a> を使った。 <a href="http://rhodesmill.org/pyephem/">PyEphem</a> というのが精度がいいみたいだけどGAEでは動かなさそうだった。</li>
 <li>最も苦戦したのが「指定日がその月の第何曜日か」の部分。「第○曜日が何日か」の算出はたくさん見つかるんだけど、その逆がなかなか思いつかなくてw<br />
 結局 <code>ceil((日 + 7 - 曜日) / 7)</code> という簡単なことだった。</li>
 </ul>
