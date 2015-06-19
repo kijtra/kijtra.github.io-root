@@ -6,8 +6,538 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Tue, 12 Aug 2014 11:25:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2015 15:08:36 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/tag/data/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>日付に関する様々な（「今日は何の日」的な）情報を取得するAPIを作ってみた</title>
+      <link>http://kijtra.com/article/date-info-api-v1</link>
+      <pubDate>Fri, 19 Jun 2015 15:08:36 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/date-info-api-v1</guid>
+      <description>
+
+&lt;p&gt;指定した日付に関する様々な情報（旧暦とか六曜とか）を取得するシンプルなAPIを（自分のために）作ってみた。&lt;/p&gt;
+
+&lt;p&gt;例えば「今日の六曜（大安とかそういうの）は？」といった場合、まずは旧暦の日付を求める必要がある。&lt;br /&gt;
+&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E6%97%A7%E6%9A%A6#.E3.80.8C.E6.97.A7.E6.9A.A6.E3.80.8D.E3.81.AE.E8.A8.88.E7.AE.97&#34;&gt;旧暦の計算&lt;/a&gt;なんかはすごく面倒くさいため、単に六曜を表示するだけでも大掛かりっぽくなってしまう。&lt;br /&gt;
+しかもそういったAPIがみつからなかったので、もう作ってしまえということで。&lt;/p&gt;
+
+&lt;h2 id=&#34;エンドポイント:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;エンドポイント&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;「http」（「s」なし）でもOK。&lt;/p&gt;
+
+&lt;h2 id=&#34;リクエストパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;リクエストパラメータ&lt;/h2&gt;
+
+&lt;p&gt;パラメータは1つだけです。&lt;/p&gt;
+
+&lt;div class=&#34;table&#34;&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;パラメータ&lt;/th&gt;
+                &lt;th&gt;説明&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;th class=&#34;w30&#34;&gt;date&lt;/th&gt;
+                &lt;td&gt;
+                    日付 （例）2015-06-19&lt;br&gt;
+                    省略時は現在の日になります。
+                    &lt;div class=&#34;help&#34;&gt;
+                        ※ Pythonの &lt;a href=&#34;https://dateutil.readthedocs.org/en/latest/&#34;&gt;dateutil&lt;/a&gt;ライブラリを使用しているので、dateutilライブラリが&lt;a href=&#34;https://dateutil.readthedocs.org/en/latest/examples.html#parse-examples&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;パースできる形式&lt;/a&gt;ならなんでもOKです。&lt;br&gt;
+                        ※ 1900年以降にしか対応していません。
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&#34;リクエスト例:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;リクエスト例&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dateinfoapi.appspot.com/v1?date=2015-06-19&#34;&gt;&lt;code&gt;https://dateinfoapi.appspot.com/v1?date=2015-06-19&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;レスポンスパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;レスポンスパラメータ&lt;/h2&gt;
+
+&lt;p&gt;レスポンスのフォーマットはJSONのみです。値がない場合は &lt;code&gt;null&lt;/code&gt; が入ります。&lt;/p&gt;
+
+&lt;div class=&#34;table&#34;&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;パラメータ&lt;/th&gt;
+                &lt;th&gt;型&lt;/th&gt;
+                &lt;th&gt;説明&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;century&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日が何世紀か
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）21
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;date&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の日付&lt;small&gt;（YYYY-MM-DD形式）&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015-06-19
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;date_ja&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の日本語の日付&lt;small&gt;（YYYY年M月D日(W)形式）&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015年6月19日(金)
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;day&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の日
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）19
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;eto&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の干支
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）未
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;eto_kana&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の干支のよみがな
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）ひつじ
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;gengo&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の元号
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）平成
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;gengo_full&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の元号に年を加えたもの
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）平成27年
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;holiday&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日が&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E5%9B%BD%E6%B0%91%E3%81%AE%E4%BC%91%E6%97%A5&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;国民の休日&lt;/a&gt;の場合はその名称
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）みどりの日
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;julian&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;float&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E3%83%A6%E3%83%AA%E3%82%A6%E3%82%B9%E9%80%9A%E6%97%A5&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;ユリウス日&lt;/a&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2457192.5
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;month&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の月
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）6
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;month_en&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の月の英名（すべて小文字）
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）june
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;month_ja&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の月の陰暦名
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）文月
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;month_end&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の月の月末日
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）31
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;moon&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;月相&lt;/a&gt;数。0～27（28でないことに注意）の数値。
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;moon_en&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の月相の状態を英語で。&lt;br&gt;該当しない場合は &lt;code&gt;null&lt;/code&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）New Moon
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;moon_ja&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の月相の状態を日本語で。&lt;br&gt;該当しない場合は &lt;code&gt;null&lt;/code&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）新月
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;old_date&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日から算出した旧暦の日付&lt;small&gt;（YYYY-MM-DD形式）&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015-05-04
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;old_year&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日から算出した旧暦の年
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;old_month&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日から算出した旧暦の月
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）5
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;old_date&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日から算出した旧暦の日
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）4
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;old_leap&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;boolean&lt;/td&gt;
+                &lt;td&gt;
+                    指定日から算出した旧暦が閏月かどうか
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）false
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;rokuyo&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の&lt;a href=&#34;https://ja.wikipedia.org/wiki/%E5%85%AD%E6%9B%9C&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;六曜&lt;/a&gt;名
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）友引
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;season_en&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の季節を英語で（全て小文字）&lt;br&gt;
+                    &lt;small&gt;※季節の分け方は&lt;a href=&#34;https://www.nhk.or.jp/bunken/summary/kotoba/gimon/194.html&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;気象庁が決めている区分&lt;/a&gt;です。&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）summer
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;season_ja&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の季節を日本語で（全て小文字）
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）夏
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;sunrise&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の日の出の時刻&lt;small&gt;（YYYY-MM-DD HH:MM:SS形式）&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015-06-19 04:25:21
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;sunrise&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の日の入りの時刻&lt;small&gt;（YYYY-MM-DD HH:MM:SS形式）&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015-06-19 18:59:44
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;timezone&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    日付計算のタイムゾーン（「JST」固定）
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）JST
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;week&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の曜日番号&lt;small&gt;（0＝日曜、1＝月曜...）&lt;/small&gt;
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）5
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;week_en&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の曜日を英語で（すべて小文字）
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）friday
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;week_ja&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;string&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の曜日を日本語で
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）金
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;week_number&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日がその月の第何曜日かの番号。&lt;br&gt;
+                    例えば &lt;code&gt;week_number&lt;/code&gt; が「3」で &lt;code&gt;week_ja&lt;/code&gt; が「金」なら「第3金曜日」
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）3
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;week_number_of_year&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の週番号（その年の最初の日曜日から数えて第何週目か）
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）24
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;year&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の西暦での年
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）2015
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;year_ja&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;integer&lt;/td&gt;
+                &lt;td&gt;
+                    指定日の和暦での年
+                    &lt;div class=&#34;help&#34;&gt;
+                        （例）27
+                    &lt;/div&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;th nowrap=&#34;nowrap&#34;&gt;_now&lt;/th&gt;
+                &lt;td nowrap=&#34;nowrap&#34;&gt;json&lt;/td&gt;
+                &lt;td&gt;
+                    リクエスト時点の日時の情報
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&#34;レスポンス例:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;レスポンス例&lt;/h2&gt;
+
+&lt;p&gt;※見やすいように整形しています。実際は改行なしです。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;century&amp;quot;: 21,
+    &amp;quot;date&amp;quot;: &amp;quot;2015-06-19&amp;quot;,
+    &amp;quot;date_ja&amp;quot;: &amp;quot;2015年6月19日(金)&amp;quot;,
+    &amp;quot;day&amp;quot;: 19,
+    &amp;quot;eto&amp;quot;: &amp;quot;未&amp;quot;,
+    &amp;quot;eto_kana&amp;quot;: &amp;quot;ひつじ&amp;quot;,
+    &amp;quot;gengo&amp;quot;: &amp;quot;平成&amp;quot;,
+    &amp;quot;gengo_full&amp;quot;: &amp;quot;平成27年&amp;quot;,
+    &amp;quot;holiday&amp;quot;: null,
+    &amp;quot;julian&amp;quot;: 2457192.5,
+    &amp;quot;month&amp;quot;: 6,
+    &amp;quot;month_en&amp;quot;: &amp;quot;june&amp;quot;,
+    &amp;quot;month_end&amp;quot;: 31,
+    &amp;quot;month_ja&amp;quot;: &amp;quot;文月&amp;quot;,
+    &amp;quot;moon&amp;quot;: 2,
+    &amp;quot;moon_en&amp;quot;: null,
+    &amp;quot;moon_ja&amp;quot;: null,
+    &amp;quot;old_date&amp;quot;: &amp;quot;2015-05-04&amp;quot;,
+    &amp;quot;old_day&amp;quot;: 4,
+    &amp;quot;old_leap&amp;quot;: false,
+    &amp;quot;old_month&amp;quot;: 5,
+    &amp;quot;old_year&amp;quot;: 2015,
+    &amp;quot;rokuyo&amp;quot;: &amp;quot;友引&amp;quot;,
+    &amp;quot;season_en&amp;quot;: &amp;quot;summer&amp;quot;,
+    &amp;quot;season_ja&amp;quot;: &amp;quot;夏&amp;quot;,
+    &amp;quot;sunrise&amp;quot;: &amp;quot;2015-06-19 04:25:21&amp;quot;,
+    &amp;quot;sunset&amp;quot;: &amp;quot;2015-06-19 18:59:44&amp;quot;,
+    &amp;quot;timezone&amp;quot;: &amp;quot;JST&amp;quot;,
+    &amp;quot;week&amp;quot;: 5,
+    &amp;quot;week_en&amp;quot;: &amp;quot;friday&amp;quot;,
+    &amp;quot;week_ja&amp;quot;: &amp;quot;金&amp;quot;,
+    &amp;quot;week_number&amp;quot;: 3.0,
+    &amp;quot;week_number_of_year&amp;quot;: 24,
+    &amp;quot;year&amp;quot;: 2015,
+    &amp;quot;year_ja&amp;quot;: 27,
+    &amp;quot;_now&amp;quot;: {
+        &amp;quot;date&amp;quot;: &amp;quot;2015-06-19&amp;quot;,
+        &amp;quot;datetime&amp;quot;: &amp;quot;2015-06-19 06:20:13&amp;quot;,
+        &amp;quot;day&amp;quot;: 19,
+        &amp;quot;hour&amp;quot;: 6,
+        &amp;quot;minute&amp;quot;: 20,
+        &amp;quot;month&amp;quot;: 6,
+        &amp;quot;second&amp;quot;: 13,
+        &amp;quot;week&amp;quot;: 5,
+        &amp;quot;week_en&amp;quot;: &amp;quot;friday&amp;quot;,
+        &amp;quot;week_ja&amp;quot;: &amp;quot;金&amp;quot;,
+        &amp;quot;year&amp;quot;: 2015
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;あとがき:855a73b9cbbdda0a2bfb5acab02a8dc0&#34;&gt;あとがき&lt;/h2&gt;
+
+&lt;p&gt;基本的に放置したいのと、SSLが使いたかったので&lt;a href=&#34;https://cloud.google.com/appengine/?hl=ja&#34;&gt;Google App Engine&lt;/a&gt;を使った。&lt;br /&gt;
+しかも完全無料でやるために、普段はPHPなんだけど慣れないPythonで組んだので少し時間がかかったw。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;旧暦の計算は&lt;a href=&#34;http://d.hatena.ne.jp/fgshun/20091127/1259302979&#34;&gt;銀月の符号&lt;/a&gt;さんのプログラムを使った。&lt;br /&gt;
+（六曜は旧暦から取得した日付から &lt;code&gt;(月 + 日) % 6&lt;/code&gt; で算出）&lt;/li&gt;
+&lt;li&gt;祝日の取得には&lt;a href=&#34;http://www.h3.dion.ne.jp/~sakatsu/holiday_logic5.htm#Python&#34;&gt;Python 用祝日判定コード&lt;/a&gt;を使わせてもらった。&lt;br /&gt;
+一部動かない部分があったので &lt;code&gt;import datetime&lt;/code&gt; の部分を&lt;br /&gt;
+&lt;code&gt;import datetime, math, sys&lt;/code&gt; に変更した。&lt;/li&gt;
+&lt;li&gt;月相の計算には &lt;a href=&#34;https://pypi.python.org/pypi/astral/0.8.1&#34;&gt;Astral&lt;/a&gt; を使った。 &lt;a href=&#34;http://rhodesmill.org/pyephem/&#34;&gt;PyEphem&lt;/a&gt; というのが精度がいいみたいだけどGAEでは動かなさそうだった。&lt;/li&gt;
+&lt;li&gt;最も苦戦したのが「指定日がその月の第何曜日か」の部分。「第○曜日が何日か」の算出はたくさん見つかるんだけど、その逆がなかなか思いつかなくてw&lt;br /&gt;
+結局 &lt;code&gt;ceil((日 + 7 - 曜日) / 7)&lt;/code&gt; という簡単なことだった。&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>隣接県も含めた都道府県のJSONその他形式のデータ</title>

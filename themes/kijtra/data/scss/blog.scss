@@ -383,8 +383,10 @@ body.article {
                 }
             }
 
-            li {
-                line-height:1.5;
+            > ul li,
+            > ol li {
+                margin-bottom:1.2em;
+                line-height:1.6;
             }
 
             iframe {
@@ -395,7 +397,7 @@ body.article {
             code {
                 font-family:$font-code;
                 padding: 2px 4px;
-                font-size: 90%;
+                font-size: 80%;
                 color: #c7254e;
                 background-color: #f9f2f4;
                 border-radius: 4px;
@@ -410,9 +412,10 @@ body.article {
                     padding:0;
                     color:inherit;
                     font-size: inherit;
+                    line-height:1.4;
                     border:0;
                     background:transparent;
-                    white-space:nowrap;
+                    white-space: pre-wrap;
                 }
 
                 .linenums {
@@ -423,7 +426,6 @@ body.article {
                     li {
                         margin:0;
                         padding:0;
-                        line-height:1.2;
                         background:none;
                         list-style: inherit;
 
@@ -462,6 +464,112 @@ body.article {
                 border-radius: 3px;
                 -webkit-box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
                 box-shadow: inset 0 -1px 0 rgba(0,0,0,.25);
+            }
+
+            .table {
+                width: 100%;
+                padding-right:1px;
+                min-height: .01%;
+                overflow-x: auto;
+                margin-bottom: 15px;
+                -webkit-overflow-scrolling: touch;
+                -ms-overflow-style: -ms-autohiding-scrollbar;
+
+                > table {
+                    width:100%;
+                    margin:0;
+                    border-cllapse:collapse;
+
+                    th, td {
+                        padding:15px;
+                        text-align:left;
+                        border:1px solid #ddd;
+                        word-wrap:break-word;
+                        word-break:break-all;
+                    }
+
+                    th {
+                        max-width:40%;
+                    }
+
+                    td {
+                        min-width:50%;
+                    }
+
+                    thead {
+                        th, td {
+                            max-width:auto;
+                            padding-top:0;
+                            padding-bottom:7px;
+                            font-size:90%;
+                            white-space:nowrap;
+                            line-height:1.2;
+                            vertical-align:bottom;
+                            border-top:0;
+                            border-left:0;
+                            border-right:0;
+                            border-bottom-width:2px;
+                        }
+                    }
+
+                    tbody {
+                        th, td {
+                            line-height:1.4;
+                        }
+
+                        th {
+                            background: rgba(0,0,0,.03);
+                        }
+
+                        .help {
+                            margin-top:10px;
+                            font-size:90%;
+                            line-height:1.3;
+                            color:lighten($color-text, 35%);
+                        }
+
+                        code {
+                            padding:1px 4px;
+                            font-size:80%;
+                        }
+                    }
+
+                    .w20 { width:20%; }
+                    .w30 { width:30%; }
+                    .w40 { width:40%; }
+                    .w50 { width:50%; }
+                    .w60 { width:60%; }
+
+                    .v-top { vertical-align:top; }
+                    .v-middle { vertical-align:middle; }
+                    .v-bottom { vertical-align:bottom; }
+
+                    .a-left { text-align:left; }
+                    .a-center { text-align:center; }
+                    .a-right { text-align:right; }
+                }
+
+                @media screen and (max-width: 767px) {
+                    & {
+                        border: 1px solid #ddd;
+
+                        table {
+                            th:first-child, td:first-child {
+                                border-left:0;
+                            }
+
+                            th:last-child, td:last-child {
+                                border-right:0;
+                            }
+
+                            thead {
+                                th, td {
+                                    padding-top:7px;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

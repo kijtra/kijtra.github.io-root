@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>日付に関する様々な（「今日は何の日」的な）情報を取得するAPIを作ってみた - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/date-info-api-v1">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="日付に関する様々な（「今日は何の日」的な）情報を取得するAPIを作ってみた">
+<meta name="description" content="">
+
+<meta property="og:image" content="">
+<meta property="article:published_time" content="2015/06/06T00:00:00Z">
+<meta property="article:tag" content="Others"><meta property="article:tag" content="Data">
+<link rel="canonical" href="http://kijtra.com/article/date-info-api-v1">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>日付に関する様々な（「今日は何の日」的な）情報を取得するAPIを作ってみた</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2015/06/06</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/others">Others</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/data">Data</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p>指定した日付に関する様々な情報（旧暦とか六曜とか）を取得するシンプルなAPIを（自分のために）作ってみた。</p>
+
+<p>例えば「今日の六曜（大安とかそういうの）は？」といった場合、まずは旧暦の日付を求める必要がある。<br />
+<a href="https://ja.wikipedia.org/wiki/%E6%97%A7%E6%9A%A6#.E3.80.8C.E6.97.A7.E6.9A.A6.E3.80.8D.E3.81.AE.E8.A8.88.E7.AE.97">旧暦の計算</a>なんかはすごく面倒くさいため、単に六曜を表示するだけでも大掛かりっぽくなってしまう。<br />
+しかもそういったAPIがみつからなかったので、もう作ってしまえということで。</p>
+
+<h2 id="エンドポイント:855a73b9cbbdda0a2bfb5acab02a8dc0">エンドポイント</h2>
+
+<p><code>https://dateinfoapi.appspot.com/v1</code></p>
+
+<p>「http」（「s」なし）でもOK。</p>
+
+<h2 id="リクエストパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0">リクエストパラメータ</h2>
+
+<p>パラメータは1つだけです。</p>
+
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>パラメータ</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th class="w30">date</th>
+                <td>
+                    日付 （例）2015-06-19<br>
+                    省略時は現在の日になります。
+                    <div class="help">
+                        ※ Pythonの <a href="https://dateutil.readthedocs.org/en/latest/">dateutil</a>ライブラリを使用しているので、dateutilライブラリが<a href="https://dateutil.readthedocs.org/en/latest/examples.html#parse-examples" target="_blank" rel="nofollow">パースできる形式</a>ならなんでもOKです。<br>
+                        ※ 1900年以降にしか対応していません。
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h3 id="リクエスト例:855a73b9cbbdda0a2bfb5acab02a8dc0">リクエスト例</h3>
+
+<p><a href="https://dateinfoapi.appspot.com/v1?date=2015-06-19"><code>https://dateinfoapi.appspot.com/v1?date=2015-06-19</code></a></p>
+
+<h2 id="レスポンスパラメータ:855a73b9cbbdda0a2bfb5acab02a8dc0">レスポンスパラメータ</h2>
+
+<p>レスポンスのフォーマットはJSONのみです。値がない場合は <code>null</code> が入ります。</p>
+
+<div class="table">
+    <table>
+        <thead>
+            <tr>
+                <th>パラメータ</th>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th nowrap="nowrap">century</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日が何世紀か
+                    <div class="help">
+                        （例）21
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">date</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の日付<small>（YYYY-MM-DD形式）</small>
+                    <div class="help">
+                        （例）2015-06-19
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">date_ja</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の日本語の日付<small>（YYYY年M月D日(W)形式）</small>
+                    <div class="help">
+                        （例）2015年6月19日(金)
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">day</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の日
+                    <div class="help">
+                        （例）19
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">eto</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の干支
+                    <div class="help">
+                        （例）未
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">eto_kana</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の干支のよみがな
+                    <div class="help">
+                        （例）ひつじ
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">gengo</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の元号
+                    <div class="help">
+                        （例）平成
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">gengo_full</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の元号に年を加えたもの
+                    <div class="help">
+                        （例）平成27年
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">holiday</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日が<a href="https://ja.wikipedia.org/wiki/%E5%9B%BD%E6%B0%91%E3%81%AE%E4%BC%91%E6%97%A5" target="_blank" rel="nofollow">国民の休日</a>の場合はその名称
+                    <div class="help">
+                        （例）みどりの日
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">julian</th>
+                <td nowrap="nowrap">float</td>
+                <td>
+                    指定日の<a href="https://ja.wikipedia.org/wiki/%E3%83%A6%E3%83%AA%E3%82%A6%E3%82%B9%E9%80%9A%E6%97%A5" target="_blank" rel="nofollow">ユリウス日</a>
+                    <div class="help">
+                        （例）2457192.5
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap="nowrap">month</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の月
+                    <div class="help">
+                        （例）6
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">month_en</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の月の英名（すべて小文字）
+                    <div class="help">
+                        （例）june
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">month_ja</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の月の陰暦名
+                    <div class="help">
+                        （例）文月
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">month_end</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の月の月末日
+                    <div class="help">
+                        （例）31
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">moon</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の<a href="https://ja.wikipedia.org/wiki/%E6%9C%88%E7%9B%B8" target="_blank" rel="nofollow">月相</a>数。0～27（28でないことに注意）の数値。
+                    <div class="help">
+                        （例）2
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">moon_en</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の月相の状態を英語で。<br>該当しない場合は <code>null</code>
+                    <div class="help">
+                        （例）New Moon
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">moon_ja</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の月相の状態を日本語で。<br>該当しない場合は <code>null</code>
+                    <div class="help">
+                        （例）新月
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">old_date</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日から算出した旧暦の日付<small>（YYYY-MM-DD形式）</small>
+                    <div class="help">
+                        （例）2015-05-04
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">old_year</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日から算出した旧暦の年
+                    <div class="help">
+                        （例）2015
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">old_month</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日から算出した旧暦の月
+                    <div class="help">
+                        （例）5
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">old_date</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日から算出した旧暦の日
+                    <div class="help">
+                        （例）4
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">old_leap</th>
+                <td nowrap="nowrap">boolean</td>
+                <td>
+                    指定日から算出した旧暦が閏月かどうか
+                    <div class="help">
+                        （例）false
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">rokuyo</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の<a href="https://ja.wikipedia.org/wiki/%E5%85%AD%E6%9B%9C" target="_blank" rel="nofollow">六曜</a>名
+                    <div class="help">
+                        （例）友引
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">season_en</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の季節を英語で（全て小文字）<br>
+                    <small>※季節の分け方は<a href="https://www.nhk.or.jp/bunken/summary/kotoba/gimon/194.html" target="_blank" rel="nofollow">気象庁が決めている区分</a>です。</small>
+                    <div class="help">
+                        （例）summer
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">season_ja</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の季節を日本語で（全て小文字）
+                    <div class="help">
+                        （例）夏
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">sunrise</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の日の出の時刻<small>（YYYY-MM-DD HH:MM:SS形式）</small>
+                    <div class="help">
+                        （例）2015-06-19 04:25:21
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">sunrise</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の日の入りの時刻<small>（YYYY-MM-DD HH:MM:SS形式）</small>
+                    <div class="help">
+                        （例）2015-06-19 18:59:44
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">timezone</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    日付計算のタイムゾーン（「JST」固定）
+                    <div class="help">
+                        （例）JST
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">week</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の曜日番号<small>（0＝日曜、1＝月曜...）</small>
+                    <div class="help">
+                        （例）5
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">week_en</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の曜日を英語で（すべて小文字）
+                    <div class="help">
+                        （例）friday
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">week_ja</th>
+                <td nowrap="nowrap">string</td>
+                <td>
+                    指定日の曜日を日本語で
+                    <div class="help">
+                        （例）金
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">week_number</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日がその月の第何曜日かの番号。<br>
+                    例えば <code>week_number</code> が「3」で <code>week_ja</code> が「金」なら「第3金曜日」
+                    <div class="help">
+                        （例）3
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">week_number_of_year</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の週番号（その年の最初の日曜日から数えて第何週目か）
+                    <div class="help">
+                        （例）24
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">year</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の西暦での年
+                    <div class="help">
+                        （例）2015
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">year_ja</th>
+                <td nowrap="nowrap">integer</td>
+                <td>
+                    指定日の和暦での年
+                    <div class="help">
+                        （例）27
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th nowrap="nowrap">_now</th>
+                <td nowrap="nowrap">json</td>
+                <td>
+                    リクエスト時点の日時の情報
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<h2 id="レスポンス例:855a73b9cbbdda0a2bfb5acab02a8dc0">レスポンス例</h2>
+
+<p>※見やすいように整形しています。実際は改行なしです。</p>
+
+<pre class="prettyprint linenums"><code class="language-json">{
+    &quot;century&quot;: 21,
+    &quot;date&quot;: &quot;2015-06-19&quot;,
+    &quot;date_ja&quot;: &quot;2015年6月19日(金)&quot;,
+    &quot;day&quot;: 19,
+    &quot;eto&quot;: &quot;未&quot;,
+    &quot;eto_kana&quot;: &quot;ひつじ&quot;,
+    &quot;gengo&quot;: &quot;平成&quot;,
+    &quot;gengo_full&quot;: &quot;平成27年&quot;,
+    &quot;holiday&quot;: null,
+    &quot;julian&quot;: 2457192.5,
+    &quot;month&quot;: 6,
+    &quot;month_en&quot;: &quot;june&quot;,
+    &quot;month_end&quot;: 31,
+    &quot;month_ja&quot;: &quot;文月&quot;,
+    &quot;moon&quot;: 2,
+    &quot;moon_en&quot;: null,
+    &quot;moon_ja&quot;: null,
+    &quot;old_date&quot;: &quot;2015-05-04&quot;,
+    &quot;old_day&quot;: 4,
+    &quot;old_leap&quot;: false,
+    &quot;old_month&quot;: 5,
+    &quot;old_year&quot;: 2015,
+    &quot;rokuyo&quot;: &quot;友引&quot;,
+    &quot;season_en&quot;: &quot;summer&quot;,
+    &quot;season_ja&quot;: &quot;夏&quot;,
+    &quot;sunrise&quot;: &quot;2015-06-19 04:25:21&quot;,
+    &quot;sunset&quot;: &quot;2015-06-19 18:59:44&quot;,
+    &quot;timezone&quot;: &quot;JST&quot;,
+    &quot;week&quot;: 5,
+    &quot;week_en&quot;: &quot;friday&quot;,
+    &quot;week_ja&quot;: &quot;金&quot;,
+    &quot;week_number&quot;: 3.0,
+    &quot;week_number_of_year&quot;: 24,
+    &quot;year&quot;: 2015,
+    &quot;year_ja&quot;: 27,
+    &quot;_now&quot;: {
+        &quot;date&quot;: &quot;2015-06-19&quot;,
+        &quot;datetime&quot;: &quot;2015-06-19 06:20:13&quot;,
+        &quot;day&quot;: 19,
+        &quot;hour&quot;: 6,
+        &quot;minute&quot;: 20,
+        &quot;month&quot;: 6,
+        &quot;second&quot;: 13,
+        &quot;week&quot;: 5,
+        &quot;week_en&quot;: &quot;friday&quot;,
+        &quot;week_ja&quot;: &quot;金&quot;,
+        &quot;year&quot;: 2015
+    }
+}
+</code></pre>
+
+<hr />
+
+<h2 id="あとがき:855a73b9cbbdda0a2bfb5acab02a8dc0">あとがき</h2>
+
+<p>基本的に放置したいのと、SSLが使いたかったので<a href="https://cloud.google.com/appengine/?hl=ja">Google App Engine</a>を使った。<br />
+しかも完全無料でやるために、普段はPHPなんだけど慣れないPythonで組んだので少し時間がかかったw。</p>
+
+<ul>
+<li>旧暦の計算は<a href="http://d.hatena.ne.jp/fgshun/20091127/1259302979">銀月の符号</a>さんのプログラムを使った。<br />
+（六曜は旧暦から取得した日付から <code>(月 + 日) % 6</code> で算出）</li>
+<li>祝日の取得には<a href="http://www.h3.dion.ne.jp/~sakatsu/holiday_logic5.htm#Python">Python 用祝日判定コード</a>を使わせてもらった。<br />
+一部動かない部分があったので <code>import datetime</code> の部分を<br />
+<code>import datetime, math, sys</code> に変更した。</li>
+<li>月相の計算には <a href="https://pypi.python.org/pypi/astral/0.8.1">Astral</a> を使った。 <a href="http://rhodesmill.org/pyephem/">PyEphem</a> というのが精度がいいみたいだけどGAEでは動かなさそうだった。</li>
+<li>最も苦戦したのが「指定日がその月の第何曜日か」の部分。「第○曜日が何日か」の算出はたくさん見つかるんだけど、その逆がなかなか思いつかなくてw<br />
+結局 <code>ceil((日 + 7 - 曜日) / 7)</code> という簡単なことだった。</li>
+</ul>
+
+    </div>
+</article>
+
+<div class="row clearfix ad ad-article-bottom">
+    <div class="six columns alpha">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-9281671442970905"
+             data-ad-slot="6446299037"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="six columns omega">
+        <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=12&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+    </div>
+</div>
+
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "name": "日付に関する様々な（「今日は何の日」的な）情報を取得するAPIを作ってみた",
+    "url": "http:\/\/kijtra.com\/article\/date-info-api-v1",
+    "datePublished": "2015-06-06T00:00:00+09:00",
+    "wordCount":  328 ,
+    "description": "",
+    "author": {
+        "@type": "Person",
+        "name": "きじとら",
+        "url": "http:\/\/kijtra.com\/",
+        "image": "http:\/\/kijtra.com\/avatar.jpg"
+    },
+    "isPartOf": {
+        "@type": "Blog",
+        "name": "きじとら",
+        "url": "http:\/\/kijtra.com\/",
+        "image": "http:\/\/kijtra.com\/avatar.jpg",
+        "author": {
+            "@type": "Person",
+            "name": "きじとら",
+            "url": "http:\/\/kijtra.com\/",
+            "image": "http:\/\/kijtra.com\/avatar.jpg"
+        },
+        "description": "Webのこととかそのたもろもろ"
+    }
+}
+</script>
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/editor">Editor</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(11)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="ad amazon">
+    <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=9&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="180" height="150" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-20642126-2', 'kijtra.com');
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
+
