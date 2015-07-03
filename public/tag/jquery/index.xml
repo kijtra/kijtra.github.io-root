@@ -6,8 +6,114 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Wed, 11 Mar 2015 00:20:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 03 Jul 2015 16:20:45 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/tag/jquery/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ページ移動時にフォームの内容に変更があれば警告を出すアレ</title>
+      <link>http://kijtra.com/article/watch-form-input-change</link>
+      <pubDate>Fri, 03 Jul 2015 16:20:45 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/watch-form-input-change</guid>
+      <description>&lt;p&gt;ページの移動や更新の時、フォームの入力内容に変更があった場合に「&lt;strong&gt;移動してよろしいですか？&lt;/strong&gt;」みたいな警告が出るのをたまに見る。（アレなんか名前があるのかな…？）&lt;br /&gt;
+jQueryでシンプルに作れそうだったので作ってみた。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;(function($) {
+    // 警告のメッセージ
+    var message = &#39;入力内容が一部変更済みです&#39;;
+
+    // 対象フォーム格納用jQueryオブジェクト
+    var forms = $();
+
+    // デフォルト値
+    var defaults = &#39;&#39;;
+
+    // window.beforeunload適用済みかどうかのフラグ
+    var initialized = false;
+
+    // フォームでのSubmit時だけは警告を出さないためのフラグ
+    var submit = false;
+
+    // プラグイン本体
+    $.fn.watchInputChange = function(options) {
+        var form = this;
+
+        $(function() {
+            // Submit時にフラグを立てる
+            form.on(&#39;submit.wic&#39;, function() {
+                submit = true;
+                // Ajaxフォームの場合はonBeforeUnloadが動かないので
+                // 0.5秒後に元に戻す（ビミョー実装）
+                setTimeout(function() {
+                    submit = false;
+                }, 500);
+            });
+
+            // 対象フォームをjQueryオブジェクトに追加
+            forms = forms.add(form);
+
+            // デフォルト値をセット
+            defaults = forms.serialize();
+
+            // window.beforeunload適用（初回のみ）
+            if (!initialized) {
+                initialized = true;
+                $(window).on(&#39;beforeunload.wic&#39;, function() {
+                    // フォームでのSubmitの場合は無視
+                    if (submit) {
+                        submit = false;
+                        return;
+                    }
+
+                    // 対象フォームの現データとデフォルト値を比較
+                    if (forms.serialize() !== defaults) {
+                        // 違いがあればメッセージ表示
+                        return message;
+                    }
+                });
+            }
+        });
+
+        return forms;
+    };
+})(jQuery);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;onBeforeUnload&lt;/code&gt; で旧フォーム内容と比較してるだけ。&lt;br /&gt;
+使い方は以下のようなかんじ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;form&amp;gt;
+    ...フォーム内容...
+&amp;lt;/form&amp;gt;
+
+&amp;lt;form&amp;gt;
+    ...複数フォームもOK...
+&amp;lt;/form&amp;gt;
+
+&amp;lt;script src=&amp;quot;jQueryのパス&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+$(&#39;form&#39;).watchInputChange();
+&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ページを離れるケースとしては&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;リンクで遷移&lt;/li&gt;
+&lt;li&gt;戻るボタン&lt;/li&gt;
+&lt;li&gt;リロード&lt;/li&gt;
+&lt;li&gt;ウインドウまたはタブを閉じる&lt;/li&gt;
+&lt;li&gt;フォーム送信&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;といったところなんだけど、フォーム送信で発火するとウザいので onSubmit 時にフラグを立ててなんとかする必要があった。&lt;br /&gt;
+しかもAjax仕様のフォームの場合、ページ遷移がなくフラグが立ったままになってしまうため、 &lt;code&gt;setTimeout&lt;/code&gt; で強引に戻してる・・・&lt;br /&gt;
+このあたりはうまい方法が思いつかなかった。&lt;/p&gt;
+
+&lt;p&gt;あとたぶんIE9以上なら大丈夫だと思う。&lt;br /&gt;
+IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>モーダル用jQueryプラグインをつくった</title>
