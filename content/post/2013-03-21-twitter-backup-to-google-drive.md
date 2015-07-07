@@ -13,7 +13,7 @@ Twitterの自分の過去のツイートをGoogleドライブにバックアッ�
 Twitterの自分のツイートをバックアップするのは<a href="http://twilog.org/" target="_blank">ツイログ</a>なんかが有名だけど、自前のどこかに貯めておきたい気もする。
 それをGoogleドライブで、無料で、自動で、しかもプログラム知識ゼロでもできるってやつを見つけたのでその方法を。
 
-<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> <strong>この記事は古いため、もしかしたら実践しても動かないかもしれません。</strong></div>
+<div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> <strong>Google側の仕様が変わったため、過去にこの手順を行った人は再度同じ手順を行う必要があります。<br>その際は過去のSpreadSheetは、上部メニュー「Sync Twitter Setup」の「Turn Auto-Refresh Off」を実行してから削除してください。(2015/07/07時点)</strong></div>
 
 最近は<a href="https://developers.google.com/apps-script/" target="_blank">Google Apps Script</a>というのがあんまり便利なもんで、自分の過去ツイートを保存するやつでも作ろうかなーと思っていたら、Martin Hawksey(<a href="https://twitter.com/mhawksey" target="_blank">@mhawksey</a>)さんという方が<a href="http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/" target="_blank">ドンピシャなものを公開してた</a>。
 これは使わん手はない。
