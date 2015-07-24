@@ -1882,36 +1882,41 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
 
 &lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
 function japan_holiday() {
-	// カレンダーID
-	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+    // カレンダーID
+    $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
 
-	// 取得期間
-	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
-	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
+    // 取得期間
+    $start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
+    $end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
 
-	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
+    $url = &#39;https://www.google.com/calendar/feeds/&#39;.$calendar_id.&#39;/public/basic&#39;;
+    $url .= &#39;?start-min=&#39;.$start;
+    $url .= &#39;&amp;amp;start-max=&#39;.$end;
+    $url .= &#39;&amp;amp;max-results=30&#39;;
+    $url .= &#39;&amp;amp;alt=json&#39;;
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
-	$result = curl_exec($ch);
-	curl_close($ch);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+    curl_close($ch);
 
-	if (!empty($result)) {
-		$json = json_decode($result, true);
-		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
-			$datas = array();
-			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
-				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
-				$datas[$date] = array(
-					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
-					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
-				);
-			}
-			ksort($datas);
-			return $datas;
-		}
-	}
+    if (!empty($result)) {
+        $json = json_decode($result, true);
+        if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
+            $datas = array();
+            foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
+                $date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
+                $datas[$date] = array(
+                    &#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
+                    &#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
+                );
+            }
+            ksort($datas);
+            return $datas;
+        }
+    }
 }
 &lt;/code&gt;&lt;/pre&gt;
 

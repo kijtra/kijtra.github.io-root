@@ -2,12 +2,12 @@
 <html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
 <meta charset="utf-8">
-<title>MySQLで ON DUPLICATE KEY UPDATE した時も LAST_INSERT_ID を取得する - きじとら</title>
+<title>きじとら（5ページ目）</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="きじとら">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://kijtra.com/article/mysql-get-updated-last_insert_id">
+<meta property="og:url" content="http://kijtra.com/">
 <meta property="fb:admins" content="100001876504791">
 <meta property="fb:app_id" content="458844870836571">
 <meta property="twitter:card" content="summary">
@@ -26,15 +26,14 @@
 <link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
 <link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
 
-<meta name="google-publisher-plugin-pagetype" content="singlePost">
-<meta property="og:title" content="MySQLで ON DUPLICATE KEY UPDATE した時も LAST_INSERT_ID を取得する">
-<meta name="description" content="MySQLで UPDATE や INSERT...ON DUPLICATE KEY UPDATE の時とかに LAST_INSERT_ID を取得するメモ。">
+<meta property="og:title" content="きじとら">
+<meta name="description" content="Webのこととかそのたもろもろ（5ページ目）">
+<link rel="canonical" href="http://kijtra.com/page/5">
+<link rel="prev" href="http://kijtra.com/page/4/">
 
-<meta property="article:published_time" content="2013/02/02T00:00:00Z">
-<meta property="article:tag" content="MySQL">
-<link rel="canonical" href="http://kijtra.com/article/mysql-get-updated-last_insert_id">
 </head>
-<body class="article">
+<body class="home">
+
 <div class="container">
     <header class="header row">
 
@@ -43,7 +42,7 @@
         </div>
 
         <div class="feed three columns offset-by-one omega">
-            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+            <a href="http://kijtra.com/index.xml" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
         </div>
     </header>
 
@@ -52,144 +51,55 @@
         <div class="content nine columns alpha">
 
 
-
-<article class="post">
-    <h1>MySQLで ON DUPLICATE KEY UPDATE した時も LAST_INSERT_ID を取得する</h1>
-    <div class="meta">
-        <span class="date"><i class="icon-modify"></i> 2013/02/02</span>
-        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/mysql">MySQL</a></span>
+<ul class="posts">
+    
         
-    </div>
-
-    <div class="ad">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<li>
+    <h2><a href="http://kijtra.com/article/redactor-font-size-plugin">「Redactor」用フォントサイズプラグイン</a></h2>
+    <p>WYSIWYGエディタの「Redactor」専用「フォントサイズ」プラグイン。公式にはないので。<a class="more" href="http://kijtra.com/article/redactor-font-size-plugin">&raquo; more</a></p>
+    <small>
+        <span class="date"><i class="icon-modify"></i> 2012/11/11</span>
+        <span class="comment"><i class="icon-comment"></i> <a href="http://kijtra.com/article/redactor-font-size-plugin#disqus_thread">Comment</a></span>
         
-        <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-9281671442970905"
-         data-ad-slot="5126378234"
-         data-ad-format="horizontal"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    </small>
+</li>
 
-    <div class="body">
-        <p>MySQLで UPDATE や INSERT&hellip;ON DUPLICATE KEY UPDATE の時とかに LAST_INSERT_ID を取得するメモ。</p>
+    
+</ul>
 
-<p>MySQLで普通に <code>UPDATE</code> した時（これはIDわかってるだろうから不要だろうけど）とか、<code>INSERT...ON DUPLICATE KEY UPDATE</code> した時にも <code>LAST_INSERT_ID</code> が取得したいって時あるあるですよね。
-普通にSQL文書くとできなかったから不可能だと思ってたけど、できたっぽいのでメモ。</p>
 
-<p>まず普通のUPDATEのときは、以下のようにする。（「13」てのはプライマリキーのID）</p>
 
-<pre class="prettyprint linenums"><code class="language-sql">UPDATE `table_name`
-SET `col` = 'hoge'
-WHERE `id` = LAST_INSERT_ID( 13 )
-LIMIT 1;
-</code></pre>
-
-<p>で、最もやりたい <code>ON DUPLICATE KEY UPDATE</code> のときは以下のように。</p>
-
-<pre class="prettyprint linenums"><code class="language-sql">INSERT INTO `table_name` ( `id`, `col1`, `col2` )
-VALUES ( '13', 'val1', 'val2' )
-ON DUPLICATE KEY UPDATE
-  `col1` = VALUES( `col1` ),
-  `col2` = VALUES( `col2` ),
-  `id` = LAST_INSERT_ID( `id` );
-</code></pre>
-
-<p>さいごのところがキモですかね。
-これで、mysqli_query(または mysql_query ) の直後に <a href="http://www.php.net/manual/ja/mysqli.insert-id.php" target="_blank">mysqli_last_insert_id(または mysql_last_insert_id )</a> で取得するか、</p>
-
-<pre class="prettyprint linenums"><code class="language-php">&lt;?php
-$id = mysqli_result( mysqli_query( &quot;SELECT LAST_INSERT_ID()&quot; ), 0 );
-</code></pre>
-
-<p>とかでもIDが取得できる。</p>
-
-<p><code>LAST_INSERT_ID</code> に引数があるのは知ってたけど、効果は知らなかった。
-LAST_INSERT_IDに値をセットしておけば、後でまた取り出せるってことだとは思うけど、取り出さなかった時にどこまでそれが保持されるのかとかがやや不安・・・
-この使い方が正しいかどうかはマニュアルに見つからなかったんだけど、以下がそれっぽい記述かな・・・。</p>
-
-<blockquote>
-<p>b.テーブルを使用して、次のようにシークエンス番号を生成 :<br />
-mysql&gt; UPDATE sequence SET id=LAST_INSERT_ID(id+1);<br />
-mysql&gt; SELECT LAST_INSERT_ID();<br />
-UPDATE 文はシークエンス カウンタを増分し、LAST_INSERT_ID() への次の呼び出しが更新された値を戻すようにします。<br />
-SELECT 文はその値を引き出します。<br />
-mysql_insert_id() C API 関数は、値の入手に使用することもできます。<br />
-<cite><a href="http://dev.mysql.com/doc/refman/5.1/ja/information-functions.html" target="_blank">11.10.3. 情報関数</a></cite></p>
-</blockquote>
-
-    </div>
-</article>
-
-<div class="row clearfix ad ad-article-bottom">
-    <div class="six columns alpha">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:250px"
-             data-ad-client="ca-pub-9281671442970905"
-             data-ad-slot="6446299037"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    <div class="six columns omega">
-        <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=12&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
-    </div>
+<div class="paginate">
+    
+    <a class="prev" href="http://kijtra.com/page/4/">&laquo; Prev</a>
+    
+    
 </div>
 
-
-<div class="socialcounts"></div>
-
-
-<div class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//kijtra.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-        
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </script>
-</div>
 
 
 <script type="application/ld+json">
 {
     "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "name": "MySQLで ON DUPLICATE KEY UPDATE した時も LAST_INSERT_ID を取得する",
-    "url": "http:\/\/kijtra.com\/article\/mysql-get-updated-last_insert_id",
-    "datePublished": "2013-02-02T00:00:00+09:00",
-    "wordCount":  120 ,
-    "description": "MySQLで UPDATE や INSERT...ON DUPLICATE KEY UPDATE の時とかに LAST_INSERT_ID を取得するメモ。",
+    "@type": "Blog",
+    "name": "きじとら",
+    "url": "http:\/\/kijtra.com\/",
+    "image": "http:\/\/kijtra.com\/avatar.jpg",
     "author": {
         "@type": "Person",
         "name": "きじとら",
         "url": "http:\/\/kijtra.com\/",
         "image": "http:\/\/kijtra.com\/avatar.jpg"
     },
-    "isPartOf": {
-        "@type": "Blog",
-        "name": "きじとら",
-        "url": "http:\/\/kijtra.com\/",
-        "image": "http:\/\/kijtra.com\/avatar.jpg",
-        "author": {
-            "@type": "Person",
-            "name": "きじとら",
-            "url": "http:\/\/kijtra.com\/",
-            "image": "http:\/\/kijtra.com\/avatar.jpg"
-        },
-        "description": "Webのこととかそのたもろもろ"
-    }
+    "description": "Webのこととかそのたもろもろ",
+    "blogPosts": [
+        {
+            "@type": "BlogPosting",
+            "name": "「Redactor」用フォントサイズプラグイン",
+            "url": "http:\/\/kijtra.com\/article\/redactor-font-size-plugin",
+            "datePublished": "2012-11-11T00:00:00+09:00",
+            "description": "WYSIWYGエディタの「Redactor」専用「フォントサイズ」プラグイン。公式にはないので。"
+        }]
 }
 </script>
 
@@ -224,6 +134,13 @@ mysql_insert_id() C API 関数は、値の入手に使用することもでき�
 <gcse:search></gcse:search>
 
 
+
+<section class="section recent">
+    <h3><i class="icon-feather"></i> Recent Articles</h3>
+    <ul>
+        <li><a href="http://kijtra.com/article/watch-form-input-change">ページ移動時にフォームの内容に変更があれば警告を出すアレ</a></li><li><a href="http://kijtra.com/article/date-info-api-v1">旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた</a></li><li><a href="http://kijtra.com/article/windows10-app-operation-check">Windows 10 で自分の開発環境が動くのか試す</a></li><li><a href="http://kijtra.com/article/change-to-hugo">ブログのバックエンドを「Hugo」に変更</a></li><li><a href="http://kijtra.com/article/my-atom-packages">いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</a></li><li><a href="http://kijtra.com/article/original-library-using-composer-packagist">PackagistとComposerで自作パッケージを使う</a></li><li><a href="http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig">Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</a></li><li><a href="http://kijtra.com/article/jquery-modal">モーダル用jQueryプラグインをつくった</a></li><li><a href="http://kijtra.com/article/php-function-vars">PHPで変数を便利にSet/Getする関数をつくった</a></li><li><a href="http://kijtra.com/article/get-japanese-holiday-from-google">PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</a></li>
+    </ul>
+</section>
 
 
 <section class="section tags">

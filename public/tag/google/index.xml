@@ -24,36 +24,41 @@
 
 &lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
 function japan_holiday() {
-	// カレンダーID
-	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+    // カレンダーID
+    $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
 
-	// 取得期間
-	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
-	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
+    // 取得期間
+    $start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
+    $end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
 
-	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
+    $url = &#39;https://www.google.com/calendar/feeds/&#39;.$calendar_id.&#39;/public/basic&#39;;
+    $url .= &#39;?start-min=&#39;.$start;
+    $url .= &#39;&amp;amp;start-max=&#39;.$end;
+    $url .= &#39;&amp;amp;max-results=30&#39;;
+    $url .= &#39;&amp;amp;alt=json&#39;;
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
-	$result = curl_exec($ch);
-	curl_close($ch);
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+    curl_close($ch);
 
-	if (!empty($result)) {
-		$json = json_decode($result, true);
-		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
-			$datas = array();
-			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
-				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
-				$datas[$date] = array(
-					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
-					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
-				);
-			}
-			ksort($datas);
-			return $datas;
-		}
-	}
+    if (!empty($result)) {
+        $json = json_decode($result, true);
+        if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
+            $datas = array();
+            foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
+                $date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
+                $datas[$date] = array(
+                    &#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
+                    &#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
+                );
+            }
+            ksort($datas);
+            return $datas;
+        }
+    }
 }
 &lt;/code&gt;&lt;/pre&gt;
 
@@ -620,6 +625,182 @@ send_psh($urls);
 
 &lt;p&gt;以上、あとは放っておけば自動フォロー返しが動くと思う。
 ちなみにフォロー返しが実行されるとメールは既読になるので、その点はご注意を。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</title>
+      <link>http://kijtra.com/article/twitter-backup-to-google-drive</link>
+      <pubDate>Thu, 21 Mar 2013 00:00:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/twitter-backup-to-google-drive</guid>
+      <description>
+
+&lt;p&gt;Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。&lt;/p&gt;
+
+&lt;p&gt;Twitterの自分のツイートをバックアップするのは&lt;a href=&#34;http://twilog.org/&#34; target=&#34;_blank&#34;&gt;ツイログ&lt;/a&gt;なんかが有名だけど、自前のどこかに貯めておきたい気もする。
+それをGoogleドライブで、無料で、自動で、しかもプログラム知識ゼロでもできるってやつを見つけたのでその方法を。&lt;/p&gt;
+
+&lt;div class=&#34;alert alert-danger&#34;&gt;&lt;i class=&#34;fa fa-exclamation-triangle&#34;&gt;&lt;/i&gt; &lt;strong&gt;この記事は古いため、もしかしたら実践しても動かないかもしれません。&lt;/strong&gt;&lt;/div&gt;
+
+&lt;p&gt;最近は&lt;a href=&#34;https://developers.google.com/apps-script/&#34; target=&#34;_blank&#34;&gt;Google Apps Script&lt;/a&gt;というのがあんまり便利なもんで、自分の過去ツイートを保存するやつでも作ろうかなーと思っていたら、Martin Hawksey(&lt;a href=&#34;https://twitter.com/mhawksey&#34; target=&#34;_blank&#34;&gt;@mhawksey&lt;/a&gt;)さんという方が&lt;a href=&#34;http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/&#34; target=&#34;_blank&#34;&gt;ドンピシャなものを公開してた&lt;/a&gt;。
+これは使わん手はない。&lt;/p&gt;
+
+&lt;p&gt;その&lt;a href=&#34;http://mashe.hawksey.info/2013/01/sync-twitter-archive-with-google-drive/&#34; target=&#34;_blank&#34;&gt;元記事&lt;/a&gt;に手順と動画の説明まであるからいいかな、とはいえ英語だから、ここに日本語用の手順を書いておく。
+注意点として、これから説明する方法でバックアップした場合、&lt;strong&gt;&lt;em&gt;バックアップの閲覧にはGoogleドライブの指定フォルダを「一般公開」の状態にする必要がある&lt;/em&gt;&lt;/strong&gt;。
+閲覧URLは複雑な文字列なのでバレにくくはあるけど、非公開ツイートにしている人なんかはあまりおすすめできないかも。
+&lt;a href=&#34;https://googledrive.com/host/0B6aI6pgeMKqOUmlJbVlDRWFhYkE/&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;完成するとこんな感じでツイートが溜まっていく。&lt;/strong&gt;&lt;/a&gt;
+見た目カッチョイイし、右の月別ナビゲーションもグッド。
+（Twitter公式のテンプレなので。）
+これがプログラム知識ナシで、無料で組める。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-0-twitterの-アプリ-を作成:7fa16746faa00431bfcb0ec99250ccc5&#34;&gt;STEP 0. Twitterの「アプリ」を作成&lt;/h2&gt;
+
+&lt;p&gt;下準備。
+Googleドライブから自動で自分のツイートを定期的に取得するため、Twitterにアクセスするためのアプリが必要になる。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dev.twitter.com/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://dev.twitter.com/&#34;&gt;https://dev.twitter.com/&lt;/a&gt;&lt;/a&gt;にアクセスし、自分のTwitterアカウントでサインイン。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s990/2013-03-21_111512.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;自分のTwitterアカウントでサインイン&#34; src=&#34;http://lh3.ggpht.com/-DE5XEV3mxIw/UUptPGEY8FI/AAAAAAAADNE/1W3kVOWbgS0/s640/2013-03-21_111512.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://dev.twitter.com/apps&#34;&gt;My applications&lt;/a&gt;へ移動。&lt;br /&gt;
+&lt;a href=&#34;https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;My applicationsへ移動&#34; src=&#34;https://lh6.googleusercontent.com/-6UBBXs45SuE/UUptxsV89MI/AAAAAAAADNM/dQ_Q7_zdAYQ/s399/2013-03-21_111738.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;右上の「Create a new application」をクリックし、必要な情報を入力。&lt;br /&gt;
+&lt;a href=&#34;https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s981/2013-03-21_122459.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Create a new application」をクリック&#34; src=&#34;https://lh6.googleusercontent.com/-KzxSH2l1I_k/UUp9kc8JhtI/AAAAAAAADOs/F2tRhJ_kTeE/s640/2013-03-21_122459.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「Name」はなんでもいいけど、誰かが同じ名前のアプリを作ってるとエラーになる。
+「Description」も適当に。文字数が少ないとエラー。
+「Website」もなんでもOK。とりあえずGoogleドライブのURLにした。&lt;/p&gt;
+
+&lt;p&gt;*「Callback URL」は必ず「&lt;strong&gt;&lt;a href=&#34;https://spreadsheets.google.com/macros&#34;&gt;https://spreadsheets.google.com/macros&lt;/a&gt;&lt;/strong&gt;」にする*必要がある。&lt;/p&gt;
+
+&lt;p&gt;入力したら「Developer Rules Of The Road」の同意にチェックし、CAPTCHAに表示された文字を入力して「Create your Twitter application」ボタンをクリック。
+アプリケーションが作成された。
+必要になるのは「&lt;strong&gt;Consumer key&lt;/strong&gt;」と「&lt;strong&gt;Consumer secret&lt;/strong&gt;」のランダムな文字。
+これをメモしておく。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s986/2013-03-21_112853.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;アプリケーションが作成された&#34; src=&#34;http://lh3.ggpht.com/-lw5V0oW5g5o/UUpw1xqJHFI/AAAAAAAADNc/HhbCYz-OGyw/s640/2013-03-21_112853.png&#34; /&gt;&lt;/a&gt;
+下準備ここまで。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-1-公式の-twitterアーカイブファイル-を取得:7fa16746faa00431bfcb0ec99250ccc5&#34;&gt;STEP 1. 公式の「Twitterアーカイブファイル」を取得&lt;/h2&gt;
+
+&lt;p&gt;まず、現在の過去ツイートをダウンロードする。
+Twitterでは2012年の12月に、&lt;a href=&#34;http://blog.twitter.com/2012/12/your-twitter-archive.html&#34; target=&#34;_blank&#34;&gt;過去ツイートのバックアップ機能を公開&lt;/a&gt;している。
+&lt;del&gt;これは現時点（2013-03-21）で英語版だけの機能なんだけど、Twitterの設定画面を英語にすれば使える。&lt;/del&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://blog.jp.twitter.com/2013/03/blog-post_22.html&#34; target=&#34;_blank&#34;&gt;日本語版でもできるようになったみたい(2013/03/22)&lt;/a&gt;
+Twitterにログインし、&lt;a href=&#34;https://twitter.com/settings&#34; target=&#34;_blank&#34;&gt;設定画面&lt;/a&gt;に行く。&lt;/p&gt;
+
+&lt;p&gt;そして「言語設定」を「英語」にする。（保存時はログインパスワードが必要）&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-UsfWaXfgr2Q/UUpfv6bDhGI/AAAAAAAADLs/2v9k9pkbEk8/s912/2013-03-21_101706.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「言語設定」を「英語」にする&#34; src=&#34;http://lh5.ggpht.com/-UsfWaXfgr2Q/UUpfv6bDhGI/AAAAAAAADLs/2v9k9pkbEk8/s640/2013-03-21_101706.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;英語版に切り替わると、同設定画面の下の方に、「Request your archive」ボタンが出現。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-nmfS89iiheE/UUphHkwGoZI/AAAAAAAADL0/9kCePbAoHxU/s922/2013-03-21_102335.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Request your archive」ボタンが出現&#34; src=&#34;http://lh3.ggpht.com/-nmfS89iiheE/UUphHkwGoZI/AAAAAAAADL0/9kCePbAoHxU/s640/2013-03-21_102335.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そうすると、「ダウンロード用ページのリンクをメールで送りましたよ」ってなのが出て、リンクつきメールが送られてくる。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-3YukWu0Ldi0/UUphsGEgrbI/AAAAAAAADL8/Xkt1xVB3fJo/s391/2013-03-21_102603.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ダウンロード用ページのリンクをメールで送りましたよ&#34; src=&#34;https://lh4.googleusercontent.com/-3YukWu0Ldi0/UUphsGEgrbI/AAAAAAAADL8/Xkt1xVB3fJo/2013-03-21_102603.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;リンクをクリックすると、「Download」ボタンのあるページへ。&lt;br /&gt;
+&lt;a href=&#34;http://lh6.ggpht.com/-nZboWq9MS1c/UUpiinXlEKI/AAAAAAAADME/OoPe7N8ujOA/s888/2013-03-21_102937.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Download」ボタンのあるページ&#34; src=&#34;http://lh6.ggpht.com/-nZboWq9MS1c/UUpiinXlEKI/AAAAAAAADME/OoPe7N8ujOA/s640/2013-03-21_102937.png&#34; /&gt;&lt;/a&gt;
+クリックすると「&lt;strong&gt;tweets.zip&lt;/strong&gt;」というファイルがダウンロードされるので、解凍しておく。
+（あとでまた使う）&lt;/p&gt;
+
+&lt;p&gt;ここまで終わったら、Twitter管理画面は「日本語」に戻してOK。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-2-googleドライブの設定:7fa16746faa00431bfcb0ec99250ccc5&#34;&gt;STEP 2. Googleドライブの設定&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://drive.google.com/&#34; target=&#34;_blank&#34;&gt;Google Drive&lt;/a&gt;に行く。
+まだ使ったことがない人はなにか始める手続きが必要かもしれない。
+&lt;strong&gt;&lt;em&gt;Step1&lt;/em&gt;&lt;/strong&gt;でダウンロードしたtweets.zipを解凍したフォルダをアップロードする。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-21jvbd91KCY/UUpmV_XrF6I/AAAAAAAADMc/coRlB75fRj0/s343/2013-03-21_104537.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;フォルダをアップロード&#34; src=&#34;http://lh5.ggpht.com/-21jvbd91KCY/UUpmV_XrF6I/AAAAAAAADMc/coRlB75fRj0/2013-03-21_104537.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;このときの注意点として、アップロードファイルの「変換」が「&lt;strong&gt;&lt;em&gt;オフ&lt;/em&gt;&lt;/strong&gt;」になっている必要がある。&lt;/em&gt;&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-zc_jxRJJEJs/UUpnO9LHqBI/AAAAAAAADMk/C1OYF_4ZQtE/s513/2013-03-21_104940.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「変換」が「オフ」になっている必要がある&#34; src=&#34;https://lh4.googleusercontent.com/-zc_jxRJJEJs/UUpnO9LHqBI/AAAAAAAADMk/C1OYF_4ZQtE/2013-03-21_104940.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Googleドライブ内に「&lt;strong&gt;&lt;em&gt;tweets&lt;/em&gt;&lt;/strong&gt;」というフォルダが作られ、中にファイル一式が作成された状態。&lt;br /&gt;
+&lt;a href=&#34;https://lh6.googleusercontent.com/--8eRakd1GM0/UUpopV4PCbI/AAAAAAAADMs/0qystxS3HRo/s685/2013-03-21_105539.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ファイル一式&#34; src=&#34;https://lh6.googleusercontent.com/--8eRakd1GM0/UUpopV4PCbI/AAAAAAAADMs/0qystxS3HRo/s640/2013-03-21_105539.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;そして「&lt;strong&gt;&lt;em&gt;tweets&lt;/em&gt;&lt;/strong&gt;」フォルダのURLに含まれる「&lt;strong&gt;&lt;em&gt;フォルダID&lt;/em&gt;&lt;/strong&gt;」をメモしておく。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-aql1p_inSEU/UUp3YnOUkYI/AAAAAAAADOI/rKHO0MDGpU4/s730/2013-03-21_115833.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;ファイル一式&#34; src=&#34;http://lh5.ggpht.com/-aql1p_inSEU/UUp3YnOUkYI/AAAAAAAADOI/rKHO0MDGpU4/s640/2013-03-21_115833.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;step-3-hawkseyさんのファイルをコピー:7fa16746faa00431bfcb0ec99250ccc5&#34;&gt;STEP 3. Hawkseyさんのファイルをコピー&lt;/h2&gt;
+
+&lt;p&gt;Hawkseyさんが作ったGoogleスプレッドシートを、自分のGoogleドライブにコピーする。&lt;br /&gt;
+&lt;a href=&#34;https://docs.google.com/spreadsheet/ccc?key=0AqGkLMU9sHmLdHRtbUF4OGh6ZnBZeFVsSjNhZlc1Z2c#gid=1&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;このリンクをクリック&lt;/strong&gt;&lt;/a&gt;して開き、「ファイル」メニューから「コピーを作成」をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-3fZqRifOtZ8/UUpqBFeqo6I/AAAAAAAADM4/OF3-BsAoWmc/s780/2013-03-21_110132.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「ファイル」メニューから「コピーを作成」をクリック&#34; src=&#34;http://lh5.ggpht.com/-3fZqRifOtZ8/UUpqBFeqo6I/AAAAAAAADM4/OF3-BsAoWmc/s640/2013-03-21_110132.png&#34; /&gt;&lt;/a&gt;
+コピーするドキュメント名はなんでも良い。（「コピー ～&amp;hellip;」のままでOK）
+そしたらコピーが自分のGoogleドライブに保存される。&lt;/p&gt;
+
+&lt;h2 id=&#34;step-4-google-apps-scriptの設定と起動:7fa16746faa00431bfcb0ec99250ccc5&#34;&gt;STEP 4. Google Apps Scriptの設定と起動&lt;/h2&gt;
+
+&lt;p&gt;コピーしたスプレッドシートでの操作。
+（Hawkseyさんのと間違わないように）
+これまでにメモした以下の3つを使用するので、念のため確認。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;STEP 0 でのTwitterアプリの「&lt;strong&gt;Consumer key&lt;/strong&gt;」&lt;/li&gt;
+&lt;li&gt;STEP 0 でのTwitterアプリの「&lt;strong&gt;Consumer secret&lt;/strong&gt;」&lt;/li&gt;
+&lt;li&gt;STEP 2 での「tweets」フォルダのURLに含まれる「&lt;strong&gt;フォルダID&lt;/strong&gt;」&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;シート内にある「Authorize/Add Sync Menu」をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-uFtl4eaabTo/UUpzLppnuYI/AAAAAAAADNk/E-Od6xGCtrM/s623/2013-03-21_114042.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Authorize/Add Sync Menu」をクリック&#34; src=&#34;http://lh4.ggpht.com/-uFtl4eaabTo/UUpzLppnuYI/AAAAAAAADNk/E-Od6xGCtrM/s623/2013-03-21_114042.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;承認の大仰な警告が表示される。
+念のため内容をよく読んで「OK」をクリック。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-Lb3pMbTP6Uw/UUp0aIQE7MI/AAAAAAAADNs/UuoHAcwsGFY/s916/2013-03-21_114552.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Authorize/Add Sync Menu」をクリック&#34; src=&#34;https://lh5.googleusercontent.com/-Lb3pMbTP6Uw/UUp0aIQE7MI/AAAAAAAADNs/UuoHAcwsGFY/s640/2013-03-21_114552.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;別ウインドウで承認完了の旨が表示されるので、閉じる。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/--4yyZ-XqMBk/UUp06cuE8eI/AAAAAAAADN0/baj9gW5PPLc/s243/2013-03-21_114800.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Authorize/Add Sync Menu」をクリック&#34; src=&#34;http://lh4.ggpht.com/--4yyZ-XqMBk/UUp06cuE8eI/AAAAAAAADN0/baj9gW5PPLc/s243/2013-03-21_114800.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;承認が完了すると、スプレッドシートの上部に「Sync Twitter Setup」というメニューが表示される。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/-9yyLogfioY8/UUp1a6F3cGI/AAAAAAAADN8/VcpE_KNFPU8/s808/2013-03-21_115015.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Sync Twitter Setup」というメニューが表示&#34; src=&#34;https://lh3.googleusercontent.com/-9yyLogfioY8/UUp1a6F3cGI/AAAAAAAADN8/VcpE_KNFPU8/s640/2013-03-21_115015.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;表示された「Sync Twitter Setup」にある「Set Archive Path」をクリックし、表示されたウインドウに「tweets」フォルダ「&lt;strong&gt;フォルダID&lt;/strong&gt;」を入力して「Save Configuration」ボタンをクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh3.ggpht.com/-ZlkzUuraYSY/UUp3YrUuD3I/AAAAAAAADOM/xNYuuVVUL2s/s782/2013-03-21_115422.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「フォルダID」を入力&#34; src=&#34;http://lh3.ggpht.com/-ZlkzUuraYSY/UUp3YrUuD3I/AAAAAAAADOM/xNYuuVVUL2s/s640/2013-03-21_115422.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;再度「Sync Twitter Setup」から「API Authentication」をクリックし、表示されたウインドウにTwitterアプリの「&lt;strong&gt;Consumer key&lt;/strong&gt;」と「&lt;strong&gt;Consumer secret&lt;/strong&gt;」を入力して「Save Configuration」ボタンをクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh4.ggpht.com/-HrJIATbuXQI/UUp5Zgf7_OI/AAAAAAAADOU/Ojw8zpkLjuQ/s803/2013-03-21_120711.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Consumer key」と「Consumer secret」を入力&#34; src=&#34;http://lh4.ggpht.com/-HrJIATbuXQI/UUp5Zgf7_OI/AAAAAAAADOU/Ojw8zpkLjuQ/s640/2013-03-21_120711.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;これで入力系はOK。
+次にTwitterへのアクセス認証。&lt;/p&gt;
+
+&lt;p&gt;スプレッドシートの「ツール」から「スクリプト エディタ&amp;hellip;」をクリック。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-1I81NTZukzc/UUp6WcMV3JI/AAAAAAAADOc/P1rOyZbd9ZY/s648/2013-03-21_121116.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「スクリプト エディタ」をクリック&#34; src=&#34;https://lh5.googleusercontent.com/-1I81NTZukzc/UUp6WcMV3JI/AAAAAAAADOc/P1rOyZbd9ZY/s640/2013-03-21_121116.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;別ウインドウで「スクリプトエディタ」が開くので、上メニューの「関数を選択」をクリックし、「&lt;strong&gt;authorize&lt;/strong&gt;」を選択して実行（三角ボタン）をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-idCbzUKb00Y/UUp7ThMUO7I/AAAAAAAADOk/6Vavnwk4D0I/s686/2013-03-21_121518.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「authorize」を選択して実行&#34; src=&#34;http://lh5.ggpht.com/-idCbzUKb00Y/UUp7ThMUO7I/AAAAAAAADOk/6Vavnwk4D0I/s640/2013-03-21_121518.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;「承認が必要です」には「承認」をクリック。&lt;br /&gt;
+&lt;a href=&#34;http://lh5.ggpht.com/-hZSM4yu7NxE/UUp-cWKJQoI/AAAAAAAADO4/nbMn2Pcx7UQ/s261/2013-03-21_122433.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「承認」をクリック&#34; src=&#34;http://lh5.ggpht.com/-hZSM4yu7NxE/UUp-cWKJQoI/AAAAAAAADO4/nbMn2Pcx7UQ/s261/2013-03-21_122433.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Twitterの画面に移動するので、「連携アプリを承認」をクリック。&lt;br /&gt;
+&lt;a href=&#34;https://lh4.googleusercontent.com/-vYx82TJPknw/UUp_ANo_DRI/AAAAAAAADPA/tPBIWdwlNAw/s693/2013-03-21_123105.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「連携アプリを承認」をクリック&#34; src=&#34;https://lh4.googleusercontent.com/-vYx82TJPknw/UUp_ANo_DRI/AAAAAAAADPA/tPBIWdwlNAw/s640/2013-03-21_123105.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;何事も無くければ、「スクリプトエディタ」は閉じて、スプレッドシートでの設定に戻る。
+あとは現在のツイートデータを保存する。&lt;/p&gt;
+
+&lt;p&gt;スプレッドシート上部の「Sync Twitter Setup」にある「Update Archive Now」をクリックすると、その時点のツイートデータが保存される。&lt;br /&gt;
+&lt;a href=&#34;http://lh6.ggpht.com/-k2f-HAzl2Wg/UUp_-DBrgWI/AAAAAAAADPI/uVutv3pAFGk/s640/2013-03-21_123513.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Update Archive Now」をクリック&#34; src=&#34;http://lh6.ggpht.com/-k2f-HAzl2Wg/UUp_-DBrgWI/AAAAAAAADPI/uVutv3pAFGk/s640/2013-03-21_123513.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;あとは最後の仕上げ。&lt;/p&gt;
+
+&lt;p&gt;スプレッドシート上部の「Sync Twitter Setup」にある「Turn Auto-Refresh On」をクリックすれば、ウインドウを閉じても、サーバー側で定期的に、自動でツイートが蓄積されていく。&lt;br /&gt;
+&lt;a href=&#34;https://lh5.googleusercontent.com/-awL5O3zSgzM/UUqA1xgb2II/AAAAAAAADPQ/FwHUycZlTJg/s640/2013-03-21_123859.png&#34; target=&#34;_blank&#34;&gt;&lt;img class=&#34;aligncenter&#34; alt=&#34;「Turn Auto-Refresh On」をクリック&#34; src=&#34;https://lh5.googleusercontent.com/-awL5O3zSgzM/UUqA1xgb2II/AAAAAAAADPQ/FwHUycZlTJg/s640/2013-03-21_123859.png&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;お疲れさまでした。&lt;/p&gt;
+
+&lt;h2 id=&#34;バックアップの閲覧:7fa16746faa00431bfcb0ec99250ccc5&#34;&gt;バックアップの閲覧&lt;/h2&gt;
+
+&lt;p&gt;「STEP2」での「&lt;strong&gt;tweets&lt;/strong&gt;」フォルダの共有設定を「&lt;strong&gt;ウェブ上で一般公開&lt;/strong&gt;」にする。
+（閲覧URLは複雑な文字列なのでバレにくくはあるけど、非公開ツイートにしている人なんかはあまりおすすめできないかも）
+その後は以下のようなURLから閲覧できる。
+&lt;strong&gt;&lt;a href=&#34;https://googledrive.com/host/フォルダID/&#34;&gt;https://googledrive.com/host/フォルダID/&lt;/a&gt;&lt;/strong&gt;
+「フォルダID」は Step2 でメモしたものと同じ。
+この素晴らしいスクリプトを作ったMartin Hawksey(&lt;a href=&#34;https://twitter.com/mhawksey&#34; target=&#34;_blank&#34;&gt;@mhawksey&lt;/a&gt;)さんの過去ツイートはこちら。
+&lt;a href=&#34;https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/&#34; target=&#34;_blank&#34;&gt;&lt;a href=&#34;https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/&#34;&gt;https://googledrive.com/host/0B6GkLMU9sHmLRFk3VGh5Tjc5RzQ/&lt;/a&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;動画でもやり方が公開されている（英語）ので、確認になると思う。
+&lt;iframe width=&#34;640&#34; height=&#34;360&#34; src=&#34;http://www.youtube.com/embed/ce8G3sEOjAY?rel=0&#34; frameborder=&#34;0&#34; allowfullscreen&gt;&lt;/iframe&gt;&lt;/p&gt;
 </description>
     </item>
     
