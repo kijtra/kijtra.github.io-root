@@ -6,7 +6,7 @@ description: "タスク管理ツール「Trello」のプッシュ通知API「Web
 tag: ["PHP", "API"]
 ---
 
-タスク管理ツール「[Trello](https://trello.com)」のAPIに **[Webhook](https://trello.com/docs/gettingstarted/webhooks.html)** というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。
+タスク管理ツール「[Trello](https://trello.com)」のAPIに **[Webhook](https://trello.com/docs/gettingstarted/webhooks.html)** というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。  
 わりと日本語の紹介記事などがなかったのでメモ。
 
 <!--more-->

@@ -17,7 +17,7 @@
       <guid>http://kijtra.com/article/trello-webhook-api-php</guid>
       <description>
 
-&lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。
+&lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。&lt;br /&gt;
 わりと日本語の紹介記事などがなかったのでメモ。&lt;/p&gt;
 
 &lt;h2 id=&#34;まずはapiキーをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;まずはAPIキーをゲット&lt;/h2&gt;
