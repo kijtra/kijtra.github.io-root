@@ -14,16 +14,20 @@ tag: ["PHP", "API"]
 ## まずはAPIキーをゲット
 
 [Trello](https://trello.com)にログインし、以下のURLにアクセス。  
-**https://trello.com/app-key**
+**https://trello.com/app-key**  
+
+以下のようにAPIキーとAPIシークレットが表示される。  
+[![TrelloのAPIキー画面](https://lh3.googleusercontent.com/yrhpTzAWFtwGLiNbqh4izus7UyYYg94RkZCUx90_te8=w623-h238-no)](https://lh3.googleusercontent.com/yrhpTzAWFtwGLiNbqh4izus7UyYYg94RkZCUx90_te8=w623-h238-no)
 
 
 ## アクセストークンをゲット
 
 APIキーを使って以下のURLにアクセスすると、認証画面が出るので「**Allow**」で許可する。  
-**https://trello.com/1/authorize?key=[APIキー]&expiration=never&response_type=token&scope=read,write**
+**https://trello.com/1/authorize?key=[APIキー]&expiration=never&response_type=token&scope=read,write**  
+[![Trelloの認証画面](https://lh3.googleusercontent.com/Wtu80Fz60Aq6yHtZMbJQyU_wXn6Z7nDqlORqdV8TJiA=w590-h585-no)](https://lh3.googleusercontent.com/Wtu80Fz60Aq6yHtZMbJQyU_wXn6Z7nDqlORqdV8TJiA=w590-h585-no)  
 
-するとトークン文字が表示されるので、どこかに保存しておく。
-
+すると以下のようにトークン文字が表示されるので、どこかに保存しておく。  
+[![Trelloのアクセストークン表示](https://lh3.googleusercontent.com/8oEK4Zdsq5P9NqEMXbx6oVSFwdqZ0f16sLnd0PVjWfU=w457-h102-no)](https://lh3.googleusercontent.com/8oEK4Zdsq5P9NqEMXbx6oVSFwdqZ0f16sLnd0PVjWfU=w457-h102-no)
 
 ## ライブラリを使う
 

@@ -25,12 +25,20 @@
 &lt;p&gt;&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;にログインし、以下のURLにアクセス。&lt;br /&gt;
 &lt;strong&gt;&lt;a href=&#34;https://trello.com/app-key&#34;&gt;https://trello.com/app-key&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
+&lt;p&gt;以下のようにAPIキーとAPIシークレットが表示される。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/yrhpTzAWFtwGLiNbqh4izus7UyYYg94RkZCUx90_te8=w623-h238-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/yrhpTzAWFtwGLiNbqh4izus7UyYYg94RkZCUx90_te8=w623-h238-no&#34; alt=&#34;TrelloのAPIキー画面&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
 &lt;h2 id=&#34;アクセストークンをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;アクセストークンをゲット&lt;/h2&gt;
 
 &lt;p&gt;APIキーを使って以下のURLにアクセスすると、認証画面が出るので「&lt;strong&gt;Allow&lt;/strong&gt;」で許可する。&lt;br /&gt;
-&lt;strong&gt;&lt;a href=&#34;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&#34;&gt;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;strong&gt;&lt;a href=&#34;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&#34;&gt;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/Wtu80Fz60Aq6yHtZMbJQyU_wXn6Z7nDqlORqdV8TJiA=w590-h585-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/Wtu80Fz60Aq6yHtZMbJQyU_wXn6Z7nDqlORqdV8TJiA=w590-h585-no&#34; alt=&#34;Trelloの認証画面&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;するとトークン文字が表示されるので、どこかに保存しておく。&lt;/p&gt;
+&lt;p&gt;すると以下のようにトークン文字が表示されるので、どこかに保存しておく。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/8oEK4Zdsq5P9NqEMXbx6oVSFwdqZ0f16sLnd0PVjWfU=w457-h102-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/8oEK4Zdsq5P9NqEMXbx6oVSFwdqZ0f16sLnd0PVjWfU=w457-h102-no&#34; alt=&#34;Trelloのアクセストークン表示&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&#34;ライブラリを使う:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;ライブラリを使う&lt;/h2&gt;
 

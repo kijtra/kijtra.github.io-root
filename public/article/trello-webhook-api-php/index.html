@@ -86,12 +86,20 @@
 <p><a href="https://trello.com">Trello</a>にログインし、以下のURLにアクセス。<br />
 <strong><a href="https://trello.com/app-key">https://trello.com/app-key</a></strong></p>
 
+<p>以下のようにAPIキーとAPIシークレットが表示される。<br />
+<a href="https://lh3.googleusercontent.com/yrhpTzAWFtwGLiNbqh4izus7UyYYg94RkZCUx90_te8=w623-h238-no"><img src="https://lh3.googleusercontent.com/yrhpTzAWFtwGLiNbqh4izus7UyYYg94RkZCUx90_te8=w623-h238-no" alt="TrelloのAPIキー画面" />
+</a></p>
+
 <h2 id="アクセストークンをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b">アクセストークンをゲット</h2>
 
 <p>APIキーを使って以下のURLにアクセスすると、認証画面が出るので「<strong>Allow</strong>」で許可する。<br />
-<strong><a href="https://trello.com/1/authorize?key=[APIキー]&amp;expiration=never&amp;response_type=token&amp;scope=read,write">https://trello.com/1/authorize?key=[APIキー]&amp;expiration=never&amp;response_type=token&amp;scope=read,write</a></strong></p>
+<strong><a href="https://trello.com/1/authorize?key=[APIキー]&amp;expiration=never&amp;response_type=token&amp;scope=read,write">https://trello.com/1/authorize?key=[APIキー]&amp;expiration=never&amp;response_type=token&amp;scope=read,write</a></strong><br />
+<a href="https://lh3.googleusercontent.com/Wtu80Fz60Aq6yHtZMbJQyU_wXn6Z7nDqlORqdV8TJiA=w590-h585-no"><img src="https://lh3.googleusercontent.com/Wtu80Fz60Aq6yHtZMbJQyU_wXn6Z7nDqlORqdV8TJiA=w590-h585-no" alt="Trelloの認証画面" />
+</a></p>
 
-<p>するとトークン文字が表示されるので、どこかに保存しておく。</p>
+<p>すると以下のようにトークン文字が表示されるので、どこかに保存しておく。<br />
+<a href="https://lh3.googleusercontent.com/8oEK4Zdsq5P9NqEMXbx6oVSFwdqZ0f16sLnd0PVjWfU=w457-h102-no"><img src="https://lh3.googleusercontent.com/8oEK4Zdsq5P9NqEMXbx6oVSFwdqZ0f16sLnd0PVjWfU=w457-h102-no" alt="Trelloのアクセストークン表示" />
+</a></p>
 
 <h2 id="ライブラリを使う:dd9a2a9a39136ba3e8aa23709ee43d4b">ライブラリを使う</h2>
 
@@ -305,7 +313,7 @@ function verifyTrelloWebhookRequest($body, $secret, $callbackURL, $header) {
     "name": "Trello の Webhook API をPHPで受け取ってみた",
     "url": "http:\/\/kijtra.com\/article\/trello-webhook-api-php",
     "datePublished": "2015-08-10T02:18:14+09:00",
-    "wordCount":  253 ,
+    "wordCount":  254 ,
     "description": "タスク管理ツール「Trello」のプッシュ通知API「Webhook」が便利そうだったのでPHPで処理してみた。",
     "author": {
         "@type": "Person",
