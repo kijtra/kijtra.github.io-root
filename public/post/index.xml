@@ -2075,151 +2075,6 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
 
 &lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
 function japan_holiday() {
-	// カレンダーID
-	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
-
-	// 取得期間
-	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
-	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
-
-	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
-	$result = curl_exec($ch);
-	curl_close($ch);
-
-	if (!empty($result)) {
-		$json = json_decode($result, true);
-		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
-			$datas = array();
-			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
-				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
-				$datas[$date] = array(
-					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
-					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
-				);
-			}
-			ksort($datas);
-			return $datas;
-		}
-	}
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;上記の関数を実行すると、以下のような結果で返ってくる。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
-
-array (
-  20140101 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/01/01&#39;,
-    &#39;title&#39; =&amp;gt; &#39;元日&#39;,
-  ),
-  20140113 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/01/13&#39;,
-    &#39;title&#39; =&amp;gt; &#39;成人の日&#39;,
-  ),
-  20140211 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/02/11&#39;,
-    &#39;title&#39; =&amp;gt; &#39;建国記念の日&#39;,
-  ),
-  20140321 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/03/21&#39;,
-    &#39;title&#39; =&amp;gt; &#39;春分の日&#39;,
-  ),
-  20140429 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/04/29&#39;,
-    &#39;title&#39; =&amp;gt; &#39;昭和の日&#39;,
-  ),
-  20140503 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/03&#39;,
-    &#39;title&#39; =&amp;gt; &#39;憲法記念日&#39;,
-  ),
-  20140504 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/04&#39;,
-    &#39;title&#39; =&amp;gt; &#39;みどりの日&#39;,
-  ),
-  20140505 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/05&#39;,
-    &#39;title&#39; =&amp;gt; &#39;こどもの日&#39;,
-  ),
-  20140506 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/06&#39;,
-    &#39;title&#39; =&amp;gt; &#39;みどりの日 振替休日&#39;,
-  ),
-  20140721 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/07/21&#39;,
-    &#39;title&#39; =&amp;gt; &#39;海の日&#39;,
-  ),
-  20140915 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/09/15&#39;,
-    &#39;title&#39; =&amp;gt; &#39;敬老の日&#39;,
-  ),
-  20140923 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/09/23&#39;,
-    &#39;title&#39; =&amp;gt; &#39;秋分の日&#39;,
-  ),
-  20141013 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/10/13&#39;,
-    &#39;title&#39; =&amp;gt; &#39;体育の日&#39;,
-  ),
-  20141103 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/11/03&#39;,
-    &#39;title&#39; =&amp;gt; &#39;文化の日&#39;,
-  ),
-  20141123 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/11/23&#39;,
-    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日&#39;,
-  ),
-  20141124 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/11/24&#39;,
-    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日 振替休日&#39;,
-  ),
-  20141223 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/12/23&#39;,
-    &#39;title&#39; =&amp;gt; &#39;天皇誕生日&#39;,
-  ),
-)
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
-      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
-      <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
-      
-      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
-      <description>&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
-
-&lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
-取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
-なので、執筆時点でまだパブリックに取得できる「&lt;strong&gt;japanese__ja@holiday.calendar.google.com&lt;/strong&gt;」の方でやることにした。&lt;br /&gt;
-祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
-function japan_holiday() {
     // カレンダーID
     $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
 
@@ -4134,6 +3989,343 @@ Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リ
 
 &lt;p&gt;気分でよく変える人なんかは &lt;a href=&#34;https://sublime.wbond.net/packages/Dayle%20Rees%20Color%20Schemes&#34;&gt;Dayle Rees Color Schemes&lt;/a&gt; のプラグインが便利。&lt;br /&gt;
 このプラグインはインストールすると &lt;a href=&#34;http://daylerees.github.io/&#34;&gt;たくさんのカラースキーマ&lt;/a&gt; が一括インストールされるので、好みのものが見つかるはず。&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Elasticsearch で update する時に配列に値を追加する</title>
+      <link>http://kijtra.com/article/elasticsearch-add-array-value-with-update</link>
+      <pubDate>Sat, 24 May 2014 00:17:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/elasticsearch-add-array-value-with-update</guid>
+      <description>
+
+&lt;p&gt;Elasticsearchで、ドキュメントのフィールドが配列（連想配列）の場合に、そのフィールドの配列に値を追加したい。&lt;/p&gt;
+
+&lt;p&gt;参考にしたのは &lt;a href=&#34;http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-update.html&#34;&gt;Elasticsearch公式サイト&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h2 id=&#34;単純な配列の場合:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;単純な配列の場合&lt;/h2&gt;
+
+&lt;p&gt;例としてインデックス名「 &lt;strong&gt;sample&lt;/strong&gt; 」、タイプ名「 &lt;strong&gt;mytype&lt;/strong&gt; 」で作成。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;まずは普通にデータを入れる:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;まずは普通にデータを入れる&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample/mytype/1&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: [&amp;quot;hoge&amp;quot;] &amp;lt;ここに値を追加したい
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;updateしてみる-失敗例:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;updateしてみる (失敗例)&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;{&amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]}&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記でupdate後に検索してみると、結果は以下のように、「tags」に指定した値が単純に置き換わってしまう。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;] &amp;lt;「hoge」は残らない
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;解決策:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;解決策&lt;/h3&gt;
+
+&lt;p&gt;この場合は「 &lt;code&gt;script&lt;/code&gt; 」という機能を使って、JavaScriptで配列に追加することができる。&lt;br /&gt;
+さらに、「 &lt;code&gt;upsert&lt;/code&gt; 」という機能で、未登録のドキュメントなら新規登録扱いにできる。&lt;br /&gt;
+（MySQLでいう ON DUPLICATE KEY UPDATE ）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags += val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;params&lt;/code&gt; で設定したキーのもの(上記では &lt;code&gt;val&lt;/code&gt; )が、 &lt;code&gt;script&lt;/code&gt; 内で使えるようになっている。&lt;br /&gt;
+（JavaScriptだけど &lt;code&gt;push()&lt;/code&gt; ではなく &lt;code&gt;+=&lt;/code&gt; な点に注意）&lt;br /&gt;
+ドキュメントがない場合は &lt;code&gt;upsert&lt;/code&gt; に設定したものが挿入される。&lt;br /&gt;
+なので、最初にデータを入れておく必要はない。&lt;/p&gt;
+
+&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: [
+                   &amp;quot;hoge&amp;quot;,
+                   &amp;quot;fuga&amp;quot; &amp;lt;追加できた
+               ]
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;重複しないようにしたい:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;重複しないようにしたい&lt;/h2&gt;
+
+&lt;p&gt;前述のように &lt;code&gt;upsert&lt;/code&gt; を繰り返していると、配列に同じ値がどんどん入ってしまいがち。&lt;br /&gt;
+その場合、連想配列にする。（他の方法がわからなかった）&lt;/p&gt;
+
+&lt;p&gt;※これは連想配列にする必要はなかった。 &lt;a href=&#34;#added1&#34;&gt;下に追記あり&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;フィールドに連想配列を入れるには、マッピングで &lt;code&gt;object&lt;/code&gt; に設定する必要がある。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot; &amp;lt;ここが最初と違う
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;そして upsert する&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;ctx._source.tags[val] = val&lt;/code&gt; の部分で同じ値は上書きするようにしてる。&lt;/p&gt;
+
+&lt;p&gt;さらに upsert (「tags」に「fuga」を追加) を2回やってみる&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
+    }
+  }
+}
+
+//もっかい同じデータ
+{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+   &amp;quot;hits&amp;quot;: {
+      &amp;quot;total&amp;quot;: 1,
+      &amp;quot;max_score&amp;quot;: 1,
+      &amp;quot;hits&amp;quot;: [
+         {
+            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
+            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
+            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
+            &amp;quot;_score&amp;quot;: 1,
+            &amp;quot;_source&amp;quot;: {
+               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+               &amp;quot;tags&amp;quot;: {
+                   &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;,
+                   &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot; &amp;lt;重複せず追加できた
+               }
+            }
+         }
+      ]
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ちなみに &lt;strong&gt;特定の配列だけ削除&lt;/strong&gt; する方法は不明・・・。&lt;br /&gt;
+update時に連想配列の値を null にしたり、JavaScriptの &lt;code&gt;delete&lt;/code&gt; 使ったりしてみたけど無理だった。&lt;br /&gt;
+データ取得 -&amp;gt; 値を削除 -&amp;gt; 上書きupdateするしかなさそう。&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;a name=&#34;added1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;追記-配列が重複登録されない方法あった:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;追記：配列が重複登録されない方法あった&lt;/h2&gt;
+
+&lt;p&gt;インデックス作成&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json:インデックス作成&#34;&gt;{
+    &amp;quot;mappings&amp;quot;: {
+        &amp;quot;mytype&amp;quot;: {
+            &amp;quot;_source&amp;quot;: {
+                &amp;quot;enabled&amp;quot;: true
+            },
+            &amp;quot;properties&amp;quot;: {
+                &amp;quot;name&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
+                },
+                &amp;quot;tags&amp;quot;: {
+                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
+                }
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;update (insert)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;params&amp;quot; : {
+    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
+  },
+  &amp;quot;script&amp;quot; : &amp;quot;if(ctx._source.tags.indexOf(val)==-1){ctx._source.tags+=val}&amp;quot;,
+  &amp;quot;upsert&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
+    &amp;quot;tags&amp;quot;: {
+      &amp;quot;hoge&amp;quot;: [&amp;quot;hoge&amp;quot;]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;JavaScript部分で &lt;code&gt;indexOf&lt;/code&gt; 使って配列を検索できるっぽいので、見つかれば入れない、なければ入れる。&lt;br /&gt;
+連想配列にしなくてもこれでいけた。&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;以下はファセット検索の例&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/sample/mytype/_search?search_type=count&#39; -d &#39;(下のJSON)&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;facets&amp;quot;: {
+      &amp;quot;ids&amp;quot;: {
+          &amp;quot;terms&amp;quot;: {
+              &amp;quot;field&amp;quot; : &amp;quot;tags&amp;quot;,
+              &amp;quot;size&amp;quot;: 10,
+              &amp;quot;order&amp;quot; : &amp;quot;count&amp;quot;
+          }
+      }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;facets&amp;quot;: {
+    &amp;quot;ids&amp;quot;: {
+       &amp;quot;_type&amp;quot;: &amp;quot;terms&amp;quot;,
+       &amp;quot;missing&amp;quot;: 0,
+       &amp;quot;total&amp;quot;: 3,
+       &amp;quot;other&amp;quot;: 0,
+       &amp;quot;terms&amp;quot;: [
+          {
+             &amp;quot;term&amp;quot;: &amp;quot;hoge&amp;quot;,
+             &amp;quot;count&amp;quot;: 2
+          },
+          {
+             &amp;quot;term&amp;quot;: &amp;quot;fuga&amp;quot;,
+             &amp;quot;count&amp;quot;: 1
+          }
+       ]
+    }
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
