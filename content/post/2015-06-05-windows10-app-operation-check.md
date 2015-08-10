@@ -24,6 +24,12 @@ VirtualBoxで動かす手順は以下のページを参考にさせてもらい�
 ※**結局のところ動かないものはなさそうだった。**
 
 
+### 追記（2015/08/10）
+
+実際にWindows10にアップグレードして数日が経ったけど、以下全てのアプリケーションは特に問題なく動いている。  
+
+
+
 ## **[Sublime Text 2](http://www.sublimetext.com/2) ver 2.0.2** ・・・ **OK**
 
 [Package Control](https://packagecontrol.io/)入れて[SFTPプラグイン](https://packagecontrol.io/packages/SFTP)入れるまで確認。  

@@ -576,6 +576,10 @@
 ※OKかどうかは単に「起動した」という時点までの確認。&lt;br /&gt;
 ※&lt;strong&gt;結局のところ動かないものはなさそうだった。&lt;/strong&gt;&lt;/p&gt;
 
+&lt;h3 id=&#34;追記-2015-08-10:c706afa90b3266be1eddbca06c046702&#34;&gt;追記（2015/08/10）&lt;/h3&gt;
+
+&lt;p&gt;実際にWindows10にアップグレードして数日が経ったけど、以下全てのアプリケーションは特に問題なく動いている。&lt;/p&gt;
+
 &lt;h2 id=&#34;sublime-text-2-http-www-sublimetext-com-2-ver-2-0-2-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/2&#34;&gt;Sublime Text 2&lt;/a&gt; ver 2.0.2&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://packagecontrol.io/&#34;&gt;Package Control&lt;/a&gt;入れて&lt;a href=&#34;https://packagecontrol.io/packages/SFTP&#34;&gt;SFTPプラグイン&lt;/a&gt;入れるまで確認。&lt;br /&gt;

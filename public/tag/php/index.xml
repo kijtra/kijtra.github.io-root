@@ -6,8 +6,197 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Wed, 20 May 2015 12:02:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2015 14:18:14 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/tag/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Trello の Webhook API をPHPで受け取ってみた</title>
+      <link>http://kijtra.com/article/trello-webhook-api-php</link>
+      <pubDate>Mon, 10 Aug 2015 14:18:14 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/trello-webhook-api-php</guid>
+      <description>
+
+&lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。
+わりと日本語の紹介記事などがなかったのでメモ。&lt;/p&gt;
+
+&lt;h2 id=&#34;まずはapiキーをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;まずはAPIキーをゲット&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;にログインし、以下のURLにアクセス。&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://trello.com/app-key&#34;&gt;https://trello.com/app-key&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;アクセストークンをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;アクセストークンをゲット&lt;/h2&gt;
+
+&lt;p&gt;APIキーを使って以下のURLにアクセスすると、認証画面が出るので「&lt;strong&gt;Allow&lt;/strong&gt;」で許可する。&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&#34;&gt;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;するとトークン文字が表示されるので、どこかに保存しておく。&lt;/p&gt;
+
+&lt;h2 id=&#34;ライブラリを使う:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;ライブラリを使う&lt;/h2&gt;
+
+&lt;p&gt;Trello APIを使うのに便利なライブラリを取得しておく。&lt;br /&gt;
+個人的には以下のものを使ってる。（&lt;a href=&#34;https://github.com/cdaguerre/php-trello-api/blob/master/docs/Api/Index.md&#34;&gt;公式ドキュメントはこちら&lt;/a&gt;）&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://github.com/cdaguerre/php-trello-api&#34;&gt;cdaguerre/php-trello-api&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Composerでインストール&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ composer.phar require cdaguerre/php-trello-api:@dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ボードのidを取得する:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;ボードのIDを取得する&lt;/h2&gt;
+
+&lt;p&gt;Webhookを作る際に通知を受け取るボードのIDが必要になるので、自分のボード一覧を見て確認しておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+include(__DIR__.&#39;/vendor/autoload.php&#39;);
+
+$api_key = &#39;取得したAPIキー&#39;;
+$access_token = &#39;取得したアクセストークン&#39;;
+
+// cdaguerre/php-trello-api ライブラリの名前空間
+use Trello\Client;
+
+// APIクライアントのインスタンス作成
+$client = new Client();
+
+// APIキーとトークンで認証
+$client-&amp;gt;authenticate($api_key, $access_token, Client::AUTH_URL_CLIENT_ID);
+
+// 自分のボード一覧を取得
+// ※「ユーザーID」はログイン時のユーザーID。
+$boards = $client-&amp;gt;members()-&amp;gt;boards()-&amp;gt;all(&#39;ユーザーID&#39;);
+
+// 表示
+var_dump($boards);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;実行すると、以下のようなデータが表示される。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;array(9) {
+  [0]=&amp;gt;
+  array(21) {
+    [&amp;quot;name&amp;quot;]=&amp;gt;
+    string(7) &amp;quot;ボード名&amp;quot;
+    [&amp;quot;desc&amp;quot;]=&amp;gt;
+    string(0) &amp;quot;&amp;quot;
+    [&amp;quot;descData&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;closed&amp;quot;]=&amp;gt;
+    bool(true)
+    [&amp;quot;idOrganization&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;pinned&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;invitations&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;shortLink&amp;quot;]=&amp;gt;
+    string(8) &amp;quot;xxxxxxxx&amp;quot;
+    [&amp;quot;powerUps&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;dateLastActivity&amp;quot;]=&amp;gt;
+    string(24) &amp;quot;0000-00-00T00:00:00.000Z&amp;quot;
+    [&amp;quot;idTags&amp;quot;]=&amp;gt;
+    array(0) {
+    }
+    [&amp;quot;id&amp;quot;]=&amp;gt;
+    string(24) &amp;quot;123456789abcdefghijklmno&amp;quot; // ★ここのIDが必要
+    [&amp;quot;invited&amp;quot;]=&amp;gt;
+    bool(false)
+    [&amp;quot;starred&amp;quot;]=&amp;gt;
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;webhook-を作る:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;Webhook を作る&lt;/h2&gt;
+
+&lt;p&gt;Webhookを受信するURLを設定する。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Trello公式のAPIドキュメント&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cdaguerre/php-trello-api/blob/master/docs/Api/Webhook.md&#34;&gt;cdaguerre/php-trello-api ライブラリの Webhook ドキュメント&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+include(__DIR__.&#39;/vendor/autoload.php&#39;);
+
+$api_key = &#39;取得したAPIキー&#39;;
+$access_token = &#39;取得したアクセストークン&#39;;
+
+// cdaguerre/php-trello-api ライブラリの名前空間
+use Trello\Client;
+
+// APIクライアントのインスタンス作成
+$client = new Client();
+
+// APIキーとトークンで認証
+$client-&amp;gt;authenticate($api_key, $access_token, Client::AUTH_URL_CLIENT_ID);
+
+// Webhookを作成
+$hook = array(
+    &#39;description&#39; =&amp;gt; &#39;My First Webhook!&#39;,
+    &#39;callbackURL&#39; =&amp;gt; &#39;http://example.com/trelloCallback.php&#39;,
+    &#39;idModel&#39; =&amp;gt; &#39;ボードのID&#39;,
+);
+$webhooks = $client-&amp;gt;webhooks()-&amp;gt;create($hook);
+var_dump($webhooks);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記を実行すると、以下のようなレスポンスが表示される。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;array(5) {
+  [&amp;quot;id&amp;quot;]=&amp;gt;
+  string(24) &amp;quot;123456789abcdefghijklmno&amp;quot;
+  [&amp;quot;description&amp;quot;]=&amp;gt;
+  string(17) &amp;quot;My First Webhook!&amp;quot;
+  [&amp;quot;idModel&amp;quot;]=&amp;gt;
+  string(24) &amp;quot;ボードのID&amp;quot;
+  [&amp;quot;callbackURL&amp;quot;]=&amp;gt;
+  string(48) &amp;quot;http://example.com/trelloCallback.php&amp;quot;
+  [&amp;quot;active&amp;quot;]=&amp;gt;
+  bool(true)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで Webhook を送信する準備は完了。&lt;/p&gt;
+
+&lt;p&gt;ちなみに作成した Webhook の一覧は以下のURLで確認できる。&lt;br /&gt;
+&lt;a href=&#34;https://trello.com/1/tokens/[アクセストークン]/webhooks/?key=[APIキー&#34;&gt;https://trello.com/1/tokens/[アクセストークン]/webhooks/?key=[APIキー&lt;/a&gt;]&lt;/p&gt;
+
+&lt;h2 id=&#34;通知を受け取るphpを作成:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;通知を受け取るPHPを作成&lt;/h2&gt;
+
+&lt;p&gt;データはリクエストボディにJSON形式でPOSTされる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+if (&#39;POST&#39; == $_SERVER[&#39;REQUEST_METHOD&#39;] &amp;amp;&amp;amp; isset($_SERVER[&#39;HTTP_X_TRELLO_WEBHOOK&#39;])) {
+    $body = file_get_contents(&amp;quot;php://input&amp;quot;);
+    if (!empty($body)) {
+        $json = json_decode($body);
+
+        // ... あとはご自由に ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;HTTP_X_TRELLO_WEBHOOK&lt;/code&gt; については、Webhook からのリクエストかどうかを検証するためのハッシュ値がセットされているんだけど、&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html#triggering-webhooks&#34;&gt;公式ドキュメント&lt;/a&gt;に倣ってPHPの &lt;code&gt;hash_hmac&lt;/code&gt; 関数を使って検証してみたけどうまくいかなかった・・・。&lt;br /&gt;
+なので、&lt;code&gt;HTTP_X_TRELLO_WEBHOOK&lt;/code&gt; が存在するかどうかだけ検証してる。&lt;br /&gt;
+ちなみに検証用に作ったコードはこちら。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function verifyTrelloWebhookRequest($body, $secret, $callbackURL, $header) {
+    $base64Digest = function($s) use($secret) {
+        $s = hash_hmac(&#39;sha1&#39;, $s, $secret, true);
+        $s = base64_encode($s);
+        return $s;
+    };
+
+    $content = $body + $callbackURL;
+    $doubleHash = $base64Digest($base64Digest($content));
+    $headerHash = $base64Digest($header);
+
+    return ($doubleHash == $headerHash);
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>PackagistとComposerで自作パッケージを使う</title>

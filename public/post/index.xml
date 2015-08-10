@@ -6,8 +6,197 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Fri, 03 Jul 2015 16:20:45 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2015 14:18:14 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Trello の Webhook API をPHPで受け取ってみた</title>
+      <link>http://kijtra.com/article/trello-webhook-api-php</link>
+      <pubDate>Mon, 10 Aug 2015 14:18:14 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/trello-webhook-api-php</guid>
+      <description>
+
+&lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。
+わりと日本語の紹介記事などがなかったのでメモ。&lt;/p&gt;
+
+&lt;h2 id=&#34;まずはapiキーをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;まずはAPIキーをゲット&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;にログインし、以下のURLにアクセス。&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://trello.com/app-key&#34;&gt;https://trello.com/app-key&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;アクセストークンをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;アクセストークンをゲット&lt;/h2&gt;
+
+&lt;p&gt;APIキーを使って以下のURLにアクセスすると、認証画面が出るので「&lt;strong&gt;Allow&lt;/strong&gt;」で許可する。&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&#34;&gt;https://trello.com/1/authorize?key=[APIキー]&amp;amp;expiration=never&amp;amp;response_type=token&amp;amp;scope=read,write&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;するとトークン文字が表示されるので、どこかに保存しておく。&lt;/p&gt;
+
+&lt;h2 id=&#34;ライブラリを使う:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;ライブラリを使う&lt;/h2&gt;
+
+&lt;p&gt;Trello APIを使うのに便利なライブラリを取得しておく。&lt;br /&gt;
+個人的には以下のものを使ってる。（&lt;a href=&#34;https://github.com/cdaguerre/php-trello-api/blob/master/docs/Api/Index.md&#34;&gt;公式ドキュメントはこちら&lt;/a&gt;）&lt;br /&gt;
+&lt;strong&gt;&lt;a href=&#34;https://github.com/cdaguerre/php-trello-api&#34;&gt;cdaguerre/php-trello-api&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Composerでインストール&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;$ composer.phar require cdaguerre/php-trello-api:@dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ボードのidを取得する:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;ボードのIDを取得する&lt;/h2&gt;
+
+&lt;p&gt;Webhookを作る際に通知を受け取るボードのIDが必要になるので、自分のボード一覧を見て確認しておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+include(__DIR__.&#39;/vendor/autoload.php&#39;);
+
+$api_key = &#39;取得したAPIキー&#39;;
+$access_token = &#39;取得したアクセストークン&#39;;
+
+// cdaguerre/php-trello-api ライブラリの名前空間
+use Trello\Client;
+
+// APIクライアントのインスタンス作成
+$client = new Client();
+
+// APIキーとトークンで認証
+$client-&amp;gt;authenticate($api_key, $access_token, Client::AUTH_URL_CLIENT_ID);
+
+// 自分のボード一覧を取得
+// ※「ユーザーID」はログイン時のユーザーID。
+$boards = $client-&amp;gt;members()-&amp;gt;boards()-&amp;gt;all(&#39;ユーザーID&#39;);
+
+// 表示
+var_dump($boards);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;実行すると、以下のようなデータが表示される。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;array(9) {
+  [0]=&amp;gt;
+  array(21) {
+    [&amp;quot;name&amp;quot;]=&amp;gt;
+    string(7) &amp;quot;ボード名&amp;quot;
+    [&amp;quot;desc&amp;quot;]=&amp;gt;
+    string(0) &amp;quot;&amp;quot;
+    [&amp;quot;descData&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;closed&amp;quot;]=&amp;gt;
+    bool(true)
+    [&amp;quot;idOrganization&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;pinned&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;invitations&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;shortLink&amp;quot;]=&amp;gt;
+    string(8) &amp;quot;xxxxxxxx&amp;quot;
+    [&amp;quot;powerUps&amp;quot;]=&amp;gt;
+    NULL
+    [&amp;quot;dateLastActivity&amp;quot;]=&amp;gt;
+    string(24) &amp;quot;0000-00-00T00:00:00.000Z&amp;quot;
+    [&amp;quot;idTags&amp;quot;]=&amp;gt;
+    array(0) {
+    }
+    [&amp;quot;id&amp;quot;]=&amp;gt;
+    string(24) &amp;quot;123456789abcdefghijklmno&amp;quot; // ★ここのIDが必要
+    [&amp;quot;invited&amp;quot;]=&amp;gt;
+    bool(false)
+    [&amp;quot;starred&amp;quot;]=&amp;gt;
+    ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;webhook-を作る:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;Webhook を作る&lt;/h2&gt;
+
+&lt;p&gt;Webhookを受信するURLを設定する。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Trello公式のAPIドキュメント&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cdaguerre/php-trello-api/blob/master/docs/Api/Webhook.md&#34;&gt;cdaguerre/php-trello-api ライブラリの Webhook ドキュメント&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+include(__DIR__.&#39;/vendor/autoload.php&#39;);
+
+$api_key = &#39;取得したAPIキー&#39;;
+$access_token = &#39;取得したアクセストークン&#39;;
+
+// cdaguerre/php-trello-api ライブラリの名前空間
+use Trello\Client;
+
+// APIクライアントのインスタンス作成
+$client = new Client();
+
+// APIキーとトークンで認証
+$client-&amp;gt;authenticate($api_key, $access_token, Client::AUTH_URL_CLIENT_ID);
+
+// Webhookを作成
+$hook = array(
+    &#39;description&#39; =&amp;gt; &#39;My First Webhook!&#39;,
+    &#39;callbackURL&#39; =&amp;gt; &#39;http://example.com/trelloCallback.php&#39;,
+    &#39;idModel&#39; =&amp;gt; &#39;ボードのID&#39;,
+);
+$webhooks = $client-&amp;gt;webhooks()-&amp;gt;create($hook);
+var_dump($webhooks);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記を実行すると、以下のようなレスポンスが表示される。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;array(5) {
+  [&amp;quot;id&amp;quot;]=&amp;gt;
+  string(24) &amp;quot;123456789abcdefghijklmno&amp;quot;
+  [&amp;quot;description&amp;quot;]=&amp;gt;
+  string(17) &amp;quot;My First Webhook!&amp;quot;
+  [&amp;quot;idModel&amp;quot;]=&amp;gt;
+  string(24) &amp;quot;ボードのID&amp;quot;
+  [&amp;quot;callbackURL&amp;quot;]=&amp;gt;
+  string(48) &amp;quot;http://example.com/trelloCallback.php&amp;quot;
+  [&amp;quot;active&amp;quot;]=&amp;gt;
+  bool(true)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これで Webhook を送信する準備は完了。&lt;/p&gt;
+
+&lt;p&gt;ちなみに作成した Webhook の一覧は以下のURLで確認できる。&lt;br /&gt;
+&lt;a href=&#34;https://trello.com/1/tokens/[アクセストークン]/webhooks/?key=[APIキー&#34;&gt;https://trello.com/1/tokens/[アクセストークン]/webhooks/?key=[APIキー&lt;/a&gt;]&lt;/p&gt;
+
+&lt;h2 id=&#34;通知を受け取るphpを作成:dd9a2a9a39136ba3e8aa23709ee43d4b&#34;&gt;通知を受け取るPHPを作成&lt;/h2&gt;
+
+&lt;p&gt;データはリクエストボディにJSON形式でPOSTされる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+if (&#39;POST&#39; == $_SERVER[&#39;REQUEST_METHOD&#39;] &amp;amp;&amp;amp; isset($_SERVER[&#39;HTTP_X_TRELLO_WEBHOOK&#39;])) {
+    $body = file_get_contents(&amp;quot;php://input&amp;quot;);
+    if (!empty($body)) {
+        $json = json_decode($body);
+
+        // ... あとはご自由に ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;HTTP_X_TRELLO_WEBHOOK&lt;/code&gt; については、Webhook からのリクエストかどうかを検証するためのハッシュ値がセットされているんだけど、&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html#triggering-webhooks&#34;&gt;公式ドキュメント&lt;/a&gt;に倣ってPHPの &lt;code&gt;hash_hmac&lt;/code&gt; 関数を使って検証してみたけどうまくいかなかった・・・。&lt;br /&gt;
+なので、&lt;code&gt;HTTP_X_TRELLO_WEBHOOK&lt;/code&gt; が存在するかどうかだけ検証してる。&lt;br /&gt;
+ちなみに検証用に作ったコードはこちら。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function verifyTrelloWebhookRequest($body, $secret, $callbackURL, $header) {
+    $base64Digest = function($s) use($secret) {
+        $s = hash_hmac(&#39;sha1&#39;, $s, $secret, true);
+        $s = base64_encode($s);
+        return $s;
+    };
+
+    $content = $body + $callbackURL;
+    $doubleHash = $base64Digest($base64Digest($content));
+    $headerHash = $base64Digest($header);
+
+    return ($doubleHash == $headerHash);
+}
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
     
     <item>
       <title>ページ移動時にフォームの内容に変更があれば警告を出すアレ</title>
@@ -681,6 +870,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
 &lt;p&gt;※個人的な最低限のアプリのみ。&lt;br /&gt;
 ※OKかどうかは単に「起動した」という時点までの確認。&lt;br /&gt;
 ※&lt;strong&gt;結局のところ動かないものはなさそうだった。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;追記-2015-08-10:c706afa90b3266be1eddbca06c046702&#34;&gt;追記（2015/08/10）&lt;/h3&gt;
+
+&lt;p&gt;実際にWindows10にアップグレードして数日が経ったけど、以下全てのアプリケーションは特に問題なく動いている。&lt;/p&gt;
 
 &lt;h2 id=&#34;sublime-text-2-http-www-sublimetext-com-2-ver-2-0-2-ok:c706afa90b3266be1eddbca06c046702&#34;&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/2&#34;&gt;Sublime Text 2&lt;/a&gt; ver 2.0.2&lt;/strong&gt; ・・・ &lt;strong&gt;OK&lt;/strong&gt;&lt;/h2&gt;
 
@@ -1864,6 +2057,151 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
 
 &lt;p&gt;余談だけど、この &lt;code&gt;vars&lt;/code&gt; は個人的によく使ってる関数なんだけど、関数名がなんかしっくりこない。&lt;br /&gt;
 &lt;code&gt;var()&lt;/code&gt; という名前は予約後で使えないので、よく使うので短く書くために &lt;code&gt;v()&lt;/code&gt; とかにしようかと思ったけど、これもなんだかなあw&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
+      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
+      <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
+      <description>&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
+
+&lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
+取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
+なので、執筆時点でまだパブリックに取得できる「&lt;strong&gt;japanese__ja@holiday.calendar.google.com&lt;/strong&gt;」の方でやることにした。&lt;br /&gt;
+祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function japan_holiday() {
+	// カレンダーID
+	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+
+	// 取得期間
+	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
+	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
+
+	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	if (!empty($result)) {
+		$json = json_decode($result, true);
+		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
+			$datas = array();
+			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
+				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
+				$datas[$date] = array(
+					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
+					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
+				);
+			}
+			ksort($datas);
+			return $datas;
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上記の関数を実行すると、以下のような結果で返ってくる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+array (
+  20140101 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/01&#39;,
+    &#39;title&#39; =&amp;gt; &#39;元日&#39;,
+  ),
+  20140113 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;成人の日&#39;,
+  ),
+  20140211 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/02/11&#39;,
+    &#39;title&#39; =&amp;gt; &#39;建国記念の日&#39;,
+  ),
+  20140321 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/03/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;春分の日&#39;,
+  ),
+  20140429 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/04/29&#39;,
+    &#39;title&#39; =&amp;gt; &#39;昭和の日&#39;,
+  ),
+  20140503 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;憲法記念日&#39;,
+  ),
+  20140504 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/04&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日&#39;,
+  ),
+  20140505 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/05&#39;,
+    &#39;title&#39; =&amp;gt; &#39;こどもの日&#39;,
+  ),
+  20140506 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/06&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日 振替休日&#39;,
+  ),
+  20140721 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/07/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;海の日&#39;,
+  ),
+  20140915 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/15&#39;,
+    &#39;title&#39; =&amp;gt; &#39;敬老の日&#39;,
+  ),
+  20140923 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;秋分の日&#39;,
+  ),
+  20141013 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/10/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;体育の日&#39;,
+  ),
+  20141103 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;文化の日&#39;,
+  ),
+  20141123 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日&#39;,
+  ),
+  20141124 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/24&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日 振替休日&#39;,
+  ),
+  20141223 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/12/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;天皇誕生日&#39;,
+  ),
+)
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
@@ -3796,497 +4134,6 @@ Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リ
 
 &lt;p&gt;気分でよく変える人なんかは &lt;a href=&#34;https://sublime.wbond.net/packages/Dayle%20Rees%20Color%20Schemes&#34;&gt;Dayle Rees Color Schemes&lt;/a&gt; のプラグインが便利。&lt;br /&gt;
 このプラグインはインストールすると &lt;a href=&#34;http://daylerees.github.io/&#34;&gt;たくさんのカラースキーマ&lt;/a&gt; が一括インストールされるので、好みのものが見つかるはず。&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Elasticsearch で update する時に配列に値を追加する</title>
-      <link>http://kijtra.com/article/elasticsearch-add-array-value-with-update</link>
-      <pubDate>Sat, 24 May 2014 00:17:00 +0900</pubDate>
-      
-      <guid>http://kijtra.com/article/elasticsearch-add-array-value-with-update</guid>
-      <description>
-
-&lt;p&gt;Elasticsearchで、ドキュメントのフィールドが配列（連想配列）の場合に、そのフィールドの配列に値を追加したい。&lt;/p&gt;
-
-&lt;p&gt;参考にしたのは &lt;a href=&#34;http://www.elasticsearch.org/guide/en/elasticsearch/reference/current/docs-update.html&#34;&gt;Elasticsearch公式サイト&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h2 id=&#34;単純な配列の場合:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;単純な配列の場合&lt;/h2&gt;
-
-&lt;p&gt;例としてインデックス名「 &lt;strong&gt;sample&lt;/strong&gt; 」、タイプ名「 &lt;strong&gt;mytype&lt;/strong&gt; 」で作成。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-    &amp;quot;mappings&amp;quot;: {
-        &amp;quot;mytype&amp;quot;: {
-            &amp;quot;_source&amp;quot;: {
-                &amp;quot;enabled&amp;quot;: true
-            },
-            &amp;quot;properties&amp;quot;: {
-                &amp;quot;name&amp;quot;: {
-                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
-                },
-                &amp;quot;tags&amp;quot;: {
-                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
-                }
-            }
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;まずは普通にデータを入れる:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;まずは普通にデータを入れる&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample/mytype/1&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-    &amp;quot;tags&amp;quot;: [&amp;quot;hoge&amp;quot;] &amp;lt;ここに値を追加したい
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;updateしてみる-失敗例:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;updateしてみる (失敗例)&lt;/h3&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;{&amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]}&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;上記でupdate後に検索してみると、結果は以下のように、「tags」に指定した値が単純に置き換わってしまう。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-   &amp;quot;hits&amp;quot;: {
-      &amp;quot;total&amp;quot;: 1,
-      &amp;quot;max_score&amp;quot;: 1,
-      &amp;quot;hits&amp;quot;: [
-         {
-            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
-            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
-            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
-            &amp;quot;_score&amp;quot;: 1,
-            &amp;quot;_source&amp;quot;: {
-               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-               &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;] &amp;lt;「hoge」は残らない
-            }
-         }
-      ]
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;解決策:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;解決策&lt;/h3&gt;
-
-&lt;p&gt;この場合は「 &lt;code&gt;script&lt;/code&gt; 」という機能を使って、JavaScriptで配列に追加することができる。&lt;br /&gt;
-さらに、「 &lt;code&gt;upsert&lt;/code&gt; 」という機能で、未登録のドキュメントなら新規登録扱いにできる。&lt;br /&gt;
-（MySQLでいう ON DUPLICATE KEY UPDATE ）&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;params&amp;quot; : {
-    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
-  },
-  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags += val&amp;quot;,
-  &amp;quot;upsert&amp;quot;: {
-    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-    &amp;quot;tags&amp;quot;: [&amp;quot;fuga&amp;quot;]
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;params&lt;/code&gt; で設定したキーのもの(上記では &lt;code&gt;val&lt;/code&gt; )が、 &lt;code&gt;script&lt;/code&gt; 内で使えるようになっている。&lt;br /&gt;
-（JavaScriptだけど &lt;code&gt;push()&lt;/code&gt; ではなく &lt;code&gt;+=&lt;/code&gt; な点に注意）&lt;br /&gt;
-ドキュメントがない場合は &lt;code&gt;upsert&lt;/code&gt; に設定したものが挿入される。&lt;br /&gt;
-なので、最初にデータを入れておく必要はない。&lt;/p&gt;
-
-&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-   &amp;quot;hits&amp;quot;: {
-      &amp;quot;total&amp;quot;: 1,
-      &amp;quot;max_score&amp;quot;: 1,
-      &amp;quot;hits&amp;quot;: [
-         {
-            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
-            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
-            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
-            &amp;quot;_score&amp;quot;: 1,
-            &amp;quot;_source&amp;quot;: {
-               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-               &amp;quot;tags&amp;quot;: [
-                   &amp;quot;hoge&amp;quot;,
-                   &amp;quot;fuga&amp;quot; &amp;lt;追加できた
-               ]
-            }
-         }
-      ]
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;重複しないようにしたい:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;重複しないようにしたい&lt;/h2&gt;
-
-&lt;p&gt;前述のように &lt;code&gt;upsert&lt;/code&gt; を繰り返していると、配列に同じ値がどんどん入ってしまいがち。&lt;br /&gt;
-その場合、連想配列にする。（他の方法がわからなかった）&lt;/p&gt;
-
-&lt;p&gt;※これは連想配列にする必要はなかった。 &lt;a href=&#34;#added1&#34;&gt;下に追記あり&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;フィールドに連想配列を入れるには、マッピングで &lt;code&gt;object&lt;/code&gt; に設定する必要がある。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-    &amp;quot;mappings&amp;quot;: {
-        &amp;quot;mytype&amp;quot;: {
-            &amp;quot;_source&amp;quot;: {
-                &amp;quot;enabled&amp;quot;: true
-            },
-            &amp;quot;properties&amp;quot;: {
-                &amp;quot;name&amp;quot;: {
-                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
-                },
-                &amp;quot;tags&amp;quot;: {
-                    &amp;quot;type&amp;quot;: &amp;quot;object&amp;quot; &amp;lt;ここが最初と違う
-                }
-            }
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;そして upsert する&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;params&amp;quot; : {
-    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
-  },
-  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
-  &amp;quot;upsert&amp;quot;: {
-    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-    &amp;quot;tags&amp;quot;: {
-      &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;code&gt;ctx._source.tags[val] = val&lt;/code&gt; の部分で同じ値は上書きするようにしてる。&lt;/p&gt;
-
-&lt;p&gt;さらに upsert (「tags」に「fuga」を追加) を2回やってみる&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;params&amp;quot; : {
-    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
-  },
-  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
-  &amp;quot;upsert&amp;quot;: {
-    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-    &amp;quot;tags&amp;quot;: {
-      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
-    }
-  }
-}
-
-//もっかい同じデータ
-{
-  &amp;quot;params&amp;quot; : {
-    &amp;quot;val&amp;quot; : &amp;quot;fuga&amp;quot;
-  },
-  &amp;quot;script&amp;quot; : &amp;quot;ctx._source.tags[val] = val&amp;quot;,
-  &amp;quot;upsert&amp;quot;: {
-    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-    &amp;quot;tags&amp;quot;: {
-      &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot;
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;その結果、以下のようになる。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-   &amp;quot;hits&amp;quot;: {
-      &amp;quot;total&amp;quot;: 1,
-      &amp;quot;max_score&amp;quot;: 1,
-      &amp;quot;hits&amp;quot;: [
-         {
-            &amp;quot;_index&amp;quot;: &amp;quot;sample&amp;quot;,
-            &amp;quot;_type&amp;quot;: &amp;quot;mytype&amp;quot;,
-            &amp;quot;_id&amp;quot;: &amp;quot;1&amp;quot;,
-            &amp;quot;_score&amp;quot;: 1,
-            &amp;quot;_source&amp;quot;: {
-               &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-               &amp;quot;tags&amp;quot;: {
-                   &amp;quot;hoge&amp;quot;: &amp;quot;hoge&amp;quot;,
-                   &amp;quot;fuga&amp;quot;: &amp;quot;fuga&amp;quot; &amp;lt;重複せず追加できた
-               }
-            }
-         }
-      ]
-   }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;ちなみに &lt;strong&gt;特定の配列だけ削除&lt;/strong&gt; する方法は不明・・・。&lt;br /&gt;
-update時に連想配列の値を null にしたり、JavaScriptの &lt;code&gt;delete&lt;/code&gt; 使ったりしてみたけど無理だった。&lt;br /&gt;
-データ取得 -&amp;gt; 値を削除 -&amp;gt; 上書きupdateするしかなさそう。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;a name=&#34;added1&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;追記-配列が重複登録されない方法あった:43d8702d9b6d1d181da80799f8a0b7bf&#34;&gt;追記：配列が重複登録されない方法あった&lt;/h2&gt;
-
-&lt;p&gt;インデックス作成&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/sample&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json:インデックス作成&#34;&gt;{
-    &amp;quot;mappings&amp;quot;: {
-        &amp;quot;mytype&amp;quot;: {
-            &amp;quot;_source&amp;quot;: {
-                &amp;quot;enabled&amp;quot;: true
-            },
-            &amp;quot;properties&amp;quot;: {
-                &amp;quot;name&amp;quot;: {
-                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot;
-                },
-                &amp;quot;tags&amp;quot;: {
-                    &amp;quot;type&amp;quot;: &amp;quot;string&amp;quot; &amp;lt;「string」で良い
-                }
-            }
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;br&gt;update (insert)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPOST &#39;http://localhost:9200/sample/mytype/1/_update&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;params&amp;quot; : {
-    &amp;quot;val&amp;quot; : &amp;quot;hoge&amp;quot;
-  },
-  &amp;quot;script&amp;quot; : &amp;quot;if(ctx._source.tags.indexOf(val)==-1){ctx._source.tags+=val}&amp;quot;,
-  &amp;quot;upsert&amp;quot;: {
-    &amp;quot;name&amp;quot;: &amp;quot;データ1&amp;quot;,
-    &amp;quot;tags&amp;quot;: {
-      &amp;quot;hoge&amp;quot;: [&amp;quot;hoge&amp;quot;]
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;JavaScript部分で &lt;code&gt;indexOf&lt;/code&gt; 使って配列を検索できるっぽいので、見つかれば入れない、なければ入れる。&lt;br /&gt;
-連想配列にしなくてもこれでいけた。&lt;/p&gt;
-
-&lt;p&gt;&lt;br&gt;以下はファセット検索の例&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/sample/mytype/_search?search_type=count&#39; -d &#39;(下のJSON)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;facets&amp;quot;: {
-      &amp;quot;ids&amp;quot;: {
-          &amp;quot;terms&amp;quot;: {
-              &amp;quot;field&amp;quot; : &amp;quot;tags&amp;quot;,
-              &amp;quot;size&amp;quot;: 10,
-              &amp;quot;order&amp;quot; : &amp;quot;count&amp;quot;
-          }
-      }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;facets&amp;quot;: {
-    &amp;quot;ids&amp;quot;: {
-       &amp;quot;_type&amp;quot;: &amp;quot;terms&amp;quot;,
-       &amp;quot;missing&amp;quot;: 0,
-       &amp;quot;total&amp;quot;: 3,
-       &amp;quot;other&amp;quot;: 0,
-       &amp;quot;terms&amp;quot;: [
-          {
-             &amp;quot;term&amp;quot;: &amp;quot;hoge&amp;quot;,
-             &amp;quot;count&amp;quot;: 2
-          },
-          {
-             &amp;quot;term&amp;quot;: &amp;quot;fuga&amp;quot;,
-             &amp;quot;count&amp;quot;: 1
-          }
-       ]
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Elasticsearch の Kuromoji でユーザー辞書を使うメモ</title>
-      <link>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</link>
-      <pubDate>Fri, 23 May 2014 00:08:00 +0900</pubDate>
-      
-      <guid>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</guid>
-      <description>
-
-&lt;p&gt;Elasticsearchでの形態素解析はKuromoji一択だけど、やや辞書が貧弱な部分もあるのでユーザー辞書で補う必要がある。&lt;/p&gt;
-
-&lt;p&gt;例えば東京に「西国分寺駅」という駅があるけど、「西国分寺」で形態素解析すると「西」「国分寺」で分かれる。
-読みも「サイコクブンジ」となってしまう。（正しくは「ニシコクブンジ」）
-これはいただけない。&lt;/p&gt;
-
-&lt;h2 id=&#34;参考になったサイト:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;参考になったサイト&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;http://johtani.jugem.jp/?eid=123&#34;&gt;elasticsearch-analysis-kuromojiでユーザ辞書の利用方法&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://medium.com/hello-elasticsearch/833a0704e44b&#34;&gt;Elasticsearch 日本語で全文検索 その２&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;環境:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;環境&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;CentOS 6.4&lt;/li&gt;
-&lt;li&gt;Elasticsearch 1.1.1
-
-&lt;ul&gt;
-&lt;li&gt;kuromoji 2.0.0&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;辞書ファイルの作成:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;辞書ファイルの作成&lt;/h2&gt;
-
-&lt;p&gt;まず辞書ファイルを作成。
-普通のテキストファイルで、文字コードは &lt;strong&gt;UTF-8&lt;/strong&gt;。拡張子は自由。
-ここでは例として「my_jisho.dic」とした。&lt;/p&gt;
-
-&lt;h3 id=&#34;辞書ファイルの置き場所:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;&lt;strong&gt;辞書ファイルの置き場所&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;ファイルの保存先は
-&lt;code&gt;/etc/elasticsearch/my_jisho.dic&lt;/code&gt;
-でいけた。
-これはもしかしたら Elasticsearch &lt;strong&gt;1.1.1&lt;/strong&gt; だからかも。&lt;/p&gt;
-
-&lt;p&gt;&lt;small&gt;&lt;i class=&#34;fa fa-info-circle fa-lg&#34;&gt;&lt;/i&gt; 他のサイト等を見ると「(Elasticsearchホーム)/cofig/my_jisho.dic」と書いているところも多かったので、はじめそこに置いてみたんだけどインデックス作成時に「/etc/elasticsearch/ に置け」とエラーが出た。&lt;/small&gt;&lt;/p&gt;
-
-&lt;h3 id=&#34;辞書ファイルの書き方:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;&lt;strong&gt;辞書ファイルの書き方&lt;/strong&gt;&lt;/h3&gt;
-
-&lt;p&gt;ファイルの中身はCSV形式で、以下の並びで書く。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;単語,形態素解析後の単語,読み,品詞
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;「形態素解析後の単語」は、半角スペースで分けると分かち書きされる。&lt;/p&gt;
-
-&lt;p&gt;&lt;i class=&#34;fa fa-lightbulb-o&#34;&gt;&lt;/i&gt; 「東京スカイツリー」の例&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;東京スカイツリー,東京 スカイツリー,トウキョウ スカイツリー,カスタム名詞
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;i class=&#34;fa fa-lightbulb-o&#34;&gt;&lt;/i&gt; 「西国分寺」の例&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-csv&#34;&gt;西国分寺,西国分寺,ニシコクブンジ,駅名
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;インデックスへの設定:d78b9b19d2d9b2edabb8e660cd0da7c0&#34;&gt;インデックスへの設定&lt;/h2&gt;
-
-&lt;p&gt;サンプル用のインデックス作成&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XPUT &#39;http://localhost:9200/example/&#39; -d &#39;(下のjson)&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-  &amp;quot;settings&amp;quot;: {
-    &amp;quot;analysis&amp;quot;: {
-      &amp;quot;tokenizer&amp;quot;: {
-        &amp;quot;kuromoji&amp;quot;: {
-          &amp;quot;type&amp;quot;: &amp;quot;kuromoji_tokenizer&amp;quot;,
-          &amp;quot;user_dictionary&amp;quot;: &amp;quot;my_jisho.dic&amp;quot; &amp;lt;ここに辞書ファイル
-        }
-      },
-      &amp;quot;analyzer&amp;quot;: {
-        &amp;quot;kuromoji_analyzer&amp;quot;: {
-          &amp;quot;tokenizer&amp;quot;: &amp;quot;kuromoji&amp;quot;,
-          &amp;quot;type&amp;quot;: &amp;quot;custom&amp;quot;,
-          &amp;quot;filter&amp;quot;: [
-            &amp;quot;kuromoji_baseform&amp;quot;,
-            &amp;quot;pos_filter&amp;quot;,
-            &amp;quot;greek_lowercase_filter&amp;quot;,
-            &amp;quot;cjk_width&amp;quot;
-          ]
-        },
-        &amp;quot;yomigana_analyzer&amp;quot;: {
-          &amp;quot;tokenizer&amp;quot;: &amp;quot;kuromoji&amp;quot;,
-          &amp;quot;type&amp;quot;: &amp;quot;custom&amp;quot;,
-          &amp;quot;filter&amp;quot;: [
-            &amp;quot;katakana_readingform&amp;quot;,
-            &amp;quot;cjk_width&amp;quot;
-          ]
-        }
-      }
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;解析してみる&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/example/_analyze?analyzer=kuromoji_analyzer&#39; -d &#39;西国分寺&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-   &amp;quot;tokens&amp;quot;: [
-      {
-         &amp;quot;token&amp;quot;: &amp;quot;西国分寺&amp;quot;,
-         &amp;quot;start_offset&amp;quot;: 2,
-         &amp;quot;end_offset&amp;quot;: 6,
-         &amp;quot;type&amp;quot;: &amp;quot;word&amp;quot;,
-         &amp;quot;position&amp;quot;: 1
-      }
-   ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;加えて読み仮名の確認&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;$ curl -XGET &#39;http://localhost:9200/example/_analyze?analyzer=yomigana_analyzer&#39; -d &#39;西国分寺&#39;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-   &amp;quot;tokens&amp;quot;: [
-      {
-         &amp;quot;token&amp;quot;: &amp;quot;ニシコクブンジ&amp;quot;,
-         &amp;quot;start_offset&amp;quot;: 2,
-         &amp;quot;end_offset&amp;quot;: 6,
-         &amp;quot;type&amp;quot;: &amp;quot;word&amp;quot;,
-         &amp;quot;position&amp;quot;: 1
-      }
-   ]
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;できた。&lt;/p&gt;
-
-&lt;p&gt;駅名とかはどっかでデータがほしいけど、読み仮名までサポートしてるデータは無料では配布されてない。
-あと有用そうなのとしては病名とかかなあ。&lt;/p&gt;
 </description>
     </item>
     

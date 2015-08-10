@@ -24,6 +24,151 @@
 
 &lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
 function japan_holiday() {
+	// カレンダーID
+	$calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+
+	// 取得期間
+	$start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
+	$end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
+
+	$url = &amp;quot;https://www.google.com/calendar/feeds/{$calendar_id}/public/basic?start-min={$start}&amp;amp;start-max={$end}&amp;amp;max-results=30&amp;amp;alt=json&amp;quot;;
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ;
+	$result = curl_exec($ch);
+	curl_close($ch);
+
+	if (!empty($result)) {
+		$json = json_decode($result, true);
+		if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
+			$datas = array();
+			foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
+				$date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
+				$datas[$date] = array(
+					&#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
+					&#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
+				);
+			}
+			ksort($datas);
+			return $datas;
+		}
+	}
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;上記の関数を実行すると、以下のような結果で返ってくる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+
+array (
+  20140101 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/01&#39;,
+    &#39;title&#39; =&amp;gt; &#39;元日&#39;,
+  ),
+  20140113 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/01/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;成人の日&#39;,
+  ),
+  20140211 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/02/11&#39;,
+    &#39;title&#39; =&amp;gt; &#39;建国記念の日&#39;,
+  ),
+  20140321 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/03/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;春分の日&#39;,
+  ),
+  20140429 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/04/29&#39;,
+    &#39;title&#39; =&amp;gt; &#39;昭和の日&#39;,
+  ),
+  20140503 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;憲法記念日&#39;,
+  ),
+  20140504 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/04&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日&#39;,
+  ),
+  20140505 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/05&#39;,
+    &#39;title&#39; =&amp;gt; &#39;こどもの日&#39;,
+  ),
+  20140506 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/05/06&#39;,
+    &#39;title&#39; =&amp;gt; &#39;みどりの日 振替休日&#39;,
+  ),
+  20140721 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/07/21&#39;,
+    &#39;title&#39; =&amp;gt; &#39;海の日&#39;,
+  ),
+  20140915 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/15&#39;,
+    &#39;title&#39; =&amp;gt; &#39;敬老の日&#39;,
+  ),
+  20140923 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/09/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;秋分の日&#39;,
+  ),
+  20141013 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/10/13&#39;,
+    &#39;title&#39; =&amp;gt; &#39;体育の日&#39;,
+  ),
+  20141103 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/03&#39;,
+    &#39;title&#39; =&amp;gt; &#39;文化の日&#39;,
+  ),
+  20141123 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日&#39;,
+  ),
+  20141124 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/11/24&#39;,
+    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日 振替休日&#39;,
+  ),
+  20141223 =&amp;gt;
+  array (
+    &#39;date&#39; =&amp;gt; &#39;2014/12/23&#39;,
+    &#39;title&#39; =&amp;gt; &#39;天皇誕生日&#39;,
+  ),
+)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
+      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
+      <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
+      <description>&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
+
+&lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
+取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
+なので、執筆時点でまだパブリックに取得できる「&lt;strong&gt;japanese__ja@holiday.calendar.google.com&lt;/strong&gt;」の方でやることにした。&lt;br /&gt;
+祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function japan_holiday() {
     // カレンダーID
     $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
 

@@ -2,12 +2,12 @@
 <html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
 <meta charset="utf-8">
-<title>iTunes AppStoreのアプリ画像サイズ - きじとら</title>
+<title>Trello の Webhook API をPHPで受け取ってみた - きじとら</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="きじとら">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://kijtra.com/article/itunes-appstore-icon-size-list">
+<meta property="og:url" content="http://kijtra.com/article/trello-webhook-api-php">
 <meta property="fb:admins" content="100001876504791">
 <meta property="fb:app_id" content="458844870836571">
 <meta property="twitter:card" content="summary">
@@ -27,12 +27,12 @@
 <link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
 
 <meta name="google-publisher-plugin-pagetype" content="singlePost">
-<meta property="og:title" content="iTunes AppStoreのアプリ画像サイズ">
-<meta name="description" content="iTunesのAppStoreで使われているアプリのアイコン画像で、どんなサイズがあるのか調べてみたのでメモ。">
+<meta property="og:title" content="Trello の Webhook API をPHPで受け取ってみた">
+<meta name="description" content="タスク管理ツール「Trello」のプッシュ通知API「Webhook」が便利そうだったのでPHPで処理してみた。">
 
-<meta property="article:published_time" content="2013/05/05T00:00:00Z">
-<meta property="article:tag" content="Others">
-<link rel="canonical" href="http://kijtra.com/article/itunes-appstore-icon-size-list">
+<meta property="article:published_time" content="2015/08/08T00:00:00Z">
+<meta property="article:tag" content="PHP"><meta property="article:tag" content="API">
+<link rel="canonical" href="http://kijtra.com/article/trello-webhook-api-php">
 </head>
 <body class="article">
 <div class="container">
@@ -54,10 +54,11 @@
 
 
 <article class="post">
-    <h1>iTunes AppStoreのアプリ画像サイズ</h1>
+    <h1>Trello の Webhook API をPHPで受け取ってみた</h1>
     <div class="meta">
-        <span class="date"><i class="icon-modify"></i> 2013/05/05</span>
-        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/others">Others</a></span>
+        <span class="date"><i class="icon-modify"></i> 2015/08/08</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/php">PHP</a></span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/api">API</a></span>
         
     </div>
 
@@ -75,68 +76,186 @@
     </div>
 
     <div class="body">
-        <p>iTunesのAppStoreで使われているアプリのアイコン画像、たまに使いたい時がある。
-でもわりとサイズがバラバラなので、どんなサイズがあるのか調べてみたのでメモ。</p>
+        
 
-<p>思ったより種類があった。
-基本となる画像URLはこちら。Twitter公式アプリの画像。</p>
+<p>タスク管理ツール「<a href="https://trello.com">Trello</a>」のAPIに <strong><a href="https://trello.com/docs/gettingstarted/webhooks.html">Webhook</a></strong> というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。
+わりと日本語の紹介記事などがなかったのでメモ。</p>
 
-<blockquote>
-<p><a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.png">http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.png</a></p>
-</blockquote>
+<h2 id="まずはapiキーをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b">まずはAPIキーをゲット</h2>
 
-<p>サイズは1024x1024とデカいので<a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.png" target="_blank">このリンクで確認</a>。
-上記URLの末尾に、サイズ（と解像度かなにかの数字）を指定すると、そのサイズでの表示ができる。</p>
+<p><a href="https://trello.com">Trello</a>にログインし、以下のURLにアクセス。<br />
+<strong><a href="https://trello.com/app-key">https://trello.com/app-key</a></strong></p>
 
-<blockquote>
-<p><a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj">http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj</a>.<span style="color:#b94a48">64x64-75.</span>png</p>
-</blockquote>
+<h2 id="アクセストークンをゲット:dd9a2a9a39136ba3e8aa23709ee43d4b">アクセストークンをゲット</h2>
 
-<p>赤字が追加した部分。
-たぶん最大がサイズ指定なしの<strong>1024x1024px</strong>で、それより小さいものは以下の通り。
-- <strong><em>29x29-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.29x29-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.29x29-75.png" style="box-shadow:none;"></a>
-- <strong><em>42x42-50</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.42x42-50.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.42x42-50.png" style="box-shadow:none;"></a>
-- <strong><em>53x53-50</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-50.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-50.png" style="box-shadow:none;"></a>
-- <strong><em>53x53-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.53x53-75.png" style="box-shadow:none;"></a>
-- <strong><em>58x58-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.58x58-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.58x58-75.png" style="box-shadow:none;"></a>
-- <strong><em>60x60-50</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.60x60-50.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.60x60-50.png" style="box-shadow:none;"></a>
-- <strong><em>64x64-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.64x64-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.64x64-75.png" style="box-shadow:none;"></a>
-- <strong><em>84x84-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.84x84-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.84x84-75.png" style="box-shadow:none;"></a>
-- <strong><em>100x100-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.100x100-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.100x100-75.png" style="box-shadow:none;"></a>
-- <strong><em>114x114-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.114x114-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.114x114-75.png" style="box-shadow:none;"></a>
-- <strong><em>128x128-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.128x128-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.128x128-75.png" style="box-shadow:none;"></a>
-- <strong><em>150x150-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.150x150-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.150x150-75.png" style="box-shadow:none;"></a>
-- <strong><em>170x170-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.170x170-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.170x170-75.png" style="box-shadow:none;"></a>
-- <strong><em>175x175-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.175x175-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.175x175-75.png" style="box-shadow:none;"></a>
-- <strong><em>200x200-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.200x200-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.200x200-75.png" style="box-shadow:none;"></a>
-- <strong><em>256x256-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.256x256-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.256x256-75.png" style="box-shadow:none;"></a>
-- <strong><em>340x340-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.340x340-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.340x340-75.png" style="box-shadow:none;"></a>
-- <strong><em>350x350-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.350x350-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.350x350-75.png" style="box-shadow:none;"></a>
-- <strong><em>512x512-75</em></strong>.png
-  <a href="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.512x512-75.png" target="_blank" style="border:0;"><img src="http://a965.phobos.apple.com/us/r1000/102/Purple/v4/ca/d3/b9/cad3b93c-cce5-771d-460d-9c60730036be/mzl.pwdlnslj.512x512-75.png" style="box-shadow:none;"></a></p>
+<p>APIキーを使って以下のURLにアクセスすると、認証画面が出るので「<strong>Allow</strong>」で許可する。<br />
+<strong><a href="https://trello.com/1/authorize?key=[APIキー]&amp;expiration=never&amp;response_type=token&amp;scope=read,write">https://trello.com/1/authorize?key=[APIキー]&amp;expiration=never&amp;response_type=token&amp;scope=read,write</a></strong></p>
 
-<p>なかには中途半端なサイズや角丸じゃないのもあるのがよくわからない。
-たぶんiTunes用サイトで使う時に都度作ったって感じなのかな。
-しかし、<a href="https://itunes.apple.com/lookup?country=JP&lang=ja-jp&id=333903271" target="_blank">公式APIのJSON</a>を見ると、サイズごとにURLが違う模様。
-それぞれにまた違うサイズがあるかも？</p>
+<p>するとトークン文字が表示されるので、どこかに保存しておく。</p>
+
+<h2 id="ライブラリを使う:dd9a2a9a39136ba3e8aa23709ee43d4b">ライブラリを使う</h2>
+
+<p>Trello APIを使うのに便利なライブラリを取得しておく。<br />
+個人的には以下のものを使ってる。（<a href="https://github.com/cdaguerre/php-trello-api/blob/master/docs/Api/Index.md">公式ドキュメントはこちら</a>）<br />
+<strong><a href="https://github.com/cdaguerre/php-trello-api">cdaguerre/php-trello-api</a></strong></p>
+
+<p>Composerでインストール</p>
+
+<pre class="prettyprint linenums"><code class="language-bash">$ composer.phar require cdaguerre/php-trello-api:@dev
+</code></pre>
+
+<h2 id="ボードのidを取得する:dd9a2a9a39136ba3e8aa23709ee43d4b">ボードのIDを取得する</h2>
+
+<p>Webhookを作る際に通知を受け取るボードのIDが必要になるので、自分のボード一覧を見て確認しておく。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+include(__DIR__.'/vendor/autoload.php');
+
+$api_key = '取得したAPIキー';
+$access_token = '取得したアクセストークン';
+
+// cdaguerre/php-trello-api ライブラリの名前空間
+use Trello\Client;
+
+// APIクライアントのインスタンス作成
+$client = new Client();
+
+// APIキーとトークンで認証
+$client-&gt;authenticate($api_key, $access_token, Client::AUTH_URL_CLIENT_ID);
+
+// 自分のボード一覧を取得
+// ※「ユーザーID」はログイン時のユーザーID。
+$boards = $client-&gt;members()-&gt;boards()-&gt;all('ユーザーID');
+
+// 表示
+var_dump($boards);
+</code></pre>
+
+<p>実行すると、以下のようなデータが表示される。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">array(9) {
+  [0]=&gt;
+  array(21) {
+    [&quot;name&quot;]=&gt;
+    string(7) &quot;ボード名&quot;
+    [&quot;desc&quot;]=&gt;
+    string(0) &quot;&quot;
+    [&quot;descData&quot;]=&gt;
+    NULL
+    [&quot;closed&quot;]=&gt;
+    bool(true)
+    [&quot;idOrganization&quot;]=&gt;
+    NULL
+    [&quot;pinned&quot;]=&gt;
+    NULL
+    [&quot;invitations&quot;]=&gt;
+    NULL
+    [&quot;shortLink&quot;]=&gt;
+    string(8) &quot;xxxxxxxx&quot;
+    [&quot;powerUps&quot;]=&gt;
+    NULL
+    [&quot;dateLastActivity&quot;]=&gt;
+    string(24) &quot;0000-00-00T00:00:00.000Z&quot;
+    [&quot;idTags&quot;]=&gt;
+    array(0) {
+    }
+    [&quot;id&quot;]=&gt;
+    string(24) &quot;123456789abcdefghijklmno&quot; // ★ここのIDが必要
+    [&quot;invited&quot;]=&gt;
+    bool(false)
+    [&quot;starred&quot;]=&gt;
+    ...
+</code></pre>
+
+<h2 id="webhook-を作る:dd9a2a9a39136ba3e8aa23709ee43d4b">Webhook を作る</h2>
+
+<p>Webhookを受信するURLを設定する。</p>
+
+<ul>
+<li><a href="https://trello.com/docs/gettingstarted/webhooks.html">Trello公式のAPIドキュメント</a></li>
+<li><a href="https://github.com/cdaguerre/php-trello-api/blob/master/docs/Api/Webhook.md">cdaguerre/php-trello-api ライブラリの Webhook ドキュメント</a></li>
+</ul>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+include(__DIR__.'/vendor/autoload.php');
+
+$api_key = '取得したAPIキー';
+$access_token = '取得したアクセストークン';
+
+// cdaguerre/php-trello-api ライブラリの名前空間
+use Trello\Client;
+
+// APIクライアントのインスタンス作成
+$client = new Client();
+
+// APIキーとトークンで認証
+$client-&gt;authenticate($api_key, $access_token, Client::AUTH_URL_CLIENT_ID);
+
+// Webhookを作成
+$hook = array(
+    'description' =&gt; 'My First Webhook!',
+    'callbackURL' =&gt; 'http://example.com/trelloCallback.php',
+    'idModel' =&gt; 'ボードのID',
+);
+$webhooks = $client-&gt;webhooks()-&gt;create($hook);
+var_dump($webhooks);
+</code></pre>
+
+<p>上記を実行すると、以下のようなレスポンスが表示される。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">array(5) {
+  [&quot;id&quot;]=&gt;
+  string(24) &quot;123456789abcdefghijklmno&quot;
+  [&quot;description&quot;]=&gt;
+  string(17) &quot;My First Webhook!&quot;
+  [&quot;idModel&quot;]=&gt;
+  string(24) &quot;ボードのID&quot;
+  [&quot;callbackURL&quot;]=&gt;
+  string(48) &quot;http://example.com/trelloCallback.php&quot;
+  [&quot;active&quot;]=&gt;
+  bool(true)
+}
+</code></pre>
+
+<p>これで Webhook を送信する準備は完了。</p>
+
+<p>ちなみに作成した Webhook の一覧は以下のURLで確認できる。<br />
+<a href="https://trello.com/1/tokens/[アクセストークン]/webhooks/?key=[APIキー">https://trello.com/1/tokens/[アクセストークン]/webhooks/?key=[APIキー</a>]</p>
+
+<h2 id="通知を受け取るphpを作成:dd9a2a9a39136ba3e8aa23709ee43d4b">通知を受け取るPHPを作成</h2>
+
+<p>データはリクエストボディにJSON形式でPOSTされる。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+if ('POST' == $_SERVER['REQUEST_METHOD'] &amp;&amp; isset($_SERVER['HTTP_X_TRELLO_WEBHOOK'])) {
+    $body = file_get_contents(&quot;php://input&quot;);
+    if (!empty($body)) {
+        $json = json_decode($body);
+
+        // ... あとはご自由に ...
+    }
+}
+</code></pre>
+
+<p><code>HTTP_X_TRELLO_WEBHOOK</code> については、Webhook からのリクエストかどうかを検証するためのハッシュ値がセットされているんだけど、<a href="https://trello.com/docs/gettingstarted/webhooks.html#triggering-webhooks">公式ドキュメント</a>に倣ってPHPの <code>hash_hmac</code> 関数を使って検証してみたけどうまくいかなかった・・・。<br />
+なので、<code>HTTP_X_TRELLO_WEBHOOK</code> が存在するかどうかだけ検証してる。<br />
+ちなみに検証用に作ったコードはこちら。</p>
+
+<pre class="prettyprint linenums"><code class="language-php">&lt;?php
+function verifyTrelloWebhookRequest($body, $secret, $callbackURL, $header) {
+    $base64Digest = function($s) use($secret) {
+        $s = hash_hmac('sha1', $s, $secret, true);
+        $s = base64_encode($s);
+        return $s;
+    };
+
+    $content = $body + $callbackURL;
+    $doubleHash = $base64Digest($base64Digest($content));
+    $headerHash = $base64Digest($header);
+
+    return ($doubleHash == $headerHash);
+}
+</code></pre>
 
     </div>
 </article>
@@ -183,11 +302,11 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "name": "iTunes AppStoreのアプリ画像サイズ",
-    "url": "http:\/\/kijtra.com\/article\/itunes-appstore-icon-size-list",
-    "datePublished": "2013-05-05T00:00:00+09:00",
-    "wordCount":  52 ,
-    "description": "iTunesのAppStoreで使われているアプリのアイコン画像で、どんなサイズがあるのか調べてみたのでメモ。",
+    "name": "Trello の Webhook API をPHPで受け取ってみた",
+    "url": "http:\/\/kijtra.com\/article\/trello-webhook-api-php",
+    "datePublished": "2015-08-08T00:00:00+09:00",
+    "wordCount":  253 ,
+    "description": "タスク管理ツール「Trello」のプッシュ通知API「Webhook」が便利そうだったのでPHPで処理してみた。",
     "author": {
         "@type": "Person",
         "name": "きじとら",
