@@ -960,14 +960,14 @@ Spartanがいつのまにか終了してたり、&lt;br /&gt;
     </item>
     
     <item>
-      <title>ブログのバックエンドを「Hugo」に変更</title>
+      <title>ブログのバックエンドを「Hugo」(＋Github Pages)に変更</title>
       <link>http://kijtra.com/article/change-to-hugo</link>
       <pubDate>Tue, 02 Jun 2015 18:39:32 +0900</pubDate>
       
       <guid>http://kijtra.com/article/change-to-hugo</guid>
       <description>
 
-&lt;p&gt;ブログのバックエンドを全面変更したので記録ついでにメモ。&lt;/p&gt;
+&lt;p&gt;ブログのバックエンドをGo言語製のHugo(＋Github Pages)に全面変更したので記録ついでにメモ。&lt;/p&gt;
 
 &lt;p&gt;これまで、ブログのバックエンドは以下のような構成だった。&lt;/p&gt;
 

@@ -1,12 +1,12 @@
 ---
-title: "ブログのバックエンドを「Hugo」に変更"
+title: "ブログのバックエンドを「Hugo」(＋Github Pages)に変更"
 date: "2015-06-02T18:39:32+09:00"
 slug: "change-to-hugo"
 tag: ["hugo"]
-description: "ブログのバックエンドを「Hugo」に変更したので概要メモ。"
+description: "ブログのバックエンドを「Hugo」(＋Github Pages)に変更したので概要メモ。"
 ---
 
-ブログのバックエンドを全面変更したので記録ついでにメモ。
+ブログのバックエンドをGo言語製のHugo(＋Github Pages)に全面変更したので記録ついでにメモ。
 
 <!--more-->
 
