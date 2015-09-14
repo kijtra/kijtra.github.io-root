@@ -3,7 +3,7 @@ date: "2015-09-14T12:45:29+09:00"
 ogp:
   image: "https://lh3.googleusercontent.com/DHtYeKyOtH11NfO39XTaIZ4uEUGjbqCca5OFkjtU_Wyf5TWJYvFp56nO3AUpZOYIMCOGdQ4JDWf1iUqWxKrtPtLPnbqxzbaT54iieHat3kIk2re7zQGUSpOpPtrrRtyUMk9KYn8BMnO55s0nijQ3kfy2cCZ08NIBAl7NBWTIGd2OUfGW8Bo7ZL7ChwRoHpSFVf17Sh7LSVUPjcyC4cgGAemhDpdb7Yhu_6RtpMQflMLlkwi0xJayuW_3S1zNwqr1YsK-ihHGJAhgomDAY8YuMAwu3OanTYH8yXUGuFpaZIheKl3iFloNulJnIiSjiJEmiWidDg-O4d4o1i-YNFQkBfK69mD4w2lHAdZMMQeFjzUBzhJ5JXwXLXPt_kFS5KrMUUzCRzSDzG29DqlmzB_43qgaBNyEWkj9LSWNF__Kn7PU7bTdeuXRtzBchEEE5H2fr-q1QQB-yc7SZ5NHWt4uT3CEsSsL82lJQEF_-0B-z7R0eCR_JM0sBJDiHe3Ac3XSdbk4wMzCukKRtO0M0G2GG-UAeDM_BeNchno0QjNp5k8=w1570-h708-no"
 slug: "cloud9-install"
-tag: ["cloud9"]
+tag: ["Cloud9", "Editor"]
 title: "Cloud9を自サーバにインストールしてどこでもコーディング"
 description: "Web上で動くIDEである「Cloud9」を自サーバー（さくらVPS）にインストールしてみたので手順をメモ。"
 ---

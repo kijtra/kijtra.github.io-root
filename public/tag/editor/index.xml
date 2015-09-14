@@ -6,8 +6,261 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Mon, 25 May 2015 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 14 Sep 2015 12:45:29 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/tag/editor/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Cloud9を自サーバにインストールしてどこでもコーディング</title>
+      <link>http://kijtra.com/article/cloud9-install</link>
+      <pubDate>Mon, 14 Sep 2015 12:45:29 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/cloud9-install</guid>
+      <description>
+
+&lt;p&gt;&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt; はWebサービスとして提供されているオンラインIDEだけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。&lt;/p&gt;
+
+&lt;p&gt;今回は &lt;a href=&#34;http://vps.sakura.ad.jp/&#34;&gt;さくらインターネットのVPS&lt;/a&gt; で最安の 512プラン を持っていたので、そこで使ってみた。&lt;br /&gt;
+OSは &lt;strong&gt;CentOS 6.7&lt;/strong&gt; ( &lt;code&gt;yum -update&lt;/code&gt; により6.6から6.7になった)。&lt;/p&gt;
+
+&lt;p&gt;自前インストールだと &lt;a href=&#34;https://nodejs.org&#34;&gt;Node.js&lt;/a&gt; を使ってコマンドによりサーバーを立ち上げ、そこにアクセスして使うことになる。&lt;br /&gt;
+でも使うたびに毎回サーバーを起動する必要があるので、最終的には &lt;strong&gt;立ち上げっぱなし&lt;/strong&gt; の状態にし、さらに &lt;strong&gt;サブドメイン下で動くように&lt;/strong&gt; したい。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Cloud9 SDK の公式Github&lt;br /&gt;
+&lt;a href=&#34;https://github.com/c9/core/&#34;&gt;https://github.com/c9/core/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://lh3.googleusercontent.com/DHtYeKyOtH11NfO39XTaIZ4uEUGjbqCca5OFkjtU_Wyf5TWJYvFp56nO3AUpZOYIMCOGdQ4JDWf1iUqWxKrtPtLPnbqxzbaT54iieHat3kIk2re7zQGUSpOpPtrrRtyUMk9KYn8BMnO55s0nijQ3kfy2cCZ08NIBAl7NBWTIGd2OUfGW8Bo7ZL7ChwRoHpSFVf17Sh7LSVUPjcyC4cgGAemhDpdb7Yhu_6RtpMQflMLlkwi0xJayuW_3S1zNwqr1YsK-ihHGJAhgomDAY8YuMAwu3OanTYH8yXUGuFpaZIheKl3iFloNulJnIiSjiJEmiWidDg-O4d4o1i-YNFQkBfK69mD4w2lHAdZMMQeFjzUBzhJ5JXwXLXPt_kFS5KrMUUzCRzSDzG29DqlmzB_43qgaBNyEWkj9LSWNF__Kn7PU7bTdeuXRtzBchEEE5H2fr-q1QQB-yc7SZ5NHWt4uT3CEsSsL82lJQEF_-0B-z7R0eCR_JM0sBJDiHe3Ac3XSdbk4wMzCukKRtO0M0G2GG-UAeDM_BeNchno0QjNp5k8=w1570-h708-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/DHtYeKyOtH11NfO39XTaIZ4uEUGjbqCca5OFkjtU_Wyf5TWJYvFp56nO3AUpZOYIMCOGdQ4JDWf1iUqWxKrtPtLPnbqxzbaT54iieHat3kIk2re7zQGUSpOpPtrrRtyUMk9KYn8BMnO55s0nijQ3kfy2cCZ08NIBAl7NBWTIGd2OUfGW8Bo7ZL7ChwRoHpSFVf17Sh7LSVUPjcyC4cgGAemhDpdb7Yhu_6RtpMQflMLlkwi0xJayuW_3S1zNwqr1YsK-ihHGJAhgomDAY8YuMAwu3OanTYH8yXUGuFpaZIheKl3iFloNulJnIiSjiJEmiWidDg-O4d4o1i-YNFQkBfK69mD4w2lHAdZMMQeFjzUBzhJ5JXwXLXPt_kFS5KrMUUzCRzSDzG29DqlmzB_43qgaBNyEWkj9LSWNF__Kn7PU7bTdeuXRtzBchEEE5H2fr-q1QQB-yc7SZ5NHWt4uT3CEsSsL82lJQEF_-0B-z7R0eCR_JM0sBJDiHe3Ac3XSdbk4wMzCukKRtO0M0G2GG-UAeDM_BeNchno0QjNp5k8=w766-h345-no&#34; alt=&#34;Cloud9動作イメージ&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;必要なライブラリ等のインストール:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;必要なライブラリ等のインストール&lt;/h2&gt;
+
+&lt;p&gt;Cloud9 のインストールに最低限必要なのは &lt;strong&gt;Python2.7以上&lt;/strong&gt; と &lt;strong&gt;glibc-static&lt;/strong&gt; というyumパッケージ。&lt;br /&gt;
+その2つをインストールする。&lt;br /&gt;
+※ Node.js周りのものはCloud9インストーラが勝手に入れてくれるので、自分で入れなくても良い&lt;/p&gt;
+
+&lt;p&gt;まずは glibc-static 。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo yum install glibc-static
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;次にPython。&lt;br /&gt;
+少し手順が多いので下項で。&lt;/p&gt;
+
+&lt;h3 id=&#34;python2-7-9のインストール:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;Python2.7.9のインストール&lt;/h3&gt;
+
+&lt;p&gt;CentOS6 の yum リポジトリには Python2.6 までしかないため、どうしてもソースからインストールする必要がある。&lt;br /&gt;
+また、すでに入っている Python2.6.6 はそのままにして、2.7 を別でインストールすることになる。&lt;/p&gt;
+
+&lt;p&gt;いくつか調べると以下のサイト（英語）のインストール方法が一般的なようなので、基本的にこの通りにする。&lt;br /&gt;
+&lt;a href=&#34;http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/&#34;&gt;http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;まず必須ライブラリのインストール。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo yum groupinstall &amp;quot;Development tools&amp;quot;
+sudo yum install wget zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記参考サイトでは &lt;code&gt;wget&lt;/code&gt; が入っていないので追加している。（後ほど使うため）&lt;br /&gt;
+また、ウチの環境では &lt;code&gt;yum groupinstall &amp;quot;Development tools&amp;quot;&lt;/code&gt; が、以下のようなメッセージが出て動かないような感じだった。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Warning: Group development does not have any packages.&lt;br /&gt;
+No packages in any requested group available to install or update&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;それでもまあ最終的にCloud9を使えてるのでよしとするw&lt;/p&gt;
+
+&lt;p&gt;次にライブラリのパスを設定する。&lt;br /&gt;
+CentOS6 では、デフォルトで &lt;code&gt;/usr/bin/python&lt;/code&gt; にパスが通っているけど、Python2.7は &lt;code&gt;/usr/local/bin/python2.7&lt;/code&gt; というパスにインストールされる。&lt;br /&gt;
+そのためPythonライブラリ群のパスを指定する必要があるらしく、 &lt;code&gt;/etc/ld.so.conf&lt;/code&gt; というファイルを編集する。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo vi /etc/ld.so.conf
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下のように記述する。（2行目が追記した部分）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;include ld.so.conf.d/*.conf
+/usr/local/lib
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記の設定を反映するコマンド。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo /sbin/ldconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;次にPythonのソースをダウンロードしてインストール。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;wget http://python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz
+tar xf Python-2.7.9.tar.xz
+cd Python-2.7.9
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared
+make
+sudo make altinstall
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最後の &lt;code&gt;altinstall&lt;/code&gt; が、Python2.6.6 とは別にインストールするという指示らしい。&lt;br /&gt;
+わりと時間がかかるけど、終わったら念のためもう一度パス設定を反映する。&lt;br /&gt;
+（これをやらないとパスが通らないことがあった）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo /sbin/ldconfig
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;インストールされたか確認&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;python2.7 -V
+# 「Python 2.7.9」と出ればOK
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cloud9-sdk-のインストール:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;Cloud9 SDK のインストール&lt;/h2&gt;
+
+&lt;p&gt;手順は簡単だけど、注意点としては &lt;strong&gt;root権限ではインストールできない&lt;/strong&gt; という点。&lt;br /&gt;
+&lt;code&gt;sudo -s&lt;/code&gt; とか &lt;code&gt;su -&lt;/code&gt; とかでrootに成っている場合は一般ユーザーに切り替える。&lt;/p&gt;
+
+&lt;p&gt;その &lt;strong&gt;一般ユーザーのルートディレクトリでインストールする&lt;/strong&gt; ので、ディレクトリ移動。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;cd ~
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;それと、もう一つ注意点としてシェルが日本語になっているとうまくいかない。&lt;br /&gt;
+念のため確認して英語にしておく。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo vi /etc/sysconfig/i18n
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下のように記述&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-txt&#34;&gt;LANG=&amp;quot;en_US.UTF-8&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;やっと本体インストール。&lt;br /&gt;
+GitでSDKを &lt;code&gt;c9sdk&lt;/code&gt; というディレクトリにダウンロードする。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;git clone git://github.com/c9/core.git c9sdk
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ダウンロードフォルダに移動して・・・&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;cd c9sdk
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;インストーラを実行&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;scripts/install-sdk.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;これもかなり時間がかかるけど、成功すると以下のようなメッセージが出る。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Success!
+run &amp;lsquo;node server.js -p 8080 -a :&amp;rsquo; to launch Cloud9&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;node server.js -p 8080 -a :&lt;/code&gt; というコマンドで立ち上げできるよ！というメッセージだけど、今はまだ無視。&lt;/p&gt;
+
+&lt;h2 id=&#34;サブドメインでアクセスできるようにする:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;サブドメインでアクセスできるようにする&lt;/h2&gt;
+
+&lt;p&gt;Cloud9を立ち上げると、そのままでは &lt;strong&gt;&lt;a href=&#34;http://XXX.XXX.XXX.XXX:8080&#34;&gt;http://XXX.XXX.XXX.XXX:8080&lt;/a&gt;&lt;/strong&gt; というようなアドレスでしかアクセスできない。&lt;br /&gt;
+なので、&lt;strong&gt;&lt;a href=&#34;http://c9.example.com&#34;&gt;http://c9.example.com&lt;/a&gt;&lt;/strong&gt; といったURLでアクセスできるようにする。&lt;/p&gt;
+
+&lt;h3 id=&#34;apacheの場合:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;Apacheの場合&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-conf&#34;&gt;&amp;lt;VirtualHost *:80&amp;gt;
+    ServerName c9.example.com
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / http://127.0.0.1:8080/
+    ProxyPreserveHost On
+&amp;lt;/VirtualHost&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;nginxの場合:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;Nginxの場合&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nginx&#34;&gt;server {
+    listen       80;
+    server_name  c9.example.com;
+
+    location / {
+        proxy_pass   http://127.0.0.1:8080;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;cloud9-ide-起動:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;Cloud9 IDE、起動！&lt;/h2&gt;
+
+&lt;p&gt;ここまでがわりと長い・・・。&lt;/p&gt;
+
+&lt;p&gt;起動コマンドは以下のような感じ。&lt;br /&gt;
+オプションについては&lt;a href=&#34;https://github.com/c9/core/#starting-cloud9&#34;&gt;公式GitHubに説明がある&lt;/a&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;node ~/c9sdk/server.js -p 8080 -w ~/public/ -a username:password
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ひとつずつ説明すると、&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;node&lt;/code&gt;&lt;/strong&gt; ・・・ Node.js使用コマンド&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;~/c9sdk/server.js&lt;/code&gt;&lt;/strong&gt; ・・・ サーバー起動スクリプト&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;-p 8080&lt;/code&gt;&lt;/strong&gt; ・・・ 使用するポート&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;-w ~/public/&lt;/code&gt;&lt;/strong&gt; ・・・ 「~/public/」以下のディレクトリがCloud9管理対象&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&lt;code&gt;-a username:password&lt;/code&gt;&lt;/strong&gt; ・・・ Basic認証する場合の ID:パスワード&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;といったコマンド。&lt;br /&gt;
+これで &lt;code&gt;http://c9.example.com&lt;/code&gt; にアクセスするとIDEが起動するはず。&lt;/p&gt;
+
+&lt;p&gt;ちなみに編集権限のないディレクトリ内のは当然編集できない。&lt;br /&gt;
+なので、サーバーの別ユーザーのディレクトリを編集したい場合は、そのユーザーでログインしてCloud9をインストールする必要がある。&lt;/p&gt;
+
+&lt;p&gt;ちなみにIDEの設定などは &lt;code&gt;~/.c9/&lt;/code&gt; というディレクトリに保存される。&lt;br /&gt;
+SASS とか LESS とかの &lt;a href=&#34;https://cloud9-sdk.readme.io/docs/builders&#34;&gt;Builderスクリプト&lt;/a&gt; とか使う場合はそこに設定ファイルを保存することになる。&lt;/p&gt;
+
+&lt;p&gt;起動が確認できたら、いったんサーバーを落として（&lt;kbd&gt;Ctrl + C&lt;/kbd&gt;）、下記立ち上げっぱなしにする設定に進む。&lt;/p&gt;
+
+&lt;h2 id=&#34;node-forever-で立ち上げっぱなしにする:e51332a40e06a9b8f867644b6f70fb4d&#34;&gt;「node forever」で立ち上げっぱなしにする&lt;/h2&gt;
+
+&lt;p&gt;npmが入っていない場合は入れる。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo yum install npm
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;forever をグローバルインストールする。&lt;br /&gt;
+（グローバルである必要はない）&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo npm install forever -g
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;forever を使って Cloud9 IDE を起動&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;forever start ~/c9sdk/server.js -w /home/kijtra/public/dev -p 8080 -a username:password
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;以下のように出れば起動中。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;info: Forever processing file: /home/example/c9sdk/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;実行中ものをの表示したい場合&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;forever list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cloud9 IDE を停止する場合&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;forever stop ~/c9sdk/server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;以上だけど、Pythonのインストールあたりからわりと試行錯誤でやっと成功した感じ。&lt;br /&gt;
+&lt;a href=&#34;https://virtualenv.pypa.io/en/latest/&#34;&gt;virtualenv&lt;/a&gt; とか使ったりしたけど、うまくいかなかった。&lt;br /&gt;
+また、Cloud9自体が使っている人がほとんどいないので苦労した。&lt;br /&gt;
+でも &lt;a href=&#34;http://sass-lang.com/&#34;&gt;SASS&lt;/a&gt; や &lt;a href=&#34;http://lesscss.org/&#34;&gt;LESS&lt;/a&gt; 、&lt;a href=&#34;http://coffeescript.org/&#34;&gt;CofeeScript&lt;/a&gt; のコンパイルができて、しかも &lt;strong&gt;&lt;a href=&#34;http://emmet.io/&#34;&gt;Emmet&lt;/a&gt;&lt;/strong&gt; にも対応しているのはびっくりした。&lt;br /&gt;
+「SublimeText Mode」なるものもあり、見た目や動作を &lt;a href=&#34;http://www.sublimetext.com/&#34;&gt;SublimeText&lt;/a&gt; そっくりにすることもできる。&lt;br /&gt;
+個人サイトなんかはすべてブラウザで完結できそう。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</title>
