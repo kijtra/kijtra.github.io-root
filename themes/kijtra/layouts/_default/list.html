@@ -26,10 +26,12 @@
 {
     "@context": "http://schema.org",
     "@type": "Article",
-    "name": "{{ .Title }}の記事一覧",
+    "headline": "{{ .Title }}の記事一覧",
     "url": "{{ .Site.BaseURL }}{{ trim .Paginator.URL "/" }}",
     "description": "「{{ .Title }}」のタグが付いた記事の一覧です{{ if gt .Paginator.PageNumber 1 }}（{{ .Paginator.PageNumber }}ページ目）{{ end }}",
     "articleSection": "{{ .Title }}",
+    "datePublished": "{{ range first 1 .Paginator.Pages }}{{ .Date.Format "2006-01-02T03:04:05" }}+09:00{{ end }}",
+    "image":"{{ .Site.Params.avatar }}",
     "pagination": "1-{{ .Paginator.TotalPages }}",
     "pageStart": {{ add (mul (sub .Paginator.PageNumber 1) .Paginator.PageSize) 1 }},
     "pageEnd": {{ add (mul (sub .Paginator.PageNumber 1) .Paginator.PageSize) .Paginator.NumberOfElements }},
@@ -42,17 +44,19 @@
     "hasPart": [{{ range first 1 .Paginator.Pages }}
         {
             "@type": "BlogPosting",
-            "name": "{{ .Title }}",
+            "headline": "{{ .Title }}",
             "url": "{{ .Permalink }}",
             "datePublished": "{{ .Date.Format "2006-01-02T03:04:05" }}+09:00",
-            "description": "{{ .Description }}"
+            "description": "{{ .Description }}",
+            "image":"{{ if .Params.ogp.image }}{{ .Params.ogp.image }}{{ else }}{{ .Site.Params.avatar }}{{ end }}"
         }{{ end }}{{ range $index, $element := .Paginator.Pages }}{{ if gt $index 0 }}
         ,{
             "@type": "BlogPosting",
-            "name": "{{ .Title }}",
+            "headline": "{{ .Title }}",
             "url": "{{ .Permalink }}",
             "datePublished": "{{ .Date.Format "2006-01-02T03:04:05" }}+09:00",
-            "description": "{{ .Description }}"
+            "description": "{{ .Description }}",
+            "image":"{{ if .Params.ogp.image }}{{ .Params.ogp.image }}{{ else }}{{ .Site.Params.avatar }}{{ end }}"
         }{{ end }}{{ end }}
     ],
     "isPartOf": {

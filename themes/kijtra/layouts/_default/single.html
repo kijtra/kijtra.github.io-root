@@ -85,8 +85,9 @@
 {
     "@context": "http://schema.org",
     "@type": "BlogPosting",
-    "name": "{{ .Title }}",
+    "headline": "{{ .Title }}",
     "url": "{{ .Permalink }}",
+    "image":"{{ if .Params.ogp.image }}{{ .Params.ogp.image }}{{ else }}{{ .Site.Params.avatar }}{{ end }}",
     "datePublished": "{{ .Date.Format "2006-01-02T03:04:05" }}+09:00",
     "wordCount": {{ .WordCount }},
     "description": "{{ .Description }}",

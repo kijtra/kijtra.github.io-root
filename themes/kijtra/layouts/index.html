@@ -39,17 +39,19 @@
     "blogPosts": [{{ range first 1 .Paginator.Pages }}
         {
             "@type": "BlogPosting",
-            "name": "{{ .Title }}",
+            "headline": "{{ .Title }}",
             "url": "{{ .Permalink }}",
             "datePublished": "{{ .Date.Format "2006-01-02T03:04:05" }}+09:00",
-            "description": "{{ .Description }}"
+            "description": "{{ .Description }}",
+            "image":"{{ if .Params.ogp.image }}{{ .Params.ogp.image }}{{ else }}{{ .Site.Params.avatar }}{{ end }}"
         }{{ end }}{{ range $index, $element := .Paginator.Pages }}{{ if gt $index 0 }}
         ,{
             "@type": "BlogPosting",
-            "name": "{{ .Title }}",
+            "headline": "{{ .Title }}",
             "url": "{{ .Permalink }}",
             "datePublished": "{{ .Date.Format "2006-01-02T03:04:05" }}+09:00",
-            "description": "{{ .Description }}"
+            "description": "{{ .Description }}",
+            "image":"{{ if .Params.ogp.image }}{{ .Params.ogp.image }}{{ else }}{{ .Site.Params.avatar }}{{ end }}"
         }
     {{ end }}{{ end }}]
 }
