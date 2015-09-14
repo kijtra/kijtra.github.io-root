@@ -2,12 +2,12 @@
 <html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
 <meta charset="utf-8">
-<title>AppFog（のPHP）でCronぽいことを実現する - きじとら</title>
+<title>Cloud9の記事一覧 - きじとら</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="きじとら">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://kijtra.com/article/cron-in-appfog-php">
+<meta property="og:url" content="http://kijtra.com/tag/cloud9/">
 <meta property="fb:admins" content="100001876504791">
 <meta property="fb:app_id" content="458844870836571">
 <meta property="twitter:card" content="summary">
@@ -26,15 +26,13 @@
 <link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
 <link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
 
-<meta name="google-publisher-plugin-pagetype" content="singlePost">
-<meta property="og:title" content="AppFog（のPHP）でCronぽいことを実現する">
-<meta name="description" content="AppFogでCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。">
+<meta property="og:title" content="Cloud9の記事一覧">
+<meta name="description" content="「Cloud9」のタグが付いた記事の一覧です">
+<link rel="canonical" href="http://kijtra.com/tag/cloud9">
 
-<meta property="article:published_time" content="2013/10/07T12:00:00Z">
-<meta property="article:tag" content="PHP"><meta property="article:tag" content="Cron">
-<link rel="canonical" href="http://kijtra.com/article/cron-in-appfog-php">
+
 </head>
-<body class="article">
+<body class="tags">
 <div class="container">
     <header class="header row">
 
@@ -43,7 +41,7 @@
         </div>
 
         <div class="feed three columns offset-by-one omega">
-            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+            <a href="http://kijtra.com/tag/cloud9/index.xml" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
         </div>
     </header>
 
@@ -52,188 +50,53 @@
         <div class="content nine columns alpha">
 
 
-
-<article class="post">
-    <h1>AppFog（のPHP）でCronぽいことを実現する</h1>
-    <div class="meta">
-        <span class="date"><i class="icon-modify"></i> 2013/10/07</span>
-        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/php">PHP</a></span>
-        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/cron">Cron</a></span>
+<h1><i class="icon-tag"></i> Cloud9</h1>
+<ul class="posts">
+    
         
-    </div>
-
-    <div class="ad">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<li>
+    <h2><a href="http://kijtra.com/article/cloud9-install">Cloud9を自サーバにインストールしてどこでもコーディング</a></h2>
+    <p><a href="https://c9.io/">Cloud9</a> はWebサービスとして提供されているけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。<a class="more" href="http://kijtra.com/article/cloud9-install">&raquo; more</a></p>
+    <small>
+        <span class="date"><i class="icon-modify"></i> 2015/09/14</span>
+        <span class="comment"><i class="icon-comment"></i> <a href="http://kijtra.com/article/cloud9-install#disqus_thread">Comment</a></span>
         
-        <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-9281671442970905"
-         data-ad-slot="5126378234"
-         data-ad-format="horizontal"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    </small>
+</li>
 
-    <div class="body">
-        <p><a href="https://www.appfog.com/" target="_blank" rel="nofollow">AppFog</a>でCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。</p>
-
-<p>だいたいは以下のページの焼き増し。
-<a href="http://stackoverflow.com/questions/13595025/running-php-workers-on-appfog" target="_blank" rel="nofollow">Stack Overflow : Running PHP workers on AppFog</a></p>
-
-<p>流れとしては、</p>
-
-<ol>
-<li>Cronするには専用の新規アプリを作る必要があるので作る</li>
-<li>それをスタンドアロンアプリとして設定</li>
-<li>常時実行コマンドみたいなやつを設定して特定のPHPファイルを常時実行</li>
-<li>そのPHP内でCronぽい動きをさせる</li></li>
-</ol>
-
-<p>という感じ。</p>
-
-<p>まずはローカルでCronテスト用のアプリディレクトリとファイルを作成。
-ここでは例として「<strong>my-cron</strong>」というアプリ名とする。</p>
-
-<p>my-cronディレクトリに「<strong>index.php</strong>」を作成。（ファイル名はなんでも良い）
-このindex.phpの中身は以下のような感じ。</p>
-
-<pre class="prettyprint linenums"><code class="language-php">&lt;?php
-//タイムアウトなしに設定
-set_time_limit(0);
-//延々と繰り返す
-while (true) {
-	//確認のためログに出力される文字
-	echo &quot;Cronテストっす\n&quot;;
-	//指定時間だけ処理止める(ここでは300秒=5分)
-	//ここで止める間隔がCronの実行間隔になる
-	sleep(300);
-}
-</code></pre>
-
-<p>あとは基本的にコマンドラインでの作業。
-（appfogの管理画面でもできるかもだけど調べてない）
-※appfogのコマンド「af」は<a href="https://docs.appfog.com/getting-started/af-cli" target="_blank" rel="nofollor">appfogのCLI</a>をインストールしておく必要あり</p>
-
-<pre class="prettyprint linenums"><code class="language-sh"># 上で決めたCron用アプリのディレクトリに移動
-$ cd /path/to/my-cron
-# アプリの新規作成ステップ開始
-$ af push
-Would you like to deploy from the current directory? [Yn]:# そのままEnter
-Application Name: my-cron # 上で決めたアプリ名を入力
-Detected a PHP Application, is this correct? [Yn]: n # No(n)を指定
-1: Sinatra
-2: JavaWeb
-3: Spring
-4: Rails
-5: Play
-6: Erlang/OTP Rebar
-7: PHP
-8: Lift
-9: Django
-10: Rack
-11: WSGI
-12: Standalone
-13: Node
-14: Grails
-Select Application Type: 12 # 「Standalone」を指定
-Selected Standalone Application
-1: java
-2: node04
-3: node06
-4: node08
-5: php
-6: python2
-7: ruby18
-8: ruby192
-9: ruby193
-Select Runtime: 5 # 「php」を指定
-Selected php
-Start Command: php index.php # 常時実行コマンド。上で作ったファイル「index.php」
-1: AWS US East - Virginia
-2: AWS EU West - Ireland
-3: AWS Asia SE - Singapore
-4: HP AZ 2 - Las Vegas
-Select Infrastructure: 3 # 任意。ここでは「AWS Asia」
-Application Deployed URL [None]: # そのままEnter
-Memory reservation (128M, 256M, 512M, 1G, 2G) [128M]: # そのままEnter
-How many instances? [1]: # そのままEnter
-Bind existing services to 'my-cron'? [yN]: # そのままEnter
-Create services to bind to 'my-cron'? [yN]: # そのままEnter
-Would you like to save this configuration? [yN]: # そのままEnter
-# あとは自動出力
-Creating Application: OK
-Uploading Application:
-  Checking for available resources: OK
-  Packing application: OK
-  Uploading (0K): OK
-Push Status: OK
-Staging Application 'my-cron': OK
-Starting Application 'my-cron': OK
-</code></pre>
-
-<p>↑ソースの色付け見難くてスミマセン・・・</p>
-
-<p>これで、「my-cron」アプリの「index.php」が常時動いてることになるので、
-sleep()で止めるなり指定時間になにか処理するなりしていく模様。
-（PHPが動きっぱなしってのが個人的に気持ち悪いけどw）</p>
-
-    </div>
-</article>
-
-<div class="row clearfix ad ad-article-bottom">
-    <div class="six columns alpha">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:250px"
-             data-ad-client="ca-pub-9281671442970905"
-             data-ad-slot="6446299037"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    <div class="six columns omega">
-        <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=12&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
-    </div>
-</div>
+    
+</ul>
 
 
-<div class="socialcounts"></div>
 
-
-<div class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//kijtra.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-        
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </script>
-</div>
 
 
 <script type="application/ld+json">
 {
     "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "name": "AppFog（のPHP）でCronぽいことを実現する",
-    "url": "http:\/\/kijtra.com\/article\/cron-in-appfog-php",
-    "datePublished": "2013-10-07T12:00:00+09:00",
-    "wordCount":  256 ,
-    "description": "AppFogでCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。",
+    "@type": "Article",
+    "name": "Cloud9の記事一覧",
+    "url": "http:\/\/kijtra.com\/tag\/cloud9",
+    "description": "「Cloud9」のタグが付いた記事の一覧です",
+    "articleSection": "Cloud9",
+    "pagination": "1-1",
+    "pageStart":  1 ,
+    "pageEnd":  1 ,
     "author": {
         "@type": "Person",
         "name": "きじとら",
         "url": "http:\/\/kijtra.com\/",
         "image": "http:\/\/kijtra.com\/avatar.jpg"
     },
+    "hasPart": [
+        {
+            "@type": "BlogPosting",
+            "name": "Cloud9を自サーバにインストールしてどこでもコーディング",
+            "url": "http:\/\/kijtra.com\/article\/cloud9-install",
+            "datePublished": "2015-09-14T12:45:29+09:00",
+            "description": "Web上で動くIDEである「Cloud9」を自サーバー（さくらVPS）にインストールしてみたので手順をメモ。"
+        }
+    ],
     "isPartOf": {
         "@type": "Blog",
         "name": "きじとら",
@@ -281,6 +144,13 @@ sleep()で止めるなり指定時間になにか処理するなりしていく�
 <gcse:search></gcse:search>
 
 
+
+<section class="section recent">
+    <h3><i class="icon-feather"></i> Recent Articles</h3>
+    <ul>
+        <li><a href="http://kijtra.com/article/cloud9-install">Cloud9を自サーバにインストールしてどこでもコーディング</a></li>
+    </ul>
+</section>
 
 
 <section class="section tags">

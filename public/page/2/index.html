@@ -55,6 +55,18 @@
     
         
 <li>
+    <h2><a href="http://kijtra.com/article/php-function-vars">PHPで変数を便利にSet/Getする関数をつくった</a></h2>
+    <p>PHPでグローバルな変数を扱う時に <code>$GLOBALS</code> とか <a href="http://php.net/manual/ja/language.variables.superglobals.php">スーパーグローバル変数</a> の汚染とかあんまり使いたくなかったので、手軽にできる関数を作った。<a class="more" href="http://kijtra.com/article/php-function-vars">&raquo; more</a></p>
+    <small>
+        <span class="date"><i class="icon-modify"></i> 2015/02/10</span>
+        <span class="comment"><i class="icon-comment"></i> <a href="http://kijtra.com/article/php-function-vars#disqus_thread">Comment</a></span>
+        
+    </small>
+</li>
+
+    
+        
+<li>
     <h2><a href="http://kijtra.com/article/get-japanese-holiday-from-google">PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</a></h2>
     <p>GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。<a class="more" href="http://kijtra.com/article/get-japanese-holiday-from-google">&raquo; more</a></p>
     <small>
@@ -162,18 +174,6 @@
 </li>
 
     
-        
-<li>
-    <h2><a href="http://kijtra.com/article/mysql-string-position-upper-lower-case">MySQLでLOCATE()とかINSTR()とかPOSITION()とかが大文字・小文字を区別してくれない</a></h2>
-    <p>MySQLで、文字列内の任意の文字が何文字目に出てくるか取得できるLOCATE関数で、大文字と小文字に関係なく最初の文字を取得してきてしまうので対処メモ。<a class="more" href="http://kijtra.com/article/mysql-string-position-upper-lower-case">&raquo; more</a></p>
-    <small>
-        <span class="date"><i class="icon-modify"></i> 2013/12/26</span>
-        <span class="comment"><i class="icon-comment"></i> <a href="http://kijtra.com/article/mysql-string-position-upper-lower-case#disqus_thread">Comment</a></span>
-        
-    </small>
-</li>
-
-    
 </ul>
 
 
@@ -206,11 +206,19 @@
     "blogPosts": [
         {
             "@type": "BlogPosting",
+            "name": "PHPで変数を便利にSet\/Getする関数をつくった",
+            "url": "http:\/\/kijtra.com\/article\/php-function-vars",
+            "datePublished": "2015-02-10T09:50:00+09:00",
+            "description": "PHPでグローバルな変数を扱う時に $GLOBALS とかスーパーグローバル変の汚染とかあんまり使いたくなかったので、手軽にできる関数を作った。"
+        }
+        ,{
+            "@type": "BlogPosting",
             "name": "PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）",
             "url": "http:\/\/kijtra.com\/article\/get-japanese-holiday-from-google",
             "datePublished": "2014-11-18T10:23:00+09:00",
             "description": "GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014\/11\/17 にサポート終了して取れなくなったので別の方法をメモ。"
         }
+    
         ,{
             "@type": "BlogPosting",
             "name": "AdSenseを携帯(フィーチャーフォン\/ガラケー\/WAP)サイトで使う用のPHPクラス",
@@ -274,14 +282,6 @@
             "datePublished": "2014-01-04T12:00:00+09:00",
             "description": "WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。"
         }
-    
-        ,{
-            "@type": "BlogPosting",
-            "name": "MySQLでLOCATE()とかINSTR()とかPOSITION()とかが大文字・小文字を区別してくれない",
-            "url": "http:\/\/kijtra.com\/article\/mysql-string-position-upper-lower-case",
-            "datePublished": "2013-12-26T12:00:00+09:00",
-            "description": "MySQLで、文字列内の任意の文字が何文字目に出てくるか取得できるLOCATE関数で、大文字と小文字に関係なく最初の文字を取得してきてしまうので対処メモ。"
-        }
     ]
 }
 </script>
@@ -321,7 +321,7 @@
 <section class="section recent">
     <h3><i class="icon-feather"></i> Recent Articles</h3>
     <ul>
-        <li><a href="http://kijtra.com/article/trello-webhook-api-php">Trello の Webhook API をPHPで受け取ってみた</a></li><li><a href="http://kijtra.com/article/watch-form-input-change">ページ移動時にフォームの内容に変更があれば警告を出すアレ</a></li><li><a href="http://kijtra.com/article/date-info-api-v1">旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた</a></li><li><a href="http://kijtra.com/article/windows10-app-operation-check">Windows 10 で自分の開発環境が動くのか試す</a></li><li><a href="http://kijtra.com/article/change-to-hugo">ブログのバックエンドを「Hugo」(＋Github Pages)に変更</a></li><li><a href="http://kijtra.com/article/my-atom-packages">いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</a></li><li><a href="http://kijtra.com/article/original-library-using-composer-packagist">PackagistとComposerで自作パッケージを使う</a></li><li><a href="http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig">Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</a></li><li><a href="http://kijtra.com/article/jquery-modal">モーダル用jQueryプラグインをつくった</a></li><li><a href="http://kijtra.com/article/php-function-vars">PHPで変数を便利にSet/Getする関数をつくった</a></li>
+        <li><a href="http://kijtra.com/article/cloud9-install">Cloud9を自サーバにインストールしてどこでもコーディング</a></li><li><a href="http://kijtra.com/article/trello-webhook-api-php">Trello の Webhook API をPHPで受け取ってみた</a></li><li><a href="http://kijtra.com/article/watch-form-input-change">ページ移動時にフォームの内容に変更があれば警告を出すアレ</a></li><li><a href="http://kijtra.com/article/date-info-api-v1">旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた</a></li><li><a href="http://kijtra.com/article/windows10-app-operation-check">Windows 10 で自分の開発環境が動くのか試す</a></li><li><a href="http://kijtra.com/article/change-to-hugo">ブログのバックエンドを「Hugo」(＋Github Pages)に変更</a></li><li><a href="http://kijtra.com/article/my-atom-packages">いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</a></li><li><a href="http://kijtra.com/article/original-library-using-composer-packagist">PackagistとComposerで自作パッケージを使う</a></li><li><a href="http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig">Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</a></li><li><a href="http://kijtra.com/article/jquery-modal">モーダル用jQueryプラグインをつくった</a></li>
     </ul>
 </section>
 
@@ -329,7 +329,7 @@
 <section class="section tags">
     <h3><i class="icon-tag"></i> Tags</h3>
     <ul>
-        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/api">Api</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/editor">Editor</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(12)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/api">Api</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cloud9">Cloud9</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/editor">Editor</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(12)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
     </ul>
 </section>
 

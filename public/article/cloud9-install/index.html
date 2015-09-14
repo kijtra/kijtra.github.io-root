@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+<meta charset="utf-8">
+<title>Cloud9を自サーバにインストールしてどこでもコーディング - きじとら</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:site_name" content="きじとら">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://kijtra.com/article/cloud9-install">
+<meta property="fb:admins" content="100001876504791">
+<meta property="fb:app_id" content="458844870836571">
+<meta property="twitter:card" content="summary">
+<meta property="twitter:creator" content="@kijtra">
+<meta property="twitter:domain" content="kijtra.com">
+<meta property="twitter:site" content="@kijtra">
+<meta name="msapplication-tilecolor" content="#f4f4f4">
+<meta name="msapplication-tileimage" content="http://kijtra.com/apple-touch-icon-144-precomposed.png">
+<link rel="stylesheet" href="http://kijtra.com/css/blog.css">
+
+<link href="http://kijtra.com/favicon.ico" rel="shortcut icon">
+<link href="http://kijtra.com/apple-touch-icon-144-precomposed.png" rel="apple-touch-icon-precomposed" sizes="144x144">
+<link href="http://kijtra.com/apple-touch-icon-114-precomposed.png" rel="apple-touch-icon-precomposed" sizes="114x114">
+<link href="http://kijtra.com/apple-touch-icon-72-precomposed.png" rel="apple-touch-icon-precomposed" sizes="72x72">
+<link href="http://kijtra.com/apple-touch-icon-57-precomposed.png" rel="apple-touch-icon-precomposed">
+<link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
+<link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
+
+<meta name="google-publisher-plugin-pagetype" content="singlePost">
+<meta property="og:title" content="Cloud9を自サーバにインストールしてどこでもコーディング">
+<meta name="description" content="Web上で動くIDEである「Cloud9」を自サーバー（さくらVPS）にインストールしてみたので手順をメモ。">
+
+<meta property="og:image" content="https://lh3.googleusercontent.com/DHtYeKyOtH11NfO39XTaIZ4uEUGjbqCca5OFkjtU_Wyf5TWJYvFp56nO3AUpZOYIMCOGdQ4JDWf1iUqWxKrtPtLPnbqxzbaT54iieHat3kIk2re7zQGUSpOpPtrrRtyUMk9KYn8BMnO55s0nijQ3kfy2cCZ08NIBAl7NBWTIGd2OUfGW8Bo7ZL7ChwRoHpSFVf17Sh7LSVUPjcyC4cgGAemhDpdb7Yhu_6RtpMQflMLlkwi0xJayuW_3S1zNwqr1YsK-ihHGJAhgomDAY8YuMAwu3OanTYH8yXUGuFpaZIheKl3iFloNulJnIiSjiJEmiWidDg-O4d4o1i-YNFQkBfK69mD4w2lHAdZMMQeFjzUBzhJ5JXwXLXPt_kFS5KrMUUzCRzSDzG29DqlmzB_43qgaBNyEWkj9LSWNF__Kn7PU7bTdeuXRtzBchEEE5H2fr-q1QQB-yc7SZ5NHWt4uT3CEsSsL82lJQEF_-0B-z7R0eCR_JM0sBJDiHe3Ac3XSdbk4wMzCukKRtO0M0G2GG-UAeDM_BeNchno0QjNp5k8=w1570-h708-no">
+<meta property="article:published_time" content="2015/09/14T12:45:29Z">
+<meta property="article:tag" content="cloud9">
+<link rel="canonical" href="http://kijtra.com/article/cloud9-install">
+</head>
+<body class="article">
+<div class="container">
+    <header class="header row">
+
+        <div class="title eight columns alpha">
+            <a href="http://kijtra.com/">きじとら</a>
+        </div>
+
+        <div class="feed three columns offset-by-one omega">
+            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+        </div>
+    </header>
+
+    <div class="main row clearfix" role="main">
+
+        <div class="content nine columns alpha">
+
+
+
+<article class="post">
+    <h1>Cloud9を自サーバにインストールしてどこでもコーディング</h1>
+    <div class="meta">
+        <span class="date"><i class="icon-modify"></i> 2015/09/14</span>
+        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/cloud9">cloud9</a></span>
+        
+    </div>
+
+    <div class="ad">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-9281671442970905"
+         data-ad-slot="5126378234"
+         data-ad-format="horizontal"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <div class="body">
+        
+
+<p><a href="https://c9.io/">Cloud9</a> はWebサービスとして提供されているけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。</p>
+
+<p>今回は <a href="http://vps.sakura.ad.jp/">さくらインターネットのVPS</a> で最安の 512プラン を持っていたので、そこで使ってみた。<br />
+OSは <strong>CentOS 6.7</strong> ( <code>yum -update</code> により6.6から6.7になった)。</p>
+
+<p>自前インストールだと <a href="https://nodejs.org">Node.js</a> を使ってコマンドによりサーバーを立ち上げ、そこにアクセスして使うことになる。<br />
+でも使うたびに毎回サーバーを起動する必要があるので、最終的には <strong>立ち上げっぱなし</strong> の状態にし、さらに <strong>サブドメイン下で動くように</strong> したい。</p>
+
+<blockquote>
+<p>Cloud9 SDK の公式Github<br />
+<a href="https://github.com/c9/core/">https://github.com/c9/core/</a></p>
+</blockquote>
+
+<p><a href="https://lh3.googleusercontent.com/DHtYeKyOtH11NfO39XTaIZ4uEUGjbqCca5OFkjtU_Wyf5TWJYvFp56nO3AUpZOYIMCOGdQ4JDWf1iUqWxKrtPtLPnbqxzbaT54iieHat3kIk2re7zQGUSpOpPtrrRtyUMk9KYn8BMnO55s0nijQ3kfy2cCZ08NIBAl7NBWTIGd2OUfGW8Bo7ZL7ChwRoHpSFVf17Sh7LSVUPjcyC4cgGAemhDpdb7Yhu_6RtpMQflMLlkwi0xJayuW_3S1zNwqr1YsK-ihHGJAhgomDAY8YuMAwu3OanTYH8yXUGuFpaZIheKl3iFloNulJnIiSjiJEmiWidDg-O4d4o1i-YNFQkBfK69mD4w2lHAdZMMQeFjzUBzhJ5JXwXLXPt_kFS5KrMUUzCRzSDzG29DqlmzB_43qgaBNyEWkj9LSWNF__Kn7PU7bTdeuXRtzBchEEE5H2fr-q1QQB-yc7SZ5NHWt4uT3CEsSsL82lJQEF_-0B-z7R0eCR_JM0sBJDiHe3Ac3XSdbk4wMzCukKRtO0M0G2GG-UAeDM_BeNchno0QjNp5k8=w1570-h708-no"><img src="https://lh3.googleusercontent.com/DHtYeKyOtH11NfO39XTaIZ4uEUGjbqCca5OFkjtU_Wyf5TWJYvFp56nO3AUpZOYIMCOGdQ4JDWf1iUqWxKrtPtLPnbqxzbaT54iieHat3kIk2re7zQGUSpOpPtrrRtyUMk9KYn8BMnO55s0nijQ3kfy2cCZ08NIBAl7NBWTIGd2OUfGW8Bo7ZL7ChwRoHpSFVf17Sh7LSVUPjcyC4cgGAemhDpdb7Yhu_6RtpMQflMLlkwi0xJayuW_3S1zNwqr1YsK-ihHGJAhgomDAY8YuMAwu3OanTYH8yXUGuFpaZIheKl3iFloNulJnIiSjiJEmiWidDg-O4d4o1i-YNFQkBfK69mD4w2lHAdZMMQeFjzUBzhJ5JXwXLXPt_kFS5KrMUUzCRzSDzG29DqlmzB_43qgaBNyEWkj9LSWNF__Kn7PU7bTdeuXRtzBchEEE5H2fr-q1QQB-yc7SZ5NHWt4uT3CEsSsL82lJQEF_-0B-z7R0eCR_JM0sBJDiHe3Ac3XSdbk4wMzCukKRtO0M0G2GG-UAeDM_BeNchno0QjNp5k8=w766-h345-no" alt="Cloud9動作イメージ" />
+</a></p>
+
+<hr />
+
+<h2 id="必要なライブラリ等のインストール:e51332a40e06a9b8f867644b6f70fb4d">必要なライブラリ等のインストール</h2>
+
+<p>Cloud9 のインストールに最低限必要なのは <strong>Python2.7以上</strong> と <strong>glibc-static</strong> というyumパッケージ。<br />
+その2つをインストールする。<br />
+※ Node.js周りのものはCloud9インストーラが勝手に入れてくれるので、自分で入れなくても良い</p>
+
+<p>まずは glibc-static 。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo yum install glibc-static
+</code></pre>
+
+<p>次にPython。<br />
+少し手順が多いので下項で。</p>
+
+<h3 id="python2-7-9のインストール:e51332a40e06a9b8f867644b6f70fb4d">Python2.7.9のインストール</h3>
+
+<p>CentOS6 の yum リポジトリには Python2.6 までしかないため、どうしてもソースからインストールする必要がある。<br />
+また、すでに入っている Python2.6.6 はそのままにして、2.7 を別でインストールすることになる。</p>
+
+<p>いくつか調べると以下のサイト（英語）のインストール方法が一般的なようなので、基本的にこの通りにする。<br />
+<a href="http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/">http://toomuchdata.com/2014/02/16/how-to-install-python-on-centos/</a></p>
+
+<p>まず必須ライブラリのインストール。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo yum groupinstall &quot;Development tools&quot;
+sudo yum install wget zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel
+</code></pre>
+
+<p>上記参考サイトでは <code>wget</code> が入っていないので追加している。（後ほど使うため）<br />
+また、ウチの環境では <code>yum groupinstall &quot;Development tools&quot;</code> が、以下のようなメッセージが出て動かないような感じだった。</p>
+
+<blockquote>
+<p>Warning: Group development does not have any packages.<br />
+No packages in any requested group available to install or update</p>
+</blockquote>
+
+<p>それでもまあ最終的にCloud9を使えてるのでよしとするw</p>
+
+<p>次にライブラリのパスを設定する。<br />
+CentOS6 では、デフォルトで <code>/usr/bin/python</code> にパスが通っているけど、Python2.7は <code>/usr/local/bin/python2.7</code> というパスにインストールされる。<br />
+そのためPythonライブラリ群のパスを指定する必要があるらしく、 <code>/etc/ld.so.conf</code> というファイルを編集する。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo vi /etc/ld.so.conf
+</code></pre>
+
+<p>以下のように記述する。（2行目が追記した部分）</p>
+
+<pre class="prettyprint linenums"><code class="language-txt">include ld.so.conf.d/*.conf
+/usr/local/lib
+</code></pre>
+
+<p>上記の設定を反映するコマンド。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo /sbin/ldconfig
+</code></pre>
+
+<p>次にPythonのソースをダウンロードしてインストール。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">wget http://python.org/ftp/python/2.7.9/Python-2.7.9.tar.xz
+tar xf Python-2.7.9.tar.xz
+cd Python-2.7.9
+./configure --prefix=/usr/local --enable-unicode=ucs4 --enable-shared
+make
+sudo make altinstall
+</code></pre>
+
+<p>最後の <code>altinstall</code> が、Python2.6.6 とは別にインストールするという指示らしい。<br />
+わりと時間がかかるけど、終わったら念のためもう一度パス設定を反映する。<br />
+（これをやらないとパスが通らないことがあった）</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo /sbin/ldconfig
+</code></pre>
+
+<p>インストールされたか確認</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">python2.7 -V
+# 「Python 2.7.9」と出ればOK
+</code></pre>
+
+<h2 id="cloud9-sdk-のインストール:e51332a40e06a9b8f867644b6f70fb4d">Cloud9 SDK のインストール</h2>
+
+<p>手順は簡単だけど、注意点としては <strong>root権限ではインストールできない</strong> という点。<br />
+<code>sudo -s</code> とか <code>su -</code> とかでrootに成っている場合は一般ユーザーに切り替える。</p>
+
+<p>その <strong>一般ユーザーのルートディレクトリでインストールする</strong> ので、ディレクトリ移動。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">cd ~
+</code></pre>
+
+<p>それと、もう一つ注意点としてシェルが日本語になっているとうまくいかない。<br />
+念のため確認して英語にしておく。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo vi /etc/sysconfig/i18n
+</code></pre>
+
+<p>以下のように記述</p>
+
+<pre class="prettyprint linenums"><code class="language-txt">LANG=&quot;en_US.UTF-8&quot;
+</code></pre>
+
+<p>やっと本体インストール。<br />
+GitでSDKを <code>c9sdk</code> というディレクトリにダウンロードする。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">git clone git://github.com/c9/core.git c9sdk
+</code></pre>
+
+<p>ダウンロードフォルダに移動して・・・</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">cd c9sdk
+</code></pre>
+
+<p>インストーラを実行</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">scripts/install-sdk.sh
+</code></pre>
+
+<p>これもかなり時間がかかるけど、成功すると以下のようなメッセージが出る。</p>
+
+<blockquote>
+<p>Success!
+run &lsquo;node server.js -p 8080 -a :&rsquo; to launch Cloud9</p>
+</blockquote>
+
+<p><code>node server.js -p 8080 -a :</code> というコマンドで立ち上げできるよ！というメッセージだけど、今はまだ無視。</p>
+
+<h2 id="サブドメインでアクセスできるようにする:e51332a40e06a9b8f867644b6f70fb4d">サブドメインでアクセスできるようにする</h2>
+
+<p>Cloud9を立ち上げると、そのままでは <strong><a href="http://XXX.XXX.XXX.XXX:8080">http://XXX.XXX.XXX.XXX:8080</a></strong> というようなアドレスでしかアクセスできない。<br />
+なので、<strong><a href="http://c9.example.com">http://c9.example.com</a></strong> といったURLでアクセスできるようにする。</p>
+
+<h3 id="apacheの場合:e51332a40e06a9b8f867644b6f70fb4d">Apacheの場合</h3>
+
+<pre class="prettyprint linenums"><code class="language-conf">&lt;VirtualHost *:80&gt;
+    ServerName c9.example.com
+    ProxyPass / http://127.0.0.1:8080/
+    ProxyPassReverse / http://127.0.0.1:8080/
+    ProxyPreserveHost On
+&lt;/VirtualHost&gt;
+</code></pre>
+
+<h3 id="nginxの場合:e51332a40e06a9b8f867644b6f70fb4d">Nginxの場合</h3>
+
+<pre class="prettyprint linenums"><code class="language-nginx">server {
+    listen       80;
+    server_name  c9.example.com;
+
+    location / {
+        proxy_pass   http://127.0.0.1:8080;
+    }
+}
+</code></pre>
+
+<h2 id="cloud9-ide-起動:e51332a40e06a9b8f867644b6f70fb4d">Cloud9 IDE、起動！</h2>
+
+<p>ここまでがわりと長い・・・。</p>
+
+<p>起動コマンドは以下のような感じ。<br />
+オプションについては<a href="https://github.com/c9/core/#starting-cloud9">公式GitHubに説明がある</a>。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">node ~/c9sdk/server.js -p 8080 -w ~/public/ -a username:password
+</code></pre>
+
+<p>ひとつずつ説明すると、</p>
+
+<ul>
+<li><strong><code>node</code></strong> ・・・ Node.js使用コマンド</li>
+<li><strong><code>~/c9sdk/server.js</code></strong> ・・・ サーバー起動スクリプト</li>
+<li><strong><code>-p 8080</code></strong> ・・・ 使用するポート</li>
+<li><strong><code>-w ~/public/</code></strong> ・・・ 「~/public/」以下のディレクトリがCloud9管理対象</li>
+<li><strong><code>-a username:password</code></strong> ・・・ Basic認証する場合の ID:パスワード</li>
+</ul>
+
+<p>といったコマンド。<br />
+これで <code>http://c9.example.com</code> にアクセスするとIDEが起動するはず。</p>
+
+<p>ちなみに編集権限のないディレクトリ内のは当然編集できない。<br />
+なので、サーバーの別ユーザーのディレクトリを編集したい場合は、そのユーザーでログインしてCloud9をインストールする必要がある。</p>
+
+<p>ちなみにIDEの設定などは <code>~/.c9/</code> というディレクトリに保存される。<br />
+SASS とか LESS とかの <a href="https://cloud9-sdk.readme.io/docs/builders">Builderスクリプト</a> とか使う場合はそこに設定ファイルを保存することになる。</p>
+
+<p>起動が確認できたら、いったんサーバーを落として（<kbd>Ctrl + C</kbd>）、下記立ち上げっぱなしにする設定に進む。</p>
+
+<h2 id="node-forever-で立ち上げっぱなしにする:e51332a40e06a9b8f867644b6f70fb4d">「node forever」で立ち上げっぱなしにする</h2>
+
+<p>npmが入っていない場合は入れる。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">sudo yum install npm
+</code></pre>
+
+<p>forever をグローバルインストールする。<br />
+（グローバルである必要はない）</p>
+
+<pre class="prettyprint linenums"><code>sudo npm install forever -g
+</code></pre>
+
+<p>forever を使って Cloud9 IDE を起動</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">forever start ~/c9sdk/server.js -w /home/kijtra/public/dev -p 8080 -a username:password
+</code></pre>
+
+<p>以下のように出れば起動中。</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">info: Forever processing file: /home/example/c9sdk/server.js
+</code></pre>
+
+<p>実行中ものをの表示したい場合</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">forever list
+</code></pre>
+
+<p>Cloud9 IDE を停止する場合</p>
+
+<pre class="prettyprint linenums"><code class="language-sh">forever stop ~/c9sdk/server.js
+</code></pre>
+
+<hr />
+
+<p>以上だけど、Pythonのインストールあたりからわりと試行錯誤でやっと成功した感じ。<br />
+<a href="https://virtualenv.pypa.io/en/latest/">virtualenv</a> とか使ったりしたけど、うまくいかなかった。<br />
+また、Cloud9自体が使っている人がほとんどいないので苦労した。<br />
+でも <a href="http://sass-lang.com/">SASS</a> や <a href="http://lesscss.org/">LESS</a> 、<a href="http://coffeescript.org/">CofeeScript</a> のコンパイルができて、しかも <strong><a href="http://emmet.io/">Emmet</a></strong> にも対応しているのはびっくりした。<br />
+「SublimeText Mode」なるものもあり、見た目や動作を <a href="http://www.sublimetext.com/">SublimeText</a> そっくりにすることもできる。<br />
+個人サイトなんかはすべてブラウザで完結できそう。</p>
+
+    </div>
+</article>
+
+<div class="row clearfix ad ad-article-bottom">
+    <div class="six columns alpha">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-9281671442970905"
+             data-ad-slot="6446299037"></ins>
+        <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+    <div class="six columns omega">
+        <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=12&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+    </div>
+</div>
+
+
+<div class="socialcounts"></div>
+
+
+<div class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//kijtra.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+        
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </script>
+</div>
+
+
+<script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "name": "Cloud9を自サーバにインストールしてどこでもコーディング",
+    "url": "http:\/\/kijtra.com\/article\/cloud9-install",
+    "datePublished": "2015-09-14T12:45:29+09:00",
+    "wordCount":  356 ,
+    "description": "Web上で動くIDEである「Cloud9」を自サーバー（さくらVPS）にインストールしてみたので手順をメモ。",
+    "author": {
+        "@type": "Person",
+        "name": "きじとら",
+        "url": "http:\/\/kijtra.com\/",
+        "image": "http:\/\/kijtra.com\/avatar.jpg"
+    },
+    "isPartOf": {
+        "@type": "Blog",
+        "name": "きじとら",
+        "url": "http:\/\/kijtra.com\/",
+        "image": "http:\/\/kijtra.com\/avatar.jpg",
+        "author": {
+            "@type": "Person",
+            "name": "きじとら",
+            "url": "http:\/\/kijtra.com\/",
+            "image": "http:\/\/kijtra.com\/avatar.jpg"
+        },
+        "description": "Webのこととかそのたもろもろ"
+    }
+}
+</script>
+
+
+            </div>
+
+            <aside class="sidebar three columns omega clearfix">
+                <div class="ad ad-sidebar-top">
+    <script async src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	
+	<ins class="adsbygoogle"
+		style="display:inline-block;width:200px;height:200px"
+		data-ad-client="ca-pub-9281671442970905"
+		data-ad-slot="7439453839"></ins>
+	<script>
+	(adsbygoogle = window.adsbygoogle || []).push({});
+	</script>
+</div>
+
+<script>
+  (function() {
+    var cx = '005022487374147002888:kdtmvj_tomw';
+    var gcse = document.createElement('script');
+    gcse.type = 'text/javascript';
+    gcse.async = true;
+    gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
+        '//cse.google.com/cse.js?cx=' + cx;
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(gcse, s);
+  })();
+</script>
+<gcse:search></gcse:search>
+
+
+
+
+<section class="section tags">
+    <h3><i class="icon-tag"></i> Tags</h3>
+    <ul>
+        <li><a href="http://kijtra.com/tag/adsense">Adsense</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/api">Api</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cloud9">Cloud9</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/cron">Cron</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/css">Css</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/data">Data</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/editor">Editor</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/elasticsearch">Elasticsearch</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/form">Form</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/google">Google</a> <sup>(7)</sup></li><li><a href="http://kijtra.com/tag/google-apps-script">Google-Apps-Script</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/html5">Html5</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/hugo">Hugo</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/javascript">Javascript</a> <sup>(5)</sup></li><li><a href="http://kijtra.com/tag/jquery">Jquery</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/middleman">Middleman</a> <sup>(1)</sup></li><li><a href="http://kijtra.com/tag/mysql">Mysql</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/others">Others</a> <sup>(4)</sup></li><li><a href="http://kijtra.com/tag/php">Php</a> <sup>(12)</sup></li><li><a href="http://kijtra.com/tag/seo">Seo</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/snippet">Snippet</a> <sup>(8)</sup></li><li><a href="http://kijtra.com/tag/sublime-text">Sublime-Text</a> <sup>(2)</sup></li><li><a href="http://kijtra.com/tag/twitter">Twitter</a> <sup>(3)</sup></li><li><a href="http://kijtra.com/tag/wordpress">Wordpress</a> <sup>(2)</sup></li>
+    </ul>
+</section>
+
+<section class="ad amazon">
+    <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=9&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="180" height="150" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
+</section>
+
+<section class="section tweets">
+    <h3><i class="icon-twitter"></i> Tweets</h3>
+    <div class="twitprof naked" data-screen="kijtra"></div>
+    <a class="twitter-timeline" href="https://twitter.com/kijtra" height="300" data-widget-id="466381965910740992" data-chrome="noheader transparent">@kijtra からのツイート</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</section>
+
+            </aside>
+        </div>
+
+        <footer class="footer row">
+
+            <div class="left four columns alpha">
+                &copy; kijtra.com
+            </div>
+
+            <div class="right four columns offset-by-four omega">
+                <a href="https://plus.google.com/u/0/117431541275233993112?rel=author" class="iconbutton" target="_blank"><span class="icon-googleplus"></span></a>
+                <a href="https://twitter.com/kijtra" class="iconbutton" target="_blank"><span class="icon-twitter"></span></a>
+            </div>
+
+        </footer>
+    </div>
+
+<script src="http://kijtra.com/js/jquery-1.11.3.min.js"></script>
+<script src="http://kijtra.com/js/blog.js"></script>
+<script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian"></script>
+<script src="http://kijtra.com/js/twitprof.js"></script>
+<script>$('.socialcounts').socialCounts();</script>
+
+
+
+
+<script type="text/javascript">
+var disqus_shortname = 'kijtra';
+(function () {
+    var s = document.createElement('script'); s.async = true;
+    s.type = 'text/javascript';
+    s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+</script>
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-20642126-2', 'kijtra.com');
+  ga('require', 'displayfeatures');
+  ga('require', 'linkid', 'linkid.js');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
+
