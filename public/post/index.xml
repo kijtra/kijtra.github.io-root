@@ -17,7 +17,7 @@
       <guid>http://kijtra.com/article/cloud9-install</guid>
       <description>
 
-&lt;p&gt;&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt; はWebサービスとして提供されているけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt; はWebサービスとして提供されているオンラインIDEだけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。&lt;/p&gt;
 
 &lt;p&gt;今回は &lt;a href=&#34;http://vps.sakura.ad.jp/&#34;&gt;さくらインターネットのVPS&lt;/a&gt; で最安の 512プラン を持っていたので、そこで使ってみた。&lt;br /&gt;
 OSは &lt;strong&gt;CentOS 6.7&lt;/strong&gt; ( &lt;code&gt;yum -update&lt;/code&gt; により6.6から6.7になった)。&lt;/p&gt;
