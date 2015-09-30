@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>きじとら</title>
+    <link>http://kijtra.com/tag/nodejs/</link>
+    <description>Webのこととかそのたもろもろ</description>
+    <language>ja</language>
+    <copyright>&amp;copy; kijtra.com</copyright>
+    <lastBuildDate>Wed, 30 Sep 2015 16:40:15 +0900</lastBuildDate>
+    <atom:link href="http://kijtra.com/tag/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示</title>
+      <link>http://kijtra.com/article/nodejs-twitter-stream</link>
+      <pubDate>Wed, 30 Sep 2015 16:40:15 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/nodejs-twitter-stream</guid>
+      <description>&lt;p&gt;Node.js初心者なので、リアルタイムの何かをつくってみようと思いTwitterの &lt;a href=&#34;https://dev.twitter.com/streaming/overview&#34;&gt;Streaming API&lt;/a&gt; で試してみた。&lt;/p&gt;
+
+&lt;p&gt;デモを以下に設置した。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TweetMap&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;http://demo.kijtra.com/tweetmap/&#34;&gt;http://demo.kijtra.com/tweetmap/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;画面イメージ。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/taPyKO2qOsCK1i8_D0ohWwCREvUBs-ftVj7TmkLoogNV6nY0KOwaw1U9FV8JPfUDNOug8LYiIJnawDhUHTtDiBxZxzolab3DedxLQzV_rvTgZcP2KQfEcLIXfxBxg5XtSCgaCx9ieBA4Dz6pL01g50ucJw2Vj_dWti25qDq1kLf715Haju637e3NA2FX5WFxDfdGhiQehNkJ_kI8Pmqvs0xGEO1xBIy4mj96RrfVZ87yK6lx-3boTtkvjLnVBnTPHjMOHiLRj0ZnYjlNfIBVLGp31De61hbiFYjsbUHk13M7PSGx8Fym1iVlAbbjQ1yTv04RD0H01uL8xGyYqB4SOClbsZ_26jpDR-oWSS9v-vlKAGhOewNqfiLkHjBA9Pxnw1TSS49hVnuF2g8xEIJd2RApcfMdkcAL0kObr0isIPRLB1GpdMb3heSyrjLxOepf-j8mZGKtX73hS6XOdYyqqlW3X7bWInlYpD5UfwjNU2flbd6fyLmbMdgWx3mR3znCvqGunKWUHBo3ITqEKGgtf_hxK78AouPY3PUkoC9-TPI=w805-h770-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/taPyKO2qOsCK1i8_D0ohWwCREvUBs-ftVj7TmkLoogNV6nY0KOwaw1U9FV8JPfUDNOug8LYiIJnawDhUHTtDiBxZxzolab3DedxLQzV_rvTgZcP2KQfEcLIXfxBxg5XtSCgaCx9ieBA4Dz6pL01g50ucJw2Vj_dWti25qDq1kLf715Haju637e3NA2FX5WFxDfdGhiQehNkJ_kI8Pmqvs0xGEO1xBIy4mj96RrfVZ87yK6lx-3boTtkvjLnVBnTPHjMOHiLRj0ZnYjlNfIBVLGp31De61hbiFYjsbUHk13M7PSGx8Fym1iVlAbbjQ1yTv04RD0H01uL8xGyYqB4SOClbsZ_26jpDR-oWSS9v-vlKAGhOewNqfiLkHjBA9Pxnw1TSS49hVnuF2g8xEIJd2RApcfMdkcAL0kObr0isIPRLB1GpdMb3heSyrjLxOepf-j8mZGKtX73hS6XOdYyqqlW3X7bWInlYpD5UfwjNU2flbd6fyLmbMdgWx3mR3znCvqGunKWUHBo3ITqEKGgtf_hxK78AouPY3PUkoC9-TPI=w766-no&#34; alt=&#34;TweetMap&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;環境と使用したものは以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CentOS6（さくらVPS 1G）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; 0.10.36
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://expressjs.com/&#34;&gt;express&lt;/a&gt; 4.13.3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://socket.io/&#34;&gt;socket.io&lt;/a&gt; 0.9.17&lt;br /&gt;
+最新（1.x系）だとなんかうまくいかなかったので0.9系を使った。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/desmondmorris/node-twitter&#34;&gt;twitter&lt;/a&gt; 1.2.5&lt;br /&gt;
+TwitterのAPI用ライブラリ。似たやつで「&lt;a href=&#34;https://github.com/istrategylabs/node-twitter&#34;&gt;node-twitter&lt;/a&gt;」というのがあるけど、それとは違うやつ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/twitter/twitter-text-js&#34;&gt;twitter-text&lt;/a&gt; 1.13.2&lt;br /&gt;
+ツイートテキストをHTML表示用に変換してくれる公式ライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/substack/point-in-polygon&#34;&gt;point-in-polygon&lt;/a&gt; 1.0.0&lt;br /&gt;
+ある座標（Point）がポリゴンに含まれているか判定してくれるライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/foreverjs/forever&#34;&gt;forever&lt;/a&gt; 0.15.1&lt;br /&gt;
+Node.jsで作ったサーバーを裏側で起動しっぱなしにするやつ。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;クライアントサイド（すべてCDNで対応）
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/maps&#34;&gt;Google Maps API&lt;/a&gt; 3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jquery.com/&#34;&gt;jQuery&lt;/a&gt; 1.10.2&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://getbootstrap.com/&#34;&gt;Bootstrap&lt;/a&gt; 3.3.5&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://fortawesome.github.io/Font-Awesome/&#34;&gt;FontAwesome&lt;/a&gt; 4.4.0&lt;br /&gt;
+アイコンフォント。ごく一部に使用。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/twitter/twemoji&#34;&gt;twemoji&lt;/a&gt; 1.3.2&lt;br /&gt;
+ツイート内の絵文字を画像で表示する公式ライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stanlemon/jGrowl&#34;&gt;jGrowl&lt;/a&gt; 1.4.1&lt;br /&gt;
+ツイートをグロール通知するライブラリ。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Node.jsでサーバー用スクリプトを書いて（サーバーサイド）、そのなかでHTMLファイルを表示する指示をする（クライアントサイド）という流れ。&lt;/p&gt;
+
+&lt;p&gt;サーバーサイドのスクリプト（ここでは「server.js」）は以下のような感じ。&lt;br /&gt;
+日本全体のポリゴン作成は&lt;a href=&#34;http://www.doogal.co.uk/polylines.php&#34;&gt;Google Maps and KML shapes generator&lt;/a&gt;を使用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var util = require(&#39;util&#39;);
+var http = require(&#39;http&#39;);
+var express = require(&#39;express&#39;);
+var socketio = require(&#39;socket.io&#39;);
+var twitter = require(&#39;twitter&#39;);
+// https://github.com/twitter/twitter-text/tree/master/js
+var twtext = require(&#39;twitter-text&#39;);
+// https://github.com/substack/point-in-polygon
+var polygon = require(&#39;point-in-polygon&#39;);
+
+// 日本全体をおおまかに包含するポリゴンの座標
+var poly_jp = [
+  [23.94609601499837, 123.211669921875],
+  [21.881889807629282, 128.287353515625],
+  [26.22444694563432, 142.33062744140625],
+  [46.56641407568593, 151.1663818359375],
+  [45.78284835197676, 141.844482421875],
+  [45.22848059584359, 138.680419921875],
+  [34.88593094075317, 129.210205078125],
+  [26.27371402440643, 123.299560546875],
+  [24.587090339209634, 122.2833251953125],
+  [23.94609601499837, 123.211669921875]
+];
+
+
+// サーバー起動
+var app = express();
+var server = http.createServer(app);
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.sendFile(__dirname + &#39;/index.html&#39;);
+});
+
+var io = socketio.listen(server, {log: false});
+server.listen(3000);
+
+
+
+// Twitter APIの設定
+var twit = new twitter({
+  consumer_key: &#39;Twitter API の Consumer Key&#39;,
+  consumer_secret: &#39;Twitter API の Consumer Secret&#39;,
+  access_token_key: &#39;Twitter API の Access Token&#39;,
+  access_token_secret: &#39;Twitter API の Access Token Secret&#39;
+});
+
+// Twitter Streaming APIでフィルタする範囲オプション
+// （日本全体を含む矩形の南西の座標と北東の座標）
+var option = {
+    locations: &#39;123.283201,24.117224,150.625329,46.242887&#39;
+};
+
+// Streaming API開始
+twit.stream(&#39;statuses/filter&#39;, option, function(stream) {
+  stream.on(&#39;data&#39;, function (data) {
+    // 座標つきツイート、かつポリゴン範囲内のもののみ抽出
+    if (data.geo &amp;amp;&amp;amp; polygon(data.geo.coordinates, poly_jp)) {
+        // ツイートテキストをHTML表示用に変換
+        var formatted = twtext.autoLink(twtext.htmlEscape(data.text));
+
+        // HTML側で使用するため新たに「text_formatted」というキー名にセット
+        data.text_formatted = formatted;
+
+        // Socket.IOで送出
+        io.sockets.emit(&#39;msg&#39;, data);
+    }
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;クライアントサイド（ここでは「index.html」）はこんな感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;ja&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+  &amp;lt;title&amp;gt;TweetMap&amp;lt;/title&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css&amp;quot;&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css&amp;quot;&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css&amp;quot;&amp;gt;
+  &amp;lt;style&amp;gt;
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .jGrowl {
+        color: #444;
+    }
+
+    .jGrowl-notification {
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+
+    .jGrowl-closer {
+        color: #fff;
+        background: #0275D8;
+    }
+
+    .tweet hr {
+        margin: 7px 0;
+        clear: both;
+    }
+
+    #map {
+        width:100%;
+        height: 100%;
+        position:absolute;
+        top:0;
+        left:0;
+    }
+  &amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+
+&amp;lt;div id=&amp;quot;map&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+
+&amp;lt;script src=&amp;quot;/tweetmap/socket.io/socket.io.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/twemoji/1.3.2/twemoji.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+// Google Maps APIのコールバック関数
+function initMap() {
+  var currentWindow = null,
+  markers = [],
+  infowindows = [],
+  markerCount = 0,
+  markerMax = 1000,// マーカー最大数
+  infowindowMax = 3;// フキダシ最大数
+
+  var map = new google.maps.Map(document.getElementById(&#39;map&#39;), {
+    center: {lat: 38.2586, lng: 137.6850},
+    zoom: 7,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    streetViewControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+    }
+  });
+
+  // 日本を含む矩形をfitBoundsすることで、画面サイズに依らず日本の中心を表示
+  map.fitBounds(new google.maps.LatLngBounds(
+    new google.maps.LatLng(27.128750, 128.267736),
+    new google.maps.LatLng(44.489597, 144.263829)
+  ));
+
+  // Socket.IOと接続
+  var socket = io.connect(&#39;//&#39; + document.domain, {resource:&#39;tweetmap/socket.io&#39;});
+
+  // Streaming APIからデータが来た際の処理
+  socket.on(&#39;msg&#39;, function(data) {
+    if (currentWindow) {
+      currentWindow.close();
+    }
+
+    // ツイートテキスト（絵文字を変換）
+    var tweet = twemoji.parse(data.text_formatted, {size:16});
+
+    // グロールに表示するHTMLの組み立て
+    var text = &#39;&amp;lt;div class=&amp;quot;tweet&amp;quot;&amp;gt;&#39;;
+    text += &#39;&amp;lt;a href=&amp;quot;https://twitter.com/&#39; + data.user.screen_name + &#39;/statuses/&#39; + data.id_str + &#39;&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;&#39;;
+    text += &#39;&amp;lt;img src=&amp;quot;&#39; + data.user.profile_image_url_https + &#39;&amp;quot; width=&amp;quot;16&amp;quot;&amp;gt;&#39;;
+    text += &#39; &amp;lt;strong&amp;gt;&#39; + data.user.screen_name + &#39;&amp;lt;/strong&amp;gt;&amp;lt;/a&amp;gt;&#39;;
+    text += &#39;&amp;lt;hr&amp;gt;&#39;;
+    text += tweet;
+    // 位置情報の名称があれば表示
+    if (data.place &amp;amp;&amp;amp; data.place.name) {
+        text += &#39;&amp;lt;hr&amp;gt;&amp;lt;i class=&amp;quot;fa fa-fw fa-map-marker text-danger&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; &amp;lt;a href=&amp;quot;https://twitter.com/search?q=place%&#39; + data.place.id + &#39;&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;&#39; + data.place.name + &#39;&amp;lt;/a&amp;gt;&#39;;
+    }
+    text += &#39;&amp;lt;/div&amp;gt;&#39;;
+
+    // グロールを表示
+    $.jGrowl(text, {
+        life: 10000
+    });
+
+    // 地図マーカーのフキダシ
+    var infowindow = new google.maps.InfoWindow({
+      content: &#39;&amp;lt;div&amp;gt;&#39; + tweet + &#39;&amp;lt;/div&amp;gt;&#39;,
+      maxWidth: 200,
+      disableAutoPan: true
+    });
+
+    infowindows.push(infowindow);
+
+    // 地図マーカー
+    var marker = new google.maps.Marker({
+      map: map,
+      position: new google.maps.LatLng(data.geo.coordinates[0], data.geo.coordinates[1]),
+      animation: google.maps.Animation.DROP,
+      title: &#39;@&#39; + data.user.screen_name
+    });
+
+    marker.infowindow = infowindow;
+
+    // マーカーをクリックしたらフキダシ表示
+    marker.addListener(&#39;click&#39;, function() {
+      this.infowindow.open(map, this);
+    });
+
+    // デフォルトでフキダシを開く
+    infowindow.open(map, marker);
+
+    markers.push(marker);
+
+    // ウインドウが最大数になったら前のものを閉じる
+    if (markerCount &amp;gt;= infowindowMax) {
+      var cls = markerCount - infowindowMax;
+      infowindows[cls].close();
+    }
+
+    // マーカー数を記録
+    markerCount++;
+
+    // マーカーが最大数になったら徐々に透明になっていく（10段階）
+    if (markerCount &amp;gt; markerMax) {
+      var fade = (markerCount + 1) - markerMax;
+      markers[fade].setOpacity(0.9);
+
+      fade--;
+      if (markers[fade]) {
+        markers[fade].setOpacity(0.8);
+        fade--;
+        if (markers[fade]) {
+          markers[fade].setOpacity(0.7);
+          fade--;
+          if (markers[fade]) {
+            markers[fade].setOpacity(0.6);
+            if (markers[fade]) {
+              markers[fade].setOpacity(0.5);
+              fade--;
+              if (markers[fade]) {
+                markers[fade].setOpacity(0.4);
+                fade--;
+                if (markers[fade]) {
+                  markers[fade].setOpacity(0.3);
+                  fade--;
+                  if (markers[fade]) {
+                    markers[fade].setOpacity(0.2);
+                    fade--;
+                    if (markers[fade]) {
+                      markers[fade].setOpacity(0.1);
+                      fade--;
+                      if (markers[fade]) {
+                        markers[fade].setMap(null);
+                        markers[fade] = null;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//maps.googleapis.com/maps/api/js?v=3.exp&amp;amp;sensor=false&amp;amp;callback=initMap&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記2ファイルを同ディレクトリに置いたら、そこで以下を実行してサーバーを起動。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;node server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コマンドには何も表示されないけど実行されているので、 &lt;a href=&#34;http://localhost:3000&#34;&gt;http://localhost:3000&lt;/a&gt; にアクセスしてみると動いている。&lt;br /&gt;
+サーバーを止める場合は&lt;kbd&gt;Ctrl&lt;/kbd&gt;＋&lt;kbd&gt;C&lt;/kbd&gt;。&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

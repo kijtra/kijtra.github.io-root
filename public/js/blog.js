@@ -11,7 +11,6 @@
 			attr = tags[i].getAttribute("rel");
 			if (attr && "canonical" === attr.toLowerCase()) {
 				return tags[i].getAttribute("href");
-				break;
 			}
 		}
 		return location.href.replace(/^(.*?)(\#.*)?$/, '$1');
@@ -22,7 +21,6 @@
 			attr = tags[i].getAttribute("property");
 			if (attr && attr.toLowerCase().indexOf(':title') != -1) {
 				return tags[i].getAttribute("content");
-				break;
 			}
 		}
 		return d.title;
@@ -30,9 +28,9 @@
 	eurl = encodeURIComponent(url),
 	callback = '__socialcounts_'+(new Date()).getTime(),
 	shortNum = function(number){
-		var number = Number(number),
-		rounded = 0,
-		abbr = '';
+		number = Number(number);
+		var rounded = 0;
+		var abbr = '';
 		if (number >= 1e12) {
 			rounded = number / 1e12;
 			abbr = 'T';
@@ -51,6 +49,7 @@
 		return rounded.toFixed(1).replace(/\.0$/,'') + (abbr ? '<small>'+abbr+'</small>' : '');
 	},
 	datas = {
+        // ! 2015/09 count.json is deprecated.
 		"twitter": {
 			"title": "Twitter",
 			"url": "https://cdn.api.twitter.com/1/urls/count.json?url="+eurl,
@@ -121,16 +120,24 @@
 				});
 		}
 
-		b.removeChild(d.getElementById('socialcounts-'+key));
+        // ! 2015/09 count.json is deprecated.
+        if ('twitter' == key) {
+            if (countDatas[key]) {
+                countDatas[key].find('b').remove();
+            }
+        } else {
+            b.removeChild(d.getElementById('socialcounts-'+key));
+        }
+
 		if (added == total) {
 			delete w[callback];
 			if (timer) {
 				clearTimeout(timer);
 			}
 
-			for(var key in datas){
-				if (countDatas[key]) {
-					target.append(countDatas[key]);
+			for(var k in datas){
+				if (countDatas[k]) {
+					target.append(countDatas[k]);
 				}
 			}
 		}
@@ -161,8 +168,8 @@
 		},
 		"googleplus": function(res){
 			if (res && res.query && res.query.results) {
-				var m;
-				if (m = res.query.results.resources.content.match(/<span class="A8 RZa">\+(\d+)/)) {
+				var m = res.query.results.resources.content.match(/<span class="A8 RZa">\+(\d+)/);
+				if (m) {
 					addData('googleplus', Number(m[1]));
 					return;
 				}
@@ -178,8 +185,8 @@
 		},
 		"pocket": function(res){
 			if (res && res.query && res.query.results) {
-				var m;
-				if (m = res.query.results.resources.content.match(/<em id="cnt">(\d+)<\/em>/)) {
+				var m = res.query.results.resources.content.match(/<em id="cnt">(\d+)<\/em>/);
+				if (m) {
 					addData('pocket', Number(m[1]));
 					return;
 				}
@@ -193,8 +200,8 @@
 				addData('buffer', 0);
 			}
 		}
-	},
-	init = false;
+	};
+	var init = false;
 
 	$.fn.socialCounts = function(conf){
 		target = this.addClass('-socialcounts');
@@ -209,6 +216,11 @@
 		if (!init) {
 			init = (function(){
 				for(var key in datas){
+                    if ('twitter' == key) {
+                        w[callback][key]({count: 0});
+                        continue;
+                    }
+
 					var c = callback+'.'+key,
 					u = datas[key].url+"&callback="+encodeURIComponent(c),
 					s = d.createElement('script');

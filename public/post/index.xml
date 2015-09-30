@@ -6,8 +6,343 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Mon, 14 Sep 2015 12:45:29 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2015 16:40:15 +0900</lastBuildDate>
     <atom:link href="http://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示</title>
+      <link>http://kijtra.com/article/nodejs-twitter-stream</link>
+      <pubDate>Wed, 30 Sep 2015 16:40:15 +0900</pubDate>
+      
+      <guid>http://kijtra.com/article/nodejs-twitter-stream</guid>
+      <description>&lt;p&gt;Node.js初心者なので、リアルタイムの何かをつくってみようと思いTwitterの &lt;a href=&#34;https://dev.twitter.com/streaming/overview&#34;&gt;Streaming API&lt;/a&gt; で試してみた。&lt;/p&gt;
+
+&lt;p&gt;デモを以下に設置した。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;TweetMap&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;http://demo.kijtra.com/tweetmap/&#34;&gt;http://demo.kijtra.com/tweetmap/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;画面イメージ。&lt;br /&gt;
+&lt;a href=&#34;https://lh3.googleusercontent.com/taPyKO2qOsCK1i8_D0ohWwCREvUBs-ftVj7TmkLoogNV6nY0KOwaw1U9FV8JPfUDNOug8LYiIJnawDhUHTtDiBxZxzolab3DedxLQzV_rvTgZcP2KQfEcLIXfxBxg5XtSCgaCx9ieBA4Dz6pL01g50ucJw2Vj_dWti25qDq1kLf715Haju637e3NA2FX5WFxDfdGhiQehNkJ_kI8Pmqvs0xGEO1xBIy4mj96RrfVZ87yK6lx-3boTtkvjLnVBnTPHjMOHiLRj0ZnYjlNfIBVLGp31De61hbiFYjsbUHk13M7PSGx8Fym1iVlAbbjQ1yTv04RD0H01uL8xGyYqB4SOClbsZ_26jpDR-oWSS9v-vlKAGhOewNqfiLkHjBA9Pxnw1TSS49hVnuF2g8xEIJd2RApcfMdkcAL0kObr0isIPRLB1GpdMb3heSyrjLxOepf-j8mZGKtX73hS6XOdYyqqlW3X7bWInlYpD5UfwjNU2flbd6fyLmbMdgWx3mR3znCvqGunKWUHBo3ITqEKGgtf_hxK78AouPY3PUkoC9-TPI=w805-h770-no&#34;&gt;&lt;img src=&#34;https://lh3.googleusercontent.com/taPyKO2qOsCK1i8_D0ohWwCREvUBs-ftVj7TmkLoogNV6nY0KOwaw1U9FV8JPfUDNOug8LYiIJnawDhUHTtDiBxZxzolab3DedxLQzV_rvTgZcP2KQfEcLIXfxBxg5XtSCgaCx9ieBA4Dz6pL01g50ucJw2Vj_dWti25qDq1kLf715Haju637e3NA2FX5WFxDfdGhiQehNkJ_kI8Pmqvs0xGEO1xBIy4mj96RrfVZ87yK6lx-3boTtkvjLnVBnTPHjMOHiLRj0ZnYjlNfIBVLGp31De61hbiFYjsbUHk13M7PSGx8Fym1iVlAbbjQ1yTv04RD0H01uL8xGyYqB4SOClbsZ_26jpDR-oWSS9v-vlKAGhOewNqfiLkHjBA9Pxnw1TSS49hVnuF2g8xEIJd2RApcfMdkcAL0kObr0isIPRLB1GpdMb3heSyrjLxOepf-j8mZGKtX73hS6XOdYyqqlW3X7bWInlYpD5UfwjNU2flbd6fyLmbMdgWx3mR3znCvqGunKWUHBo3ITqEKGgtf_hxK78AouPY3PUkoC9-TPI=w766-no&#34; alt=&#34;TweetMap&#34; /&gt;
+&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;環境と使用したものは以下。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;CentOS6（さくらVPS 1G）&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://nodejs.org/&#34;&gt;Node.js&lt;/a&gt; 0.10.36
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://expressjs.com/&#34;&gt;express&lt;/a&gt; 4.13.3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://socket.io/&#34;&gt;socket.io&lt;/a&gt; 0.9.17&lt;br /&gt;
+最新（1.x系）だとなんかうまくいかなかったので0.9系を使った。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/desmondmorris/node-twitter&#34;&gt;twitter&lt;/a&gt; 1.2.5&lt;br /&gt;
+TwitterのAPI用ライブラリ。似たやつで「&lt;a href=&#34;https://github.com/istrategylabs/node-twitter&#34;&gt;node-twitter&lt;/a&gt;」というのがあるけど、それとは違うやつ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/twitter/twitter-text-js&#34;&gt;twitter-text&lt;/a&gt; 1.13.2&lt;br /&gt;
+ツイートテキストをHTML表示用に変換してくれる公式ライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/substack/point-in-polygon&#34;&gt;point-in-polygon&lt;/a&gt; 1.0.0&lt;br /&gt;
+ある座標（Point）がポリゴンに含まれているか判定してくれるライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/foreverjs/forever&#34;&gt;forever&lt;/a&gt; 0.15.1&lt;br /&gt;
+Node.jsで作ったサーバーを裏側で起動しっぱなしにするやつ。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;クライアントサイド（すべてCDNで対応）
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://developers.google.com/maps&#34;&gt;Google Maps API&lt;/a&gt; 3&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jquery.com/&#34;&gt;jQuery&lt;/a&gt; 1.10.2&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://getbootstrap.com/&#34;&gt;Bootstrap&lt;/a&gt; 3.3.5&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://fortawesome.github.io/Font-Awesome/&#34;&gt;FontAwesome&lt;/a&gt; 4.4.0&lt;br /&gt;
+アイコンフォント。ごく一部に使用。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/twitter/twemoji&#34;&gt;twemoji&lt;/a&gt; 1.3.2&lt;br /&gt;
+ツイート内の絵文字を画像で表示する公式ライブラリ。&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stanlemon/jGrowl&#34;&gt;jGrowl&lt;/a&gt; 1.4.1&lt;br /&gt;
+ツイートをグロール通知するライブラリ。&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Node.jsでサーバー用スクリプトを書いて（サーバーサイド）、そのなかでHTMLファイルを表示する指示をする（クライアントサイド）という流れ。&lt;/p&gt;
+
+&lt;p&gt;サーバーサイドのスクリプト（ここでは「server.js」）は以下のような感じ。&lt;br /&gt;
+日本全体のポリゴン作成は&lt;a href=&#34;http://www.doogal.co.uk/polylines.php&#34;&gt;Google Maps and KML shapes generator&lt;/a&gt;を使用。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-js&#34;&gt;var util = require(&#39;util&#39;);
+var http = require(&#39;http&#39;);
+var express = require(&#39;express&#39;);
+var socketio = require(&#39;socket.io&#39;);
+var twitter = require(&#39;twitter&#39;);
+// https://github.com/twitter/twitter-text/tree/master/js
+var twtext = require(&#39;twitter-text&#39;);
+// https://github.com/substack/point-in-polygon
+var polygon = require(&#39;point-in-polygon&#39;);
+
+// 日本全体をおおまかに包含するポリゴンの座標
+var poly_jp = [
+  [23.94609601499837, 123.211669921875],
+  [21.881889807629282, 128.287353515625],
+  [26.22444694563432, 142.33062744140625],
+  [46.56641407568593, 151.1663818359375],
+  [45.78284835197676, 141.844482421875],
+  [45.22848059584359, 138.680419921875],
+  [34.88593094075317, 129.210205078125],
+  [26.27371402440643, 123.299560546875],
+  [24.587090339209634, 122.2833251953125],
+  [23.94609601499837, 123.211669921875]
+];
+
+
+// サーバー起動
+var app = express();
+var server = http.createServer(app);
+
+app.get(&#39;/&#39;, function (req, res) {
+  res.sendFile(__dirname + &#39;/index.html&#39;);
+});
+
+var io = socketio.listen(server, {log: false});
+server.listen(3000);
+
+
+
+// Twitter APIの設定
+var twit = new twitter({
+  consumer_key: &#39;Twitter API の Consumer Key&#39;,
+  consumer_secret: &#39;Twitter API の Consumer Secret&#39;,
+  access_token_key: &#39;Twitter API の Access Token&#39;,
+  access_token_secret: &#39;Twitter API の Access Token Secret&#39;
+});
+
+// Twitter Streaming APIでフィルタする範囲オプション
+// （日本全体を含む矩形の南西の座標と北東の座標）
+var option = {
+    locations: &#39;123.283201,24.117224,150.625329,46.242887&#39;
+};
+
+// Streaming API開始
+twit.stream(&#39;statuses/filter&#39;, option, function(stream) {
+  stream.on(&#39;data&#39;, function (data) {
+    // 座標つきツイート、かつポリゴン範囲内のもののみ抽出
+    if (data.geo &amp;amp;&amp;amp; polygon(data.geo.coordinates, poly_jp)) {
+        // ツイートテキストをHTML表示用に変換
+        var formatted = twtext.autoLink(twtext.htmlEscape(data.text));
+
+        // HTML側で使用するため新たに「text_formatted」というキー名にセット
+        data.text_formatted = formatted;
+
+        // Socket.IOで送出
+        io.sockets.emit(&#39;msg&#39;, data);
+    }
+  });
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;クライアントサイド（ここでは「index.html」）はこんな感じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;ja&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+  &amp;lt;title&amp;gt;TweetMap&amp;lt;/title&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css&amp;quot;&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css&amp;quot;&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css&amp;quot;&amp;gt;
+  &amp;lt;style&amp;gt;
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .jGrowl {
+        color: #444;
+    }
+
+    .jGrowl-notification {
+        background: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    }
+
+    .jGrowl-closer {
+        color: #fff;
+        background: #0275D8;
+    }
+
+    .tweet hr {
+        margin: 7px 0;
+        clear: both;
+    }
+
+    #map {
+        width:100%;
+        height: 100%;
+        position:absolute;
+        top:0;
+        left:0;
+    }
+  &amp;lt;/style&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+
+&amp;lt;div id=&amp;quot;map&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+
+&amp;lt;script src=&amp;quot;/tweetmap/socket.io/socket.io.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/twemoji/1.3.2/twemoji.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;script&amp;gt;
+// Google Maps APIのコールバック関数
+function initMap() {
+  var currentWindow = null,
+  markers = [],
+  infowindows = [],
+  markerCount = 0,
+  markerMax = 1000,// マーカー最大数
+  infowindowMax = 3;// フキダシ最大数
+
+  var map = new google.maps.Map(document.getElementById(&#39;map&#39;), {
+    center: {lat: 38.2586, lng: 137.6850},
+    zoom: 7,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+    },
+    streetViewControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM
+    }
+  });
+
+  // 日本を含む矩形をfitBoundsすることで、画面サイズに依らず日本の中心を表示
+  map.fitBounds(new google.maps.LatLngBounds(
+    new google.maps.LatLng(27.128750, 128.267736),
+    new google.maps.LatLng(44.489597, 144.263829)
+  ));
+
+  // Socket.IOと接続
+  var socket = io.connect(&#39;//&#39; + document.domain, {resource:&#39;tweetmap/socket.io&#39;});
+
+  // Streaming APIからデータが来た際の処理
+  socket.on(&#39;msg&#39;, function(data) {
+    if (currentWindow) {
+      currentWindow.close();
+    }
+
+    // ツイートテキスト（絵文字を変換）
+    var tweet = twemoji.parse(data.text_formatted, {size:16});
+
+    // グロールに表示するHTMLの組み立て
+    var text = &#39;&amp;lt;div class=&amp;quot;tweet&amp;quot;&amp;gt;&#39;;
+    text += &#39;&amp;lt;a href=&amp;quot;https://twitter.com/&#39; + data.user.screen_name + &#39;/statuses/&#39; + data.id_str + &#39;&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;&#39;;
+    text += &#39;&amp;lt;img src=&amp;quot;&#39; + data.user.profile_image_url_https + &#39;&amp;quot; width=&amp;quot;16&amp;quot;&amp;gt;&#39;;
+    text += &#39; &amp;lt;strong&amp;gt;&#39; + data.user.screen_name + &#39;&amp;lt;/strong&amp;gt;&amp;lt;/a&amp;gt;&#39;;
+    text += &#39;&amp;lt;hr&amp;gt;&#39;;
+    text += tweet;
+    // 位置情報の名称があれば表示
+    if (data.place &amp;amp;&amp;amp; data.place.name) {
+        text += &#39;&amp;lt;hr&amp;gt;&amp;lt;i class=&amp;quot;fa fa-fw fa-map-marker text-danger&amp;quot;&amp;gt;&amp;lt;/i&amp;gt; &amp;lt;a href=&amp;quot;https://twitter.com/search?q=place%&#39; + data.place.id + &#39;&amp;quot; target=&amp;quot;_blank&amp;quot;&amp;gt;&#39; + data.place.name + &#39;&amp;lt;/a&amp;gt;&#39;;
+    }
+    text += &#39;&amp;lt;/div&amp;gt;&#39;;
+
+    // グロールを表示
+    $.jGrowl(text, {
+        life: 10000
+    });
+
+    // 地図マーカーのフキダシ
+    var infowindow = new google.maps.InfoWindow({
+      content: &#39;&amp;lt;div&amp;gt;&#39; + tweet + &#39;&amp;lt;/div&amp;gt;&#39;,
+      maxWidth: 200,
+      disableAutoPan: true
+    });
+
+    infowindows.push(infowindow);
+
+    // 地図マーカー
+    var marker = new google.maps.Marker({
+      map: map,
+      position: new google.maps.LatLng(data.geo.coordinates[0], data.geo.coordinates[1]),
+      animation: google.maps.Animation.DROP,
+      title: &#39;@&#39; + data.user.screen_name
+    });
+
+    marker.infowindow = infowindow;
+
+    // マーカーをクリックしたらフキダシ表示
+    marker.addListener(&#39;click&#39;, function() {
+      this.infowindow.open(map, this);
+    });
+
+    // デフォルトでフキダシを開く
+    infowindow.open(map, marker);
+
+    markers.push(marker);
+
+    // ウインドウが最大数になったら前のものを閉じる
+    if (markerCount &amp;gt;= infowindowMax) {
+      var cls = markerCount - infowindowMax;
+      infowindows[cls].close();
+    }
+
+    // マーカー数を記録
+    markerCount++;
+
+    // マーカーが最大数になったら徐々に透明になっていく（10段階）
+    if (markerCount &amp;gt; markerMax) {
+      var fade = (markerCount + 1) - markerMax;
+      markers[fade].setOpacity(0.9);
+
+      fade--;
+      if (markers[fade]) {
+        markers[fade].setOpacity(0.8);
+        fade--;
+        if (markers[fade]) {
+          markers[fade].setOpacity(0.7);
+          fade--;
+          if (markers[fade]) {
+            markers[fade].setOpacity(0.6);
+            if (markers[fade]) {
+              markers[fade].setOpacity(0.5);
+              fade--;
+              if (markers[fade]) {
+                markers[fade].setOpacity(0.4);
+                fade--;
+                if (markers[fade]) {
+                  markers[fade].setOpacity(0.3);
+                  fade--;
+                  if (markers[fade]) {
+                    markers[fade].setOpacity(0.2);
+                    fade--;
+                    if (markers[fade]) {
+                      markers[fade].setOpacity(0.1);
+                      fade--;
+                      if (markers[fade]) {
+                        markers[fade].setMap(null);
+                        markers[fade] = null;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+}
+&amp;lt;/script&amp;gt;
+&amp;lt;script src=&amp;quot;//maps.googleapis.com/maps/api/js?v=3.exp&amp;amp;sensor=false&amp;amp;callback=initMap&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;上記2ファイルを同ディレクトリに置いたら、そこで以下を実行してサーバーを起動。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;node server.js
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;コマンドには何も表示されないけど実行されているので、 &lt;a href=&#34;http://localhost:3000&#34;&gt;http://localhost:3000&lt;/a&gt; にアクセスしてみると動いている。&lt;br /&gt;
+サーバーを止める場合は&lt;kbd&gt;Ctrl&lt;/kbd&gt;＋&lt;kbd&gt;C&lt;/kbd&gt;。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Cloud9を自サーバにインストールしてどこでもコーディング</title>
@@ -4086,170 +4421,6 @@ $class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;color($color)-&amp;gt;sho
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;SQL版も作ろうと思ったけど隣接県とかの1対多のデータの持たせ方は人それぞれなのでやめといたw&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Sublime Text 3 のインストール～設定メモ</title>
-      <link>http://kijtra.com/article/sublime-text-3-install-and-settings</link>
-      <pubDate>Fri, 04 Jul 2014 12:07:00 +0900</pubDate>
-      
-      <guid>http://kijtra.com/article/sublime-text-3-install-and-settings</guid>
-      <description>
-
-&lt;p&gt;Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ。&lt;/p&gt;
-
-&lt;h2 id=&#34;開発バージョンをダウンロード:73589e8d2639747e5931f20bd3d44061&#34;&gt;開発バージョンをダウンロード&lt;/h2&gt;
-
-&lt;p&gt;巷では Sublime Text の &lt;a href=&#34;http://www.sublimetext.com/2&#34;&gt;バージョン2&lt;/a&gt; を使っている人が多いようだけど、バージョン &lt;strong&gt;3&lt;/strong&gt; を使う。&lt;br /&gt;
-バージョン3の方が起動など動作が速く、サイドバーのファイルアイコン(あとで「テーマ」の部分で紹介)に対応してる。&lt;/p&gt;
-
-&lt;p&gt;現時点(2014/07/05)では Build 3062 が最新だった。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;http://www.sublimetext.com/3dev&#34;&gt;Sublime Text Dev Builds&lt;/a&gt;&lt;/strong&gt; &lt;a href=&#34;http://www.sublimetext.com/3dev&#34;&gt;http://www.sublimetext.com/3dev&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;ちなみに Portable Version を Dropbox に入れて使ってる。&lt;/p&gt;
-
-&lt;h2 id=&#34;まずは-package-control-をインストール:73589e8d2639747e5931f20bd3d44061&#34;&gt;まずは「Package Control」をインストール&lt;/h2&gt;
-
-&lt;p&gt;Sublime Text をはじめて起動したら、まずはこれを入れる。&lt;br /&gt;
-&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/&#34;&gt;Package Control&lt;/a&gt;&lt;/strong&gt; &lt;a href=&#34;https://sublime.wbond.net/&#34;&gt;https://sublime.wbond.net/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;インストール手順は、Sublime Text を起動し、&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;`&lt;/kbd&gt;(&lt;kbd&gt;@&lt;/kbd&gt;キー) を押してコンソールを表示させ、公式コードをそのままコピー＆ペーストして &lt;kbd&gt;Enter&lt;/kbd&gt;。&lt;br /&gt;
-コピーするコードは &lt;a href=&#34;https://sublime.wbond.net/installation&#34;&gt;ここのページのもの(「SUBLIME TEXT 3」のタブ内)を使用する&lt;/a&gt; 。&lt;br /&gt;
-※上記ページに「コードの再配布はするな」と書いてあるのでここには書けない&lt;/p&gt;
-
-&lt;h2 id=&#34;プラグイン:73589e8d2639747e5931f20bd3d44061&#34;&gt;プラグイン&lt;/h2&gt;
-
-&lt;p&gt;プラグインはなるべく Package Control で入れられるものに限定したい。&lt;br /&gt;
-各プラグインのインストールは、 Sublime Text 起動時に　&lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;P&lt;/kbd&gt; でコマンドリストを表示させ、「Package Control: Install Package」を探して &lt;kbd&gt;Enter&lt;/kbd&gt;。&lt;br /&gt;
-コマンドリストの検索窓に「 &lt;span style=&#34;font-family:serif&#34;&gt;&lt;strong&gt;I&lt;/strong&gt;&lt;/span&gt; 」を入力して、そこから探して &lt;kbd&gt;Enter&lt;/kbd&gt; しておくと、次回からは「&lt;span style=&#34;font-family:serif&#34;&gt;I&lt;/span&gt;」検索で「Package Control: Install Package」が最初に出るのでなるべくやっておく。&lt;br /&gt;
-「Package Control: Install Package」を &lt;kbd&gt;Enter&lt;/kbd&gt; したら Package Control のサーバーから一覧が読み込まれるので、以下の各プラグイン名で検索して &lt;kbd&gt;Enter&lt;/kbd&gt; するとインストールされる。&lt;/p&gt;
-
-&lt;h3 id=&#34;おすすめ系:73589e8d2639747e5931f20bd3d44061&#34;&gt;おすすめ系&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Emmet&#34;&gt;Emmet&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-&lt;a href=&#34;https://code.google.com/p/zen-coding/&#34;&gt;Zen Coding&lt;/a&gt; の進化系。コーディングする人は必須で覚えた方がいい。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SideBarEnhancements&#34;&gt;SidebarEnhancements&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-Sublime Text のサイドバーでの右クリック項目を拡張してくれる。&lt;br /&gt;
-例えば「このファイルを指定のアプリケーションで開く(Open With&amp;hellip;)」とか「実行する(Open/Run)」とか、デフォルトでは付いていないので。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/ConvertToUTF8&#34;&gt;ConvertToUTF8&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-マルチバイト文字が含まれるファイルをUTF8に変換して表示。&lt;br /&gt;
-デフォルトでは Shift-JIS とか文字化けしたりするので、とりあえず入れておく。&lt;br /&gt;
-絶対に UTF-8 しか扱わない自信があればいらないかも。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/BracketHighlighter&#34;&gt;BracketHighlighter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-HTMLの開始タグ～終了タグや、コードのカッコのペアをわかりやすく表示してくれる。&lt;br /&gt;
-この終了タグってどのdivだ？みたいなのに無駄な時間を取られないようにしたい。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/IMESupport&#34;&gt;IMESupport&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-Windowsのみ。 Sublime Text デフォルト状態では日本語入力変換がウインドウ左下の方に表示されるため視点が定まらないけど、これを入れるとキャレットの部分で表示されて便利。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SFTP&#34;&gt;SFTP&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-Sublime Text 単体で(S)FTPできるプラグイン。有料($20)だけど、度々出る警告を無視できるならとりあえずは無料で使い続けられる(機能の制限は特に無い)。
-SFTPと公開鍵認証に対応してるのはこのプラグインぐらいしかないので、自己投資と思って買ってしまうのがおすすめ。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/SublimeLinter&#34;&gt;Sublime​Linter&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-コードの間違いを警告してくれるプラグイン。言語ごとに Sublime​Linter プラグインがあって、これはその基板となるプラグインなので入れておく。&lt;br /&gt;
-言語ごとのものは &lt;a href=&#34;https://sublime.wbond.net/search/SublimeLinter&#34;&gt;検索すると希望のものが見つかるはず&lt;/a&gt;。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&#34;個人的に必要系:73589e8d2639747e5931f20bd3d44061&#34;&gt;個人的に必要系&lt;/h3&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Diffy&#34;&gt;Diffy&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-2つのファイルの差分を表示してくれるプラグイン。&lt;br /&gt;
-Sublime Text で &lt;kbd&gt;Shift&lt;/kbd&gt; + &lt;kbd&gt;Alt&lt;/kbd&gt; + &lt;kbd&gt;2&lt;/kbd&gt;(&lt;kbd&gt;&amp;ldquo;&lt;/kbd&gt;) を押してウインドウを分割して比較したいファイルを開き、&lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;K&lt;/kbd&gt; + &lt;kbd&gt;D&lt;/kbd&gt;で差分がハイライトされる。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/ApacheConf.tmLanguage&#34;&gt;ApacheConf.tmLanguage&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-Apache系の .conf ファイルや .htaccess なんかをシンタックスハイライトしてくれるプラグイン。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Git&#34;&gt;Git&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-コマンドウインドウからGit系コマンドが実行できる。&lt;br /&gt;
-単体で動くものではなく、 &lt;a href=&#34;http://git-scm.com/&#34;&gt;Git&lt;/a&gt; 自体がインストールされていて、かつパスが通ってる必要がある。&lt;br /&gt;
-コミット時のコメントがわかりにくい。コミットコマンドを打つと Sublime Text で新規タブが開くので、その一番上にコメントを書いて「保存せずタブを閉じる」。&lt;br /&gt;
-ちなみに日本語でコメントすると動かないので注意。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/OmniMarkupPreviewer&#34;&gt;Omni​Markup​Previewer&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-Markdown をブラウザでリアルタイムプレビューしてくれるプラグイン。Markdown をHTMLに変換できたりもする。&lt;br /&gt;
-このブログは Markdown で書いており、プレビュー具合もいい(特にコード部分のシンタックスハイライトとか)ので個人的に便利。&lt;br /&gt;
-ちなみに Sublime Text はデフォルトで Markdown をシンタックスハイライトしてくれないので、別途カラースキーマをインストールする必要がある(「テーマ」の部分で紹介)。&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/LESS&#34;&gt;LESS&lt;/a&gt;&lt;/strong&gt;&lt;br /&gt;
-LESSファイルのシンタックスハイライト用プラグイン。&lt;br /&gt;
-SASSよりLESSの方が使う頻度が高いので。&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;上記以外は状況によって。&lt;br /&gt;
-&lt;a href=&#34;https://sublime.wbond.net/packages/Vagrant&#34;&gt;Vagrant&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Compass&#34;&gt;Compass&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Terminal&#34;&gt;Terminal&lt;/a&gt; とかは便利かも。&lt;/p&gt;
-
-&lt;h2 id=&#34;追加設定:73589e8d2639747e5931f20bd3d44061&#34;&gt;追加設定&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&#34;http://brdr-mmrndm.tumblr.com/post/80456872825/sublime-text&#34;&gt;こちらのページ&lt;/a&gt;にあるように、
-メニューの「Preferences -&amp;gt; Settings - User」を開いて、 &lt;code&gt;draw_indent_guides&lt;/code&gt;、 &lt;code&gt;indent_guide_options&lt;/code&gt;、 &lt;code&gt;match_brackets&lt;/code&gt; の設定を追記するとさらに見やすくなる。&lt;br /&gt;
-また、そのほか上からデフォルトでない設定。&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;font_face&amp;quot;: &amp;quot;Consolas&amp;quot;&lt;/code&gt;&lt;br /&gt;
-個人的にフォントは Consolas にしてる&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;bold_folder_labels&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
-サイドバーのフォルダ名を太字にして区別しやすくする&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;word_wrap&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
-ウインドウの端で折り返す&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;preview_on_click&amp;quot;: false&lt;/code&gt;&lt;br /&gt;
-サイドバーでのファイルクリック時にいちいちファイルが開く動作が困る(大きいファイルなど)のでオフに&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;highlight_line&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
-編集してる行をハイライトする&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;draw_white_space&amp;quot;: &amp;quot;all&amp;quot;&lt;/code&gt;
-常に半角スペースを「・」で表示(デフォルトはテキスト選択時のみ)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;&amp;quot;atomic_save&amp;quot;: true&lt;/code&gt;&lt;br /&gt;
-保存時に一時ファイルを使う(?)ような機能みたいだけど、他のアプリケーションで同時に開けなかったりするのでオフに&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
-	&amp;quot;draw_indent_guides&amp;quot;: true,
-	&amp;quot;indent_guide_options&amp;quot;: [&amp;quot;draw_normal&amp;quot;, &amp;quot;draw_active&amp;quot;],
-	&amp;quot;match_brackets&amp;quot;: false,
-
-	&amp;quot;font_face&amp;quot;: &amp;quot;Consolas&amp;quot;,
-	&amp;quot;bold_folder_labels&amp;quot;: true,
-	&amp;quot;word_wrap&amp;quot;: true,
-	&amp;quot;preview_on_click&amp;quot;: false,
-	&amp;quot;highlight_line&amp;quot;: true,
-	&amp;quot;draw_white_space&amp;quot;: &amp;quot;all&amp;quot;,
-	&amp;quot;atomic_save&amp;quot;: true
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;テーマ:73589e8d2639747e5931f20bd3d44061&#34;&gt;テーマ&lt;/h2&gt;
-
-&lt;p&gt;去年あたりからコード書く場合はダーク系テーマが見やすいと気づいた。&lt;br /&gt;
-Sublime Text は「テーマ」が枠のデザイン(サイドバーとかタブとか)で、「カラースキーマ」は入力部分の見た目となっていて、それぞれ違うものが使えるので好みによって。&lt;br /&gt;
-&lt;a href=&#34;https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png&#34; target=&#34;_blank&#34;&gt;&lt;img src=&#34;https://lh5.googleusercontent.com/-niyXuM4iVM0/U7YOktcwN7I/AAAAAAAADbE/jJ8Pr9ooV2s/w232-h190-no/2014-07-04_111638.png&#34; align=&#34;right&#34; hspace=&#34;10&#34; alt=&#34;Sublime Text のファイルアイコン&#34;&gt;&lt;/a&gt; テーマでは &lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Flatland&#34;&gt;Flatland&lt;/a&gt; とか &lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Soda&#34;&gt;Soda&lt;/a&gt; とかがカッコいいので人気みたいだけど、&lt;br /&gt;
-個人的に「ファイルアイコン」が表示できるものを必要条件としているため、以下のテーマを使ってる。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Aprosopo&#34;&gt;Aprosopo&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;ファイルアイコンというのは Sublime Text 3 の 開発版 Build 3062 から導入されたもので、これまでサイドバーのアイコンはフォルダにしか表示されなかったけど、各ファイルにもアイコンが表示できるようになった機能。&lt;br /&gt;
-拡張子ごとにアイコンが変わったりするので見やすくなる。&lt;br /&gt;
-これまでフォルダとファイルの階層のインデントが少しわかりにくくて誤操作も多かったんだけど、この機能で解消された。&lt;br /&gt;
-前述した Flatland とか Soda とかはまだこの機能に対応してないのが惜しい。&lt;/p&gt;
-
-&lt;p&gt;Aprosopo はダークテーマとライトテーマがあって、しかも設定が Preferences メニューから簡単に変えられる(いちいち設定ファイルに書かなくてもいい)ので気に入ってる。&lt;/p&gt;
-
-&lt;h2 id=&#34;カラースキーマ:73589e8d2639747e5931f20bd3d44061&#34;&gt;カラースキーマ&lt;/h2&gt;
-
-&lt;p&gt;これは完全に好みや気分。&lt;br /&gt;
-いまは &lt;strong&gt;&lt;a href=&#34;https://sublime.wbond.net/packages/Theme%20-%20Cobalt2&#34;&gt;Cobalt2&lt;/a&gt;&lt;/strong&gt; の背景色をカスタマイズしたものを使ってる。&lt;br /&gt;
-Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リンク先で見た目のキャプチャ見れます)&lt;br /&gt;
-ちなみに色のカスタマイズは &lt;a href=&#34;https://sublime.wbond.net/packages/ColorSchemeEditor&#34;&gt;Color​Scheme​Editor&lt;/a&gt; を使うと手軽に変更できる。&lt;br /&gt;
-(しょっちゅう使うものでもないのでプラグインで紹介してない)&lt;/p&gt;
-
-&lt;p&gt;気分でよく変える人なんかは &lt;a href=&#34;https://sublime.wbond.net/packages/Dayle%20Rees%20Color%20Schemes&#34;&gt;Dayle Rees Color Schemes&lt;/a&gt; のプラグインが便利。&lt;br /&gt;
-このプラグインはインストールすると &lt;a href=&#34;http://daylerees.github.io/&#34;&gt;たくさんのカラースキーマ&lt;/a&gt; が一括インストールされるので、好みのものが見つかるはず。&lt;/p&gt;
 </description>
     </item>
     

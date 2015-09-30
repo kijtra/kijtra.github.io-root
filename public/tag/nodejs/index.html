@@ -2,12 +2,12 @@
 <html lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 <head>
 <meta charset="utf-8">
-<title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要） - きじとら</title>
+<title>Nodejsの記事一覧 - きじとら</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:locale" content="ja_JP">
 <meta property="og:site_name" content="きじとら">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://kijtra.com/article/get-japanese-holiday-from-google">
+<meta property="og:url" content="http://kijtra.com/tag/nodejs/">
 <meta property="fb:admins" content="100001876504791">
 <meta property="fb:app_id" content="458844870836571">
 <meta property="twitter:card" content="summary">
@@ -26,15 +26,13 @@
 <link href="http://kijtra.com/index.xml" rel="alternate" type="application/rss+xml" title="きじとら">
 <link href="http://kijtra.com/index.xml" rel="feed" type="application/rss+xml" title="きじとら">
 
-<meta name="google-publisher-plugin-pagetype" content="singlePost">
-<meta property="og:title" content="PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）">
-<meta name="description" content="GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。">
+<meta property="og:title" content="Nodejsの記事一覧">
+<meta name="description" content="「Nodejs」のタグが付いた記事の一覧です">
+<link rel="canonical" href="http://kijtra.com/tag/nodejs">
 
-<meta property="article:published_time" content="2014/11/18T10:23:00Z">
-<meta property="article:tag" content="Google">
-<link rel="canonical" href="http://kijtra.com/article/get-japanese-holiday-from-google">
+
 </head>
-<body class="article">
+<body class="tags">
 <div class="container">
     <header class="header row">
 
@@ -43,7 +41,7 @@
         </div>
 
         <div class="feed three columns offset-by-one omega">
-            <a href="" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
+            <a href="http://kijtra.com/tag/nodejs/index.xml" type="application/rss+xml" class="iconbutton" target="_blank" title="RSS Feed"><span class="icon-rss"></span></a>
         </div>
     </header>
 
@@ -52,228 +50,56 @@
         <div class="content nine columns alpha">
 
 
-
-<article class="post">
-    <h1>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</h1>
-    <div class="meta">
-        <span class="date"><i class="icon-modify"></i> 2014/11/18</span>
-        <span class="tags"><i class="icon-tag"></i> <a href="http://kijtra.com/tag/google">Google</a></span>
+<h1><i class="icon-tag"></i> Nodejs</h1>
+<ul class="posts">
+    
         
-    </div>
-
-    <div class="ad">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<li>
+    <h2><a href="http://kijtra.com/article/nodejs-twitter-stream">Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示</a></h2>
+    <p>Node.js初心者なので、リアルタイムの何かをつくってみようと思いTwitterの <a href="https://dev.twitter.com/streaming/overview">Streaming API</a> で試してみた。<a class="more" href="http://kijtra.com/article/nodejs-twitter-stream">&raquo; more</a></p>
+    <small>
+        <span class="date"><i class="icon-modify"></i> 2015/09/30</span>
+        <span class="comment"><i class="icon-comment"></i> <a href="http://kijtra.com/article/nodejs-twitter-stream#disqus_thread">Comment</a></span>
         
-        <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-9281671442970905"
-         data-ad-slot="5126378234"
-         data-ad-format="horizontal"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    </small>
+</li>
 
-    <div class="body">
-        <p>GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。</p>
-
-<p>先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、<a href="https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol">2014/11/17でサポート終了してた</a>w。<br />
-取得元のカレンダーIDは「<strong>ja.japanes#holiday@group.v.calendar.google.com</strong>」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。<br />
-なので、執筆時点でまだパブリックに取得できる「<strong>japanese__ja@holiday.calendar.google.com</strong>」の方でやることにした。<br />
-祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・</p>
-
-<pre class="prettyprint linenums"><code class="language-php">&lt;?php
-function japan_holiday() {
-    // カレンダーID
-    $calendar_id = urlencode('japanese__ja@holiday.calendar.google.com');
-
-    // 取得期間
-    $start  = date(&quot;Y-01-01\T00:00:00\Z&quot;);
-    $end = date(&quot;Y-12-31\T00:00:00\Z&quot;);
-
-    $url = 'https://www.google.com/calendar/feeds/'.$calendar_id.'/public/basic';
-    $url .= '?start-min='.$start;
-    $url .= '&amp;start-max='.$end;
-    $url .= '&amp;max-results=30';
-    $url .= '&amp;alt=json';
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    if (!empty($result)) {
-        $json = json_decode($result, true);
-        if (!empty($json['feed']['entry'])) {
-            $datas = array();
-            foreach ($json['feed']['entry'] as $val) {
-                $date = preg_replace('#\A.*?(2\d{7})[^/]*\z#i', '$1', $val['id']['$t']);
-                $datas[$date] = array(
-                    'date' =&gt; preg_replace('/\A(\d{4})(\d{2})(\d{2})/', '$1/$2/$3', $date),
-                    'title' =&gt; $val['title']['$t'],
-                );
-            }
-            ksort($datas);
-            return $datas;
-        }
-    }
-}
-</code></pre>
-
-<p><a href="https://gist.github.com/kijtra/be06c07b1d416469108f">一応Gistにも作った。</a></p>
-
-<p>上記の関数を実行すると、以下のような結果で返ってくる。</p>
-
-<pre class="prettyprint linenums"><code class="language-php">&lt;?php
-
-array (
-  20140101 =&gt;
-  array (
-    'date' =&gt; '2014/01/01',
-    'title' =&gt; '元日',
-  ),
-  20140113 =&gt;
-  array (
-    'date' =&gt; '2014/01/13',
-    'title' =&gt; '成人の日',
-  ),
-  20140211 =&gt;
-  array (
-    'date' =&gt; '2014/02/11',
-    'title' =&gt; '建国記念の日',
-  ),
-  20140321 =&gt;
-  array (
-    'date' =&gt; '2014/03/21',
-    'title' =&gt; '春分の日',
-  ),
-  20140429 =&gt;
-  array (
-    'date' =&gt; '2014/04/29',
-    'title' =&gt; '昭和の日',
-  ),
-  20140503 =&gt;
-  array (
-    'date' =&gt; '2014/05/03',
-    'title' =&gt; '憲法記念日',
-  ),
-  20140504 =&gt;
-  array (
-    'date' =&gt; '2014/05/04',
-    'title' =&gt; 'みどりの日',
-  ),
-  20140505 =&gt;
-  array (
-    'date' =&gt; '2014/05/05',
-    'title' =&gt; 'こどもの日',
-  ),
-  20140506 =&gt;
-  array (
-    'date' =&gt; '2014/05/06',
-    'title' =&gt; 'みどりの日 振替休日',
-  ),
-  20140721 =&gt;
-  array (
-    'date' =&gt; '2014/07/21',
-    'title' =&gt; '海の日',
-  ),
-  20140915 =&gt;
-  array (
-    'date' =&gt; '2014/09/15',
-    'title' =&gt; '敬老の日',
-  ),
-  20140923 =&gt;
-  array (
-    'date' =&gt; '2014/09/23',
-    'title' =&gt; '秋分の日',
-  ),
-  20141013 =&gt;
-  array (
-    'date' =&gt; '2014/10/13',
-    'title' =&gt; '体育の日',
-  ),
-  20141103 =&gt;
-  array (
-    'date' =&gt; '2014/11/03',
-    'title' =&gt; '文化の日',
-  ),
-  20141123 =&gt;
-  array (
-    'date' =&gt; '2014/11/23',
-    'title' =&gt; '勤労感謝の日',
-  ),
-  20141124 =&gt;
-  array (
-    'date' =&gt; '2014/11/24',
-    'title' =&gt; '勤労感謝の日 振替休日',
-  ),
-  20141223 =&gt;
-  array (
-    'date' =&gt; '2014/12/23',
-    'title' =&gt; '天皇誕生日',
-  ),
-)
-</code></pre>
-
-    </div>
-</article>
-
-<div class="row clearfix ad ad-article-bottom">
-    <div class="six columns alpha">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:300px;height:250px"
-             data-ad-client="ca-pub-9281671442970905"
-             data-ad-slot="6446299037"></ins>
-        <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    <div class="six columns omega">
-        <iframe src="http://rcm-fe.amazon-adsystem.com/e/cm?t=kijtra-22&o=9&p=12&l=st1&mode=books-jp&search=%E3%82%AA%E3%83%A9%E3%82%A4%E3%83%AA%E3%83%BC&fc1=5C5C5C&lt1=_blank&lc1=0088CC&bg1=FFFFFF&f=ifr" marginwidth="0" marginheight="0" width="300" height="250" border="0" frameborder="0" style="border:none;" scrolling="no"></iframe>
-    </div>
-</div>
+    
+</ul>
 
 
-<div class="socialcounts"></div>
 
-
-<div class="disqus">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//kijtra.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-        
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-    </script>
-</div>
 
 
 <script type="application/ld+json">
 {
     "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）",
-    "url": "http:\/\/kijtra.com\/article\/get-japanese-holiday-from-google",
+    "@type": "Article",
+    "headline": "Nodejsの記事一覧",
+    "url": "http:\/\/kijtra.com\/tag\/nodejs",
+    "description": "「Nodejs」のタグが付いた記事の一覧です",
+    "articleSection": "Nodejs",
+    "datePublished": "2015-09-30T04:40:15+09:00",
     "image":"http:\/\/kijtra.com\/avatar.jpg",
-    "datePublished": "2014-11-18T10:23:00+09:00",
-    "wordCount":  291 ,
-    "description": "GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014\/11\/17 にサポート終了して取れなくなったので別の方法をメモ。",
+    "pagination": "1-1",
+    "pageStart":  1 ,
+    "pageEnd":  1 ,
     "author": {
         "@type": "Person",
         "name": "きじとら",
         "url": "http:\/\/kijtra.com\/",
         "image": "http:\/\/kijtra.com\/avatar.jpg"
     },
+    "hasPart": [
+        {
+            "@type": "BlogPosting",
+            "headline": "Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示",
+            "url": "http:\/\/kijtra.com\/article\/nodejs-twitter-stream",
+            "datePublished": "2015-09-30T04:40:15+09:00",
+            "description": "Node.jsでのTwitter APIと、Socket.IOの練習がてら、Googleマップにリアルタイム表示してみた。",
+            "image":"https:\/\/lh3.googleusercontent.com\/taPyKO2qOsCK1i8_D0ohWwCREvUBs-ftVj7TmkLoogNV6nY0KOwaw1U9FV8JPfUDNOug8LYiIJnawDhUHTtDiBxZxzolab3DedxLQzV_rvTgZcP2KQfEcLIXfxBxg5XtSCgaCx9ieBA4Dz6pL01g50ucJw2Vj_dWti25qDq1kLf715Haju637e3NA2FX5WFxDfdGhiQehNkJ_kI8Pmqvs0xGEO1xBIy4mj96RrfVZ87yK6lx-3boTtkvjLnVBnTPHjMOHiLRj0ZnYjlNfIBVLGp31De61hbiFYjsbUHk13M7PSGx8Fym1iVlAbbjQ1yTv04RD0H01uL8xGyYqB4SOClbsZ_26jpDR-oWSS9v-vlKAGhOewNqfiLkHjBA9Pxnw1TSS49hVnuF2g8xEIJd2RApcfMdkcAL0kObr0isIPRLB1GpdMb3heSyrjLxOepf-j8mZGKtX73hS6XOdYyqqlW3X7bWInlYpD5UfwjNU2flbd6fyLmbMdgWx3mR3znCvqGunKWUHBo3ITqEKGgtf_hxK78AouPY3PUkoC9-TPI=w805-h770-no"
+        }
+    ],
     "isPartOf": {
         "@type": "Blog",
         "name": "きじとら",
@@ -321,6 +147,13 @@ array (
 <gcse:search></gcse:search>
 
 
+
+<section class="section recent">
+    <h3><i class="icon-feather"></i> Recent Articles</h3>
+    <ul>
+        <li><a href="http://kijtra.com/article/nodejs-twitter-stream">Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示</a></li>
+    </ul>
+</section>
 
 
 <section class="section tags">
