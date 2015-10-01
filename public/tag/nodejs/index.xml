@@ -215,7 +215,7 @@ function initMap() {
   ));
 
   // Socket.IOと接続
-  var socket = io.connect(&#39;//&#39; + document.domain, {resource:&#39;tweetmap/socket.io&#39;});
+  var socket = io.connect();
 
   // Streaming APIからデータが来た際の処理
   socket.on(&#39;msg&#39;, function(data) {
