@@ -131,9 +131,7 @@ var http = require('http');
 var express = require('express');
 var socketio = require('socket.io');
 var twitter = require('twitter');
-// https://github.com/twitter/twitter-text/tree/master/js
 var twtext = require('twitter-text');
-// https://github.com/substack/point-in-polygon
 var polygon = require('point-in-polygon');
 
 // 日本全体をおおまかに包含するポリゴンの座標
@@ -246,7 +244,7 @@ twit.stream('statuses/filter', option, function(stream) {
 
 &lt;div id=&quot;map&quot;&gt;&lt;/div&gt;
 
-&lt;script src=&quot;/tweetmap/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;/socket.io/socket.io.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/twemoji/1.3.2/twemoji.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.js&quot;&gt;&lt;/script&gt;
@@ -452,7 +450,7 @@ function initMap() {
     "url": "http:\/\/kijtra.com\/article\/nodejs-twitter-stream",
     "image":"https:\/\/lh3.googleusercontent.com\/-dLRTSk_juEeVyDLH4YoeCTANpIKEdkbUJfN1RPvimN7Q0i-zkdh2O1LPgW-Kt8rVLnYoWW60eNR3Qgmf-EpMIc0VJfDO6byE7aYeR9DsMnoLXFkCQ68hxb44yII64H3p-B447xJ1LVHmQtEAgqSHReFuKtnzrBkuMBWX0MQU-FNTwAMfOVPNKsMuth4q8LY37HeF_BnAVtDWdfICwSZNDfAFsItsd3xOV-0LOUUwF33WWuiy9Q7heaB5PVvxURVEU4eMohkfPHJzshGpkRo19BxAERXAXEbT_QqnmZxII2cs4BXJFEXNiH_-yLBzcnEevnZnvbqDZIMxQCGxr89VWR9Ilq9y0Lx8thZkF8o0Illra5nLcUFyiBvAPpYT0ngaf5QN4MyUUuFbm_pCssp37WVRE_318g0s4kvbmqTffuW5w2PxUDCVO7lpJpNSrvzxVmA2pW2Pw_OA2RkyK-9bLQRVIvuGNkzfJDrfIE_I3uVwx-QK_wBhDDFvfX4Vqd5BIzg-atrCHmTgXhrMfU8OdpGNCGa88WAUlbWJH40WO8=w805-h770-no",
     "datePublished": "2015-09-30T04:40:15+09:00",
-    "wordCount":  639 ,
+    "wordCount":  635 ,
     "description": "Node.jsでのTwitter APIと、Socket.IOの練習がてら、Googleマップにリアルタイム表示してみた。",
     "author": {
         "@type": "Person",
