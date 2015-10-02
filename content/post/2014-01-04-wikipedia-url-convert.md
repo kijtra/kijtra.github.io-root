@@ -27,8 +27,8 @@ Bookmarkletを使う方式を追加。
 あけましておめでとうございます。
 正月に時間があったので、<a href="http://koding.com/" target="_blank" rel="nofollow">Koding</a>の使用感を掴むついでに作ってみました。
 
-***WikipediaのURLを短く変換***
-<a href="http://wi.kijtra.kd.io/" target="_blank" rel="nofollow">http://wi.kijtra.kd.io/</a>
+~~**WikipediaのURLを短く変換**~~ __（停止しました）__  
+~~http://wi.kijtra.kd.io/~~
 
 単機能なので特に説明は要らないと思います。
 今年もよろしくお願いします。
