@@ -662,7 +662,25 @@ Spartanがいつのまにか終了してたり、&lt;br /&gt;
       <pubDate>Sat, 04 Jan 2014 00:00:00 +0900</pubDate>
       
       <guid>http://kijtra.com/article/wikipedia-url-convert</guid>
-      <description>&lt;p&gt;WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。&lt;/p&gt;
+      <description>
+
+&lt;p&gt;WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。&lt;/p&gt;
+
+&lt;h3 id=&#34;2015-10-02-追記:f502c0b679463e929a21c151bbf69fd2&#34;&gt;2015/10/02 追記&lt;/h3&gt;
+
+&lt;p&gt;ほったらかしにしていたら停止してたので、改めて &lt;a href=&#34;https://cloud.google.com/appengine/?hl=ja&#34;&gt;Google App Engine&lt;/a&gt; で書きなおした。&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Short Wikipedia URL&lt;/strong&gt;&lt;br /&gt;
+&lt;a href=&#34;http://wk-url.appspot.com/&#34;&gt;http://wk-url.appspot.com/&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Bookmarkletを使う方式を追加。&lt;br /&gt;
+手法としては前回と同じで、&lt;a href=&#34;https://www.mediawiki.org/wiki/API:Main_page/ja&#34;&gt;MediaWiki API&lt;/a&gt;を使って、WikipediaのURLを単語ベースでなくページIDベースで取得するというもの。&lt;/p&gt;
+
+&lt;p&gt;関係ないけど、作ってる時に&lt;a href=&#34;http://en.wikipedia.org/?curid=43019166&#34;&gt;なが～い英単語&lt;/a&gt;を見つけておもしろかった。&lt;/p&gt;
+
+&lt;hr /&gt;
 
 &lt;p&gt;あけましておめでとうございます。
 正月に時間があったので、&lt;a href=&#34;http://koding.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;Koding&lt;/a&gt;の使用感を掴むついでに作ってみました。&lt;/p&gt;
