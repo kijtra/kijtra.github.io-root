@@ -1,0 +1,44 @@
+---
+date: 2015-10-31T10:41:59+09:00
+slug: "php-text-diff"
+tag: ["PHP"]
+title: "日本語対応のテキストを Diff するクラス"
+description: "Text Diff系のライブラリはいくつかあるけど、行単位のものが多かったので単語ごとに検出するようなの作ってみた。"
+---
+
+シンプルなText Diff系のライブラリを探してたんだけど、行単位で検出するものが多かったので、単語区切りで検出できないかと思って作ってみた。
+
+<!--more-->
+
+個人的なプロジェクトでテキストの差分を目視するようなの作ってて、ググッて見つけたラブラリのなかでは、以下のものが最も人気だった。  
+
+PHP Fine Diff  
+http://www.raymondhill.net/finediff/viewdiff-ex.php
+
+英文なら半角空白で区切って楽にdiffできるんだけど、日本語だとどうしても行単位でしか違いを検出できない。  
+
+そこで、「なんちゃって分かち書き」で対応してみたものを作った。  
+「なんちゃって」というのは、正規表現を使って単に**「漢字・ひらがな・カタカナ・英字・その他」で分けただけ**というもの。  
+「差分を目視で探す」というdiffの最終目的を満たすなら、行単位よりもある程度は単語で句切られていたほうが探す時間の短縮になると思う。  
+
+例としては、以下のような感じを、
+[![diffの例1](https://lh3.googleusercontent.com/i6Rfz1hvT-hxNNWNLwWt9Yu-f6R8z_eueLLEo_JWyykZGdcs5Mb_AERJ8tnk8rBVi571KIUSvOleXnnEcBsTC8qCLx1aOHb6OSa-Mb0NJ2ZZyqJ7B2I9K2EvBTU9mxETZVQn7EPKwir3P4udhNRiodT5mAnkK1eJSsJO8pwV_hwyqJDxQxCJRcxeRZFuQG7vyrCsqoFHKd-S3Z_qeBgy5ZOk_V6EOVXtqwYZ7c_ziN8VMWqE1Wg2KyrAVXWX2s9TGqwJYhoIhN1HGkIMTQg9NwmqRZDxx0GzBsGi10QfYlHbKTib526A9ZG0bhEbZfRXCZUnsgkyAh55aaYsmLIk0XamOvWykbLkVHuunb93xBcgXYzqpVlnNLBtL7zhZAGB-rsQ0as1uvAOHcfasygyKKXcVedRKHVHszOmJFwpdc6xJ6VfJ7uR0SkUdQqeSaBAKQSsBc28ndWONv897v251EQVvDGF5uF-fkkH13ZtXh-Ul8f5Kd5oAyMSg1vrJEny0DFLRzoJX__phD7ZCPTqn4OYWE1qdrN85T96FmAOV1A=w735-h86-no)](https://lh3.googleusercontent.com/i6Rfz1hvT-hxNNWNLwWt9Yu-f6R8z_eueLLEo_JWyykZGdcs5Mb_AERJ8tnk8rBVi571KIUSvOleXnnEcBsTC8qCLx1aOHb6OSa-Mb0NJ2ZZyqJ7B2I9K2EvBTU9mxETZVQn7EPKwir3P4udhNRiodT5mAnkK1eJSsJO8pwV_hwyqJDxQxCJRcxeRZFuQG7vyrCsqoFHKd-S3Z_qeBgy5ZOk_V6EOVXtqwYZ7c_ziN8VMWqE1Wg2KyrAVXWX2s9TGqwJYhoIhN1HGkIMTQg9NwmqRZDxx0GzBsGi10QfYlHbKTib526A9ZG0bhEbZfRXCZUnsgkyAh55aaYsmLIk0XamOvWykbLkVHuunb93xBcgXYzqpVlnNLBtL7zhZAGB-rsQ0as1uvAOHcfasygyKKXcVedRKHVHszOmJFwpdc6xJ6VfJ7uR0SkUdQqeSaBAKQSsBc28ndWONv897v251EQVvDGF5uF-fkkH13ZtXh-Ul8f5Kd5oAyMSg1vrJEny0DFLRzoJX__phD7ZCPTqn4OYWE1qdrN85T96FmAOV1A=w735-h86-no)  
+このようにした感じ。  
+[![diffの例2](https://lh3.googleusercontent.com/5bYJJn-NvfpFEX4fsCnUOMisJxxAR_vizT_5BeLmPm0gDd17S7DMiPm86X7_6RQgk9jPnEtdYu8z4-Rf73UuRTIPO_ezDSMHtyV3C4jxp6U7T8eEPf7M14GnA6TrBJHsUpBv63kNiiyCbL7cDpqjSWfw-UlOd3wVyGTfOMm6BvZVGruM4M3Ic6MPvZ-sre6IsN8CoUGUMm6_oFuSXuRwAJbpU3o0iqpaXlOB-22BdH8bvJTCsF7B9wboJo9oA3rCwjpZxm_R7KA_z_GMWfvkEnj3fF2Xg126Qxl5g-phvzvq-KgRNUG7spf0_jinSzDE2cga-ThbBVr6uAvBGgurtGvrQbJD-bL-F0LkPd3b0QAA_6iAbL031Ari5eTzx0nBFJqwa3YjYOvhPw925AJbAk7n7uGNMJZT3e89dVZVFw0UH_SP3JlYQVVFfrWWgALx7pyY4vRTHQRFo9uc2LhbZQiyaGgl0ooVNTDg5j5ymn7eJx0rWDd4D7LheZyNlU0eS58Fo2RA0OzVSoGkcCxJp8jBm0jbkv3qv3TSwLL233Q=w736-h87-no)](https://lh3.googleusercontent.com/5bYJJn-NvfpFEX4fsCnUOMisJxxAR_vizT_5BeLmPm0gDd17S7DMiPm86X7_6RQgk9jPnEtdYu8z4-Rf73UuRTIPO_ezDSMHtyV3C4jxp6U7T8eEPf7M14GnA6TrBJHsUpBv63kNiiyCbL7cDpqjSWfw-UlOd3wVyGTfOMm6BvZVGruM4M3Ic6MPvZ-sre6IsN8CoUGUMm6_oFuSXuRwAJbpU3o0iqpaXlOB-22BdH8bvJTCsF7B9wboJo9oA3rCwjpZxm_R7KA_z_GMWfvkEnj3fF2Xg126Qxl5g-phvzvq-KgRNUG7spf0_jinSzDE2cga-ThbBVr6uAvBGgurtGvrQbJD-bL-F0LkPd3b0QAA_6iAbL031Ari5eTzx0nBFJqwa3YjYOvhPw925AJbAk7n7uGNMJZT3e89dVZVFw0UH_SP3JlYQVVFfrWWgALx7pyY4vRTHQRFo9uc2LhbZQiyaGgl0ooVNTDg5j5ymn7eJx0rWDd4D7LheZyNlU0eS58Fo2RA0OzVSoGkcCxJp8jBm0jbkv3qv3TSwLL233Q=w736-h87-no)  
+少しの違いではあるけど、一行すべてがハイライトされるよりはいいかなと。  
+
+「なんちゃって分かち書き」なので句読点も単語内として認識してるけどw。
+
+## コードとデモ
+
+コードはGitHubに置いた。  
+
+**<i class="fa fa-github"></i> kijtra/textdiff**  
+https://github.com/kijtra/textdiff  
+
+あと、デモを以下に置いた。  
+
+**kijtra/textdiffのデモ**  
+http://demo.kijtra.com/textdiff/  
+
+あとは自分で使いつつ精度や速度を上げていこうっと。
