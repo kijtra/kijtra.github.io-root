@@ -2707,7 +2707,16 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
       <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
       
       <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
-      <description>&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
+      <description>
+
+&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
+
+&lt;h2 id=&#34;追記-2015-12-09:8581e8343ddb4f348811d241cf8c5a44&#34;&gt;追記（2015/12/09）&lt;/h2&gt;
+
+&lt;p&gt;これまで使えていた&lt;a href=&#34;https://www.google.com/calendar/feeds/japanese__ja@holiday.calendar.google.com/public/basic&#34;&gt;GoogleカレンダーのJSONフィード&lt;/a&gt;が403エラーにされてしまった模様・・・。&lt;br /&gt;
+しょうがないので&lt;a href=&#34;#ical&#34;&gt;iCal形式のものを取得する方法を追記↓&lt;/a&gt;。&lt;/p&gt;
+
+&lt;hr /&gt;
 
 &lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
 取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
@@ -2848,6 +2857,92 @@ array (
   ),
 )
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a name=&#34;ical&#34; id=&#34;ical&#34;&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;ical形式のものから取得する追記-2015-12-09:8581e8343ddb4f348811d241cf8c5a44&#34;&gt;iCal形式のものから取得する追記（2015/12/09）&lt;/h2&gt;
+
+&lt;p&gt;JSON形式が取得できなかった際、iCal形式のものを使うしかない。&lt;br /&gt;
+iCal形式は &lt;code&gt;start-date&lt;/code&gt; など日付の指定ができないけど、Googleのものは前後3年分が取得できる模様。&lt;/p&gt;
+
+&lt;p&gt;以下の関数で、戻ってくる結果の配列はJSONのものと同じ。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
+function japan_holiday_ics() {
+    // カレンダーID
+    $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
+
+    $url = &#39;https://calendar.google.com/calendar/ical/&#39;.$calendar_id.&#39;/public/full.ics&#39;;
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    $result = curl_exec($ch);
+    curl_close($ch);
+
+    if (!empty($result)) {
+        $items = $sort = array();
+        $start = false;
+        $count = 0;
+        foreach(explode(&amp;quot;\n&amp;quot;, $result) as $row =&amp;gt; $line) {
+            // 1行目が「BEGIN:VCALENDAR」でなければ終了
+            if (0 === $row &amp;amp;&amp;amp; false === stristr($line, &#39;BEGIN:VCALENDAR&#39;)) {
+                break;
+            }
+
+            // 改行などを削除
+            $line = trim($line);
+
+            // 「BEGIN:VEVENT」なら日付データの開始
+            if (false !== stristr($line, &#39;BEGIN:VEVENT&#39;)) {
+                $start = true;
+            } elseif ($start) {
+                // 「END:VEVENT」なら日付データの終了
+                if (false !== stristr($line, &#39;END:VEVENT&#39;)) {
+                    $start = false;
+
+                    // 次のデータ用にカウントを追加
+                    ++$count;
+                } else {
+                    // 配列がなければ作成
+                    if (empty($items[$count])) {
+                        $items[$count] = array(&#39;date&#39; =&amp;gt; null, &#39;title&#39; =&amp;gt; null);
+                    }
+
+                    // 「DTSTART;～」（対象日）の処理
+                    if(0 === strpos($line, &#39;DTSTART;VALUE&#39;)) {
+                        $date = explode(&#39;:&#39;, $line);
+                        $date = end($date);
+                        $items[$count][&#39;date&#39;] = $date;
+                        // ソート用の配列にセット
+                        $sort[$count] = $date;
+                    }
+
+                    // 「SUMMARY:～」（名称）の処理
+                    elseif(0 === strpos($line, &#39;SUMMARY:&#39;)) {
+                        list($title) = explode(&#39;/&#39;, substr($line, 8));
+                        $items[$count][&#39;title&#39;] = trim($title);
+                    }
+                }
+            }
+        }
+
+        // 日付でソート
+        $items = array_combine($sort, $items);
+        ksort($items);
+
+        return $items;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f#file-japan_holiday_ics-php&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;ちなみにMozillaが提供してる日本の休日iCalも同じように取得できる。&lt;br /&gt;
+&lt;code&gt;https://www.mozilla.org/projects/calendar/caldata/JapanHolidays.ics&lt;/code&gt;&lt;br /&gt;
+こちらは祝日名が「振替休日 / Furikae kyūjitsu / Substitute Holiday」とかなってるので、上記の関数でスラッシュ区切りの対応もしてる感じ。&lt;/p&gt;
 </description>
     </item>
     
