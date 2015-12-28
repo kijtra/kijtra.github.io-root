@@ -3,7 +3,12 @@
     
     <url>
         <loc>http://kijtra.com/</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
+    </url>
+    
+    <url>
+        <loc>http://kijtra.com/article/my-atom-packages2</loc>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
     </url>
     
     <url>
@@ -230,151 +235,151 @@
     
     <url>
         <loc>http://kijtra.com/tag/adsense</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/api</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/cloud9</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/cron</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/css</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/data</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/editor</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/elasticsearch</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/form</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/google</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/google-apps-script</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/html5</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/hugo</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/javascript</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/jquery</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/middleman</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/mysql</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/nodejs</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/others</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/php</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/seo</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/snippet</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/sublime-text</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/twitter</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
     <url>
         <loc>http://kijtra.com/tag/wordpress</loc>
-        <lastmod>2015-10-31T10:41:59+09:00</lastmod>
+        <lastmod>2015-12-28T10:08:10+09:00</lastmod>
         <priority>0.5</priority>
     </url>
     
