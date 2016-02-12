@@ -6,8 +6,56 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Mon, 28 Dec 2015 10:08:10 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 12 Feb 2016 12:15:29 +0900</lastBuildDate>
     <atom:link href="https://kijtra.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ブログを常時SSL(https)化した</title>
+      <link>https://kijtra.com/article/support-https</link>
+      <pubDate>Fri, 12 Feb 2016 12:15:29 +0900</pubDate>
+      
+      <guid>https://kijtra.com/article/support-https</guid>
+      <description>&lt;p&gt;いまさら感があるけどブログを常時SSL化してみた。&lt;br /&gt;
+SEO的な影響などを調べるためにメモ。&lt;/p&gt;
+
+&lt;p&gt;これまでも常時SSLできる環境は整ってたけど忘れてた・・・。&lt;/p&gt;
+
+&lt;p&gt;2016/02/12時点、このブログの環境は以下のようになっている。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ドメイン（年1,180円）・・・&lt;a href=&#34;http://www.star-domain.jp/&#34;&gt;スタードメイン&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://www.netowl.jp/&#34;&gt;ネットオウル&lt;/a&gt;という会社のドメインサービス。&lt;br /&gt;
+安いのはもちろん、ICANN認定レジストラであるというのと、PHPが動く小さな無料サーバーもついてくるのでここでドメイン取得した。&lt;/li&gt;
+&lt;li&gt;DNS（無料）・・・&lt;a href=&#34;https://www.cloudflare.com/&#34;&gt;CloudFlare&lt;/a&gt;&lt;br /&gt;
+上記スタードメインからネームサーバーをこのCloudFlareに向けて管理してる。&lt;br /&gt;
+SSLも無料で使え、キャッシュによるページ高速化もでき、さらにHTTP/2にも無料で対応。至れり尽くせり。&lt;/li&gt;
+&lt;li&gt;サーバー（無料）・・・&lt;a href=&#34;https://pages.github.com/&#34;&gt;Github Pages&lt;/a&gt;&lt;br /&gt;
+GitHubの静的ページホスティングサービス。ブログ用途ならこれで十分。&lt;/li&gt;
+&lt;li&gt;構築（無料）・・・&lt;a href=&#34;https://atom.io/&#34;&gt;Atom&lt;/a&gt; ＋ &lt;a href=&#34;https://gohugo.io/&#34;&gt;hugo&lt;/a&gt;&lt;br /&gt;
+AtomでMarkdown書いてhugoで自動生成し、GitHub Pagesにプッシュして公開してる。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ようするに、ドメイン代金以外はすべて無料でやってる。&lt;br /&gt;
+また、ところどころに貼ってあるAdSenseで、ドメイン代金の年1,180円（月にすると100円以下）は賄えてるので出費のようなものは特にない。&lt;/p&gt;
+
+&lt;p&gt;うちの場合、常時SSL化の理由はSEOのみ。&lt;br /&gt;
+Google Analytics と Google Search Console でドメインをhttpsにしたので、その経過をみていこうと思う。&lt;/p&gt;
+
+&lt;p&gt;ちなみに Search Console の方は、非httpsドメインは消さず、しばらくはhttpsドメインと両方をウォッチする。&lt;br /&gt;
+CloudFlareで「httpでのアクセスは全てhttpsへリダイレクト」の設定にしているので、非httpsの方はアクセスが減少し、httpsドメインのアクセスに移っていくようになると思う。&lt;br /&gt;
+設定後にサイトマップ更新を忘れないようにした。&lt;/p&gt;
+
+&lt;p&gt;Analyticsは「プロパティの設定」で「http」を「https」にした。&lt;br /&gt;
+また、Search Consoleとの連携もhttpsの方に変更。&lt;br /&gt;
+加えてレポートの「メモ」機能で2016/02/12の部分に常時SSL化の旨をメモした。&lt;/p&gt;
+
+&lt;p&gt;本来、サイトを常時SSL化する場合は一部のページから少しずつやるべきだけど、hugoでそういうのは難しいので全ページを一度にSSL化。&lt;br /&gt;
+HTMLヘッダでのcanonical属性もセットした。&lt;br /&gt;
+http→httpsにリダイレクトされるので必要ないかもとは思ったけど一応。&lt;/p&gt;
+
+&lt;p&gt;あとは&lt;a href=&#34;https://support.google.com/webmasters/answer/6340290&#34;&gt;AMP&lt;/a&gt;に対応してみて、さらに経過を眺めてみようと思う。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年12月）</title>
@@ -2809,251 +2857,6 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
 
 &lt;p&gt;余談だけど、この &lt;code&gt;vars&lt;/code&gt; は個人的によく使ってる関数なんだけど、関数名がなんかしっくりこない。&lt;br /&gt;
 &lt;code&gt;var()&lt;/code&gt; という名前は予約後で使えないので、よく使うので短く書くために &lt;code&gt;v()&lt;/code&gt; とかにしようかと思ったけど、これもなんだかなあw&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
-      <link>https://kijtra.com/article/get-japanese-holiday-from-google</link>
-      <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
-      
-      <guid>https://kijtra.com/article/get-japanese-holiday-from-google</guid>
-      <description>
-
-&lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
-
-&lt;h2 id=&#34;追記-2015-12-09:8581e8343ddb4f348811d241cf8c5a44&#34;&gt;追記（2015/12/09）&lt;/h2&gt;
-
-&lt;p&gt;これまで使えていた&lt;a href=&#34;https://www.google.com/calendar/feeds/japanese__ja@holiday.calendar.google.com/public/basic&#34;&gt;GoogleカレンダーのJSONフィード&lt;/a&gt;が403エラーにされてしまった模様・・・。&lt;br /&gt;
-しょうがないので&lt;a href=&#34;#ical&#34;&gt;iCal形式のものを取得する方法を追記↓&lt;/a&gt;。&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;先日、Googleカレンダー祝日データフィードを取得する部分でエラーが出ていたので調べてみると、&lt;a href=&#34;https://developers.google.com/google-apps/calendar/v2/developers_guide_protocol&#34;&gt;2014/11/17でサポート終了してた&lt;/a&gt;w。&lt;br /&gt;
-取得元のカレンダーIDは「&lt;strong&gt;ja.japanes#holiday@group.v.calendar.google.com&lt;/strong&gt;」から取得してたんだけど、このカレンダーIDの情報を取得するには認証が必要になった。&lt;br /&gt;
-なので、執筆時点でまだパブリックに取得できる「&lt;strong&gt;japanese__ja@holiday.calendar.google.com&lt;/strong&gt;」の方でやることにした。&lt;br /&gt;
-祝日を取得するためだけにGoogleのライブラリとか使って苦労したくなかったので・・・&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
-function japan_holiday() {
-    // カレンダーID
-    $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
-
-    // 取得期間
-    $start  = date(&amp;quot;Y-01-01\T00:00:00\Z&amp;quot;);
-    $end = date(&amp;quot;Y-12-31\T00:00:00\Z&amp;quot;);
-
-    $url = &#39;https://www.google.com/calendar/feeds/&#39;.$calendar_id.&#39;/public/basic&#39;;
-    $url .= &#39;?start-min=&#39;.$start;
-    $url .= &#39;&amp;amp;start-max=&#39;.$end;
-    $url .= &#39;&amp;amp;max-results=30&#39;;
-    $url .= &#39;&amp;amp;alt=json&#39;;
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    if (!empty($result)) {
-        $json = json_decode($result, true);
-        if (!empty($json[&#39;feed&#39;][&#39;entry&#39;])) {
-            $datas = array();
-            foreach ($json[&#39;feed&#39;][&#39;entry&#39;] as $val) {
-                $date = preg_replace(&#39;#\A.*?(2\d{7})[^/]*\z#i&#39;, &#39;$1&#39;, $val[&#39;id&#39;][&#39;$t&#39;]);
-                $datas[$date] = array(
-                    &#39;date&#39; =&amp;gt; preg_replace(&#39;/\A(\d{4})(\d{2})(\d{2})/&#39;, &#39;$1/$2/$3&#39;, $date),
-                    &#39;title&#39; =&amp;gt; $val[&#39;title&#39;][&#39;$t&#39;],
-                );
-            }
-            ksort($datas);
-            return $datas;
-        }
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;上記の関数を実行すると、以下のような結果で返ってくる。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
-
-array (
-  20140101 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/01/01&#39;,
-    &#39;title&#39; =&amp;gt; &#39;元日&#39;,
-  ),
-  20140113 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/01/13&#39;,
-    &#39;title&#39; =&amp;gt; &#39;成人の日&#39;,
-  ),
-  20140211 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/02/11&#39;,
-    &#39;title&#39; =&amp;gt; &#39;建国記念の日&#39;,
-  ),
-  20140321 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/03/21&#39;,
-    &#39;title&#39; =&amp;gt; &#39;春分の日&#39;,
-  ),
-  20140429 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/04/29&#39;,
-    &#39;title&#39; =&amp;gt; &#39;昭和の日&#39;,
-  ),
-  20140503 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/03&#39;,
-    &#39;title&#39; =&amp;gt; &#39;憲法記念日&#39;,
-  ),
-  20140504 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/04&#39;,
-    &#39;title&#39; =&amp;gt; &#39;みどりの日&#39;,
-  ),
-  20140505 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/05&#39;,
-    &#39;title&#39; =&amp;gt; &#39;こどもの日&#39;,
-  ),
-  20140506 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/05/06&#39;,
-    &#39;title&#39; =&amp;gt; &#39;みどりの日 振替休日&#39;,
-  ),
-  20140721 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/07/21&#39;,
-    &#39;title&#39; =&amp;gt; &#39;海の日&#39;,
-  ),
-  20140915 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/09/15&#39;,
-    &#39;title&#39; =&amp;gt; &#39;敬老の日&#39;,
-  ),
-  20140923 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/09/23&#39;,
-    &#39;title&#39; =&amp;gt; &#39;秋分の日&#39;,
-  ),
-  20141013 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/10/13&#39;,
-    &#39;title&#39; =&amp;gt; &#39;体育の日&#39;,
-  ),
-  20141103 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/11/03&#39;,
-    &#39;title&#39; =&amp;gt; &#39;文化の日&#39;,
-  ),
-  20141123 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/11/23&#39;,
-    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日&#39;,
-  ),
-  20141124 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/11/24&#39;,
-    &#39;title&#39; =&amp;gt; &#39;勤労感謝の日 振替休日&#39;,
-  ),
-  20141223 =&amp;gt;
-  array (
-    &#39;date&#39; =&amp;gt; &#39;2014/12/23&#39;,
-    &#39;title&#39; =&amp;gt; &#39;天皇誕生日&#39;,
-  ),
-)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a name=&#34;ical&#34; id=&#34;ical&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;ical形式のものから取得する追記-2015-12-09:8581e8343ddb4f348811d241cf8c5a44&#34;&gt;iCal形式のものから取得する追記（2015/12/09）&lt;/h2&gt;
-
-&lt;p&gt;JSON形式が取得できなかった際、iCal形式のものを使うしかない。&lt;br /&gt;
-iCal形式は &lt;code&gt;start-date&lt;/code&gt; など日付の指定ができないけど、Googleのものは前後3年分が取得できる模様。&lt;/p&gt;
-
-&lt;p&gt;以下の関数で、戻ってくる結果の配列はJSONのものと同じ。&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-php&#34;&gt;&amp;lt;?php
-function japan_holiday_ics() {
-    // カレンダーID
-    $calendar_id = urlencode(&#39;japanese__ja@holiday.calendar.google.com&#39;);
-
-    $url = &#39;https://calendar.google.com/calendar/ical/&#39;.$calendar_id.&#39;/public/full.ics&#39;;
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    $result = curl_exec($ch);
-    curl_close($ch);
-
-    if (!empty($result)) {
-        $items = $sort = array();
-        $start = false;
-        $count = 0;
-        foreach(explode(&amp;quot;\n&amp;quot;, $result) as $row =&amp;gt; $line) {
-            // 1行目が「BEGIN:VCALENDAR」でなければ終了
-            if (0 === $row &amp;amp;&amp;amp; false === stristr($line, &#39;BEGIN:VCALENDAR&#39;)) {
-                break;
-            }
-
-            // 改行などを削除
-            $line = trim($line);
-
-            // 「BEGIN:VEVENT」なら日付データの開始
-            if (false !== stristr($line, &#39;BEGIN:VEVENT&#39;)) {
-                $start = true;
-            } elseif ($start) {
-                // 「END:VEVENT」なら日付データの終了
-                if (false !== stristr($line, &#39;END:VEVENT&#39;)) {
-                    $start = false;
-
-                    // 次のデータ用にカウントを追加
-                    ++$count;
-                } else {
-                    // 配列がなければ作成
-                    if (empty($items[$count])) {
-                        $items[$count] = array(&#39;date&#39; =&amp;gt; null, &#39;title&#39; =&amp;gt; null);
-                    }
-
-                    // 「DTSTART;～」（対象日）の処理
-                    if(0 === strpos($line, &#39;DTSTART;VALUE&#39;)) {
-                        $date = explode(&#39;:&#39;, $line);
-                        $date = end($date);
-                        $items[$count][&#39;date&#39;] = $date;
-                        // ソート用の配列にセット
-                        $sort[$count] = $date;
-                    }
-
-                    // 「SUMMARY:～」（名称）の処理
-                    elseif(0 === strpos($line, &#39;SUMMARY:&#39;)) {
-                        list($title) = explode(&#39;/&#39;, substr($line, 8));
-                        $items[$count][&#39;title&#39;] = trim($title);
-                    }
-                }
-            }
-        }
-
-        // 日付でソート
-        $items = array_combine($sort, $items);
-        ksort($items);
-
-        return $items;
-    }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;a href=&#34;https://gist.github.com/kijtra/be06c07b1d416469108f#file-japan_holiday_ics-php&#34;&gt;一応Gistにも作った。&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;ちなみにMozillaが提供してる日本の休日iCalも同じように取得できる。&lt;br /&gt;
-&lt;code&gt;https://www.mozilla.org/projects/calendar/caldata/JapanHolidays.ics&lt;/code&gt;&lt;br /&gt;
-こちらは祝日名が「振替休日 / Furikae kyūjitsu / Substitute Holiday」とかなってるので、上記の関数でスラッシュ区切りの対応もしてる感じ。&lt;/p&gt;
 </description>
     </item>
     

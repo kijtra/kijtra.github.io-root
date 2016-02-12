@@ -6,8 +6,56 @@
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
-    <lastBuildDate>Wed, 11 Dec 2013 00:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 12 Feb 2016 12:15:29 +0900</lastBuildDate>
     <atom:link href="https://kijtra.com/tag/seo/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>ブログを常時SSL(https)化した</title>
+      <link>https://kijtra.com/article/support-https</link>
+      <pubDate>Fri, 12 Feb 2016 12:15:29 +0900</pubDate>
+      
+      <guid>https://kijtra.com/article/support-https</guid>
+      <description>&lt;p&gt;いまさら感があるけどブログを常時SSL化してみた。&lt;br /&gt;
+SEO的な影響などを調べるためにメモ。&lt;/p&gt;
+
+&lt;p&gt;これまでも常時SSLできる環境は整ってたけど忘れてた・・・。&lt;/p&gt;
+
+&lt;p&gt;2016/02/12時点、このブログの環境は以下のようになっている。&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;ドメイン（年1,180円）・・・&lt;a href=&#34;http://www.star-domain.jp/&#34;&gt;スタードメイン&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&#34;http://www.netowl.jp/&#34;&gt;ネットオウル&lt;/a&gt;という会社のドメインサービス。&lt;br /&gt;
+安いのはもちろん、ICANN認定レジストラであるというのと、PHPが動く小さな無料サーバーもついてくるのでここでドメイン取得した。&lt;/li&gt;
+&lt;li&gt;DNS（無料）・・・&lt;a href=&#34;https://www.cloudflare.com/&#34;&gt;CloudFlare&lt;/a&gt;&lt;br /&gt;
+上記スタードメインからネームサーバーをこのCloudFlareに向けて管理してる。&lt;br /&gt;
+SSLも無料で使え、キャッシュによるページ高速化もでき、さらにHTTP/2にも無料で対応。至れり尽くせり。&lt;/li&gt;
+&lt;li&gt;サーバー（無料）・・・&lt;a href=&#34;https://pages.github.com/&#34;&gt;Github Pages&lt;/a&gt;&lt;br /&gt;
+GitHubの静的ページホスティングサービス。ブログ用途ならこれで十分。&lt;/li&gt;
+&lt;li&gt;構築（無料）・・・&lt;a href=&#34;https://atom.io/&#34;&gt;Atom&lt;/a&gt; ＋ &lt;a href=&#34;https://gohugo.io/&#34;&gt;hugo&lt;/a&gt;&lt;br /&gt;
+AtomでMarkdown書いてhugoで自動生成し、GitHub Pagesにプッシュして公開してる。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ようするに、ドメイン代金以外はすべて無料でやってる。&lt;br /&gt;
+また、ところどころに貼ってあるAdSenseで、ドメイン代金の年1,180円（月にすると100円以下）は賄えてるので出費のようなものは特にない。&lt;/p&gt;
+
+&lt;p&gt;うちの場合、常時SSL化の理由はSEOのみ。&lt;br /&gt;
+Google Analytics と Google Search Console でドメインをhttpsにしたので、その経過をみていこうと思う。&lt;/p&gt;
+
+&lt;p&gt;ちなみに Search Console の方は、非httpsドメインは消さず、しばらくはhttpsドメインと両方をウォッチする。&lt;br /&gt;
+CloudFlareで「httpでのアクセスは全てhttpsへリダイレクト」の設定にしているので、非httpsの方はアクセスが減少し、httpsドメインのアクセスに移っていくようになると思う。&lt;br /&gt;
+設定後にサイトマップ更新を忘れないようにした。&lt;/p&gt;
+
+&lt;p&gt;Analyticsは「プロパティの設定」で「http」を「https」にした。&lt;br /&gt;
+また、Search Consoleとの連携もhttpsの方に変更。&lt;br /&gt;
+加えてレポートの「メモ」機能で2016/02/12の部分に常時SSL化の旨をメモした。&lt;/p&gt;
+
+&lt;p&gt;本来、サイトを常時SSL化する場合は一部のページから少しずつやるべきだけど、hugoでそういうのは難しいので全ページを一度にSSL化。&lt;br /&gt;
+HTMLヘッダでのcanonical属性もセットした。&lt;br /&gt;
+http→httpsにリダイレクトされるので必要ないかもとは思ったけど一応。&lt;/p&gt;
+
+&lt;p&gt;あとは&lt;a href=&#34;https://support.google.com/webmasters/answer/6340290&#34;&gt;AMP&lt;/a&gt;に対応してみて、さらに経過を眺めてみようと思う。&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>PubSubHubbubにURLをプッシュするPHP関数</title>
