@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/editor/</link>
+    <link>https://kijtra.com/tag/editor/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Mon, 28 Dec 2015 10:08:10 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/editor/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/editor/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年12月）</title>
-      <link>http://kijtra.com/article/my-atom-packages2</link>
+      <link>https://kijtra.com/article/my-atom-packages2</link>
       <pubDate>Mon, 28 Dec 2015 10:08:10 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/my-atom-packages2</guid>
+      <guid>https://kijtra.com/article/my-atom-packages2</guid>
       <description>
 
 &lt;p&gt;今年のAtomも&lt;a href=&#34;http://blog.atom.io/2015/06/25/atom-1-0.html&#34;&gt;2015年6月末に1.0に達し&lt;/a&gt;、入れてるプラグインも変化があったので改めてまとめてみる。&lt;br /&gt;
-&lt;a href=&#34;http://kijtra.com/article/my-atom-packages/&#34;&gt;2015年5月時点のプラグインまとめ&lt;/a&gt; からすると若干減った。&lt;/p&gt;
+&lt;a href=&#34;https://kijtra.com/article/my-atom-packages/&#34;&gt;2015年5月時点のプラグインまとめ&lt;/a&gt; からすると若干減った。&lt;/p&gt;
 
 &lt;h2 id=&#34;新しく導入したもの:4ff662d5165f30a98ed38f25e3389a51&#34;&gt;新しく導入したもの&lt;/h2&gt;
 
@@ -120,10 +120,10 @@ PHPの関数などのドキュメントがその場で見られる。ブラウ�
     
     <item>
       <title>Cloud9を自サーバにインストールしてどこでもコーディング</title>
-      <link>http://kijtra.com/article/cloud9-install</link>
+      <link>https://kijtra.com/article/cloud9-install</link>
       <pubDate>Mon, 14 Sep 2015 12:45:29 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cloud9-install</guid>
+      <guid>https://kijtra.com/article/cloud9-install</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt; はWebサービスとして提供されているオンラインIDEだけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。&lt;/p&gt;
@@ -373,13 +373,13 @@ SASS とか LESS とかの &lt;a href=&#34;https://cloud9-sdk.readme.io/docs/bui
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</title>
-      <link>http://kijtra.com/article/my-atom-packages</link>
+      <link>https://kijtra.com/article/my-atom-packages</link>
       <pubDate>Mon, 25 May 2015 23:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/my-atom-packages</guid>
+      <guid>https://kijtra.com/article/my-atom-packages</guid>
       <description>&lt;p&gt;最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;半年経過して、入れているプラグインも変わってきたので &lt;a href=&#34;http://kijtra.com/article/my-atom-packages2/&#34;&gt;2015年12月時点のプラグインまとめ&lt;/a&gt;  として新たにメモした。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;半年経過して、入れているプラグインも変わってきたので &lt;a href=&#34;https://kijtra.com/article/my-atom-packages2/&#34;&gt;2015年12月時点のプラグインまとめ&lt;/a&gt;  として新たにメモした。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;基本的にWeb系＋PHPの開発が多いのと、環境がWindowsなので、そのような傾向にある。&lt;/p&gt;
 
@@ -466,10 +466,10 @@ Apache系（htaccessなど）のシンタックスハイライト。公式に取
     
     <item>
       <title>Sublime Text 3 のインストール～設定メモ</title>
-      <link>http://kijtra.com/article/sublime-text-3-install-and-settings</link>
+      <link>https://kijtra.com/article/sublime-text-3-install-and-settings</link>
       <pubDate>Fri, 04 Jul 2014 12:07:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/sublime-text-3-install-and-settings</guid>
+      <guid>https://kijtra.com/article/sublime-text-3-install-and-settings</guid>
       <description>
 
 &lt;p&gt;Sublime Text 3 のインストールから基本設定、各プラグイン導入までの個人的メモ。&lt;/p&gt;
@@ -630,10 +630,10 @@ Cobalt2 は Markdown にも対応してて、PHP なんかも見やすい。(リ
     
     <item>
       <title>Sublime Text 2 のPortable版でSASSをスタンドアローンで使う</title>
-      <link>http://kijtra.com/article/sublime-text-2-sass-standalone</link>
+      <link>https://kijtra.com/article/sublime-text-2-sass-standalone</link>
       <pubDate>Fri, 26 Jul 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/sublime-text-2-sass-standalone</guid>
+      <guid>https://kijtra.com/article/sublime-text-2-sass-standalone</guid>
       <description>
 
 &lt;p&gt;Sublime Text 2 をportable版で使ってて、SASSもRubyとか入れずにポータブルにできないかと思ったら、そういうソフトを見つけたので設定メモ（Windowsのみ）。&lt;/p&gt;

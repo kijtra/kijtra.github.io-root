@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/adsense/</link>
+    <link>https://kijtra.com/tag/adsense/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Sun, 05 Oct 2014 10:30:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/adsense/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/adsense/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス</title>
-      <link>http://kijtra.com/article/adsense-php-class-for-feature-phone</link>
+      <link>https://kijtra.com/article/adsense-php-class-for-feature-phone</link>
       <pubDate>Sun, 05 Oct 2014 10:30:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
+      <guid>https://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
       <description>
 
 &lt;p&gt;携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)&lt;/p&gt;

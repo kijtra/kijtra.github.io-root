@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/mysql/</link>
+    <link>https://kijtra.com/tag/mysql/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Thu, 26 Dec 2013 00:00:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/mysql/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/mysql/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>MySQLでLOCATE()とかINSTR()とかPOSITION()とかが大文字・小文字を区別してくれない</title>
-      <link>http://kijtra.com/article/mysql-string-position-upper-lower-case</link>
+      <link>https://kijtra.com/article/mysql-string-position-upper-lower-case</link>
       <pubDate>Thu, 26 Dec 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/mysql-string-position-upper-lower-case</guid>
+      <guid>https://kijtra.com/article/mysql-string-position-upper-lower-case</guid>
       <description>&lt;p&gt;MySQLで、文字列内の任意の文字が何文字目に出てくるか取得できるLOCATE関数で、大文字と小文字に関係なく最初の文字を取得してきてしまうので対処メモ。&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/string-functions.html#idm47509624022112&#34;&gt;LOCATE関数&lt;/a&gt;{:target=&amp;rdquo;_blank&amp;rdquo;}と同等の&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/string-functions.html#idm47509624082512&#34;&gt;INSTR関数&lt;/a&gt;とか&lt;a href=&#34;http://dev.mysql.com/doc/refman/5.1/ja/string-functions.html#idm47509623909712&#34;&gt;POSITION関数&lt;/a&gt;でも同じ症状。
@@ -46,10 +46,10 @@
     
     <item>
       <title>MySQLで ON DUPLICATE KEY UPDATE した時も LAST_INSERT_ID を取得する</title>
-      <link>http://kijtra.com/article/mysql-get-updated-last_insert_id</link>
+      <link>https://kijtra.com/article/mysql-get-updated-last_insert_id</link>
       <pubDate>Tue, 19 Feb 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/mysql-get-updated-last_insert_id</guid>
+      <guid>https://kijtra.com/article/mysql-get-updated-last_insert_id</guid>
       <description>&lt;p&gt;MySQLで UPDATE や INSERT&amp;hellip;ON DUPLICATE KEY UPDATE の時とかに LAST_INSERT_ID を取得するメモ。&lt;/p&gt;
 
 &lt;p&gt;MySQLで普通に &lt;code&gt;UPDATE&lt;/code&gt; した時（これはIDわかってるだろうから不要だろうけど）とか、&lt;code&gt;INSERT...ON DUPLICATE KEY UPDATE&lt;/code&gt; した時にも &lt;code&gt;LAST_INSERT_ID&lt;/code&gt; が取得したいって時あるあるですよね。
@@ -100,10 +100,10 @@ mysql_insert_id() C API 関数は、値の入手に使用することもでき�
     
     <item>
       <title>MySQLで日付から年齢を取得するストアドファンクション</title>
-      <link>http://kijtra.com/article/mysqldate-to-age</link>
+      <link>https://kijtra.com/article/mysqldate-to-age</link>
       <pubDate>Mon, 17 Dec 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/mysqldate-to-age</guid>
+      <guid>https://kijtra.com/article/mysqldate-to-age</guid>
       <description>&lt;p&gt;MySQLのSELECT結果とかで生年月日とかの日付を年齢に換算したい、なんてことないですかね。
 関数（ストアドファンクション）にしてみました。&lt;/p&gt;
 

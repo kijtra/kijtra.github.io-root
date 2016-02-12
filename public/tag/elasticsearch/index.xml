@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/elasticsearch/</link>
+    <link>https://kijtra.com/tag/elasticsearch/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Sat, 24 May 2014 00:17:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/elasticsearch/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Elasticsearch で update する時に配列に値を追加する</title>
-      <link>http://kijtra.com/article/elasticsearch-add-array-value-with-update</link>
+      <link>https://kijtra.com/article/elasticsearch-add-array-value-with-update</link>
       <pubDate>Sat, 24 May 2014 00:17:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/elasticsearch-add-array-value-with-update</guid>
+      <guid>https://kijtra.com/article/elasticsearch-add-array-value-with-update</guid>
       <description>
 
 &lt;p&gt;Elasticsearchで、ドキュメントのフィールドが配列（連想配列）の場合に、そのフィールドの配列に値を追加したい。&lt;/p&gt;
@@ -348,10 +348,10 @@ update時に連想配列の値を null にしたり、JavaScriptの &lt;code&gt;
     
     <item>
       <title>Elasticsearch の Kuromoji でユーザー辞書を使うメモ</title>
-      <link>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</link>
+      <link>https://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</link>
       <pubDate>Fri, 23 May 2014 00:08:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</guid>
+      <guid>https://kijtra.com/article/elasticsearch-kuromoji-user-dictionary</guid>
       <description>
 
 &lt;p&gt;Elasticsearchでの形態素解析はKuromoji一択だけど、やや辞書が貧弱な部分もあるのでユーザー辞書で補う必要がある。&lt;/p&gt;

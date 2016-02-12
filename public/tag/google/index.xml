@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/google/</link>
+    <link>https://kijtra.com/tag/google/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Tue, 18 Nov 2014 10:23:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/google/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/google/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
-      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
+      <link>https://kijtra.com/article/get-japanese-holiday-from-google</link>
       <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
+      <guid>https://kijtra.com/article/get-japanese-holiday-from-google</guid>
       <description>
 
 &lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;
@@ -256,10 +256,10 @@ function japan_holiday_ics() {
     
     <item>
       <title>PubSubHubbubにURLをプッシュするPHP関数</title>
-      <link>http://kijtra.com/article/push-pubsubhubbub-php</link>
+      <link>https://kijtra.com/article/push-pubsubhubbub-php</link>
       <pubDate>Wed, 11 Dec 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/push-pubsubhubbub-php</guid>
+      <guid>https://kijtra.com/article/push-pubsubhubbub-php</guid>
       <description>
 
 &lt;p&gt;Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。&lt;/p&gt;
@@ -363,10 +363,10 @@ send_psh($urls);
     
     <item>
       <title>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた</title>
-      <link>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
+      <link>https://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
       <pubDate>Sun, 15 Sep 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。&lt;/p&gt;
@@ -568,10 +568,10 @@ send_psh($urls);
     
     <item>
       <title>Twitterのフォロー返し（リフォロー）をGoogle Apps Scriptで自動化する</title>
-      <link>http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</link>
+      <link>https://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</link>
       <pubDate>Wed, 01 May 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;TwitterでBot等を運用していると、「フォローを返す」というのはわりと重要。
@@ -725,10 +725,10 @@ send_psh($urls);
     
     <item>
       <title>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</title>
-      <link>http://kijtra.com/article/twitter-backup-to-google-drive</link>
+      <link>https://kijtra.com/article/twitter-backup-to-google-drive</link>
       <pubDate>Thu, 21 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-backup-to-google-drive</guid>
+      <guid>https://kijtra.com/article/twitter-backup-to-google-drive</guid>
       <description>
 
 &lt;p&gt;Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。&lt;/p&gt;
@@ -901,10 +901,10 @@ Twitterにログインし、&lt;a href=&#34;https://twitter.com/settings&#34; ta
     
     <item>
       <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
-      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <link>https://kijtra.com/article/cron-by-google-apps-script</link>
       <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/cron-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;
@@ -1011,10 +1011,10 @@ Google Apps Scriptではこれを「&lt;strong&gt;&lt;em&gt;トリガー&lt;/em&
     
     <item>
       <title>電子書籍の横断検索</title>
-      <link>http://kijtra.com/article/ebook-search</link>
+      <link>https://kijtra.com/article/ebook-search</link>
       <pubDate>Thu, 14 Feb 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/ebook-search</guid>
+      <guid>https://kijtra.com/article/ebook-search</guid>
       <description>&lt;p&gt;Googleのカスタム検索エンジンの試しで、電子書籍サイトを横断検索できるやつを作ってみた。&lt;/p&gt;
 
 &lt;p&gt;&lt;script&gt;
@@ -1025,7 +1025,7 @@ Google Apps Scriptではこれを「&lt;strong&gt;&lt;em&gt;トリガー&lt;/em&
         &amp;lsquo;//www.google.com/cse/cse.js?cx=&amp;rsquo; + cx;
     var s = document.getElementsByTagName(&amp;lsquo;script&amp;rsquo;)[0]; s.parentNode.insertBefore(gcse, s);
   })();
-&lt;/script&gt;&lt;a href=&#34;gcse:search&#34;&gt;gcse:search&lt;/a&gt;&lt;a href=&#34;http://kijtra.com/gcse:search&#34;&gt;/gcse:search&lt;/a&gt;&lt;/p&gt;
+&lt;/script&gt;&lt;a href=&#34;gcse:search&#34;&gt;gcse:search&lt;/a&gt;&lt;a href=&#34;https://kijtra.com/gcse:search&#34;&gt;/gcse:search&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;テキトウに検索してみてください。
 作ったのはいいんだけど、やっぱアフィリエイトはできないよねこれw&lt;/p&gt;

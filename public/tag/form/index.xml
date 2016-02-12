@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/form/</link>
+    <link>https://kijtra.com/tag/form/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 03 Jul 2015 16:20:45 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/form/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/form/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ページ移動時にフォームの内容に変更があれば警告を出すアレ</title>
-      <link>http://kijtra.com/article/watch-form-input-change</link>
+      <link>https://kijtra.com/article/watch-form-input-change</link>
       <pubDate>Fri, 03 Jul 2015 16:20:45 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/watch-form-input-change</guid>
+      <guid>https://kijtra.com/article/watch-form-input-change</guid>
       <description>&lt;p&gt;ページの移動や更新の時、フォームの入力内容に変更があった場合に「&lt;strong&gt;移動してよろしいですか？&lt;/strong&gt;」みたいな警告が出るのをたまに見る。（アレなんか名前があるのかな…？）&lt;br /&gt;
 jQueryでシンプルに作れそうだったので作ってみた。&lt;/p&gt;
 
@@ -117,10 +117,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)</title>
-      <link>http://kijtra.com/article/cross-browser-placeholder</link>
+      <link>https://kijtra.com/article/cross-browser-placeholder</link>
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cross-browser-placeholder</guid>
+      <guid>https://kijtra.com/article/cross-browser-placeholder</guid>
       <description>
 
 &lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するスニペット。jQueryが必要版。&lt;/p&gt;

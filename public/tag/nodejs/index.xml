@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/nodejs/</link>
+    <link>https://kijtra.com/tag/nodejs/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Wed, 30 Sep 2015 16:40:15 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/nodejs/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/nodejs/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示</title>
-      <link>http://kijtra.com/article/nodejs-twitter-stream</link>
+      <link>https://kijtra.com/article/nodejs-twitter-stream</link>
       <pubDate>Wed, 30 Sep 2015 16:40:15 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/nodejs-twitter-stream</guid>
+      <guid>https://kijtra.com/article/nodejs-twitter-stream</guid>
       <description>&lt;p&gt;Node.js初心者なので、リアルタイムの何かをつくってみようと思いTwitterの &lt;a href=&#34;https://dev.twitter.com/streaming/overview&#34;&gt;Streaming API&lt;/a&gt; で試してみた。&lt;/p&gt;
 
 &lt;p&gt;デモを以下に設置した。&lt;/p&gt;

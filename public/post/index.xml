@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/post/</link>
+    <link>https://kijtra.com/post/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Mon, 28 Dec 2015 10:08:10 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/post/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年12月）</title>
-      <link>http://kijtra.com/article/my-atom-packages2</link>
+      <link>https://kijtra.com/article/my-atom-packages2</link>
       <pubDate>Mon, 28 Dec 2015 10:08:10 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/my-atom-packages2</guid>
+      <guid>https://kijtra.com/article/my-atom-packages2</guid>
       <description>
 
 &lt;p&gt;今年のAtomも&lt;a href=&#34;http://blog.atom.io/2015/06/25/atom-1-0.html&#34;&gt;2015年6月末に1.0に達し&lt;/a&gt;、入れてるプラグインも変化があったので改めてまとめてみる。&lt;br /&gt;
-&lt;a href=&#34;http://kijtra.com/article/my-atom-packages/&#34;&gt;2015年5月時点のプラグインまとめ&lt;/a&gt; からすると若干減った。&lt;/p&gt;
+&lt;a href=&#34;https://kijtra.com/article/my-atom-packages/&#34;&gt;2015年5月時点のプラグインまとめ&lt;/a&gt; からすると若干減った。&lt;/p&gt;
 
 &lt;h2 id=&#34;新しく導入したもの:4ff662d5165f30a98ed38f25e3389a51&#34;&gt;新しく導入したもの&lt;/h2&gt;
 
@@ -120,10 +120,10 @@ PHPの関数などのドキュメントがその場で見られる。ブラウ�
     
     <item>
       <title>日本語対応のテキストを Diff するクラス</title>
-      <link>http://kijtra.com/article/php-text-diff</link>
+      <link>https://kijtra.com/article/php-text-diff</link>
       <pubDate>Sat, 31 Oct 2015 10:41:59 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-text-diff</guid>
+      <guid>https://kijtra.com/article/php-text-diff</guid>
       <description>
 
 &lt;p&gt;シンプルなText Diff系のライブラリを探してたんだけど、行単位で検出するものが多かったので、単語区切りで検出できないかと思って作ってみた。&lt;/p&gt;
@@ -167,10 +167,10 @@ PHPの関数などのドキュメントがその場で見られる。ブラウ�
     
     <item>
       <title>Node.jsでTwitter Streaming APIをGoogleマップにリアルタイム表示</title>
-      <link>http://kijtra.com/article/nodejs-twitter-stream</link>
+      <link>https://kijtra.com/article/nodejs-twitter-stream</link>
       <pubDate>Wed, 30 Sep 2015 16:40:15 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/nodejs-twitter-stream</guid>
+      <guid>https://kijtra.com/article/nodejs-twitter-stream</guid>
       <description>&lt;p&gt;Node.js初心者なので、リアルタイムの何かをつくってみようと思いTwitterの &lt;a href=&#34;https://dev.twitter.com/streaming/overview&#34;&gt;Streaming API&lt;/a&gt; で試してみた。&lt;/p&gt;
 
 &lt;p&gt;デモを以下に設置した。&lt;/p&gt;
@@ -500,10 +500,10 @@ function initMap() {
     
     <item>
       <title>Cloud9を自サーバにインストールしてどこでもコーディング</title>
-      <link>http://kijtra.com/article/cloud9-install</link>
+      <link>https://kijtra.com/article/cloud9-install</link>
       <pubDate>Mon, 14 Sep 2015 12:45:29 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cloud9-install</guid>
+      <guid>https://kijtra.com/article/cloud9-install</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt; はWebサービスとして提供されているオンラインIDEだけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。&lt;/p&gt;
@@ -753,10 +753,10 @@ SASS とか LESS とかの &lt;a href=&#34;https://cloud9-sdk.readme.io/docs/bui
     
     <item>
       <title>Trello の Webhook API をPHPで受け取ってみた</title>
-      <link>http://kijtra.com/article/trello-webhook-api-php</link>
+      <link>https://kijtra.com/article/trello-webhook-api-php</link>
       <pubDate>Mon, 10 Aug 2015 14:18:14 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/trello-webhook-api-php</guid>
+      <guid>https://kijtra.com/article/trello-webhook-api-php</guid>
       <description>
 
 &lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。&lt;br /&gt;
@@ -950,10 +950,10 @@ function verifyTrelloWebhookRequest($body, $secret, $callbackURL, $header) {
     
     <item>
       <title>ページ移動時にフォームの内容に変更があれば警告を出すアレ</title>
-      <link>http://kijtra.com/article/watch-form-input-change</link>
+      <link>https://kijtra.com/article/watch-form-input-change</link>
       <pubDate>Fri, 03 Jul 2015 16:20:45 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/watch-form-input-change</guid>
+      <guid>https://kijtra.com/article/watch-form-input-change</guid>
       <description>&lt;p&gt;ページの移動や更新の時、フォームの入力内容に変更があった場合に「&lt;strong&gt;移動してよろしいですか？&lt;/strong&gt;」みたいな警告が出るのをたまに見る。（アレなんか名前があるのかな…？）&lt;br /&gt;
 jQueryでシンプルに作れそうだったので作ってみた。&lt;/p&gt;
 
@@ -1056,10 +1056,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた</title>
-      <link>http://kijtra.com/article/date-info-api-v1</link>
+      <link>https://kijtra.com/article/date-info-api-v1</link>
       <pubDate>Fri, 19 Jun 2015 15:08:36 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/date-info-api-v1</guid>
+      <guid>https://kijtra.com/article/date-info-api-v1</guid>
       <description>
 
 &lt;p&gt;指定した日付に関する様々な（「今日は何の日」的な）情報を取得するシンプルなAPIを（自分のために）作ってみた。&lt;/p&gt;
@@ -1596,10 +1596,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>Windows 10 で自分の開発環境が動くのか試す</title>
-      <link>http://kijtra.com/article/windows10-app-operation-check</link>
+      <link>https://kijtra.com/article/windows10-app-operation-check</link>
       <pubDate>Fri, 05 Jun 2015 17:34:27 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/windows10-app-operation-check</guid>
+      <guid>https://kijtra.com/article/windows10-app-operation-check</guid>
       <description>
 
 &lt;p&gt;Windows 10 にアップデートしたとして、自分の最低限の開発環境が維持できるのか一応試してみた。&lt;/p&gt;
@@ -1703,10 +1703,10 @@ Spartanがいつのまにか終了してたり、&lt;br /&gt;
     
     <item>
       <title>ブログのバックエンドを「Hugo」(＋Github Pages)に変更</title>
-      <link>http://kijtra.com/article/change-to-hugo</link>
+      <link>https://kijtra.com/article/change-to-hugo</link>
       <pubDate>Tue, 02 Jun 2015 18:39:32 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/change-to-hugo</guid>
+      <guid>https://kijtra.com/article/change-to-hugo</guid>
       <description>
 
 &lt;p&gt;ブログのバックエンドをGo言語製のHugo(＋Github Pages)に全面変更したので記録ついでにメモ。&lt;/p&gt;
@@ -1919,13 +1919,13 @@ git subtree push --prefix=public https://github.com/&amp;lt;公開用リポジ�
     
     <item>
       <title>いま入れてるAtomプラグイン（パッケージ）メモ（2015年5月）</title>
-      <link>http://kijtra.com/article/my-atom-packages</link>
+      <link>https://kijtra.com/article/my-atom-packages</link>
       <pubDate>Mon, 25 May 2015 23:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/my-atom-packages</guid>
+      <guid>https://kijtra.com/article/my-atom-packages</guid>
       <description>&lt;p&gt;最近はSublime Textと併用してAtomもわりと使っていて、プラグイン（パッケージ）探しが落ち着いてきたのでメモしておく。&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;半年経過して、入れているプラグインも変わってきたので &lt;a href=&#34;http://kijtra.com/article/my-atom-packages2/&#34;&gt;2015年12月時点のプラグインまとめ&lt;/a&gt;  として新たにメモした。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;半年経過して、入れているプラグインも変わってきたので &lt;a href=&#34;https://kijtra.com/article/my-atom-packages2/&#34;&gt;2015年12月時点のプラグインまとめ&lt;/a&gt;  として新たにメモした。&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;基本的にWeb系＋PHPの開発が多いのと、環境がWindowsなので、そのような傾向にある。&lt;/p&gt;
 
@@ -2012,10 +2012,10 @@ Apache系（htaccessなど）のシンタックスハイライト。公式に取
     
     <item>
       <title>PackagistとComposerで自作パッケージを使う</title>
-      <link>http://kijtra.com/article/original-library-using-composer-packagist</link>
+      <link>https://kijtra.com/article/original-library-using-composer-packagist</link>
       <pubDate>Wed, 20 May 2015 12:02:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/original-library-using-composer-packagist</guid>
+      <guid>https://kijtra.com/article/original-library-using-composer-packagist</guid>
       <description>
 
 &lt;p&gt;自分で作ったPHPのパッケージ（ライブラリ）を Packagist に登録して、Composer から使えるようにしてみたのでメモ。&lt;/p&gt;
@@ -2209,10 +2209,10 @@ GitHub: &lt;strong&gt;&lt;a href=&#34;https://github.com/kijtra/yolp&#34;&gt;kij
     
     <item>
       <title>Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</title>
-      <link>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
+      <link>https://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
       <pubDate>Thu, 16 Apr 2015 16:06:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
+      <guid>https://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
       <description>
 
 &lt;p&gt;Google Apps Script でこれまでTwitterのボットを作ってたんだけど、OAuthConfig のサポートが2015年4月20日に終了するってのを見つけて焦って変更したメモ。&lt;/p&gt;
@@ -2341,7 +2341,7 @@ var res = Twitter.trendWords();
 &lt;hr /&gt;
 
 &lt;p&gt;OAuthConfigの廃止はけっこう前から警告が出てたみたいだけど、対策しているような情報はググってもほとんど見当たらなかったので、Google Apps Scriptでボット作ってる人はほとんどいない模様w&lt;br /&gt;
-以前 &lt;a href=&#34;http://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
+以前 &lt;a href=&#34;https://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
 提供元には特に何か対策してるっぽいことは書いてなさそう・・・動いてるからまあいいけど。&lt;/p&gt;
 
 &lt;p&gt;ついでに &lt;a href=&#34;https://dev.twitter.com/oauth/application-only&#34;&gt;OAuth2でのTwitter API（Application-only authentication）&lt;/a&gt; も少し見てみたんだけど、わりと簡単なプログラムでデータを取得できるみたい。&lt;br /&gt;
@@ -2351,10 +2351,10 @@ var res = Twitter.trendWords();
     
     <item>
       <title>モーダル用jQueryプラグインをつくった</title>
-      <link>http://kijtra.com/article/jquery-modal</link>
+      <link>https://kijtra.com/article/jquery-modal</link>
       <pubDate>Wed, 11 Mar 2015 00:20:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/jquery-modal</guid>
+      <guid>https://kijtra.com/article/jquery-modal</guid>
       <description>
 
 &lt;p&gt;なかなか理想のモーダル用スクリプトが見つからなかったので勉強を兼ねて作ってみた。&lt;br /&gt;
@@ -2390,7 +2390,7 @@ $(&#39;.modaled&#39;).modaled();
 
 &lt;hr /&gt;
 
-&lt;h3 id=&#34;a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo2.html&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;https://kijtra.com/static/jquery-modal/demo2.html&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;/a&gt;&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
 &amp;lt;a href=&amp;quot;/static/jquery-modal/demo2.html&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;別ページ ※同ドメイン内のみ (ajax)&amp;lt;&amp;lt;/a&amp;gt;
@@ -2420,7 +2420,7 @@ $(&#39;.modaled&#39;).modaled();
 
 &lt;div id=&#34;demo4&#34; style=&#34;display:none&#34;&gt;
     読み込んだモーダルの &amp;lt;a&amp;gt;タグにも適用されます。&lt;br&gt;
-    NEXT : &lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo4.html&#34; class=&#34;modaled&#34;&gt;demo4.html&lt;/a&gt;
+    NEXT : &lt;a href=&#34;https://kijtra.com/static/jquery-modal/demo4.html&#34; class=&#34;modaled&#34;&gt;demo4.html&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
@@ -2676,10 +2676,10 @@ $.modaled(&#39;Welcome!&amp;lt;br&amp;gt;これはモーダルの見本です。
     
     <item>
       <title>PHPで変数を便利にSet/Getする関数をつくった</title>
-      <link>http://kijtra.com/article/php-function-vars</link>
+      <link>https://kijtra.com/article/php-function-vars</link>
       <pubDate>Tue, 10 Feb 2015 09:50:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-function-vars</guid>
+      <guid>https://kijtra.com/article/php-function-vars</guid>
       <description>&lt;p&gt;PHPでグローバルな変数を扱う時に &lt;code&gt;$GLOBALS&lt;/code&gt; とか &lt;a href=&#34;http://php.net/manual/ja/language.variables.superglobals.php&#34;&gt;スーパーグローバル変数&lt;/a&gt; の汚染とかあんまり使いたくなかったので、手軽にできる関数を作った。&lt;/p&gt;
 
 &lt;p&gt;まずはコード。&lt;/p&gt;
@@ -2814,10 +2814,10 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
     
     <item>
       <title>PHPで日本の祝日のJSONをGoogleカレンダーから取得する（API認証等不要）</title>
-      <link>http://kijtra.com/article/get-japanese-holiday-from-google</link>
+      <link>https://kijtra.com/article/get-japanese-holiday-from-google</link>
       <pubDate>Tue, 18 Nov 2014 10:23:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/get-japanese-holiday-from-google</guid>
+      <guid>https://kijtra.com/article/get-japanese-holiday-from-google</guid>
       <description>
 
 &lt;p&gt;GoogleカレンダーAPIのV2までは普通にRESTでデータが取れたんだけど、2014/11/17 にサポート終了して取れなくなったので別の方法をメモ。&lt;/p&gt;

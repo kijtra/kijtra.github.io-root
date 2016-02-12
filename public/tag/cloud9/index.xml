@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/cloud9/</link>
+    <link>https://kijtra.com/tag/cloud9/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Mon, 14 Sep 2015 12:45:29 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/cloud9/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/cloud9/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Cloud9を自サーバにインストールしてどこでもコーディング</title>
-      <link>http://kijtra.com/article/cloud9-install</link>
+      <link>https://kijtra.com/article/cloud9-install</link>
       <pubDate>Mon, 14 Sep 2015 12:45:29 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cloud9-install</guid>
+      <guid>https://kijtra.com/article/cloud9-install</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;https://c9.io/&#34;&gt;Cloud9&lt;/a&gt; はWebサービスとして提供されているオンラインIDEだけど、オープンソースなので自前のサーバー（さくらVPS等）にインストールしても使うことができるため、なんとなく使ってみた。&lt;/p&gt;

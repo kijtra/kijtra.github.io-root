@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/api/</link>
+    <link>https://kijtra.com/tag/api/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Mon, 10 Aug 2015 14:18:14 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/api/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/api/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Trello の Webhook API をPHPで受け取ってみた</title>
-      <link>http://kijtra.com/article/trello-webhook-api-php</link>
+      <link>https://kijtra.com/article/trello-webhook-api-php</link>
       <pubDate>Mon, 10 Aug 2015 14:18:14 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/trello-webhook-api-php</guid>
+      <guid>https://kijtra.com/article/trello-webhook-api-php</guid>
       <description>
 
 &lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。&lt;br /&gt;

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/cron/</link>
+    <link>https://kijtra.com/tag/cron/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Mon, 07 Oct 2013 00:00:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/cron/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/cron/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>AppFog（のPHP）でCronぽいことを実現する</title>
-      <link>http://kijtra.com/article/cron-in-appfog-php</link>
+      <link>https://kijtra.com/article/cron-in-appfog-php</link>
       <pubDate>Mon, 07 Oct 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cron-in-appfog-php</guid>
+      <guid>https://kijtra.com/article/cron-in-appfog-php</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://www.appfog.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;AppFog&lt;/a&gt;でCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。&lt;/p&gt;
 
 &lt;p&gt;だいたいは以下のページの焼き増し。
@@ -121,10 +121,10 @@ sleep()で止めるなり指定時間になにか処理するなりしていく�
     
     <item>
       <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
-      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <link>https://kijtra.com/article/cron-by-google-apps-script</link>
       <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/cron-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;

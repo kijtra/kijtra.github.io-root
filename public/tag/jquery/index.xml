@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/jquery/</link>
+    <link>https://kijtra.com/tag/jquery/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 03 Jul 2015 16:20:45 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/jquery/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/jquery/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ページ移動時にフォームの内容に変更があれば警告を出すアレ</title>
-      <link>http://kijtra.com/article/watch-form-input-change</link>
+      <link>https://kijtra.com/article/watch-form-input-change</link>
       <pubDate>Fri, 03 Jul 2015 16:20:45 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/watch-form-input-change</guid>
+      <guid>https://kijtra.com/article/watch-form-input-change</guid>
       <description>&lt;p&gt;ページの移動や更新の時、フォームの入力内容に変更があった場合に「&lt;strong&gt;移動してよろしいですか？&lt;/strong&gt;」みたいな警告が出るのをたまに見る。（アレなんか名前があるのかな…？）&lt;br /&gt;
 jQueryでシンプルに作れそうだったので作ってみた。&lt;/p&gt;
 
@@ -117,10 +117,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>モーダル用jQueryプラグインをつくった</title>
-      <link>http://kijtra.com/article/jquery-modal</link>
+      <link>https://kijtra.com/article/jquery-modal</link>
       <pubDate>Wed, 11 Mar 2015 00:20:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/jquery-modal</guid>
+      <guid>https://kijtra.com/article/jquery-modal</guid>
       <description>
 
 &lt;p&gt;なかなか理想のモーダル用スクリプトが見つからなかったので勉強を兼ねて作ってみた。&lt;br /&gt;
@@ -156,7 +156,7 @@ $(&#39;.modaled&#39;).modaled();
 
 &lt;hr /&gt;
 
-&lt;h3 id=&#34;a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo2.html&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;/a&gt;&lt;/h3&gt;
+&lt;h3 id=&#34;a-href-static-jquery-modal-demo2-html-class-modaled-rel-nofollow-別ページ-同ドメイン内のみ-ajax-a:7c9faca7886f5760dfa28e395b5e5a30&#34;&gt;&lt;a href=&#34;https://kijtra.com/static/jquery-modal/demo2.html&#34; class=&#34;modaled&#34; rel=&#34;nofollow&#34;&gt;別ページ ※同ドメイン内のみ (ajax)&lt;/a&gt;&lt;/h3&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;
 &amp;lt;a href=&amp;quot;/static/jquery-modal/demo2.html&amp;quot; class=&amp;quot;modaled&amp;quot;&amp;gt;別ページ ※同ドメイン内のみ (ajax)&amp;lt;&amp;lt;/a&amp;gt;
@@ -186,7 +186,7 @@ $(&#39;.modaled&#39;).modaled();
 
 &lt;div id=&#34;demo4&#34; style=&#34;display:none&#34;&gt;
     読み込んだモーダルの &amp;lt;a&amp;gt;タグにも適用されます。&lt;br&gt;
-    NEXT : &lt;a href=&#34;http://kijtra.com/static/jquery-modal/demo4.html&#34; class=&#34;modaled&#34;&gt;demo4.html&lt;/a&gt;
+    NEXT : &lt;a href=&#34;https://kijtra.com/static/jquery-modal/demo4.html&#34; class=&#34;modaled&#34;&gt;demo4.html&lt;/a&gt;
 &lt;/div&gt;
 
 &lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!-- 発火するリンク --&amp;gt;

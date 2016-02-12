@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/javascript/</link>
+    <link>https://kijtra.com/tag/javascript/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 03 Jul 2015 16:20:45 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/javascript/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ページ移動時にフォームの内容に変更があれば警告を出すアレ</title>
-      <link>http://kijtra.com/article/watch-form-input-change</link>
+      <link>https://kijtra.com/article/watch-form-input-change</link>
       <pubDate>Fri, 03 Jul 2015 16:20:45 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/watch-form-input-change</guid>
+      <guid>https://kijtra.com/article/watch-form-input-change</guid>
       <description>&lt;p&gt;ページの移動や更新の時、フォームの入力内容に変更があった場合に「&lt;strong&gt;移動してよろしいですか？&lt;/strong&gt;」みたいな警告が出るのをたまに見る。（アレなんか名前があるのかな…？）&lt;br /&gt;
 jQueryでシンプルに作れそうだったので作ってみた。&lt;/p&gt;
 
@@ -117,10 +117,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>テーブルのセルに斜めの線を引くjQueryプラグイン</title>
-      <link>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</link>
+      <link>https://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</link>
       <pubDate>Fri, 27 Sep 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</guid>
+      <guid>https://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</guid>
       <description>&lt;p&gt;テーブルのセルに斜めの線（分割線？打ち消し線？）をつけるやつをjQueryプラグインとして作ってみた。&lt;/p&gt;
 
 &lt;p&gt;テーブルのセルに斜めの線を引いたりしたいことないですかね。
@@ -142,10 +142,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>IEほかフォームの「placeholder」属性をクロスブラウザで使えるようにする(jQuery不要版)</title>
-      <link>http://kijtra.com/article/cross-browser-placeholder-without-jquer</link>
+      <link>https://kijtra.com/article/cross-browser-placeholder-without-jquer</link>
       <pubDate>Mon, 08 Apr 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cross-browser-placeholder-without-jquer</guid>
+      <guid>https://kijtra.com/article/cross-browser-placeholder-without-jquer</guid>
       <description>&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するってやつです。jQuery不要で単体で使えます。&lt;/p&gt;
 
 &lt;p&gt;placeholder属性は便利なので、サポート外のブラウザでも使いたい！
@@ -166,10 +166,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)</title>
-      <link>http://kijtra.com/article/cross-browser-placeholder</link>
+      <link>https://kijtra.com/article/cross-browser-placeholder</link>
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cross-browser-placeholder</guid>
+      <guid>https://kijtra.com/article/cross-browser-placeholder</guid>
       <description>
 
 &lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するスニペット。jQueryが必要版。&lt;/p&gt;
@@ -192,10 +192,10 @@ IE8以下はたしか onBeforeUnload が効かなかったような。&lt;/p&gt;
     
     <item>
       <title>「Redactor」用フォントサイズプラグイン</title>
-      <link>http://kijtra.com/article/redactor-font-size-plugin</link>
+      <link>https://kijtra.com/article/redactor-font-size-plugin</link>
       <pubDate>Sat, 10 Nov 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/redactor-font-size-plugin</guid>
+      <guid>https://kijtra.com/article/redactor-font-size-plugin</guid>
       <description>&lt;p&gt;WYSIWYGエディタの「Redactor」専用「フォントサイズ」プラグイン。公式にはないので。&lt;/p&gt;
 
 &lt;p&gt;jQueryのプラグインとして動くWYSIWYGエディタの「&lt;a href=&#34;http://imperavi.com/redactor/&#34; target=&#34;_blank&#34;&gt;Redactor&lt;/a&gt;」、個人的には最も使いやすいWYSIWYGエディタなんだけど、フォントサイズのボタンがないのが難だった。

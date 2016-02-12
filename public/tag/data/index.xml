@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/data/</link>
+    <link>https://kijtra.com/tag/data/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 19 Jun 2015 15:08:36 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/data/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/data/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた</title>
-      <link>http://kijtra.com/article/date-info-api-v1</link>
+      <link>https://kijtra.com/article/date-info-api-v1</link>
       <pubDate>Fri, 19 Jun 2015 15:08:36 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/date-info-api-v1</guid>
+      <guid>https://kijtra.com/article/date-info-api-v1</guid>
       <description>
 
 &lt;p&gt;指定した日付に関する様々な（「今日は何の日」的な）情報を取得するシンプルなAPIを（自分のために）作ってみた。&lt;/p&gt;
@@ -551,10 +551,10 @@
     
     <item>
       <title>隣接県も含めた都道府県のJSONその他形式のデータ</title>
-      <link>http://kijtra.com/article/japan-prefecture-data</link>
+      <link>https://kijtra.com/article/japan-prefecture-data</link>
       <pubDate>Tue, 12 Aug 2014 11:25:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/japan-prefecture-data</guid>
+      <guid>https://kijtra.com/article/japan-prefecture-data</guid>
       <description>&lt;p&gt;都道府県の情報をよく使うので使いやすい形にして置いておこうと思いまして。&lt;/p&gt;
 
 &lt;p&gt;英語名とか短い名称（東京都→東京とか）をたまに使うのでそういうデータをひとまとめにしておいた。&lt;/p&gt;

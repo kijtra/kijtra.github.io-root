@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/hugo/</link>
+    <link>https://kijtra.com/tag/hugo/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Tue, 02 Jun 2015 18:39:32 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>ブログのバックエンドを「Hugo」(＋Github Pages)に変更</title>
-      <link>http://kijtra.com/article/change-to-hugo</link>
+      <link>https://kijtra.com/article/change-to-hugo</link>
       <pubDate>Tue, 02 Jun 2015 18:39:32 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/change-to-hugo</guid>
+      <guid>https://kijtra.com/article/change-to-hugo</guid>
       <description>
 
 &lt;p&gt;ブログのバックエンドをGo言語製のHugo(＋Github Pages)に全面変更したので記録ついでにメモ。&lt;/p&gt;

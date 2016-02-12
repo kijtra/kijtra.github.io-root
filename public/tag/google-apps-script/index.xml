@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/google-apps-script/</link>
+    <link>https://kijtra.com/tag/google-apps-script/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Thu, 16 Apr 2015 16:06:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/google-apps-script/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/google-apps-script/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</title>
-      <link>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
+      <link>https://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
       <pubDate>Thu, 16 Apr 2015 16:06:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
+      <guid>https://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
       <description>
 
 &lt;p&gt;Google Apps Script でこれまでTwitterのボットを作ってたんだけど、OAuthConfig のサポートが2015年4月20日に終了するってのを見つけて焦って変更したメモ。&lt;/p&gt;
@@ -143,7 +143,7 @@ var res = Twitter.trendWords();
 &lt;hr /&gt;
 
 &lt;p&gt;OAuthConfigの廃止はけっこう前から警告が出てたみたいだけど、対策しているような情報はググってもほとんど見当たらなかったので、Google Apps Scriptでボット作ってる人はほとんどいない模様w&lt;br /&gt;
-以前 &lt;a href=&#34;http://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
+以前 &lt;a href=&#34;https://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
 提供元には特に何か対策してるっぽいことは書いてなさそう・・・動いてるからまあいいけど。&lt;/p&gt;
 
 &lt;p&gt;ついでに &lt;a href=&#34;https://dev.twitter.com/oauth/application-only&#34;&gt;OAuth2でのTwitter API（Application-only authentication）&lt;/a&gt; も少し見てみたんだけど、わりと簡単なプログラムでデータを取得できるみたい。&lt;br /&gt;
@@ -153,10 +153,10 @@ var res = Twitter.trendWords();
     
     <item>
       <title>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた</title>
-      <link>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
+      <link>https://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
       <pubDate>Sun, 15 Sep 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。&lt;/p&gt;
@@ -358,10 +358,10 @@ var res = Twitter.trendWords();
     
     <item>
       <title>Twitterのフォロー返し（リフォロー）をGoogle Apps Scriptで自動化する</title>
-      <link>http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</link>
+      <link>https://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</link>
       <pubDate>Wed, 01 May 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/twitter-auto-refollow-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;TwitterでBot等を運用していると、「フォローを返す」というのはわりと重要。
@@ -515,10 +515,10 @@ var res = Twitter.trendWords();
     
     <item>
       <title>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</title>
-      <link>http://kijtra.com/article/twitter-backup-to-google-drive</link>
+      <link>https://kijtra.com/article/twitter-backup-to-google-drive</link>
       <pubDate>Thu, 21 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-backup-to-google-drive</guid>
+      <guid>https://kijtra.com/article/twitter-backup-to-google-drive</guid>
       <description>
 
 &lt;p&gt;Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。&lt;/p&gt;
@@ -691,10 +691,10 @@ Twitterにログインし、&lt;a href=&#34;https://twitter.com/settings&#34; ta
     
     <item>
       <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
-      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <link>https://kijtra.com/article/cron-by-google-apps-script</link>
       <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/cron-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;

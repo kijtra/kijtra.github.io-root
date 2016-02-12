@@ -1,4 +1,4 @@
-baseURL: "http://kijtra.com/"
+baseURL: "https://kijtra.com/"
 languageCode: "ja"
 title: "きじとら"
 theme: "kijtra"
@@ -9,7 +9,7 @@ disqusShortname: "kijtra"
 params:
     description: "Webのこととかそのたもろもろ"
     author: "きじとら"
-    avatar: "http://kijtra.com/avatar.jpg"
+    avatar: "https://kijtra.com/avatar.jpg"
     googleAnalytics: "UA-20642126-2"
 
 indexes:

@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/css/</link>
+    <link>https://kijtra.com/tag/css/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 26 Jul 2013 00:00:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/css/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/css/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Sublime Text 2 のPortable版でSASSをスタンドアローンで使う</title>
-      <link>http://kijtra.com/article/sublime-text-2-sass-standalone</link>
+      <link>https://kijtra.com/article/sublime-text-2-sass-standalone</link>
       <pubDate>Fri, 26 Jul 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/sublime-text-2-sass-standalone</guid>
+      <guid>https://kijtra.com/article/sublime-text-2-sass-standalone</guid>
       <description>
 
 &lt;p&gt;Sublime Text 2 をportable版で使ってて、SASSもRubyとか入れずにポータブルにできないかと思ったら、そういうソフトを見つけたので設定メモ（Windowsのみ）。&lt;/p&gt;
@@ -124,10 +124,10 @@ Sublime Text 2 には&lt;a href=&#34;http://www.sublimetext.com/2&#34; target=&#
     
     <item>
       <title>HTMLのbodyタグにclass名を追加する関数</title>
-      <link>http://kijtra.com/article/php-add-body-class-function</link>
+      <link>https://kijtra.com/article/php-add-body-class-function</link>
       <pubDate>Thu, 31 Jan 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-add-body-class-function</guid>
+      <guid>https://kijtra.com/article/php-add-body-class-function</guid>
       <description>&lt;p&gt;PHPで組んでる時、HTMLのbodyタグに動的にclass名を追加するの面倒だったりしませんか。
 いや、たまにあるんです。
 フォームの入力画面→確認画面→送信完了画面とか。

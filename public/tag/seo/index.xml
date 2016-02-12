@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/seo/</link>
+    <link>https://kijtra.com/tag/seo/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Wed, 11 Dec 2013 00:00:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/seo/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/seo/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>PubSubHubbubにURLをプッシュするPHP関数</title>
-      <link>http://kijtra.com/article/push-pubsubhubbub-php</link>
+      <link>https://kijtra.com/article/push-pubsubhubbub-php</link>
       <pubDate>Wed, 11 Dec 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/push-pubsubhubbub-php</guid>
+      <guid>https://kijtra.com/article/push-pubsubhubbub-php</guid>
       <description>
 
 &lt;p&gt;Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。&lt;/p&gt;
@@ -118,10 +118,10 @@ send_psh($urls);
     
     <item>
       <title>All in One SEO Pack の設定で使えるタグ一覧</title>
-      <link>http://kijtra.com/article/all-in-one-seo-pack-replace</link>
+      <link>https://kijtra.com/article/all-in-one-seo-pack-replace</link>
       <pubDate>Sat, 12 Jan 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/all-in-one-seo-pack-replace</guid>
+      <guid>https://kijtra.com/article/all-in-one-seo-pack-replace</guid>
       <description>
 
 &lt;p&gt;WordPressのプラグイン「&lt;a href=&#34;http://wordpress.org/extend/plugins/all-in-one-seo-pack/&#34; target=&#34;_blank&#34;&gt;All in One SEO Pack&lt;/a&gt;」、SEOやるうえでとても便利。&lt;br /&gt;

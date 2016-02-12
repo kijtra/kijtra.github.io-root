@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/others/</link>
+    <link>https://kijtra.com/tag/others/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 19 Jun 2015 15:08:36 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/others/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/others/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>旧暦や六曜など日付に関する情報を取得できるAPIを作ってみた</title>
-      <link>http://kijtra.com/article/date-info-api-v1</link>
+      <link>https://kijtra.com/article/date-info-api-v1</link>
       <pubDate>Fri, 19 Jun 2015 15:08:36 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/date-info-api-v1</guid>
+      <guid>https://kijtra.com/article/date-info-api-v1</guid>
       <description>
 
 &lt;p&gt;指定した日付に関する様々な（「今日は何の日」的な）情報を取得するシンプルなAPIを（自分のために）作ってみた。&lt;/p&gt;
@@ -551,10 +551,10 @@
     
     <item>
       <title>Windows 10 で自分の開発環境が動くのか試す</title>
-      <link>http://kijtra.com/article/windows10-app-operation-check</link>
+      <link>https://kijtra.com/article/windows10-app-operation-check</link>
       <pubDate>Fri, 05 Jun 2015 17:34:27 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/windows10-app-operation-check</guid>
+      <guid>https://kijtra.com/article/windows10-app-operation-check</guid>
       <description>
 
 &lt;p&gt;Windows 10 にアップデートしたとして、自分の最低限の開発環境が維持できるのか一応試してみた。&lt;/p&gt;
@@ -658,10 +658,10 @@ Spartanがいつのまにか終了してたり、&lt;br /&gt;
     
     <item>
       <title>WikipediaのURLがツイートしにくい</title>
-      <link>http://kijtra.com/article/wikipedia-url-convert</link>
+      <link>https://kijtra.com/article/wikipedia-url-convert</link>
       <pubDate>Sat, 04 Jan 2014 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/wikipedia-url-convert</guid>
+      <guid>https://kijtra.com/article/wikipedia-url-convert</guid>
       <description>
 
 &lt;p&gt;WikipediaのURLに日本語が含まれているとTwitterなんかでURL化してくれないのでツールつくった。&lt;/p&gt;
@@ -695,10 +695,10 @@ Spartanがいつのまにか終了してたり、&lt;br /&gt;
     
     <item>
       <title>iTunes AppStoreのアプリ画像サイズ</title>
-      <link>http://kijtra.com/article/itunes-appstore-icon-size-list</link>
+      <link>https://kijtra.com/article/itunes-appstore-icon-size-list</link>
       <pubDate>Thu, 16 May 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/itunes-appstore-icon-size-list</guid>
+      <guid>https://kijtra.com/article/itunes-appstore-icon-size-list</guid>
       <description>&lt;p&gt;iTunesのAppStoreで使われているアプリのアイコン画像、たまに使いたい時がある。
 でもわりとサイズがバラバラなので、どんなサイズがあるのか調べてみたのでメモ。&lt;/p&gt;
 

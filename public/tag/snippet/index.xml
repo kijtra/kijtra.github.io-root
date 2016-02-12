@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/snippet/</link>
+    <link>https://kijtra.com/tag/snippet/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Fri, 27 Sep 2013 00:00:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/snippet/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/snippet/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>テーブルのセルに斜めの線を引くjQueryプラグイン</title>
-      <link>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</link>
+      <link>https://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</link>
       <pubDate>Fri, 27 Sep 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</guid>
+      <guid>https://kijtra.com/article/diagonal-line-in-table-cell-jquery-plugin</guid>
       <description>&lt;p&gt;テーブルのセルに斜めの線（分割線？打ち消し線？）をつけるやつをjQueryプラグインとして作ってみた。&lt;/p&gt;
 
 &lt;p&gt;テーブルのセルに斜めの線を引いたりしたいことないですかね。
@@ -36,10 +36,10 @@
     
     <item>
       <title>Gmailで指定日時に送る ってのをGoogle Apps Scriptで書いた</title>
-      <link>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
+      <link>https://kijtra.com/article/gmail-delay-send-by-google-apps-script</link>
       <pubDate>Sun, 15 Sep 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/gmail-delay-send-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Gmailで、日付や時間を指定して送りたい（予約送信したい）ってことありますよね。Google Apps Scriptで、指定日はもちろん、分単位で予約して自動送信できるスクリプトを書いた。&lt;/p&gt;
@@ -241,10 +241,10 @@
     
     <item>
       <title>IEほかフォームの「placeholder」属性をクロスブラウザで使えるようにする(jQuery不要版)</title>
-      <link>http://kijtra.com/article/cross-browser-placeholder-without-jquer</link>
+      <link>https://kijtra.com/article/cross-browser-placeholder-without-jquer</link>
       <pubDate>Mon, 08 Apr 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cross-browser-placeholder-without-jquer</guid>
+      <guid>https://kijtra.com/article/cross-browser-placeholder-without-jquer</guid>
       <description>&lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するってやつです。jQuery不要で単体で使えます。&lt;/p&gt;
 
 &lt;p&gt;placeholder属性は便利なので、サポート外のブラウザでも使いたい！
@@ -265,10 +265,10 @@
     
     <item>
       <title>フォームの「placeholder」属性をIEでも使えるようにするスニペット(要jQuery)</title>
-      <link>http://kijtra.com/article/cross-browser-placeholder</link>
+      <link>https://kijtra.com/article/cross-browser-placeholder</link>
       <pubDate>Sat, 16 Feb 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cross-browser-placeholder</guid>
+      <guid>https://kijtra.com/article/cross-browser-placeholder</guid>
       <description>
 
 &lt;p&gt;HTML5の「placeholder」属性をJavaScriptでクロスブラウザに対応するスニペット。jQueryが必要版。&lt;/p&gt;
@@ -291,10 +291,10 @@
     
     <item>
       <title>HTMLのbodyタグにclass名を追加する関数</title>
-      <link>http://kijtra.com/article/php-add-body-class-function</link>
+      <link>https://kijtra.com/article/php-add-body-class-function</link>
       <pubDate>Thu, 31 Jan 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-add-body-class-function</guid>
+      <guid>https://kijtra.com/article/php-add-body-class-function</guid>
       <description>&lt;p&gt;PHPで組んでる時、HTMLのbodyタグに動的にclass名を追加するの面倒だったりしませんか。
 いや、たまにあるんです。
 フォームの入力画面→確認画面→送信完了画面とか。
@@ -425,10 +425,10 @@ chrome test test2 test3 test4 test5 win
     
     <item>
       <title>MySQLで日付から年齢を取得するストアドファンクション</title>
-      <link>http://kijtra.com/article/mysqldate-to-age</link>
+      <link>https://kijtra.com/article/mysqldate-to-age</link>
       <pubDate>Mon, 17 Dec 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/mysqldate-to-age</guid>
+      <guid>https://kijtra.com/article/mysqldate-to-age</guid>
       <description>&lt;p&gt;MySQLのSELECT結果とかで生年月日とかの日付を年齢に換算したい、なんてことないですかね。
 関数（ストアドファンクション）にしてみました。&lt;/p&gt;
 
@@ -459,10 +459,10 @@ END;
     
     <item>
       <title>配列の好きなところに配列を挿入する関数</title>
-      <link>http://kijtra.com/article/array-insert</link>
+      <link>https://kijtra.com/article/array-insert</link>
       <pubDate>Tue, 11 Dec 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/array-insert</guid>
+      <guid>https://kijtra.com/article/array-insert</guid>
       <description>&lt;p&gt;タイトルまんまだけどわりとこういう関数がないみたいなので作ってみた。&lt;/p&gt;
 
 &lt;p&gt;「&lt;a href=&#34;http://php.net/manual/ja/function.array-splice.php&#34; target=&#34;_blank&#34;&gt;array_splice&lt;/a&gt;」ってのがあるんだけど、配列のキー（添字）が保持されないんで、そこらへんを対応した。
@@ -489,10 +489,10 @@ function array_insert($origin,$position,$insert){
     
     <item>
       <title>ランダムな文字列を生成するPHP関数</title>
-      <link>http://kijtra.com/article/random-string</link>
+      <link>https://kijtra.com/article/random-string</link>
       <pubDate>Mon, 26 Nov 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/random-string</guid>
+      <guid>https://kijtra.com/article/random-string</guid>
       <description>&lt;p&gt;ランダムな文字列を生成する関数。
 第一引数は生成後の文字数、第二匹数は記号を含めるかどうか。&lt;/p&gt;
 

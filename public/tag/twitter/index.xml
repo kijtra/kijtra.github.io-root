@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/twitter/</link>
+    <link>https://kijtra.com/tag/twitter/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Thu, 16 Apr 2015 16:06:00 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/twitter/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/twitter/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Google Apps ScriptでOAuthConfigのサポートが終了してTwitter botが危険そうだったので変更</title>
-      <link>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
+      <link>https://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</link>
       <pubDate>Thu, 16 Apr 2015 16:06:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
+      <guid>https://kijtra.com/article/twitter-api-for-google-apps-script-without-oauthconfig</guid>
       <description>
 
 &lt;p&gt;Google Apps Script でこれまでTwitterのボットを作ってたんだけど、OAuthConfig のサポートが2015年4月20日に終了するってのを見つけて焦って変更したメモ。&lt;/p&gt;
@@ -143,7 +143,7 @@ var res = Twitter.trendWords();
 &lt;hr /&gt;
 
 &lt;p&gt;OAuthConfigの廃止はけっこう前から警告が出てたみたいだけど、対策しているような情報はググってもほとんど見当たらなかったので、Google Apps Scriptでボット作ってる人はほとんどいない模様w&lt;br /&gt;
-以前 &lt;a href=&#34;http://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
+以前 &lt;a href=&#34;https://kijtra.com/article/twitter-backup-to-google-drive/&#34;&gt;Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法&lt;/a&gt; という投稿を書いたけど、こちらもOAuthを使っていて不安。&lt;br /&gt;
 提供元には特に何か対策してるっぽいことは書いてなさそう・・・動いてるからまあいいけど。&lt;/p&gt;
 
 &lt;p&gt;ついでに &lt;a href=&#34;https://dev.twitter.com/oauth/application-only&#34;&gt;OAuth2でのTwitter API（Application-only authentication）&lt;/a&gt; も少し見てみたんだけど、わりと簡単なプログラムでデータを取得できるみたい。&lt;br /&gt;
@@ -153,10 +153,10 @@ var res = Twitter.trendWords();
     
     <item>
       <title>Twitter Cardsに対応！</title>
-      <link>http://kijtra.com/article/twitter-cards</link>
+      <link>https://kijtra.com/article/twitter-cards</link>
       <pubDate>Sat, 30 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-cards</guid>
+      <guid>https://kijtra.com/article/twitter-cards</guid>
       <description>&lt;p&gt;やっとウチのブログもTwitter Cards表示に対応してもらえたので、Twitter Cardsの申し込み方法、審査など。&lt;/p&gt;
 
 &lt;p&gt;あれから約2ヶ月半。
@@ -208,10 +208,10 @@ Tweitter Cardsは、最初はTwitter側が勝手にやってるものだと思�
     
     <item>
       <title>Twitterの自分の過去ツイートをGoogleドライブに自動バックアップ（＆公開）する方法</title>
-      <link>http://kijtra.com/article/twitter-backup-to-google-drive</link>
+      <link>https://kijtra.com/article/twitter-backup-to-google-drive</link>
       <pubDate>Thu, 21 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/twitter-backup-to-google-drive</guid>
+      <guid>https://kijtra.com/article/twitter-backup-to-google-drive</guid>
       <description>
 
 &lt;p&gt;Twitterの自分の過去のツイートをGoogleドライブにバックアップ（＆公開）しつつ、クールなインターフェイスで閲覧も可能にする方法。&lt;/p&gt;

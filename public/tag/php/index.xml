@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>きじとら</title>
-    <link>http://kijtra.com/tag/php/</link>
+    <link>https://kijtra.com/tag/php/</link>
     <description>Webのこととかそのたもろもろ</description>
     <language>ja</language>
     <copyright>&amp;copy; kijtra.com</copyright>
     <lastBuildDate>Sat, 31 Oct 2015 10:41:59 +0900</lastBuildDate>
-    <atom:link href="http://kijtra.com/tag/php/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://kijtra.com/tag/php/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>日本語対応のテキストを Diff するクラス</title>
-      <link>http://kijtra.com/article/php-text-diff</link>
+      <link>https://kijtra.com/article/php-text-diff</link>
       <pubDate>Sat, 31 Oct 2015 10:41:59 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-text-diff</guid>
+      <guid>https://kijtra.com/article/php-text-diff</guid>
       <description>
 
 &lt;p&gt;シンプルなText Diff系のライブラリを探してたんだけど、行単位で検出するものが多かったので、単語区切りで検出できないかと思って作ってみた。&lt;/p&gt;
@@ -58,10 +58,10 @@
     
     <item>
       <title>Trello の Webhook API をPHPで受け取ってみた</title>
-      <link>http://kijtra.com/article/trello-webhook-api-php</link>
+      <link>https://kijtra.com/article/trello-webhook-api-php</link>
       <pubDate>Mon, 10 Aug 2015 14:18:14 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/trello-webhook-api-php</guid>
+      <guid>https://kijtra.com/article/trello-webhook-api-php</guid>
       <description>
 
 &lt;p&gt;タスク管理ツール「&lt;a href=&#34;https://trello.com&#34;&gt;Trello&lt;/a&gt;」のAPIに &lt;strong&gt;&lt;a href=&#34;https://trello.com/docs/gettingstarted/webhooks.html&#34;&gt;Webhook&lt;/a&gt;&lt;/strong&gt; というものがありまして、更新を任意のURLにリアルタイムでプッシュ通知してくれるという非常に便利なAPIなのです。&lt;br /&gt;
@@ -255,10 +255,10 @@ function verifyTrelloWebhookRequest($body, $secret, $callbackURL, $header) {
     
     <item>
       <title>PackagistとComposerで自作パッケージを使う</title>
-      <link>http://kijtra.com/article/original-library-using-composer-packagist</link>
+      <link>https://kijtra.com/article/original-library-using-composer-packagist</link>
       <pubDate>Wed, 20 May 2015 12:02:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/original-library-using-composer-packagist</guid>
+      <guid>https://kijtra.com/article/original-library-using-composer-packagist</guid>
       <description>
 
 &lt;p&gt;自分で作ったPHPのパッケージ（ライブラリ）を Packagist に登録して、Composer から使えるようにしてみたのでメモ。&lt;/p&gt;
@@ -452,10 +452,10 @@ GitHub: &lt;strong&gt;&lt;a href=&#34;https://github.com/kijtra/yolp&#34;&gt;kij
     
     <item>
       <title>PHPで変数を便利にSet/Getする関数をつくった</title>
-      <link>http://kijtra.com/article/php-function-vars</link>
+      <link>https://kijtra.com/article/php-function-vars</link>
       <pubDate>Tue, 10 Feb 2015 09:50:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-function-vars</guid>
+      <guid>https://kijtra.com/article/php-function-vars</guid>
       <description>&lt;p&gt;PHPでグローバルな変数を扱う時に &lt;code&gt;$GLOBALS&lt;/code&gt; とか &lt;a href=&#34;http://php.net/manual/ja/language.variables.superglobals.php&#34;&gt;スーパーグローバル変数&lt;/a&gt; の汚染とかあんまり使いたくなかったので、手軽にできる関数を作った。&lt;/p&gt;
 
 &lt;p&gt;まずはコード。&lt;/p&gt;
@@ -590,10 +590,10 @@ if (!function_exists(&#39;array_replace_recursive&#39;))
     
     <item>
       <title>AdSenseを携帯(フィーチャーフォン/ガラケー/WAP)サイトで使う用のPHPクラス</title>
-      <link>http://kijtra.com/article/adsense-php-class-for-feature-phone</link>
+      <link>https://kijtra.com/article/adsense-php-class-for-feature-phone</link>
       <pubDate>Sun, 05 Oct 2014 10:30:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
+      <guid>https://kijtra.com/article/adsense-php-class-for-feature-phone</guid>
       <description>
 
 &lt;p&gt;携帯サイトでAdSenseを表示したい時、Google公式のコードが使いにくいのでPHPのクラス作っといた。(2014年10月時点)&lt;/p&gt;
@@ -855,10 +855,10 @@ $class-&amp;gt;slot(&#39;XXXXXXXXXXXXXXX&#39;)-&amp;gt;color($color)-&amp;gt;sho
     
     <item>
       <title>2つの配列が同じものかどうかチェックするPHP関数</title>
-      <link>http://kijtra.com/article/php-check-same-array</link>
+      <link>https://kijtra.com/article/php-check-same-array</link>
       <pubDate>Tue, 13 May 2014 11:07:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-check-same-array</guid>
+      <guid>https://kijtra.com/article/php-check-same-array</guid>
       <description>&lt;p&gt;PHPで、配列の内容が同じかどうかチェックしたい時に使う関数。&lt;br /&gt;
 連想配列の階層が深くても可。&lt;/p&gt;
 
@@ -906,10 +906,10 @@ function is_same_array($array1 = null, $array2 = null)
     
     <item>
       <title>PubSubHubbubにURLをプッシュするPHP関数</title>
-      <link>http://kijtra.com/article/push-pubsubhubbub-php</link>
+      <link>https://kijtra.com/article/push-pubsubhubbub-php</link>
       <pubDate>Wed, 11 Dec 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/push-pubsubhubbub-php</guid>
+      <guid>https://kijtra.com/article/push-pubsubhubbub-php</guid>
       <description>
 
 &lt;p&gt;Googleその他にURLをプッシュしてインデックスしてもらえる PubSubHubbubにガンガンにプッシュしようと思ってPHPの関数にしてみた。&lt;/p&gt;
@@ -1013,10 +1013,10 @@ send_psh($urls);
     
     <item>
       <title>AppFog（のPHP）でCronぽいことを実現する</title>
-      <link>http://kijtra.com/article/cron-in-appfog-php</link>
+      <link>https://kijtra.com/article/cron-in-appfog-php</link>
       <pubDate>Mon, 07 Oct 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cron-in-appfog-php</guid>
+      <guid>https://kijtra.com/article/cron-in-appfog-php</guid>
       <description>&lt;p&gt;&lt;a href=&#34;https://www.appfog.com/&#34; target=&#34;_blank&#34; rel=&#34;nofollow&#34;&gt;AppFog&lt;/a&gt;でCronを使いたいと思って調べてみたら、Cron機能自体はないんだけどそれっぽいことができたのでメモ。&lt;/p&gt;
 
 &lt;p&gt;だいたいは以下のページの焼き増し。
@@ -1123,10 +1123,10 @@ sleep()で止めるなり指定時間になにか処理するなりしていく�
     
     <item>
       <title>無料でお手軽Cron！Google Apps Scriptを使ってみる</title>
-      <link>http://kijtra.com/article/cron-by-google-apps-script</link>
+      <link>https://kijtra.com/article/cron-by-google-apps-script</link>
       <pubDate>Mon, 11 Mar 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/cron-by-google-apps-script</guid>
+      <guid>https://kijtra.com/article/cron-by-google-apps-script</guid>
       <description>
 
 &lt;p&gt;Googleが提供する「Google Apps Script」にある「UrlFetch」を使って、Cronのように時間指定で任意のURLをリクエストできちゃう、ってやつです。&lt;/p&gt;
@@ -1233,10 +1233,10 @@ Google Apps Scriptではこれを「&lt;strong&gt;&lt;em&gt;トリガー&lt;/em&
     
     <item>
       <title>HTMLのbodyタグにclass名を追加する関数</title>
-      <link>http://kijtra.com/article/php-add-body-class-function</link>
+      <link>https://kijtra.com/article/php-add-body-class-function</link>
       <pubDate>Thu, 31 Jan 2013 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/php-add-body-class-function</guid>
+      <guid>https://kijtra.com/article/php-add-body-class-function</guid>
       <description>&lt;p&gt;PHPで組んでる時、HTMLのbodyタグに動的にclass名を追加するの面倒だったりしませんか。
 いや、たまにあるんです。
 フォームの入力画面→確認画面→送信完了画面とか。
@@ -1367,10 +1367,10 @@ chrome test test2 test3 test4 test5 win
     
     <item>
       <title>公開日を未来にしても予約投稿にせず強制公開するWordPressプラグイン</title>
-      <link>http://kijtra.com/article/wordpress-future-post-publish</link>
+      <link>https://kijtra.com/article/wordpress-future-post-publish</link>
       <pubDate>Fri, 14 Dec 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/wordpress-future-post-publish</guid>
+      <guid>https://kijtra.com/article/wordpress-future-post-publish</guid>
       <description>&lt;p&gt;公開日を未来にしても予約状態にせず公開したいことがあって。
 デバッグとかそういうので。
 ということで必要にかられて作った。&lt;/p&gt;
@@ -1484,10 +1484,10 @@ function force_future_to_publish_save( $data, $postarr ) {
     
     <item>
       <title>配列の好きなところに配列を挿入する関数</title>
-      <link>http://kijtra.com/article/array-insert</link>
+      <link>https://kijtra.com/article/array-insert</link>
       <pubDate>Tue, 11 Dec 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/array-insert</guid>
+      <guid>https://kijtra.com/article/array-insert</guid>
       <description>&lt;p&gt;タイトルまんまだけどわりとこういう関数がないみたいなので作ってみた。&lt;/p&gt;
 
 &lt;p&gt;「&lt;a href=&#34;http://php.net/manual/ja/function.array-splice.php&#34; target=&#34;_blank&#34;&gt;array_splice&lt;/a&gt;」ってのがあるんだけど、配列のキー（添字）が保持されないんで、そこらへんを対応した。
@@ -1514,10 +1514,10 @@ function array_insert($origin,$position,$insert){
     
     <item>
       <title>ランダムな文字列を生成するPHP関数</title>
-      <link>http://kijtra.com/article/random-string</link>
+      <link>https://kijtra.com/article/random-string</link>
       <pubDate>Mon, 26 Nov 2012 00:00:00 +0900</pubDate>
       
-      <guid>http://kijtra.com/article/random-string</guid>
+      <guid>https://kijtra.com/article/random-string</guid>
       <description>&lt;p&gt;ランダムな文字列を生成する関数。
 第一引数は生成後の文字数、第二匹数は記号を含めるかどうか。&lt;/p&gt;
 
